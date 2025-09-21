@@ -1,0 +1,94 @@
+name: 'rag-agent to prod'
+
+on:
+  push:
+    branches:
+    - dev*  
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check if should create PR
+      id: check
+      run: |
+        CURRENT_BRANCH="${{ github.ref_name }}"
+        echo "current_branch=$CURRENT_BRANCH" >> $GITHUB_OUTPUT
+        
+        # Don't create PR if we're already on master
+        if [ "$CURRENT_BRANCH" = "master" ]; then
+          echo "skip_pr=true" >> $GITHUB_OUTPUT
+          echo "Cannot create PR from master to master - skipping"
+        else
+          echo "skip_pr=false" >> $GITHUB_OUTPUT
+          echo "Will create PR from $CURRENT_BRANCH to master"
+        fi
+
+    - name: Ensure PR labels exist
+      if: steps.check.outputs.skip_pr == 'false'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        REPO="${{ github.repository }}"
+        # Create 'auto-pr' label if it doesn't exist
+        if ! gh label list --repo "$REPO" | grep -q "^auto-pr\b"; then
+          echo "Creating label 'auto-pr'..."
+          gh label create "auto-pr" --color "ededed" --description "Automated PRs" --repo "$REPO"
+        else
+          echo "Label 'auto-pr' already exists."
+        fi
+        # Create 'staging' label if it doesn't exist
+        if ! gh label list --repo "$REPO" | grep -q "^staging\b"; then
+          echo "Creating label 'staging'..."
+          gh label create "staging" --color "c5def5" --description "Staging PRs" --repo "$REPO"
+        else
+          echo "Label 'staging' already exists."
+        fi
+
+    - name: Create pull request
+      if: steps.check.outputs.skip_pr == 'false'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        CURRENT_BRANCH="${{ steps.check.outputs.current_branch }}"
+        
+        # Debug: Show current branch and repository
+        echo "Current branch: $CURRENT_BRANCH"
+        echo "Repository: ${{ github.repository }}"
+        
+        # Check if PR already exists from this specific branch to master
+        echo "Checking for existing PRs from $CURRENT_BRANCH to master..."
+        gh pr list --repo ${{ github.repository }} --head "$CURRENT_BRANCH" --base "master" --json number,title,headRefName,baseRefName
+        
+        EXISTING_PR=$(gh pr list --repo ${{ github.repository }} --head "$CURRENT_BRANCH" --base "master" --json number --jq '.[0].number // empty')
+        
+        if [ -n "$EXISTING_PR" ]; then
+          echo "Found existing PR #$EXISTING_PR from $CURRENT_BRANCH to master, updating it..."
+          gh pr edit $EXISTING_PR \
+            --title "Pulling $CURRENT_BRANCH into production" \
+            --body ":crown: *Automated PR*
+
+        These are the updates and changes from $CURRENT_BRANCH to be pushed into production" \
+            --add-reviewer "Esturban" \
+            --add-assignee "Esturban" \
+            --add-label "auto-pr,staging"
+        else
+          echo "No existing PR found from $CURRENT_BRANCH to master, creating new one..."
+          gh pr create \
+            --title "Pulling $CURRENT_BRANCH into production" \
+            --body ":crown: *Automated PR*
+
+        These are the updates and changes from $CURRENT_BRANCH to be pushed into production" \
+            --reviewer "Esturban" \
+            --assignee "Esturban" \
+            --label "auto-pr,staging" \
+            --base "master" \
+            --head "$CURRENT_BRANCH"
+        fi
