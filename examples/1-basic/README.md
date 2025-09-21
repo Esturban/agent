@@ -15,3 +15,7 @@ The purpose of this model is to demonstrate, a simple RAG model and how it can r
 
 - Each time this runtime is initialized, it will load all the documents and split them into chunks instead of keeping them persistent in the DB.
 - The model will not be able to recall previous responses so it will mostly repeat the answer without much variation.
+
+### References
+
+- [Building Agentic RAG with LangGraph: A Step-by-Step Guide](https://medium.com/@wendell_89912/building-an-agentic-rag-with-langgraph-a-step-by-step-guide-009c5f0cce0a)
