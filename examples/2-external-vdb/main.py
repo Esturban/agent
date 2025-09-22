@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Annotated, TypedDict
+from typing import Annotated, TypedDict, Literal
 from dotenv import load_dotenv
 from time import time
 from langchain.tools import tool
@@ -13,13 +13,14 @@ from langchain_qdrant import QdrantVectorStore
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 from langgraph.prebuilt import ToolNode
-from langgraph.graph import StateGraph, MessagesState
+from langgraph.graph import StateGraph, MessagesState, END, START
 from langgraph.graph.message import add_messages
+from langgraph.checkpoint.memory import MemorySaver
 
 from qdrant_client import QdrantClient
 
 from qdrant_client.http.models import VectorParams
-from src.utils import preprocess_dataset
+from src.utils import preprocess_dataset, export_stategraph
 from src.checksum import compute_checksum
 from src.dedup import missing_documents_by_checksum
 
@@ -161,6 +162,72 @@ print(f"Time taken to create the tools: {end_time - start_time} seconds")
 
 tool_node = ToolNode(tools=tools)
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+
+
+# Function to decide whether to continue or stop the workflow
+def route(state: MessagesState) -> Literal["tools", END]:
+    messages = state["messages"]
+    last_message = messages[-1]
+    # If the LLM makes a tool call, go to the "tools" node
+    if last_message.tool_calls:
+        return "tools"
+    # Otherwise, finish the workflow
+    return END
+
+
 
 llm_with_tools = llm.bind_tools(tools)
+
+workflow = StateGraph(MessagesState)
+
+
+def call_model(state: MessagesState):
+    messages = state["messages"]
+    response = llm_with_tools.invoke(messages)
+    # Debug: print tool calls and content emitted by the LLM
+    # try:
+    #     tc = getattr(response, "tool_calls", None)
+    #     print("DEBUG: model response content:", getattr(response, "content", None))
+    #     print("DEBUG: model tool_calls:", tc)
+    #     if tc:
+    #         for t in tc:
+    #             print("DEBUG: tool call name:", getattr(t, "name", None) or getattr(t, "tool_name", None))
+    # except Exception as _e:
+    #     print("DEBUG: could not inspect response tool_calls:", _e)
+    return {"messages": [response]}
+
+
+workflow.add_node("agent", call_model)
+workflow.add_node("tools", tool_node)
+
+workflow.add_edge(START, "agent")
+# Conditional routing from agent should return the specific tool node name (e.g. 'hf')
+workflow.add_conditional_edges("agent", route)
+# Route each tool node back to the agent so the workflow can continue
+workflow.add_edge("tools", "agent")
+
+# Compile the graph into a runnable application with simple memory saver
+graph = workflow.compile(checkpointer=MemorySaver())
+# Try to export the stategraph to an image and print the path for convenience
+_exported_path = export_stategraph(workflow, out_path="examples/2-external-vdb/assets/stategraph.png")
+if _exported_path:
+    print(f"StateGraph exported to: {_exported_path}")
+else:
+    print("StateGraph export failed or produced no file.")
+
+
+def run_agent(user_input: str):
+    # The MemorySaver checkpointer requires configurable values (thread_id or checkpoint ids).
+    cfg = {"configurable": {"thread_id": 42}}
+    for event in graph.stream({"messages": [("user", user_input)]}, config=cfg):
+        for value in event.values():
+            # value is the current state dict
+            try:
+                print("Assistant:", value["messages"][-1].content)
+            except Exception:
+                print("Assistant state event produced no messages")
+
+
+if __name__ == "__main__":
+    run_agent("What is the difference between a transformer and a language model?")
