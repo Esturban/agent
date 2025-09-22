@@ -7,6 +7,8 @@ The way it works:
 - `src` contains the definition of the retrieval tool and builds embeddings for the documents after loading and splitting them.  
 - `main.py` contains the workflow definition and the execution of the model.  
 
+![](./assets/stategraph.png)
+
 ### Purpose
 
 The purpose of this model is to demonstrate, a simple RAG model and how it can rely on documents pulled from the internet. Consider how you could vary this to be a RAG agent from a different site or locally loaded PDFs to create the embeddings.

@@ -6,7 +6,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph, MessagesState
 from langgraph.prebuilt import ToolNode
 from dotenv import load_dotenv
-from src.utils import retrieve_context
+from src.utils import retrieve_context, export_stategraph
+
 
 load_dotenv()
 
@@ -55,6 +56,14 @@ checkpointer = MemorySaver()
 
 # Compile the graph into a LangChain Runnable application
 app = workflow.compile(checkpointer=checkpointer)
+
+# Try to export the stategraph to an image and print the path for convenience
+_exported_path = export_stategraph(workflow, out_path="examples/1-basic/assets/stategraph.png")
+if _exported_path:
+    print(f"StateGraph exported to: {_exported_path}")
+else:
+    print("StateGraph export failed or produced no file.")
+
 
 # Execute the workflow
 final_state = app.invoke(
