@@ -12,15 +12,15 @@ def retrieve_context(query: str) -> str:
     urls = [
         "https://docs.python.org/3/tutorial/index.html",
         "https://realpython.com/python-basics/",
-        "https://www.learnpython.org/"
+        "https://www.learnpython.org/",
     ]
-    #Loading all of the URLs
+    # Loading all of the URLs
     loader = UnstructuredURLLoader(urls=urls)
     docs = loader.load()
-    #Splitting the documents into chunks
+    # Splitting the documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=50)
     doc_splits = text_splitter.split_documents(docs)
-    
+
     # Creating the vectorstore with chroma
     vectorstore = Chroma.from_documents(
         documents=doc_splits,
@@ -30,5 +30,3 @@ def retrieve_context(query: str) -> str:
     retriever = vectorstore.as_retriever()
     results = retriever.invoke(query)
     return "\n".join([doc.page_content for doc in results])
-
-

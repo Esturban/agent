@@ -10,16 +10,17 @@ from src.utils import retrieve_context
 
 load_dotenv()
 
-#Creating the tool node
+# Creating the tool node
 tools = [retrieve_context]
 tool_node = ToolNode(tools)
 
-#Binding the RAG tool to the model
+# Binding the RAG tool to the model
 model = ChatOpenAI(model="gpt-5-nano", temperature=0).bind_tools(tools)
+
 
 # Function to decide whether to continue or stop the workflow
 def should_continue(state: MessagesState) -> Literal["tools", END]:
-    messages = state['messages']
+    messages = state["messages"]
     last_message = messages[-1]
     # If the LLM makes a tool call, go to the "tools" node
     if last_message.tool_calls:
@@ -27,11 +28,13 @@ def should_continue(state: MessagesState) -> Literal["tools", END]:
     # Otherwise, finish the workflow
     return END
 
+
 # Function that invokes the model
 def call_model(state: MessagesState):
-    messages = state['messages']
+    messages = state["messages"]
     response = model.invoke(messages)
     return {"messages": [response]}  # Returns as a list to add to the state
+
 
 # Define the workflow with LangGraph
 workflow = StateGraph(MessagesState)
@@ -42,7 +45,9 @@ workflow.add_node("tools", tool_node)
 
 # Connect nodes
 workflow.add_edge(START, "agent")  # Initial entry
-workflow.add_conditional_edges("agent", should_continue)  # Decision after the "agent" node
+workflow.add_conditional_edges(
+    "agent", should_continue
+)  # Decision after the "agent" node
 workflow.add_edge("tools", "agent")  # Cycle between tools and agent
 
 # Configure memory to persist the state
@@ -54,7 +59,7 @@ app = workflow.compile(checkpointer=checkpointer)
 # Execute the workflow
 final_state = app.invoke(
     {"messages": [HumanMessage(content="Explain what a list is in Python")]},
-    config={"configurable": {"thread_id": 42}}
+    config={"configurable": {"thread_id": 42}},
 )
 
 # Show the final response
