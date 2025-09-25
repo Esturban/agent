@@ -21,30 +21,10 @@ from pydantic import BaseModel, Field
 from langchain_core.output_parsers import JsonOutputParser
 
 
-# NOTE: removed verbose normalization helper per user's request; keep input handling minimal.
-#Load the environment variables
 load_dotenv()
 brave_key = os.getenv("BRAVE_API_KEY")
 class State(TypedDict):
     messages: Annotated[list, add_messages]
-
-
-def _build_search_query(pdata: dict) -> str:
-    """Build a concise search query from prospect fields."""
-    parts = []
-    if pdata.get("first_name"):
-        parts.append(pdata["first_name"])
-    if pdata.get("last_name"):
-        parts.append(pdata["last_name"])
-    if pdata.get("company"):
-        parts.append(pdata["company"])
-    if pdata.get("position"):
-        parts.append(pdata["position"])
-    base = " ".join([p for p in parts if p])
-    if not base:
-        return ""
-    return f'{base} LinkedIn OR site:linkedin.com OR "bio" OR profile OR recent news'
-
 
 class OutputSchema(BaseModel):
     generated_message: str = Field(..., description="Personalized outreach message")
