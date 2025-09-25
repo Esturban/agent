@@ -52,7 +52,7 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
 
-    prospects.to_csv(f"{output_suffix}_{time()}.csv", index=False)
+    prospects.to_csv(f"{output_suffix}_{datetime.now().strftime("%Y%m%d%H")}.csv", index=False)
     
 
 if __name__ == "__main__":
