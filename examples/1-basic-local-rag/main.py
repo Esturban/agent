@@ -58,7 +58,7 @@ checkpointer = MemorySaver()
 app = workflow.compile(checkpointer=checkpointer)
 
 # Try to export the stategraph to an image and print the path for convenience
-_exported_path = export_stategraph(workflow, out_path="examples/1-basic/assets/stategraph.png")
+_exported_path = export_stategraph(workflow, out_path="examples/1-basic-local-rag/assets/stategraph.png")
 if _exported_path:
     print(f"StateGraph exported to: {_exported_path}")
 else:
