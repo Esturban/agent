@@ -1,41 +1,159 @@
 # agent.py - Core agent logic and processing functions
 
 import json
+import time
 from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from langchain_core.output_parsers import JsonOutputParser
 from .models import AgentState, ResearchOutput, OutputSchema
 
+
+# Minimal retry helper: retry on rate-limit / connection errors, re-raise other errors
+def retry_on_rate_limit(llm, messages, max_retries: int = 5, backoff: float = 1.0):
+    last_exc = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            return llm.invoke(messages)
+        except Exception as e:
+            last_exc = e
+            s = str(e).lower()
+            # retry heuristics: HTTP 429, rate limit, connection errors
+            if "429" in s or "too many requests" in s or "rate limit" in s or "connection error" in s:
+                sleep_time = backoff * (2 ** (attempt - 1))
+                print(f"Rate/connection error on attempt {attempt}: {e}. Backing off {sleep_time}s...")
+                time.sleep(sleep_time)
+                continue
+            # non-retriable error — re-raise immediately so issues are visible
+            raise
+    # exhausted retries — raise the last exception
+    raise last_exc
+
+
+def _strip_code_block(text: str) -> str:
+    """Remove surrounding markdown code fences (``` or ```json) and leading/trailing whitespace."""
+    if not isinstance(text, str):
+        return text
+    t = text.strip()
+    # remove leading/trailing triple backticks blocks
+    if t.startswith('```') and t.endswith('```'):
+        # find first newline after opening fence
+        # allow ```json or ```json\n
+        # remove the opening fence and optional language tag
+        first_newline = t.find('\n')
+        if first_newline != -1:
+            inner = t[first_newline+1:-3]
+            return inner.strip()
+        return t[3:-3].strip()
+    return t
+
 def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
-    """Phase 1: Research the prospect and generate search query"""
+    """Phase 1: Research the prospect.
+
+    Improvements made while preserving compatibility with existing `main.py`:
+    - Generate multiple candidate queries (3) with short rationales
+    - Run the web search tool for each query and aggregate results
+    - Ask the LLM to produce a compact JSON summary with facts, confidence, and 5 curiosity questions
+    - Return `ResearchOutput.search_results` as a single string (aggregated) so downstream code remains unchanged
+    """
     prospect = state["prospect"]
-    
-    # Build query via researcher LLM
-    prospect_meta = SystemMessage("__prospect__:" + json.dumps({
+
+    # Build prospect JSON
+    prospect_payload = {
         "first_name": prospect.first_name,
         "last_name": prospect.last_name,
         "company": prospect.company,
         "position": prospect.position,
-    }))
-    query_instruction = SystemMessage(
-        """You are a concise search-query generator. Given a prospect metadata SystemMessage prefixed with '__prospect__:',
-        produce a single-line search query (<=50 tokens) to find the prospect's LinkedIn/profile, short bio, or recent news (within the 
-        last 3 months ONLY, anything older is not relevant) about that person or developments with the company in th news. The search should be 
-        specific to the prospect and the company. If nothing seems likely to be found, we should be focused a bit on the industry or 
-        anything relevant that could help us find anything that gives the impression we have done some research on the company at all. 
-        Don't make the query too strict it is useless and gets no results, don't make it too broad that we can't get any information about them.
-        Return only the query string."""
-    )
-    query_resp = researcher_llm.invoke([query_instruction, prospect_meta])
-    query = getattr(query_resp, "content", str(query_resp)).strip()
+    }
 
-    # Call search tool
-    search_results = search_tool.invoke(query)
-    
-    # Return research output
+    # 1) Generate 3 candidate queries (structured JSON)
+    query_gen_instruction = SystemMessage(
+        "Generate exactly 3 concise search queries (<=50 tokens) as a JSON array of objects:"
+        " [{\"query\": \"...\", \"rationale\": \"one-line\"}, ...]."
+        " The queries should target the prospect's LinkedIn/profile, short bio, or recent news (last 6 months)."
+        " Return only valid JSON."
+    )
+
+    query_resp = retry_on_rate_limit(researcher_llm, [SystemMessage(json.dumps(prospect_payload)), query_gen_instruction])
+    raw_queries = getattr(query_resp, "content", str(query_resp))
+    raw_queries_strip = _strip_code_block(raw_queries)
+    try:
+        candidate_queries = json.loads(raw_queries_strip)
+        if not isinstance(candidate_queries, list):
+            raise ValueError("queries not a list")
+    except Exception as e:
+        print("Failed to parse query generator output. Raw response below:")
+        print(raw_queries)
+        raise
+
+    # 2) Execute search for each candidate query and collect structured results
+    aggregated_results = []
+    for q in candidate_queries[:3]:
+        qtext = q.get("query") if isinstance(q, dict) else str(q)
+        try:
+            raw = search_tool.invoke(qtext)
+        except Exception:
+            raw = [{"title": "search_error", "snippet": "tool failed", "url": "", "date": "", "source": ""}]
+
+        # Expect the tool to return a list of structured results
+        if isinstance(raw, list):
+            aggregated_results.append({"query": qtext, "results": raw})
+        else:
+            # fallback: wrap the string
+            aggregated_results.append({"query": qtext, "results": [{"title": str(raw), "snippet": "", "url": "", "date": "", "source": ""}]})
+
+    # 3) Ask LLM to summarize aggregated results into JSON with facts, confidences, and curiosity questions
+    summarizer_instruction = SystemMessage(
+        """
+        You are a research summarizer. Input: a JSON array of search result records: [{"query":"...","results":[{title,snippet,url,date,source}, ...]}, ...].
+        Output: JSON with keys:
+        - facts: list of {text, source_url, date, confidence: "low"|"med"|"high"}
+        - curiosity_questions: list of 5 strings tailored to the prospect
+        - source_summary: short string (2-3 lines)
+        Return only valid JSON. If a claim cannot be sourced, do not invent a URL.
+        """
+    )
+    summarizer_resp = retry_on_rate_limit(researcher_llm, [SystemMessage(json.dumps(aggregated_results)), summarizer_instruction])
+    raw_summary = getattr(summarizer_resp, "content", str(summarizer_resp))
+    raw_summary_strip = _strip_code_block(raw_summary)
+    try:
+        summary_obj = json.loads(raw_summary_strip)
+    except Exception:
+        print("Failed to parse summarizer output. Raw response below:")
+        print(raw_summary)
+        raise
+
+    # 4) Prepare a compatibility-friendly aggregated string for ResearchOutput.search_results
+    try:
+        aggregated_str_lines = []
+        for r in aggregated_results:
+            lines = [f"Query: {r.get('query')}"]
+            for item in r.get("results", [])[:5]:
+                title = item.get("title", "")
+                snippet = item.get("snippet", "")
+                url = item.get("url", "")
+                date = item.get("date", "")
+                lines.append(f"- {title}: {snippet} ({url} {date})")
+            aggregated_str_lines.append("\n".join(lines))
+        aggregated_str = "\n\n".join(aggregated_str_lines)
+        # Append LLM-produced source_summary and top facts when available
+        if isinstance(summary_obj, dict):
+            if summary_obj.get("source_summary"):
+                aggregated_str += "\n\nLLM source_summary:\n" + str(summary_obj.get("source_summary"))
+            facts = summary_obj.get("facts") or []
+            if facts:
+                aggregated_str += "\n\nTop facts:\n"
+                for f in facts[:5]:
+                    txt = f.get("text", "")
+                    src = f.get("source_url", "")
+                    conf = f.get("confidence", "")
+                    aggregated_str += f"- {txt} ({src}) [{conf}]\n"
+    except Exception:
+        aggregated_str = json.dumps(aggregated_results)
+
+    # 5) Return ResearchOutput while preserving fields expected by downstream code
     return {
         "research": ResearchOutput(
-            search_query=query,
-            search_results=search_results
+            search_query=", ".join([str(q.get("query") if isinstance(q, dict) else q) for q in candidate_queries]),
+            search_results=aggregated_str,
         )
     }
 
@@ -52,8 +170,9 @@ def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
     we offer unless they ask. It is so important to establish credibility by being specific and well informed about them
     or their industry. This is vital since our goal is to get a response from them. In fact, sometimes focusing on
     troubling things, without insulting them, their industry or their company is what is important. Recent developments
-    are valuable here.  Note, if the research agent provides you with a link that acts as a piece of evidence for relevant information
-    that helps in the first draft, you will be able to include it in the message. BUT ONLY INCLUDE THE URL AT THE END OF THE MESSAGE."""
+    are valuable here. Additionally, consider being friendly using simple language. This is the first message, don't be overwhelming N
+    ote, if the research agent provides you with a link that acts as a piece of evidence for relevant information
+    that helps in the first draft, you will be able to include it in the message AT THE END OF THE MESSAGE."""
 
     assistant_input = """Use the web search output to produce a JSON object with keys: generated_message (string, <=300 chars),
     confidence (float 0-1), source_summary (string). Return only valid JSON matching that schema."""
@@ -64,7 +183,7 @@ def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
 
     # Use structured output parser
     parser = JsonOutputParser(pydantic_object=OutputSchema)
-    draft_resp = copywriter_llm.invoke(draft_messages)
+    draft_resp = retry_on_rate_limit(copywriter_llm, draft_messages)
     raw = getattr(draft_resp, "content", str(draft_resp)).strip()
     parsed = parser.parse(raw)
     

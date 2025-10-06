@@ -19,6 +19,7 @@ brave_key = os.getenv("BRAVE_API_KEY")
 def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = None, to_date: str = None):
     # minimal CSV handling: read and ensure not empty
     # Skip the first 3 lines which contain LinkedIn export notes
+    start_time = time()
     prospects = pd.read_csv(prospect_path, skiprows=3)
     print(f"Raw prospects: {prospects.shape[0]}")
     if prospects.empty:
@@ -51,8 +52,11 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
     tools, tool_node = create_tools(brave_key)
     graph = create_workflow(researcher_llm, copywriter_llm, tools[0])
 
-    # Process each prospect through the graph
-    def process_prospect(row):
+    # Process each prospect through the graph sequentially so we can capture
+    # progress and exit gracefully on the first error, reporting the last
+    # successfully processed prospect and timing information.
+    def process_prospect(row, max_retries: int = 2, backoff_seconds: float = 1.0):
+        print(f"Processing prospect: {row.get('First Name', '')} {row.get('Last Name', '')} {row.get('Company', '')} {row.get('Position', '')}")
         initial_state = {
             "prospect": ProspectMetadata(
                 first_name=row.get("First Name", ""),
@@ -63,27 +67,100 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
             "research": None,
             "output": None
         }
-        result = graph.invoke(initial_state)
-        output = result["output"]
-        return output.generated_message, output.confidence, output.source_summary
-    
-    cols = prospects.apply(lambda row: pd.Series(process_prospect(row)), axis=1)
-    cols.columns = ["generated_message", "confidence", "source_summary"]
-    prospects = pd.concat([prospects, cols], axis=1)
 
+        last_exc = None
+        for attempt in range(1, max_retries + 2):
+            try:
+                result = graph.invoke(initial_state)
+                output = result["output"]
+                return output.generated_message, output.confidence, output.source_summary
+            except Exception as e:
+                last_exc = e
+                print(f"Attempt {attempt} failed for prospect {row.get('First Name', '')} {row.get('Last Name', '')}: {e}")
+                if attempt <= max_retries:
+                    print(f"Retrying after {backoff_seconds} seconds...")
+                    from time import sleep
+                    sleep(backoff_seconds)
+                    backoff_seconds *= 2
+                    continue
+                # Exhausted retries, re-raise the last exception
+                raise last_exc
+
+    processed_rows = []
+    last_completed = None
+    completed_count = 0
+
+    for idx, row in prospects.iterrows():
+        try:
+            generated_message, confidence, source_summary = process_prospect(row)
+            row_dict = row.to_dict()
+            row_dict.update({
+                "generated_message": generated_message,
+                "confidence": confidence,
+                "source_summary": source_summary,
+            })
+            processed_rows.append(row_dict)
+            last_completed = row_dict
+            completed_count += 1
+        except Exception as e:
+            elapsed = time() - start_time
+            print(f"Error processing prospect at index {idx}: {e}")
+            if last_completed:
+                print("Last completed prospect:")
+                try:
+                    # Show a concise view including Connected On if present
+                    print(json.dumps({
+                        "First Name": last_completed.get("First Name", ""),
+                        "Last Name": last_completed.get("Last Name", ""),
+                        "Company": last_completed.get("Company", ""),
+                        "Position": last_completed.get("Position", ""),
+                        "Connected On": str(last_completed.get("Connected On", "")),
+                    }, indent=2))
+                except Exception:
+                    print(last_completed)
+            else:
+                print("No prospects completed successfully.")
+            print(f"Total completed: {completed_count}")
+            print(f"Elapsed time (s): {elapsed:.2f}")
+
+            # Save partial results if any were produced
+            if processed_rows:
+                partial_path = f"{output_suffix}_partial_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
+                pd.DataFrame(processed_rows).to_csv(partial_path, index=False)
+                print(f"Partial results saved to {partial_path}")
+
+            # Re-raise so the caller sees the original failure (we've logged state)
+            raise
+
+    # After successful run, persist full results and log summary
     out_dir = os.path.dirname(output_suffix)  # Fixed: was output_path, should be output_suffix
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
 
-    prospects.to_csv(f"{output_suffix}_{datetime.now().strftime("%Y%m%d%H")}.csv", index=False)
+    result_df = pd.DataFrame(processed_rows)
+    final_path = f"{output_suffix}_{datetime.now().strftime('%Y%m%d%H')}.csv"
+    result_df.to_csv(final_path, index=False)
+    total_elapsed = time() - start_time
+    print(f"Completed processing {completed_count} prospects")
+    if last_completed:
+        print("Last completed prospect:")
+        print(json.dumps({
+            "First Name": last_completed.get("First Name", ""),
+            "Last Name": last_completed.get("Last Name", ""),
+            "Company": last_completed.get("Company", ""),
+            "Position": last_completed.get("Position", ""),
+            "Connected On": str(last_completed.get("Connected On", "")),
+        }, indent=2))
+    print(f"Elapsed time (s): {total_elapsed:.2f}")
+    print(f"Results saved to {final_path}")
     
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Prospect Agent CLI")
     parser.add_argument("--input", "-i", default="data/Connections.csv", help="Path to input CSV")
     parser.add_argument("--output_suffix", "-o", default="data/aug/Connections_aug", help="Output CSV suffix")
-    parser.add_argument("--since_date", "-s", default="2025-10-04", help="Filter by Connected On >= this date (YYYY-MM-DD)")
-    parser.add_argument("--to_date", "-t", default="2025-10-10", help="Filter by Connected On <= this date (YYYY-MM-DD)")
+    parser.add_argument("--since_date", "-s", default="2025-08-01", help="Filter by Connected On >= this date (YYYY-MM-DD)")
+    parser.add_argument("--to_date", "-t", default="2025-08-28", help="Filter by Connected On <= this date (YYYY-MM-DD)")
     args = parser.parse_args()
 
     prospect_agent(args.input, args.output_suffix, args.since_date, args.to_date)
