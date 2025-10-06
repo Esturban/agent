@@ -45,7 +45,7 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
 
     # Set up LLMs - researcher uses gpt-5-nano for efficiency, copywriter uses gpt-5 for quality
     researcher_llm = ChatOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.getenv("OPENROUTER_API_KEY"), model="alibaba/tongyi-deepresearch-30b-a3b:free", temperature=0)
-    copywriter_llm = ChatOpenAI(model="gpt-5", temperature=0)
+    copywriter_llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
 
     # Create tools and workflow
     tools, tool_node = create_tools(brave_key)

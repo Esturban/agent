@@ -19,10 +19,10 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
     query_instruction = SystemMessage(
         """You are a concise search-query generator. Given a prospect metadata SystemMessage prefixed with '__prospect__:',
         produce a single-line search query (<=50 tokens) to find the prospect's LinkedIn/profile, short bio, or recent news (within the 
-        last 10 months ONLY, anything older is not relevant) about that person or developments with the company. The search should be specific to the prospect and the company. If
-        nothing seems likely to be found, we should be focused a bit on the industry or anything relevant that could help us
-        find anything that gives the impression we have done some research on the company at all. Don't make the query too strict
-        it is useless and gets no results, don't make it too broad that we can't get any information about them.
+        last 3 months ONLY, anything older is not relevant) about that person or developments with the company in th news. The search should be 
+        specific to the prospect and the company. If nothing seems likely to be found, we should be focused a bit on the industry or 
+        anything relevant that could help us find anything that gives the impression we have done some research on the company at all. 
+        Don't make the query too strict it is useless and gets no results, don't make it too broad that we can't get any information about them.
         Return only the query string."""
     )
     query_resp = researcher_llm.invoke([query_instruction, prospect_meta])
@@ -52,7 +52,8 @@ def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
     we offer unless they ask. It is so important to establish credibility by being specific and well informed about them
     or their industry. This is vital since our goal is to get a response from them. In fact, sometimes focusing on
     troubling things, without insulting them, their industry or their company is what is important. Recent developments
-    are valuable here"""
+    are valuable here.  Note, if the research agent provides you with a link that acts as a piece of evidence for relevant information
+    that helps in the first draft, you will be able to include it in the message. BUT ONLY INCLUDE THE URL AT THE END OF THE MESSAGE."""
 
     assistant_input = """Use the web search output to produce a JSON object with keys: generated_message (string, <=300 chars),
     confidence (float 0-1), source_summary (string). Return only valid JSON matching that schema."""
