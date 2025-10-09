@@ -21,6 +21,7 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
     # Skip the first 3 lines which contain LinkedIn export notes
     start_time = time()
     prospects = pd.read_csv(prospect_path, skiprows=3)
+    prospects = prospects.dropna(subset = ['First Name', 'Last Name', 'Company', 'Position'])
     print(f"Raw prospects: {prospects.shape[0]}")
     if prospects.empty:
         raise ValueError(f"Prospects CSV is empty or unreadable: {prospect_path}")
@@ -31,7 +32,7 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
             since_date_dt = datetime.strptime(since_date, "%Y-%m-%d")  # CLI input in YYYY-MM-DD
             prospects['Connected On'] = pd.to_datetime(prospects['Connected On'], format="%d %b %Y", errors='coerce')  # CSV format: DD MMM YYYY
             prospects = prospects[prospects['Connected On'] >= since_date_dt].dropna(subset=['Connected On'])
-            print(f"Filtered prospects: {prospects.shape[0]}")
+            # print(f"Filtered prospects: {prospects.shape[0]}")
             if prospects.empty:
                 print("No prospects found after the specified since_date.")
         except ValueError:

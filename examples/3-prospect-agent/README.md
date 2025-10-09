@@ -10,6 +10,8 @@ python main.py --input examples/3-prospect-agent/data/sample_connections.csv
 
 Output will be written to `data/aug/connections_aug_<timestamp>.csv` relative to the repo root.
 
+Note: This tool continues to grow from a basic example. Almost worth duplicating since the original example was written to do some research. But now, this does research and creates a draft message with confidence.
+
 
 # Inspiration
 https://www.pinecone.io/learn/langgraph-research-agent/
