@@ -4,7 +4,12 @@ import json
 import time
 from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from langchain_core.output_parsers import JsonOutputParser
+# Configuration: judge thresholds and rerun limits for research relevance checks
 from .models import AgentState, ResearchOutput, OutputSchema
+
+QUERY_TOKEN_LIMIT = 20
+LOOKBACK_MONTHS = 3
+MAX_QUERIES = 3
 
 
 # Minimal retry helper: retry on rate-limit / connection errors, re-raise other errors
@@ -45,6 +50,10 @@ def _strip_code_block(text: str) -> str:
         return t[3:-3].strip()
     return t
 
+
+# NOTE: judge/rerun logic removed to keep researcher single-pass and focused on strict 3-month facts
+
+
 def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
     """Phase 1: Research the prospect.
 
@@ -66,9 +75,10 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
 
     # 1) Generate 3 candidate queries (structured JSON)
     query_gen_instruction = SystemMessage(
-        "Generate exactly 3 concise search queries (<=50 tokens) as a JSON array of objects:"
-        " [{\"query\": \"...\", \"rationale\": \"one-line\"}, ...]."
-        " The queries should target the prospect's LinkedIn/profile, short bio, or recent news (last 6 months)."
+        f"Generate exactly {MAX_QUERIES} concise search queries (<= {QUERY_TOKEN_LIMIT} tokens)."
+        f" Return a JSON array where each item is an object with keys 'query' and 'rationale'."
+        f" Each query should target the prospect's LinkedIn/profile, short bio, or recent news (last {LOOKBACK_MONTHS} months)."
+        " Prioritize LinkedIn, company domains, and trade publications. Avoid social media and political/opinion sources."
         " Return only valid JSON."
     )
 
@@ -88,72 +98,46 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
     aggregated_results = []
     for q in candidate_queries[:3]:
         qtext = q.get("query") if isinstance(q, dict) else str(q)
-        try:
-            raw = search_tool.invoke(qtext)
-        except Exception:
-            raw = [{"title": "search_error", "snippet": "tool failed", "url": "", "date": "", "source": ""}]
+        raw = search_tool.invoke(qtext)
 
         # Expect the tool to return a list of structured results
         if isinstance(raw, list):
             aggregated_results.append({"query": qtext, "results": raw})
         else:
-            # fallback: wrap the string
             aggregated_results.append({"query": qtext, "results": [{"title": str(raw), "snippet": "", "url": "", "date": "", "source": ""}]})
 
-    # 3) Ask LLM to summarize aggregated results into JSON with facts, confidences, and curiosity questions
+    # 3) Ask LLM to summarize aggregated results into strict plain-text facts (last 3 months only)
     summarizer_instruction = SystemMessage(
         """
-        You are a research summarizer. Input: a JSON array of search result records: [{"query":"...","results":[{title,snippet,url,date,source}, ...]}, ...].
-        Output: JSON with keys:
-        - facts: list of {text, source_url, date, confidence: "low"|"med"|"high"}
-        - curiosity_questions: list of 5 strings tailored to the prospect
-        - source_summary: short string (2-3 lines)
-        Return only valid JSON. If a claim cannot be sourced, do not invent a URL.
+        You are a prospect enrichment specialist. Input: a JSON array of search result records: [{"query":"...","results":[{title,snippet,url,date,source}, ...]}, ...].
+        Output: Plain text facts ONLY about the Company, Industry, and Prospect from the LAST 3 MONTHS.
+        Format EXACTLY as lines like:
+        Company: Fact (YYYY-MM-DD) (Source: FULL_URL)
+        Industry: Fact (YYYY-MM-DD) (Source: FULL_URL)
+        Prospect: Fact (YYYY-MM-DD) (Source: FULL_URL)
+        - Only include verifiable facts with FULL URLs (http/https). If a fact lacks a FULL URL or is older than 3 months, exclude it.
+        - If no valid recent facts, return exactly: No recent information found for this prospect.
+        - Return plain text only, no explanation, no JSON.
         """
     )
+
     summarizer_resp = retry_on_rate_limit(researcher_llm, [SystemMessage(json.dumps(aggregated_results)), summarizer_instruction])
     raw_summary = getattr(summarizer_resp, "content", str(summarizer_resp))
-    raw_summary_strip = _strip_code_block(raw_summary)
-    try:
-        summary_obj = json.loads(raw_summary_strip)
-    except Exception:
-        print("Failed to parse summarizer output. Raw response below:")
-        print(raw_summary)
-        raise
+    summary_text = _strip_code_block(raw_summary).strip()
 
-    # 4) Prepare a compatibility-friendly aggregated string for ResearchOutput.search_results
-    try:
-        aggregated_str_lines = []
-        for r in aggregated_results:
-            lines = [f"Query: {r.get('query')}"]
-            for item in r.get("results", [])[:5]:
-                title = item.get("title", "")
-                snippet = item.get("snippet", "")
-                url = item.get("url", "")
-                date = item.get("date", "")
-                lines.append(f"- {title}: {snippet} ({url} {date})")
-            aggregated_str_lines.append("\n".join(lines))
-        aggregated_str = "\n\n".join(aggregated_str_lines)
-        # Append LLM-produced source_summary and top facts when available
-        if isinstance(summary_obj, dict):
-            if summary_obj.get("source_summary"):
-                aggregated_str += "\n\nLLM source_summary:\n" + str(summary_obj.get("source_summary"))
-            facts = summary_obj.get("facts") or []
-            if facts:
-                aggregated_str += "\n\nTop facts:\n"
-                for f in facts[:5]:
-                    txt = f.get("text", "")
-                    src = f.get("source_url", "")
-                    conf = f.get("confidence", "")
-                    aggregated_str += f"- {txt} ({src}) [{conf}]\n"
-    except Exception:
-        aggregated_str = json.dumps(aggregated_results)
+    # Post-LLM validation: require at least one line containing a full URL (http/https)
+    lines = [l.strip() for l in summary_text.splitlines() if l.strip()]
+    valid_lines = [l for l in lines if "http" in l]
+    if not valid_lines:
+        final_text = "No recent information found for this prospect."
+    else:
+        final_text = "\n".join(valid_lines)
 
-    # 5) Return ResearchOutput while preserving fields expected by downstream code
+    # 4) Return ResearchOutput with strict plain-text search_results
     return {
         "research": ResearchOutput(
             search_query=", ".join([str(q.get("query") if isinstance(q, dict) else q) for q in candidate_queries]),
-            search_results=aggregated_str,
+            search_results=final_text,
         )
     }
 

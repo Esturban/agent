@@ -49,8 +49,12 @@ def prospect_agent(prospect_path: str, output_suffix: str, since_date: str = Non
     researcher_llm = ChatOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.getenv("OPENROUTER_API_KEY"), model="alibaba/tongyi-deepresearch-30b-a3b:free", temperature=0)
     copywriter_llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
 
-    # Create tools and workflow
-    tools, tool_node = create_tools(brave_key)
+    # Preferred search provider and wait spacing
+    preferred_provider = os.getenv('PREFERRED_SEARCH_PROVIDER', 'ddg')
+    wait_seconds = float(os.getenv('SEARCH_WAIT_SECONDS', '1.0'))
+
+    # Create tools and workflow (DuckDuckGo default)
+    tools, tool_node = create_tools(brave_key, prefer=preferred_provider, wait_seconds=wait_seconds)
     graph = create_workflow(researcher_llm, copywriter_llm, tools[0])
 
     # Process each prospect through the graph sequentially so we can capture
