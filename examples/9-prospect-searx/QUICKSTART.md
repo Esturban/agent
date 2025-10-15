@@ -95,7 +95,7 @@ Even if the agent fails or you Ctrl+C, cleanup happens automatically!
 ### "Docker image not found"
 
 ```bash
-cd ~/Desktop/eva/03_development/_dev/ext/searxng
+cd ~/Downloads/searxng
 docker build -t localhost/searxng/searxng:latest .
 ```
 
