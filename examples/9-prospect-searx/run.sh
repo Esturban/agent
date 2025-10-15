@@ -43,7 +43,7 @@ fi
 if ! docker image inspect ${SEARXNG_IMAGE} >/dev/null 2>&1; then
     echo -e "${RED}✗ SearXNG Docker image not found: ${SEARXNG_IMAGE}${NC}"
     echo "  Please build the image first from the SearXNG source directory:"
-    echo "  cd ~/Desktop/eva/03_development/_dev/ext/searxng"
+    echo "  cd ~/Downloads/ext/searxng"
     echo "  docker build -t localhost/searxng/searxng:latest ."
     exit 1
 fi
