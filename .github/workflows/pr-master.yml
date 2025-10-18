@@ -3,7 +3,7 @@ name: 'rag-agent to prod'
 on:
   push:
     branches:
-    - dev*  
+      - dev*  
   schedule:
     - cron: '0 6 * * *'
 
