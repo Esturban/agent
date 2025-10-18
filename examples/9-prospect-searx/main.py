@@ -14,7 +14,6 @@ from src.workflow import create_workflow
 
 
 load_dotenv()
-brave_key = os.getenv("BRAVE_API_KEY")
 
 
 def prospect_agent(
@@ -67,14 +66,11 @@ def prospect_agent(
     )
     copywriter_llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
 
-    # Preferred search provider and wait spacing
-    preferred_provider = os.getenv("PREFERRED_SEARCH_PROVIDER", "ddg")
+    # Wait spacing for rate limiting
     wait_seconds = float(os.getenv("SEARCH_WAIT_SECONDS", "1.0"))
 
-    # Create tools and workflow (DuckDuckGo default)
-    tools, tool_node = create_tools(
-        brave_key, prefer=preferred_provider, wait_seconds=wait_seconds
-    )
+    # Create tools and workflow (SearXNG)
+    tools, tool_node = create_tools(wait_seconds=wait_seconds)
     graph = create_workflow(researcher_llm, copywriter_llm, tools[0])
 
     # Process each prospect through the graph sequentially so we can capture
