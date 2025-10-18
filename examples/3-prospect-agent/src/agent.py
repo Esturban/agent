@@ -110,13 +110,14 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
     summarizer_instruction = SystemMessage(
         """
         You are a prospect enrichment specialist. Input: a JSON array of search result records: [{"query":"...","results":[{title,snippet,url,date,source}, ...]}, ...].
-        Output: Plain text facts ONLY about the Company, Industry, and Prospect from the LAST 3 MONTHS.
+        Output: Plain text facts ONLY about the Company, Industry, and Prospect from the LAST 6 MONTHS.
         Format EXACTLY as lines like:
         Company: Fact (YYYY-MM-DD) (Source: FULL_URL)
         Industry: Fact (YYYY-MM-DD) (Source: FULL_URL)
         Prospect: Fact (YYYY-MM-DD) (Source: FULL_URL)
-        - Only include verifiable facts with FULL URLs (http/https). If a fact lacks a FULL URL or is older than 3 months, exclude it.
+        - Only include verifiable facts with FULL URLs (http/https). If a fact lacks a FULL URL or is older than 6 months, exclude it.
         - If no valid recent facts, return exactly: No recent information found for this prospect.
+        - Avoid linkedin or social media sources in your output. We have these and these access them in different tools.
         - Return plain text only, no explanation, no JSON.
         """
     )
@@ -169,13 +170,26 @@ def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
     parser = JsonOutputParser(pydantic_object=OutputSchema)
     draft_resp = retry_on_rate_limit(copywriter_llm, draft_messages)
     raw = getattr(draft_resp, "content", str(draft_resp)).strip()
-    parsed = parser.parse(raw)
-    
-    # Return output
+    # Try to strip common markdown code fences before parsing the copywriter's JSON
+    raw_stripped = _strip_code_block(raw)
+    try:
+        parsed = parser.parse(raw_stripped)
+    except Exception as e:
+        print("Failed to parse copywriter output. Raw response below:")
+        print(raw)
+        raise
+
+    # Override copywriter `source_summary` with top 2-3 http(s) URLs from researcher output
+    import re
+    raw_research = (state.get('research').search_results) if state.get('research') else ""
+    urls = re.findall(r'https?://[^\s)]+', raw_research or "")
+    top_links = urls[:3]
+    source_summary_links = '; '.join(top_links) if top_links else 'No recent information found for this prospect.'
+
     return {
         "output": OutputSchema(
             generated_message=parsed["generated_message"],
             confidence=parsed["confidence"],
-            source_summary=parsed["source_summary"]
+            source_summary=source_summary_links
         )
     }
