@@ -44,10 +44,13 @@ cp .env.example .env   # then fill in your keys
 ```
 
 Most examples need only `OPENAI_API_KEY`. Exceptions:
-- `2-multi-tool-rag` — Qdrant cloud keys
-- `8-new-idea-gen` — `BRAVE_API_KEY`
+- `2-multi-tool-rag` — `QDRANT_URL`, `QDRANT_KEY`, `BRAVE_API_KEY`
+- `3-prospect-agent` — optional `BRAVE_API_KEY`, optional `OPENROUTER_API_KEY`
+- `8-new-idea-gen` — `BRAVE_API_KEY`, optional `OPENROUTER_API_KEY`
 - `9-prospect-searx` — SearXNG running in Docker (see that folder's README)
 - `7-redis-rag` — Redis (`docker run -p 6379:6379 -d redis`)
+
+The root `.env.example` covers both the script examples and the notebook/workbook flows.
 
 ---
 
