@@ -1,5 +1,14 @@
 ## RAG Agent - Basic
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`
+**Files:** none — documents are fetched from the web at runtime
+**Colab:** ✅ fully self-contained
+
+```bash
+python examples/1-basic-local-rag/main.py
+```
+
 The following file is the implementation of a very basic RAG model made with LangGraph and LangChain.
 
 The way it works:
