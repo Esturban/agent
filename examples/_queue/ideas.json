@@ -1,0 +1,117 @@
+{
+  "_description": "Teaching loop queue -- planned examples for the py/agent repo. Pick the next pending item, scaffold it following CLAUDE.md phased commits.",
+  "_status_values": ["pending", "in-progress", "done", "skipped"],
+  "_priority_values": ["high", "medium", "low"],
+  "queue": [
+    {
+      "id": 15,
+      "slug": "15-crewai-research-crew",
+      "framework": "crewai",
+      "topic": "Multi-agent research crew with researcher + writer roles using CrewAI",
+      "pattern": "script",
+      "requires_deps": ["crewai"],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Add crewai to requirements.txt first. Demonstrate Crew, Agent, Task primitives as contrast to LangGraph."
+    },
+    {
+      "id": 16,
+      "slug": "16-rag-eval-notebook",
+      "framework": "ragas",
+      "topic": "RAG evaluation notebook -- faithfulness, answer relevance, context recall with RAGAS",
+      "pattern": "notebook",
+      "requires_deps": ["ragas"],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Notebook format matching 12-basic-rag-notebook. Shows how to score a RAG pipeline automatically."
+    },
+    {
+      "id": 17,
+      "slug": "17-corrective-rag",
+      "framework": "langgraph",
+      "topic": "Corrective RAG (CRAG) -- grade retrieved docs, rewrite query if irrelevant, fall back to web search",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Based on CRAG paper (Yan et al. 2024). Adds retrieval grader node and conditional rewrite loop."
+    },
+    {
+      "id": 18,
+      "slug": "18-self-reflecting-agent",
+      "framework": "langgraph",
+      "topic": "Reflexion agent -- generate answer, critique it, revise in a loop until confident",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Based on Reflexion paper (Shinn et al. 2023). Shows critique and revision loop with a stopping condition."
+    },
+    {
+      "id": 19,
+      "slug": "19-multi-agent-notebook",
+      "framework": "langgraph",
+      "topic": "Multi-agent patterns notebook -- supervisor/worker routing, message passing, shared state",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Notebook expanding on 6-multi-agent-graph. Cover supervisor pattern, subgraphs, and agent handoffs."
+    },
+    {
+      "id": 20,
+      "slug": "20-code-interpreter",
+      "framework": "langgraph",
+      "topic": "Code interpreter agent -- generates Python code, executes in subprocess sandbox, returns result",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan → write → run → fix on error."
+    },
+    {
+      "id": 21,
+      "slug": "21-autogen-debate",
+      "framework": "autogen",
+      "topic": "Two AutoGen agents debate a topic -- demonstrates AutoGen ConversableAgent multi-agent chat",
+      "pattern": "script",
+      "requires_deps": ["pyautogen"],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Add pyautogen to requirements.txt. Framework contrast to LangGraph -- useful for teaching loop."
+    },
+    {
+      "id": 22,
+      "slug": "22-hybrid-search-rag",
+      "framework": "langgraph",
+      "topic": "Hybrid search RAG -- combine BM25 keyword search with vector similarity for better precision",
+      "pattern": "script",
+      "requires_deps": ["rank-bm25"],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Add rank-bm25. Use EnsembleRetriever with BM25Retriever + Chroma. Good complement to 12-basic-rag-notebook."
+    },
+    {
+      "id": 23,
+      "slug": "23-crewai-notebook",
+      "framework": "crewai",
+      "topic": "CrewAI patterns notebook -- agents, tasks, crews, tools, process types (sequential vs hierarchical)",
+      "pattern": "notebook",
+      "requires_deps": ["crewai"],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Companion notebook to 15-crewai-research-crew. Deep dive into CrewAI concepts."
+    },
+    {
+      "id": 24,
+      "slug": "24-graph-rag",
+      "framework": "langgraph",
+      "topic": "Graph RAG -- extract entities and relationships into a knowledge graph, traverse for retrieval",
+      "pattern": "script",
+      "requires_deps": ["networkx"],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Add networkx. Entity extraction via LLM, graph stored in-memory. Contrast to vector-only RAG."
+    }
+  ]
+}
