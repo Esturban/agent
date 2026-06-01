@@ -1,5 +1,14 @@
 # 8-new-idea-gen - AI-Powered Idea Generation Agent
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY` · `BRAVE_API_KEY`
+**Files:** none — fetches the free-for-dev list from GitHub at runtime
+**Colab:** ✅ fully self-contained; set both keys in your Colab secrets
+
+```bash
+python examples/8-new-idea-gen/main.py
+```
+
 This agent automatically parses the [free-for-dev](https://github.com/ripienaar/free-for-dev) list and generates high-value, low-effort agentic solution ideas using free tools.
 
 ## Overview

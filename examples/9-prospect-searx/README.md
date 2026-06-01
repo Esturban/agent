@@ -1,5 +1,13 @@
 # Prospect Agent with SearXNG
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY` or `OPENROUTER_API_KEY`
+**Files:** `data/Connections.csv` (LinkedIn export)
+**Services:** SearXNG running in Docker — see Quick Start below
+**Colab:** ❌ requires a local Docker daemon to run SearXNG
+
+---
+
 This example demonstrates an intelligent prospect research agent that uses **SearXNG** for privacy-focused, multi-engine search. The agent researches prospects and generates personalized outreach messages.
 
 ## Quick Start (Recommended)

@@ -1,5 +1,15 @@
 ## Redis RAG Agent
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`
+**Files:** none
+**Services:** Redis — `docker run -p 6379:6379 -d redis` or a free Redis Cloud instance
+**Colab:** ❌ requires a running Redis server; use Redis Cloud if you need a hosted option
+
+```bash
+python examples/7-redis-rag/main.py
+```
+
 The purpose of this workbook is to introduce various conditional tools and logic to assess whether a task is done or not.
 
 The way the graph works:
