@@ -1,7 +1,16 @@
 {
   "_description": "Teaching loop queue -- planned examples for the py/agent repo. Pick the next pending item, scaffold it following CLAUDE.md phased commits.",
-  "_status_values": ["pending", "in-progress", "done", "skipped"],
-  "_priority_values": ["high", "medium", "low"],
+  "_status_values": [
+    "pending",
+    "in-progress",
+    "done",
+    "skipped"
+  ],
+  "_priority_values": [
+    "high",
+    "medium",
+    "low"
+  ],
   "queue": [
     {
       "id": 15,
@@ -9,8 +18,10 @@
       "framework": "crewai",
       "topic": "Multi-agent research crew with researcher + writer roles using CrewAI",
       "pattern": "script",
-      "requires_deps": ["crewai"],
-      "status": "pending",
+      "requires_deps": [
+        "crewai"
+      ],
+      "status": "done",
       "priority": "high",
       "notes": "Add crewai to requirements.txt first. Demonstrate Crew, Agent, Task primitives as contrast to LangGraph."
     },
@@ -20,7 +31,9 @@
       "framework": "ragas",
       "topic": "RAG evaluation notebook -- faithfulness, answer relevance, context recall with RAGAS",
       "pattern": "notebook",
-      "requires_deps": ["ragas"],
+      "requires_deps": [
+        "ragas"
+      ],
       "status": "pending",
       "priority": "high",
       "notes": "Notebook format matching 12-basic-rag-notebook. Shows how to score a RAG pipeline automatically."
@@ -67,7 +80,7 @@
       "requires_deps": [],
       "status": "pending",
       "priority": "medium",
-      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan → write → run → fix on error."
+      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan \u2192 write \u2192 run \u2192 fix on error."
     },
     {
       "id": 21,
@@ -75,7 +88,9 @@
       "framework": "autogen",
       "topic": "Two AutoGen agents debate a topic -- demonstrates AutoGen ConversableAgent multi-agent chat",
       "pattern": "script",
-      "requires_deps": ["pyautogen"],
+      "requires_deps": [
+        "pyautogen"
+      ],
       "status": "pending",
       "priority": "medium",
       "notes": "Add pyautogen to requirements.txt. Framework contrast to LangGraph -- useful for teaching loop."
@@ -86,7 +101,9 @@
       "framework": "langgraph",
       "topic": "Hybrid search RAG -- combine BM25 keyword search with vector similarity for better precision",
       "pattern": "script",
-      "requires_deps": ["rank-bm25"],
+      "requires_deps": [
+        "rank-bm25"
+      ],
       "status": "pending",
       "priority": "medium",
       "notes": "Add rank-bm25. Use EnsembleRetriever with BM25Retriever + Chroma. Good complement to 12-basic-rag-notebook."
@@ -97,7 +114,9 @@
       "framework": "crewai",
       "topic": "CrewAI patterns notebook -- agents, tasks, crews, tools, process types (sequential vs hierarchical)",
       "pattern": "notebook",
-      "requires_deps": ["crewai"],
+      "requires_deps": [
+        "crewai"
+      ],
       "status": "pending",
       "priority": "low",
       "notes": "Companion notebook to 15-crewai-research-crew. Deep dive into CrewAI concepts."
@@ -108,7 +127,9 @@
       "framework": "langgraph",
       "topic": "Graph RAG -- extract entities and relationships into a knowledge graph, traverse for retrieval",
       "pattern": "script",
-      "requires_deps": ["networkx"],
+      "requires_deps": [
+        "networkx"
+      ],
       "status": "pending",
       "priority": "low",
       "notes": "Add networkx. Entity extraction via LLM, graph stored in-memory. Contrast to vector-only RAG."
