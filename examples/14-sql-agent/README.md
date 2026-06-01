@@ -1,5 +1,10 @@
 # 14-sql-agent
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`
+**Files:** none — SQLite database is created and seeded automatically on first run
+**Colab:** ✅ use the workbook (`sql_workbook.ipynb`); the script requires an interactive terminal
+
 ReAct agent that queries a local SQLite database using `create_react_agent`.
 Seeds a sample sales table on first run -- no external DB needed.
 
