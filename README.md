@@ -1,6 +1,6 @@
-# py/agent — LangGraph + LangChain Examples
+# Agentic AI Examples — LangGraph & LangChain
 
-A progressive workbook of agentic RAG patterns built with LangGraph and LangChain. Each example is a self-contained directory you can run independently.
+A progressive workbook of agentic AI patterns built with LangGraph and LangChain. Covers retrieval, reasoning, multi-agent coordination, human-in-the-loop, structured output, and more. Each example is self-contained — clone, install, and run.
 
 ---
 
