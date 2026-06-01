@@ -6,4 +6,5 @@
 .cursor
 data
 CLAUDE.md
-AGENTS.mdexamples/12-basic-rag-notebook/generate_workbook.py
+AGENTS.md
+examples/12-basic-rag-notebook/generate_workbook.py
