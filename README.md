@@ -1,6 +1,15 @@
 # Agentic AI Examples — LangGraph & LangChain
 
-A progressive workbook of agentic AI patterns built with LangGraph and LangChain. Covers retrieval, reasoning, multi-agent coordination, human-in-the-loop, structured output, and more. Each example is self-contained — clone, install, and run.
+A progressive workbook covering core agentic AI patterns using LangGraph and LangChain:
+
+- **RAG** — local and cloud vector stores, streaming, grading, and corrective loops
+- **ReAct agents** — tool use, conversation memory, PDF retrieval
+- **Multi-agent graphs** — supervisor routing, specialist agents, shared state
+- **Human-in-the-loop** — interrupt and resume with checkpointing
+- **Structured output** — search → validated Pydantic extraction
+- **SQL agents** — natural language to SQL with a local SQLite database
+
+Each example is self-contained — clone, install, and run.
 
 ---
 
