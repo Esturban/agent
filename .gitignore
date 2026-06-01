@@ -5,3 +5,9 @@
 .specify
 .cursor
 data
+CLAUDE.md
+AGENTS.md
+examples/12-basic-rag-notebook/generate_workbook.py
+.claude/*
+.codegraph/*
+.wolf/*
