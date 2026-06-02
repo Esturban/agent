@@ -23,7 +23,7 @@ def create_workflow():
     )
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5-nano")
     prompt = ChatPromptTemplate.from_messages([
         ("system", "Answer the question using only the context below.\n\nContext:\n{context}"),
         ("human", "{question}"),

@@ -64,7 +64,7 @@ def prospect_agent(
         model="alibaba/tongyi-deepresearch-30b-a3b:free",
         temperature=0,
     )
-    copywriter_llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
+    copywriter_llm = ChatOpenAI(model="gpt-5-mini")
 
     # Wait spacing for rate limiting
     wait_seconds = float(os.getenv("SEARCH_WAIT_SECONDS", "1.0"))

@@ -16,7 +16,7 @@ tools = [retrieve_context]
 tool_node = ToolNode(tools)
 
 # Binding the RAG tool to the model
-model = ChatOpenAI(model="gpt-5-nano", temperature=0).bind_tools(tools)
+model = ChatOpenAI(model="gpt-5-nano").bind_tools(tools)
 
 
 # Function to decide whether to continue or stop the workflow

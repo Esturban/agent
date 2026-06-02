@@ -22,7 +22,7 @@ class ProfileState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5-nano")
 
     def search_node(state: ProfileState) -> dict:
         return {"raw_results": search_web(state["subject"])}

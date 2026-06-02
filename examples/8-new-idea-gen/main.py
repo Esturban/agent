@@ -32,7 +32,7 @@ def idea_generation_agent():
         model="meta-llama/llama-3.1-8b-instruct:free",
         temperature=0
     )
-    idea_llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
+    idea_llm = ChatOpenAI(model="gpt-5-mini")
 
     # Create tools and workflow
     tools = create_tools()

@@ -30,7 +30,7 @@ def create_workflow():
     )
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5-nano")
     grader = llm.with_structured_output(GradeDocuments)
 
     grade_prompt = ChatPromptTemplate.from_messages([
