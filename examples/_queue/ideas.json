@@ -56,9 +56,9 @@
       "topic": "Reflexion agent -- generate answer, critique it, revise in a loop until confident",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Based on Reflexion paper (Shinn et al. 2023). Shows critique and revision loop with a stopping condition."
+      "notes": "Based on Reflexion paper (Shinn et al. 2023). Shows critique and revision loop with a stopping condition. Includes Colab workbook with 11 cells and 5 exercises."
     },
     {
       "id": 19,

@@ -35,6 +35,7 @@ Each example is self-contained — clone, install, and run.
 | 15 | [15-crewai-research-crew](./examples/15-crewai-research-crew/README.md) | CrewAI researcher + writer crew — contrasts `Crew`/`Agent`/`Task` primitives against LangGraph's `StateGraph` | ✅ |
 | 16 | [16-rag-eval-notebook](./examples/16-rag-eval-notebook/README.md) | RAGAS evaluation workbook — score a RAG pipeline on faithfulness, answer relevance, and context recall | ✅ |
 | 17 | [17-corrective-rag](./examples/17-corrective-rag/README.md) | Corrective RAG (CRAG) — LLM grades each retrieved doc, rewrites query if irrelevant, falls back to web search | ✅ |
+| 18 | [18-self-reflecting-agent](./examples/18-self-reflecting-agent/README.md) | Reflexion loop — generate answer, critique with structured confidence score, revise until confident or capped | ✅ |
 
 > ✅ fully self-contained · ⚠️ needs extra files or API keys (see that folder's README) · ❌ requires local infrastructure (Docker / Redis)
 
@@ -69,6 +70,7 @@ cp .env.example .env   # then fill in your keys
 | 15 | `OPENAI_API_KEY` | — | — |
 | 16 | `OPENAI_API_KEY` | — | — |
 | 17 | `OPENAI_API_KEY` | — | — |
+| 18 | `OPENAI_API_KEY` | — | — |
 
 Each folder's README has a `## Prerequisites` section with exact setup steps.
 
