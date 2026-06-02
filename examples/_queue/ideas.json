@@ -45,9 +45,9 @@
       "topic": "Corrective RAG (CRAG) -- grade retrieved docs, rewrite query if irrelevant, fall back to web search",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Based on CRAG paper (Yan et al. 2024). Adds retrieval grader node and conditional rewrite loop."
+      "notes": "Based on CRAG paper (Yan et al. 2024). Adds retrieval grader node and conditional rewrite loop. Includes Colab workbook with 10 cells and 4 exercises."
     },
     {
       "id": 18,
