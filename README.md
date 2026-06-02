@@ -2,12 +2,13 @@
 
 A progressive workbook covering core agentic AI patterns using LangGraph and LangChain:
 
-- **RAG** — local and cloud vector stores, streaming, grading, and corrective loops
+- **RAG** — local and cloud vector stores, streaming, Corrective RAG (CRAG) with document grading and query rewrite
 - **ReAct agents** — tool use, conversation memory, PDF retrieval
 - **Multi-agent graphs** — supervisor routing, specialist agents, shared state
 - **Human-in-the-loop** — interrupt and resume with checkpointing
 - **Structured output** — search → validated Pydantic extraction
 - **SQL agents** — natural language to SQL with a local SQLite database
+- **Evaluation** — RAGAS faithfulness/relevance/recall scoring and LLM-as-judge harnesses
 
 Each example is self-contained — clone, install, and run.
 
@@ -33,6 +34,7 @@ Each example is self-contained — clone, install, and run.
 | 14 | [14-sql-agent](./examples/14-sql-agent/README.md) | ReAct agent over a local SQLite DB using `create_react_agent`; seeds sample data on first run | ✅ |
 | 15 | [15-crewai-research-crew](./examples/15-crewai-research-crew/README.md) | CrewAI researcher + writer crew — contrasts `Crew`/`Agent`/`Task` primitives against LangGraph's `StateGraph` | ✅ |
 | 16 | [16-rag-eval-notebook](./examples/16-rag-eval-notebook/README.md) | RAGAS evaluation workbook — score a RAG pipeline on faithfulness, answer relevance, and context recall | ✅ |
+| 17 | [17-corrective-rag](./examples/17-corrective-rag/README.md) | Corrective RAG (CRAG) — LLM grades each retrieved doc, rewrites query if irrelevant, falls back to web search | ✅ |
 
 > ✅ fully self-contained · ⚠️ needs extra files or API keys (see that folder's README) · ❌ requires local infrastructure (Docker / Redis)
 
@@ -66,6 +68,7 @@ cp .env.example .env   # then fill in your keys
 | 14 | `OPENAI_API_KEY` | — | — |
 | 15 | `OPENAI_API_KEY` | — | — |
 | 16 | `OPENAI_API_KEY` | — | — |
+| 17 | `OPENAI_API_KEY` | — | — |
 
 Each folder's README has a `## Prerequisites` section with exact setup steps.
 

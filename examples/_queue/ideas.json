@@ -80,7 +80,7 @@
       "requires_deps": [],
       "status": "pending",
       "priority": "medium",
-      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan \u2192 write \u2192 run \u2192 fix on error."
+      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan → write → run → fix on error."
     },
     {
       "id": 21,
@@ -133,6 +133,120 @@
       "status": "pending",
       "priority": "low",
       "notes": "Add networkx. Entity extraction via LLM, graph stored in-memory. Contrast to vector-only RAG."
+    },
+    {
+      "id": 25,
+      "slug": "25-adaptive-rag",
+      "framework": "langgraph",
+      "topic": "Adaptive RAG -- classify query complexity, route to no-retrieval / vectorstore / web-search path",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "LLM classifier decides retrieval strategy per query: (1) direct LLM answer for simple questions, (2) vectorstore RAG for factual lookups, (3) live web search for current events. Three-path conditional graph. Good follow-on to 17-corrective-rag."
+    },
+    {
+      "id": 26,
+      "slug": "26-rag-fusion",
+      "framework": "langgraph",
+      "topic": "RAG Fusion -- generate multiple query variants, retrieve for each, merge with Reciprocal Rank Fusion",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Generate 4-5 query paraphrases in parallel (LangGraph Send API), retrieve top-k for each, re-rank with RRF, generate from merged context. Significantly better recall than single-query RAG. Based on Lawrence 2024 paper."
+    },
+    {
+      "id": 27,
+      "slug": "27-self-rag",
+      "framework": "langgraph",
+      "topic": "Self-RAG -- selective retrieval with retrieval/critique/support decisions as conditional nodes",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Model decides IF to retrieve per sentence, then scores each doc for relevance and support. Implements isRelevant, isSupported, isUseful decision gates as LangGraph conditional edges. Asai et al. 2023. Best companion to 17-corrective-rag for teaching retrieval strategies."
+    },
+    {
+      "id": 28,
+      "slug": "28-parallel-subgraph",
+      "framework": "langgraph",
+      "topic": "Parallel subgraphs -- LangGraph Send API for true fan-out / fan-in across independent sub-tasks",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Use Send() to fan-out N independent retrieval or processing tasks concurrently, then aggregate with a reduce node. Demonstrates LangGraph 0.6.x map-reduce pattern. Critical for teaching parallel agent execution vs sequential graphs."
+    },
+    {
+      "id": 29,
+      "slug": "29-llm-judge-harness",
+      "framework": "langgraph",
+      "topic": "LLM-as-judge eval harness -- score pipeline outputs on relevance, faithfulness, completeness with a rubric",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Self-contained eval loop: run RAG pipeline on test set, grade each answer with gpt-5-nano as judge using a structured rubric, report per-dimension scores. Extends 16-rag-eval-notebook with a custom judge approach beyond RAGAS. Useful for teams without labeled data."
+    },
+    {
+      "id": 30,
+      "slug": "30-agentic-rag",
+      "framework": "langgraph",
+      "topic": "Agentic RAG -- retrieval as one tool in a full ReAct loop alongside web search and a calculator",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Agent decides per-turn which tool to call: vectorstore retriever, DuckDuckGo, or Python eval. Unlike fixed-pipeline RAG, the agent can chain multiple retrieval calls, skip retrieval for math questions, etc. Good contrast to examples 10-17."
+    },
+    {
+      "id": 31,
+      "slug": "31-multi-agent-debate",
+      "framework": "langgraph",
+      "topic": "Multi-agent debate -- two agents independently answer then critique each other to converge on best answer",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Two solver nodes generate independent answers. A debate node has them exchange critiques for N rounds. A judge node selects the winner. Based on Du et al. 2023 (Society of Mind). Good contrast to 6-multi-agent-graph which uses routing rather than debate."
+    },
+    {
+      "id": 32,
+      "slug": "32-speculative-rag",
+      "framework": "langgraph",
+      "topic": "Speculative RAG -- draft answer first, then retrieve only to verify and fix unsupported claims",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Generate draft without retrieval. Extract factual claims. Retrieve evidence per claim. Revision node fires only if a claim is unsupported. Faster path for questions the model can answer from training; retrieval becomes a fact-check layer, not a mandatory step."
+    },
+    {
+      "id": 33,
+      "slug": "33-dspy-rag",
+      "framework": "dspy",
+      "topic": "DSPy-compiled RAG -- auto-optimize prompt signatures using MIPROv2 teleprompter",
+      "pattern": "notebook",
+      "requires_deps": [
+        "dspy-ai"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Add dspy-ai to requirements.txt. Show how DSPy Signatures replace hand-crafted prompts. MIPROv2 optimizer tunes few-shot examples from a small labeled dev set. Framework contrast to LangChain: show how the same RAG task is expressed in DSPy vs LangChain LCEL."
+    },
+    {
+      "id": 34,
+      "slug": "34-openai-agents-sdk",
+      "framework": "openai-agents",
+      "topic": "OpenAI Agents SDK -- triage agent, specialist handoffs, structured tools, and built-in tracing",
+      "pattern": "script",
+      "requires_deps": [
+        "openai-agents"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Add openai-agents to requirements.txt. Implement triage agent that hands off to a researcher agent and a writer agent. Uses SDK-native tool definitions and tracing. Framework contrast to LangGraph: same multi-agent pattern, different primitives (handoffs vs edges)."
     }
   ]
 }
