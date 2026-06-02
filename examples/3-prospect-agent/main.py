@@ -65,7 +65,7 @@ def prospect_agent(
         model="alibaba/tongyi-deepresearch-30b-a3b:free",
         temperature=0,
     )
-    copywriter_llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
+    copywriter_llm = ChatOpenAI(model="gpt-5-mini")
 
     # Preferred search provider and wait spacing
     preferred_provider = os.getenv("PREFERRED_SEARCH_PROVIDER", "ddg")

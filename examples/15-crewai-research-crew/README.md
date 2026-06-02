@@ -1,5 +1,11 @@
 # 15-crewai-research-crew
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`
+**Files:** none
+**Extra dep:** `crewai>=0.76.0` (already in `requirements.txt`; install separately with `pip install crewai` if needed)
+**Colab:** ✅ fully self-contained; uses DuckDuckGo (no API key required)
+
 A two-agent CrewAI crew: a **Researcher** searches the web and gathers key facts, a **Writer** turns those facts into a structured report. Shows the `Crew`, `Agent`, and `Task` primitives as a direct contrast to LangGraph's `StateGraph` approach — same goal, different framework.
 
 ## Run as a script

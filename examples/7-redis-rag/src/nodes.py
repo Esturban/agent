@@ -29,7 +29,7 @@ def grade_documents(state) -> Literal["generate", "rewrite"]:
         binary_score: str = Field(description="Relevance score 'yes' or 'no'")
 
     # LLM
-    model = ChatOpenAI(temperature=0, model="gpt-5-nano", streaming=True)
+    model = ChatOpenAI(model="gpt-5-nano", streaming=True)
 
     # LLM with tool and validation
     llm_with_tool = model.with_structured_output(grade)
@@ -80,7 +80,7 @@ def agent(state):
     """
     print("---CALL AGENT---")
     messages = state["messages"]
-    model = ChatOpenAI(temperature=0, streaming=True, model="gpt-5-nano")
+    model = ChatOpenAI(streaming=True, model="gpt-5-nano")
     model = model.bind_tools([retriever_tool])
     response = model.invoke(messages)
     # We return a list, because this will get added to the existing list
@@ -115,7 +115,7 @@ def rewrite(state):
     ]
 
     # Grader
-    model = ChatOpenAI(temperature=0, model="gpt-5-nano", streaming=True)
+    model = ChatOpenAI(model="gpt-5-nano", streaming=True)
     response = model.invoke(msg)
     return {"messages": [response]}
 
@@ -150,7 +150,7 @@ def generate(state):
         )
 
     # LLM
-    llm = ChatOpenAI(model_name="gpt-5-nano", temperature=0, streaming=True)
+    llm = ChatOpenAI(model_name="gpt-5-nano", streaming=True)
 
     # Chain
     rag_chain = prompt | llm | StrOutputParser()

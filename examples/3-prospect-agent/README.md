@@ -1,5 +1,12 @@
 # Prospect Agent Example
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY` · optional `BRAVE_API_KEY` · optional `OPENROUTER_API_KEY`
+**Files:** `data/Connections.csv` — a sample is included at `examples/3-prospect-agent/data/sample_connections.csv`
+**Colab:** ⚠️ upload your CSV to the Colab session, or use the bundled sample
+
+---
+
 This example demonstrates a minimal CLI using the Prospect Augment Agent. Place a `Connections.csv` in the repository `data/` folder or use the provided sample CSV in `examples/3-prospect-agent/data/sample_connections.csv`.
 
 Run the example from this directory:

@@ -2,7 +2,7 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from dotenv import load_dotenv
 load_dotenv()
 
-llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+llm = ChatOpenAI(model="gpt-5-nano")
 
 embedding = OpenAIEmbeddings(model="text-embedding-3-small")
 

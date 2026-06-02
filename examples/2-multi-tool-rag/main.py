@@ -162,7 +162,7 @@ print(f"Time taken to create the tools: {end_time - start_time} seconds")
 
 tool_node = ToolNode(tools=tools)
 
-llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+llm = ChatOpenAI(model="gpt-5-nano")
 
 
 # Function to decide whether to continue or stop the workflow
