@@ -32,6 +32,7 @@ Each example is self-contained — clone, install, and run.
 | 13 | [13-structured-output](./examples/13-structured-output/README.md) | Search → extract a validated Pydantic model with `with_structured_output()` | ✅ |
 | 14 | [14-sql-agent](./examples/14-sql-agent/README.md) | ReAct agent over a local SQLite DB using `create_react_agent`; seeds sample data on first run | ✅ |
 | 15 | [15-crewai-research-crew](./examples/15-crewai-research-crew/README.md) | CrewAI researcher + writer crew — contrasts `Crew`/`Agent`/`Task` primitives against LangGraph's `StateGraph` | ✅ |
+| 16 | [16-rag-eval-notebook](./examples/16-rag-eval-notebook/README.md) | RAGAS evaluation workbook — score a RAG pipeline on faithfulness, answer relevance, and context recall | ✅ |
 
 > ✅ fully self-contained · ⚠️ needs extra files or API keys (see that folder's README) · ❌ requires local infrastructure (Docker / Redis)
 

@@ -34,7 +34,7 @@
       "requires_deps": [
         "ragas"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Notebook format matching 12-basic-rag-notebook. Shows how to score a RAG pipeline automatically."
     },
