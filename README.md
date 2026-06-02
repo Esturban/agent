@@ -45,14 +45,28 @@ pip install -r requirements.txt
 cp .env.example .env   # then fill in your keys
 ```
 
-Most examples need only `OPENAI_API_KEY`. Exceptions:
-- `2-multi-tool-rag` — `QDRANT_URL`, `QDRANT_KEY`, `BRAVE_API_KEY`
-- `3-prospect-agent` — optional `BRAVE_API_KEY`, optional `OPENROUTER_API_KEY`
-- `8-new-idea-gen` — `BRAVE_API_KEY`, optional `OPENROUTER_API_KEY`
-- `9-prospect-searx` — SearXNG running in Docker (see that folder's README)
-- `7-redis-rag` — Redis (`docker run -p 6379:6379 -d redis`)
+## Prerequisites at a glance
 
-The root `.env.example` covers both the script examples and the notebook/workbook flows.
+| # | API keys | Local files | Services |
+|---|----------|-------------|----------|
+| 1 | `OPENAI_API_KEY` | — | — |
+| 2 | `OPENAI_API_KEY` · `QDRANT_URL` · `QDRANT_KEY` · `BRAVE_API_KEY` | — | Qdrant Cloud |
+| 3 | `OPENAI_API_KEY` · optional `BRAVE_API_KEY` · optional `OPENROUTER_API_KEY` | `data/Connections.csv` | — |
+| 4 | `OPENAI_API_KEY` | `data/product/Laptop pricing.csv` · `data/product/Laptop product descriptions.pdf` | — |
+| 5 | `OPENAI_API_KEY` | `data/product/EcoSprint_Specification_Document.pdf` | — |
+| 6 | `OPENAI_API_KEY` | `data/product/Laptop pricing.csv` · `data/product/Laptop Orders.csv` · `data/product/Laptop product descriptions.pdf` | — |
+| 7 | `OPENAI_API_KEY` | — | Redis (`docker run -p 6379:6379 -d redis`) |
+| 8 | `OPENAI_API_KEY` · `BRAVE_API_KEY` | — | — |
+| 9 | `OPENAI_API_KEY` or `OPENROUTER_API_KEY` | `data/Connections.csv` | SearXNG (Docker — see folder README) |
+| 10 | `OPENAI_API_KEY` | — | — |
+| 11 | `OPENAI_API_KEY` | — | — |
+| 12 | `OPENAI_API_KEY` | — | — |
+| 13 | `OPENAI_API_KEY` | — | — |
+| 14 | `OPENAI_API_KEY` | — | — |
+| 15 | `OPENAI_API_KEY` | — | — |
+| 16 | `OPENAI_API_KEY` | — | — |
+
+Each folder's README has a `## Prerequisites` section with exact setup steps.
 
 ---
 
