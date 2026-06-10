@@ -1,5 +1,7 @@
 # 6-multi-agent-graph
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/6-multi-agent-graph/multi_agent_graph_workbook.ipynb)
+
 Two specialist agents in a single LangGraph: **ProductQnA** answers product questions, **OrdersAgent** handles order lookup and quantity updates. A supervisor node routes messages between them based on intent.
 
 **Keys:** `OPENAI_API_KEY`
