@@ -117,9 +117,9 @@
       "requires_deps": [
         "crewai"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
-      "notes": "Companion notebook to 15-crewai-research-crew. Deep dive into CrewAI concepts."
+      "notes": "12-cell notebook covering Agent (role/goal/backstory/tools/llm), Task (description/expected_output/context), Crew with Process.sequential and Process.hierarchical, and custom @tool definitions. Explicit comparison table between LangGraph and CrewAI mental models. Uses LLM(model=\"openai/gpt-5-nano\") from crewai. 3 exercises: fact-checker agent, sequential-to-hierarchical conversion, DuckDuckGo tool swap. Links to examples 15, 19, 21 in What's Next."
     },
     {
       "id": 24,
