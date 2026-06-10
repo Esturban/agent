@@ -130,9 +130,9 @@
       "requires_deps": [
         "networkx"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
-      "notes": "Add networkx. Entity extraction via LLM, graph stored in-memory. Contrast to vector-only RAG."
+      "notes": "LLM extracts (subject, predicate, object) triples per doc using with_structured_output(Triples). NetworkX DiGraph built at create_workflow() call time. Three-node graph: find_entities -> retrieve_subgraph -> generate. Entity matching is case-insensitive partial match against graph nodes. Knowledge base uses AI company founding facts with multi-hop questions annotated. Inspired by Microsoft GraphRAG (Edge et al., 2024). networkx>=3.0 added to requirements.txt."
     },
     {
       "id": 25,
