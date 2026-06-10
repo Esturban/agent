@@ -74,20 +74,20 @@ jobs:
         if [ -n "$EXISTING_PR" ]; then
           echo "Found existing PR #$EXISTING_PR from $CURRENT_BRANCH to dev, updating it..."
           gh pr edit $EXISTING_PR \
-            --title "Pulling $CURRENT_BRANCH into dev" \
-            --body ":crown: *Automated PR*
+            --title "Merging $CURRENT_BRANCH into dev" \
+            --body ":rocket: *Automated PR*
 
-        These are the updates and changes from $CURRENT_BRANCH to be pushed into dev" \
+        Changes from \`$CURRENT_BRANCH\` staged for review into dev" \
             --add-reviewer "Esturban" \
             --add-assignee "Esturban" \
             --add-label "auto-pr,staging"
         else
           echo "No existing PR found from $CURRENT_BRANCH to dev, creating new one..."
           gh pr create \
-            --title "Pulling $CURRENT_BRANCH into production" \
-            --body ":crown: *Automated PR*
+            --title "Merging $CURRENT_BRANCH into dev" \
+            --body ":rocket: *Automated PR*
 
-        These are the updates and changes from $CURRENT_BRANCH to be pushed into production" \
+        Changes from \`$CURRENT_BRANCH\` staged for review into dev" \
             --reviewer "Esturban" \
             --assignee "Esturban" \
             --label "auto-pr,staging" \
