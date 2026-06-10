@@ -91,9 +91,9 @@
       "requires_deps": [
         "pyautogen"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Add pyautogen to requirements.txt. Framework contrast to LangGraph -- useful for teaching loop."
+      "notes": "Two ConversableAgent instances (Proponent + Opponent) debate via initiate_chat. MAX_TURNS=4, silent=True, returns chat_history list. Framework contrast to LangGraph: no StateGraph -- AutoGen manages the turn loop internally. pyautogen>=0.2.0 added to requirements.txt."
     },
     {
       "id": 22,
