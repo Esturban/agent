@@ -17,8 +17,8 @@ DOCS = [
 ]
 
 SAMPLE_QUESTIONS = [
-    "Who founded the company that makes LangGraph?",        # multi-hop: LangGraph -> LangChain -> Harrison Chase
-    "What did Ilya Sutskever do after leaving OpenAI?",     # direct: Sutskever -> SSI
-    "What observability tool does LangChain make?",         # direct: LangChain -> LangSmith
+    "Who founded the company that makes LangGraph?",  # multi-hop: LangGraph -> LangChain -> Harrison Chase
+    "What did Ilya Sutskever do after leaving OpenAI?",  # direct: Sutskever -> SSI
+    "What observability tool does LangChain make?",  # direct: LangChain -> LangSmith
     "What company did Dario Amodei leave to found Anthropic?",  # multi-hop: Amodei -> OpenAI -> Anthropic
 ]

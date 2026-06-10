@@ -1,4 +1,3 @@
-import json
 from typing import TypedDict
 
 import networkx as nx
@@ -36,22 +35,26 @@ class Triples(BaseModel):
 
 class GraphRAGState(TypedDict):
     question: str
-    entities: list    # list[str] — entities found in the question
-    context: str      # subgraph text assembled for the LLM
+    entities: list  # list[str] — entities found in the question
+    context: str  # subgraph text assembled for the LLM
     answer: str
 
 
 def _extract_triples(llm: ChatOpenAI, doc: str) -> list[Triple]:
     """Extract (subject, predicate, object) triples from a document."""
     extractor = llm.with_structured_output(Triples)
-    result = extractor.invoke([
-        SystemMessage(content=(
-            "Extract factual (subject, predicate, object) triples from the text. "
-            "Use short, canonical names for entities (e.g. 'LangChain', not 'the LangChain framework'). "
-            "Return only triples clearly stated in the text."
-        )),
-        HumanMessage(content=doc),
-    ])
+    result = extractor.invoke(
+        [
+            SystemMessage(
+                content=(
+                    "Extract factual (subject, predicate, object) triples from the text. "
+                    "Use short, canonical names for entities (e.g. 'LangChain', not 'the LangChain framework'). "
+                    "Return only triples clearly stated in the text."
+                )
+            ),
+            HumanMessage(content=doc),
+        ]
+    )
     return result.triples
 
 
@@ -78,14 +81,18 @@ def create_workflow():
     def find_entities(state: GraphRAGState) -> dict:
         """Extract entities from the question that may appear in the graph."""
         matcher = llm.with_structured_output(EntityMatch)
-        result = matcher.invoke([
-            SystemMessage(content=(
-                f"Extract the key named entities from this question. "
-                f"Match them to names in this list where possible: {list(G.nodes())}. "
-                "Return canonical entity names only."
-            )),
-            HumanMessage(content=state["question"]),
-        ])
+        result = matcher.invoke(
+            [
+                SystemMessage(
+                    content=(
+                        f"Extract the key named entities from this question. "
+                        f"Match them to names in this list where possible: {list(G.nodes())}. "
+                        "Return canonical entity names only."
+                    )
+                ),
+                HumanMessage(content=state["question"]),
+            ]
+        )
         return {"entities": result.entities}
 
     def retrieve_subgraph(state: GraphRAGState) -> dict:
@@ -94,7 +101,9 @@ def create_workflow():
         seen = set()
         for entity in state["entities"]:
             # Find closest matching node (case-insensitive partial match)
-            matches = [n for n in G.nodes() if entity.lower() in n.lower() or n.lower() in entity.lower()]
+            matches = [
+                n for n in G.nodes() if entity.lower() in n.lower() or n.lower() in entity.lower()
+            ]
             for node in matches[:2]:
                 for _, neighbor, data in G.out_edges(node, data=True):
                     fact = f"{node} {data['predicate']} {neighbor}"
@@ -106,18 +115,22 @@ def create_workflow():
                     if fact not in seen:
                         facts.append(fact)
                         seen.add(fact)
-        context = "\n".join(facts[:TOP_K * 4]) if facts else "No relevant graph context found."
+        context = "\n".join(facts[: TOP_K * 4]) if facts else "No relevant graph context found."
         return {"context": context}
 
     def generate(state: GraphRAGState) -> dict:
-        response = llm.invoke([
-            SystemMessage(content=(
-                "Answer the question using only the knowledge graph facts below. "
-                "If the answer cannot be derived from these facts, say so.\n\n"
-                f"Graph facts:\n{state['context']}"
-            )),
-            HumanMessage(content=state["question"]),
-        ])
+        response = llm.invoke(
+            [
+                SystemMessage(
+                    content=(
+                        "Answer the question using only the knowledge graph facts below. "
+                        "If the answer cannot be derived from these facts, say so.\n\n"
+                        f"Graph facts:\n{state['context']}"
+                    )
+                ),
+                HumanMessage(content=state["question"]),
+            ]
+        )
         return {"answer": response.content}
 
     graph = StateGraph(GraphRAGState)

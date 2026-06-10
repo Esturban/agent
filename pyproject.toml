@@ -1,0 +1,40 @@
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+include = ["**/*.py", "**/*.ipynb"]
+exclude = [".venv", "__pycache__", ".git"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes (undefined names, unused imports in .py files)
+    "I",   # isort (import ordering)
+    "W",   # pycodestyle warnings
+    "UP",  # pyupgrade (modernise Python syntax)
+]
+ignore = [
+    "E501",  # line too long — 100-char limit already set above
+    "E402",  # module level import not at top — common in notebook cells
+    "E741",  # ambiguous variable name — intentional in some ML/math examples
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = [
+    "F401",  # imported but unused — notebooks import for interactive exploration
+    "F402",  # import shadowed by loop variable — common in notebook loops
+    "F821",  # undefined name — ruff can't track cross-cell state in notebooks
+    "T201",  # print found — intentional in teaching notebooks
+    "E302",  # expected 2 blank lines — cells have different whitespace norms
+    "E303",  # too many blank lines — same
+    "E731",  # lambda assignment — teaching shorthand, acceptable in notebooks
+    "UP006", # use builtin types — typing.List etc fine in teaching notebooks
+    "UP035", # deprecated typing imports — same as above
+]
+"*/__init__.py" = [
+    "F403",  # star imports — intentional re-export pattern
+    "F405",  # may be undefined from star import — consequence of F403 pattern
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

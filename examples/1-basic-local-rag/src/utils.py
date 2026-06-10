@@ -1,19 +1,18 @@
-from typing import List
-from langchain_community.document_loaders import UnstructuredURLLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
-from langchain_openai.embeddings import OpenAIEmbeddings
-from langchain_core.tools import tool
-from langgraph.graph import StateGraph
-import os
 from pathlib import Path
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.vectorstores import Chroma
+from langchain_core.tools import tool
+from langchain_openai.embeddings import OpenAIEmbeddings
+from langgraph.graph import StateGraph
 
 # Optional: Graphviz export helpers
 try:
-    from graphviz import Digraph
     _HAS_GRAPHVIZ = True
 except Exception:
     _HAS_GRAPHVIZ = False
+
 
 @tool
 def retrieve_context(query: str) -> str:
@@ -42,7 +41,9 @@ def retrieve_context(query: str) -> str:
 
 
 # --- Export the stategraph as an image -------------------------------------------------
-def export_stategraph(graph: StateGraph, out_path: str = "examples/1-basic/assets/stategraph.png") -> str:
+def export_stategraph(
+    graph: StateGraph, out_path: str = "examples/1-basic/assets/stategraph.png"
+) -> str:
     """Export a StateGraph (or compiled graph) by calling its mermaid PNG drawer.
 
     This uses `graph.get_graph().draw_mermaid_png()` when available and writes
@@ -72,5 +73,3 @@ def export_stategraph(graph: StateGraph, out_path: str = "examples/1-basic/asset
 
     out_path.write_bytes(png_bytes)
     return str(out_path)
-
-

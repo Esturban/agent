@@ -1,8 +1,10 @@
 # workflow.py - Simple workflow for parsing and idea generation
 
-from langgraph.graph import StateGraph, END, START
+from langgraph.graph import END, START, StateGraph
+
+from .agent import idea_generation_agent, parser_agent
 from .models import AgentState
-from .agent import parser_agent, idea_generation_agent
+
 
 def create_workflow(parser_llm, idea_llm, tools):
     """Create the two-agent workflow for parsing and idea generation"""

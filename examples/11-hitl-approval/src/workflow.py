@@ -21,9 +21,7 @@ def create_workflow():
         # interrupt() pauses here and surfaces a value to the caller.
         # On resume, the node re-runs from the top — so anything before
         # this line executes twice. Side effects must come AFTER.
-        decision = interrupt(
-            {"action": state["action"], "question": "Approve this action?"}
-        )
+        decision = interrupt({"action": state["action"], "question": "Approve this action?"})
         if decision:
             return {"approved": True, "result": f"EXECUTED: {state['action']}"}
         return {"approved": False, "result": f"CANCELLED: {state['action']}"}

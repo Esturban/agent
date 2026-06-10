@@ -1,8 +1,8 @@
 from typing import TypedDict
 
 from langchain.retrievers import EnsembleRetriever
-from langchain_community.retrievers import BM25Retriever
 from langchain_chroma import Chroma
+from langchain_community.retrievers import BM25Retriever
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langgraph.graph import END, START, StateGraph
@@ -12,7 +12,7 @@ from src.tools import DOCS, K
 
 class HybridRAGState(TypedDict):
     question: str
-    documents: list   # list[str] — retrieved doc contents
+    documents: list  # list[str] — retrieved doc contents
     answer: str
 
 
@@ -50,14 +50,18 @@ def create_workflow():
 
     def generate(state: HybridRAGState) -> dict:
         context = "\n\n".join(state["documents"])
-        response = llm.invoke([
-            SystemMessage(content=(
-                "Answer using only the context below. "
-                "If the answer is not in the context, say 'I don't have that information.'\n\n"
-                f"Context:\n{context}"
-            )),
-            HumanMessage(content=state["question"]),
-        ])
+        response = llm.invoke(
+            [
+                SystemMessage(
+                    content=(
+                        "Answer using only the context below. "
+                        "If the answer is not in the context, say 'I don't have that information.'\n\n"
+                        f"Context:\n{context}"
+                    )
+                ),
+                HumanMessage(content=state["question"]),
+            ]
+        )
         return {"answer": response.content}
 
     graph = StateGraph(HybridRAGState)

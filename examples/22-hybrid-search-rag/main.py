@@ -12,11 +12,13 @@ def main():
     for question in SAMPLE_QUESTIONS:
         print(f"\n{'=' * 60}")
         print(f"Q: {question}")
-        result = app.invoke({
-            "question": question,
-            "documents": [],
-            "answer": "",
-        })
+        result = app.invoke(
+            {
+                "question": question,
+                "documents": [],
+                "answer": "",
+            }
+        )
         print(f"\nRetrieved {len(result['documents'])} docs")
         print(f"A: {result['answer']}")
 

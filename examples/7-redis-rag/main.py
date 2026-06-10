@@ -2,8 +2,9 @@
 Main entry point for the Redis RAG Agent example.
 This module handles environment setup and execution of the agent workflow.
 """
-import os
+
 import pprint
+
 from dotenv import load_dotenv
 
 # Load environment variables

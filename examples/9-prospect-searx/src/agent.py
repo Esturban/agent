@@ -1,12 +1,14 @@
 # agent.py - Core agent logic and processing functions
 
-import os
 import json
+import os
 import time
-from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
+
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.output_parsers import JsonOutputParser
+
 # Configuration: judge thresholds and rerun limits for research relevance checks
-from .models import AgentState, ResearchOutput, OutputSchema
+from .models import AgentState, OutputSchema, ResearchOutput
 
 QUERY_TOKEN_LIMIT = 20
 LOOKBACK_MONTHS = 3
@@ -23,9 +25,16 @@ def retry_on_rate_limit(llm, messages, max_retries: int = 5, backoff: float = 1.
             last_exc = e
             s = str(e).lower()
             # retry heuristics: HTTP 429, rate limit, connection errors
-            if "429" in s or "too many requests" in s or "rate limit" in s or "connection error" in s:
+            if (
+                "429" in s
+                or "too many requests" in s
+                or "rate limit" in s
+                or "connection error" in s
+            ):
                 sleep_time = backoff * (2 ** (attempt - 1))
-                print(f"Rate/connection error on attempt {attempt}: {e}. Backing off {sleep_time}s...")
+                print(
+                    f"Rate/connection error on attempt {attempt}: {e}. Backing off {sleep_time}s..."
+                )
                 time.sleep(sleep_time)
                 continue
             # non-retriable error — re-raise immediately so issues are visible
@@ -40,13 +49,13 @@ def _strip_code_block(text: str) -> str:
         return text
     t = text.strip()
     # remove leading/trailing triple backticks blocks
-    if t.startswith('```') and t.endswith('```'):
+    if t.startswith("```") and t.endswith("```"):
         # find first newline after opening fence
         # allow ```json or ```json\n
         # remove the opening fence and optional language tag
-        first_newline = t.find('\n')
+        first_newline = t.find("\n")
         if first_newline != -1:
-            inner = t[first_newline+1:-3]
+            inner = t[first_newline + 1 : -3]
             return inner.strip()
         return t[3:-3].strip()
     return t
@@ -92,14 +101,16 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
         "\n\nReturn ONLY valid JSON."
     )
 
-    query_resp = retry_on_rate_limit(researcher_llm, [SystemMessage(json.dumps(prospect_payload)), query_gen_instruction])
+    query_resp = retry_on_rate_limit(
+        researcher_llm, [SystemMessage(json.dumps(prospect_payload)), query_gen_instruction]
+    )
     raw_queries = getattr(query_resp, "content", str(query_resp))
     raw_queries_strip = _strip_code_block(raw_queries)
     try:
         candidate_queries = json.loads(raw_queries_strip)
         if not isinstance(candidate_queries, list):
             raise ValueError("queries not a list")
-    except Exception as e:
+    except Exception:
         print("Failed to parse query generator output. Raw response below:")
         print(raw_queries)
         raise
@@ -109,7 +120,7 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
     for q in candidate_queries[:3]:
         qtext = q.get("query") if isinstance(q, dict) else str(q)
         engines = q.get("engines", "google,bing") if isinstance(q, dict) else "google,bing"
-        
+
         # Invoke search tool with both query and engines
         raw = search_tool.invoke({"query": qtext, "engines": engines})
 
@@ -117,26 +128,34 @@ def researcher_agent(state: AgentState, researcher_llm, search_tool) -> dict:
         if isinstance(raw, list):
             aggregated_results.append({"query": qtext, "engines": engines, "results": raw})
         else:
-            aggregated_results.append({"query": qtext, "engines": engines, "results": [{"title": str(raw), "snippet": "", "url": "", "date": "", "source": ""}]})
+            aggregated_results.append(
+                {
+                    "query": qtext,
+                    "engines": engines,
+                    "results": [
+                        {"title": str(raw), "snippet": "", "url": "", "date": "", "source": ""}
+                    ],
+                }
+            )
 
     # 3) Ask LLM to summarize aggregated results into strict plain-text facts (last 3 months only)
-    
+
     # DEBUG: Log what we're sending to the LLM
     debug_mode = os.getenv("SEARXNG_DEBUG", "false").lower() == "true"
     if debug_mode:
-        print(f"\n[DEBUG] ===== AGGREGATED RESULTS FOR SUMMARIZER =====")
+        print("\n[DEBUG] ===== AGGREGATED RESULTS FOR SUMMARIZER =====")
         print(f"  Number of queries: {len(aggregated_results)}")
         for i, agg in enumerate(aggregated_results):
-            print(f"\n  Query {i+1}: {agg.get('query', 'N/A')}")
+            print(f"\n  Query {i + 1}: {agg.get('query', 'N/A')}")
             print(f"    Engines: {agg.get('engines', 'N/A')}")
             print(f"    Results count: {len(agg.get('results', []))}")
-            if agg.get('results'):
-                for j, result in enumerate(agg['results'][:2]):  # Show first 2 results
-                    print(f"    Result {j+1}:")
+            if agg.get("results"):
+                for j, result in enumerate(agg["results"][:2]):  # Show first 2 results
+                    print(f"    Result {j + 1}:")
                     print(f"      Title: {result.get('title', 'N/A')[:80]}")
                     print(f"      URL: {result.get('url', 'MISSING URL!')}")
                     print(f"      Snippet: {result.get('snippet', 'N/A')[:100]}")
-    
+
     summarizer_instruction = SystemMessage(
         """Extract recent facts about the COMPANY and INDUSTRY from search results.
 
@@ -165,36 +184,38 @@ Company: Visier is growing
 Industry: HR tech is important"""
     )
 
-    summarizer_resp = retry_on_rate_limit(researcher_llm, [SystemMessage(json.dumps(aggregated_results)), summarizer_instruction])
+    summarizer_resp = retry_on_rate_limit(
+        researcher_llm, [SystemMessage(json.dumps(aggregated_results)), summarizer_instruction]
+    )
     raw_summary = getattr(summarizer_resp, "content", str(summarizer_resp))
     summary_text = _strip_code_block(raw_summary).strip()
-    
+
     # DEBUG: Log what the summarizer returned
     if debug_mode:
-        print(f"\n[DEBUG] ===== SUMMARIZER RAW RESPONSE =====")
+        print("\n[DEBUG] ===== SUMMARIZER RAW RESPONSE =====")
         print(f"  Raw length: {len(raw_summary)}")
         print(f"  Full summary:\n{summary_text}")
-        print(f"  ===== END SUMMARIZER RESPONSE =====")
+        print("  ===== END SUMMARIZER RESPONSE =====")
 
     # Post-LLM validation: require at least one line containing a full URL (http/https)
     lines = [l.strip() for l in summary_text.splitlines() if l.strip()]
     valid_lines = [l for l in lines if "http" in l]
-    
+
     # DEBUG: Log validation results
     debug_mode = os.getenv("SEARXNG_DEBUG", "false").lower() == "true"
     if debug_mode:
-        print(f"\n[DEBUG] ===== VALIDATION RESULTS =====")
+        print("\n[DEBUG] ===== VALIDATION RESULTS =====")
         print(f"  Total lines from LLM: {len(lines)}")
         print(f"  Lines with URLs (valid): {len(valid_lines)}")
         if lines:
-            print(f"\n  All lines from LLM:")
+            print("\n  All lines from LLM:")
             for idx, line in enumerate(lines[:5]):  # Show first 5
                 has_url = "✓ HAS URL" if "http" in line else "✗ NO URL"
-                print(f"    {idx+1}. [{has_url}] {line[:120]}")
+                print(f"    {idx + 1}. [{has_url}] {line[:120]}")
         if not valid_lines and lines:
             print(f"\n  ⚠️  WARNING: LLM returned {len(lines)} lines but NONE contain URLs!")
-            print(f"  This means all research will be discarded.")
-    
+            print("  This means all research will be discarded.")
+
     if not valid_lines:
         final_text = "No recent information found for this prospect."
     else:
@@ -203,23 +224,28 @@ Industry: HR tech is important"""
     # 4) Return ResearchOutput with strict plain-text search_results
     debug_mode = os.getenv("SEARXNG_DEBUG", "false").lower() == "true"
     if debug_mode:
-        print(f"\n[DEBUG] Researcher Final Output:")
-        print(f"  Query: {', '.join([str(q.get('query') if isinstance(q, dict) else q) for q in candidate_queries])}")
+        print("\n[DEBUG] Researcher Final Output:")
+        print(
+            f"  Query: {', '.join([str(q.get('query') if isinstance(q, dict) else q) for q in candidate_queries])}"
+        )
         print(f"  Results length: {len(final_text)}")
         print(f"  Results preview: {final_text[:150]}...")
-    
+
     return {
         "research": ResearchOutput(
-            search_query=", ".join([str(q.get("query") if isinstance(q, dict) else q) for q in candidate_queries]),
+            search_query=", ".join(
+                [str(q.get("query") if isinstance(q, dict) else q) for q in candidate_queries]
+            ),
             search_results=final_text,
         )
     }
+
 
 def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
     """Phase 2: Draft personalized outreach message"""
     prospect = state["prospect"]
     research = state["research"]
-    
+
     system_prompt = """You are an expert copy writer producing highly personalized outreach messages. You will be given
     prospect metadata and web search results; produce a concise, personalized outreach message no longer than 40 words.
     The goal isn't to push our services, but to make an open ended inquiry about how new developments in the industry
@@ -235,9 +261,16 @@ def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
     assistant_input = """Use the web search output to produce a JSON object with keys: generated_message (string, <=300 chars),
     confidence (float 0-1), source_summary (string). Return only valid JSON matching that schema."""
 
-    draft_user = HumanMessage(f"""Draft the outreach message for {prospect.first_name} {prospect.last_name} at {prospect.company}.""")
+    draft_user = HumanMessage(
+        f"""Draft the outreach message for {prospect.first_name} {prospect.last_name} at {prospect.company}."""
+    )
     tool_msg = SystemMessage(f"[web_search_tool output]\n{research.search_results}")
-    draft_messages = [SystemMessage(system_prompt), AIMessage(assistant_input), draft_user, tool_msg]
+    draft_messages = [
+        SystemMessage(system_prompt),
+        AIMessage(assistant_input),
+        draft_user,
+        tool_msg,
+    ]
 
     # Use structured output parser
     parser = JsonOutputParser(pydantic_object=OutputSchema)
@@ -247,23 +280,26 @@ def copywriter_agent(state: AgentState, copywriter_llm) -> dict:
     raw_stripped = _strip_code_block(raw)
     try:
         parsed = parser.parse(raw_stripped)
-    except Exception as e:
+    except Exception:
         print("Failed to parse copywriter output. Raw response below:")
         print(raw)
         raise
 
     # Override copywriter `source_summary` with top 2-3 http(s) URLs from researcher output
     import re
-    raw_research = (state.get('research').search_results) if state.get('research') else ""
-    urls = re.findall(r'https?://[^\s)]+', raw_research or "")
+
+    raw_research = (state.get("research").search_results) if state.get("research") else ""
+    urls = re.findall(r"https?://[^\s)]+", raw_research or "")
     top_links = urls[:3]
     print(f"Top links: {top_links}")
-    source_summary_links = '; '.join(top_links) if top_links else 'No recent information found for this prospect.'
+    source_summary_links = (
+        "; ".join(top_links) if top_links else "No recent information found for this prospect."
+    )
 
     return {
         "output": OutputSchema(
             generated_message=parsed["generated_message"],
             confidence=parsed["confidence"],
-            source_summary=source_summary_links
+            source_summary=source_summary_links,
         )
     }

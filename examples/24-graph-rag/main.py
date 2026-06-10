@@ -12,12 +12,14 @@ def main():
     for question in SAMPLE_QUESTIONS:
         print(f"\n{'=' * 60}")
         print(f"Q: {question}")
-        result = app.invoke({
-            "question": question,
-            "entities": [],
-            "context": "",
-            "answer": "",
-        })
+        result = app.invoke(
+            {
+                "question": question,
+                "entities": [],
+                "context": "",
+                "answer": "",
+            }
+        )
         print(f"Entities found: {result['entities']}")
         print(f"Graph context:\n{result['context']}")
         print(f"\nA: {result['answer']}")

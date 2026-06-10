@@ -1,17 +1,20 @@
+from pathlib import Path
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langgraph.graph import StateGraph
-from pathlib import Path
+
 
 def preprocess_dataset(docs_list):
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=700,
-        chunk_overlap=50,
-        disallowed_special=()
+        chunk_size=700, chunk_overlap=50, disallowed_special=()
     )
     doc_splits = text_splitter.split_documents(docs_list)
     return doc_splits
 
-def export_stategraph(graph: StateGraph, out_path: str = "examples/1-basic/assets/stategraph.png") -> str:
+
+def export_stategraph(
+    graph: StateGraph, out_path: str = "examples/1-basic/assets/stategraph.png"
+) -> str:
     """Export a StateGraph (or compiled graph) by calling its mermaid PNG drawer.
 
     This uses `graph.get_graph().draw_mermaid_png()` when available and writes

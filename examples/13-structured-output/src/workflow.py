@@ -29,10 +29,12 @@ def create_workflow():
 
     def extract_node(state: ProfileState) -> dict:
         structured_llm = llm.with_structured_output(EntityProfile)
-        profile = structured_llm.invoke([
-            SystemMessage(f"Extract a structured profile for: {state['subject']}"),
-            HumanMessage(f"Use these search results:\n{state['raw_results']}"),
-        ])
+        profile = structured_llm.invoke(
+            [
+                SystemMessage(f"Extract a structured profile for: {state['subject']}"),
+                HumanMessage(f"Use these search results:\n{state['raw_results']}"),
+            ]
+        )
         return {"profile": profile.model_dump()}
 
     graph = StateGraph(ProfileState)

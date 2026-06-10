@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.workflow import create_workflow
 
 load_dotenv()

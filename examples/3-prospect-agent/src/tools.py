@@ -1,7 +1,7 @@
 # tools.py - Tool definitions and setup
 
-import json
 import time
+
 from langchain.tools import tool
 from langchain_community.tools import BraveSearch, DuckDuckGoSearchResults
 from langgraph.prebuilt import ToolNode
@@ -26,7 +26,7 @@ def create_tools(brave_key: str = None, prefer: str = "ddg", wait_seconds: float
             search = BraveSearch.from_api_key(api_key=brave_key, search_kwargs={"count": 5})
             raw = search.run(query)
         else:
-            ddg = DuckDuckGoSearchResults(output_format='list',source='news')
+            ddg = DuckDuckGoSearchResults(output_format="list", source="news")
             raw = ddg.invoke(query)
 
         # Normalize into structured list of results: {title, snippet, url, date, source}
@@ -45,19 +45,44 @@ def create_tools(brave_key: str = None, prefer: str = "ddg", wait_seconds: float
                     # attempt to parse common tuple/list shapes
                     if isinstance(r, (list, tuple)) and len(r) >= 3:
                         url, snippet, title = r[0], r[1], r[2]
-                        results.append({"title": title or "", "snippet": snippet or "", "url": url or "", "date": "", "source": ""})
+                        results.append(
+                            {
+                                "title": title or "",
+                                "snippet": snippet or "",
+                                "url": url or "",
+                                "date": "",
+                                "source": "",
+                            }
+                        )
                         continue
                 except Exception:
                     pass
-                results.append({"title": str(r), "snippet": "", "url": "", "date": "", "source": ""})
+                results.append(
+                    {"title": str(r), "snippet": "", "url": "", "date": "", "source": ""}
+                )
                 continue
 
             title = r.get("title") or r.get("name") or r.get("headline") or r.get("titleText") or ""
-            snippet = r.get("snippet") or r.get("snippet_text") or r.get("description") or r.get("summary") or ""
-            url = r.get("url") or r.get("link") or r.get("displayUrl") or r.get("formattedUrl") or r.get("href") or ""
+            snippet = (
+                r.get("snippet")
+                or r.get("snippet_text")
+                or r.get("description")
+                or r.get("summary")
+                or ""
+            )
+            url = (
+                r.get("url")
+                or r.get("link")
+                or r.get("displayUrl")
+                or r.get("formattedUrl")
+                or r.get("href")
+                or ""
+            )
             date = r.get("date") or r.get("published_at") or r.get("pubDate") or ""
             source = r.get("source") or r.get("site") or r.get("domain") or ""
-            results.append({"title": title, "snippet": snippet, "url": url, "date": date, "source": source})
+            results.append(
+                {"title": title, "snippet": snippet, "url": url, "date": date, "source": source}
+            )
 
         tools = [search_tool]
         tool_node = ToolNode(tools=tools)

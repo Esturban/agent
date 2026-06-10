@@ -19,9 +19,9 @@ DOCS = [
 # Mix of queries that favour BM25 (exact model names), vector search (semantics),
 # and hybrid (both signals needed).
 SAMPLE_QUESTIONS = [
-    "What is the read speed of the Apex-X200?",           # BM25 wins: exact model code
-    "Which product is best for budget gaming?",            # Vector wins: semantic intent
-    "What warranty does the Apex-M50 come with?",         # BM25 wins: exact model code
-    "How much power does the Vertex-Pro need?",           # Hybrid: model name + concept
-    "Can I return a product if I change my mind?",        # Vector wins: paraphrase of policy
+    "What is the read speed of the Apex-X200?",  # BM25 wins: exact model code
+    "Which product is best for budget gaming?",  # Vector wins: semantic intent
+    "What warranty does the Apex-M50 come with?",  # BM25 wins: exact model code
+    "How much power does the Vertex-Pro need?",  # Hybrid: model name + concept
+    "Can I return a product if I change my mind?",  # Vector wins: paraphrase of policy
 ]

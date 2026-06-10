@@ -1,6 +1,6 @@
 from typing import Literal, TypedDict
 
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 
@@ -32,10 +32,12 @@ def create_workflow():
                 "Write a complete, runnable Python script to solve this task. "
                 "Output ONLY raw Python — no markdown fences, no explanation."
             )
-        response = llm.invoke([
-            SystemMessage(content="You are an expert Python programmer."),
-            HumanMessage(content=prompt),
-        ])
+        response = llm.invoke(
+            [
+                SystemMessage(content="You are an expert Python programmer."),
+                HumanMessage(content=prompt),
+            ]
+        )
         return {"code": response.content.strip(), "iterations": state["iterations"] + 1}
 
     def run_code(state: CodeInterpreterState) -> dict:

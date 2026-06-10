@@ -11,13 +11,15 @@ def main():
 
     for question in SAMPLE_QUESTIONS:
         print(f"\nQ: {question}")
-        result = app.invoke({
-            "question": question,
-            "variants": [],
-            "ranked_docs": [],
-            "fused_docs": [],
-            "answer": "",
-        })
+        result = app.invoke(
+            {
+                "question": question,
+                "variants": [],
+                "ranked_docs": [],
+                "fused_docs": [],
+                "answer": "",
+            }
+        )
         print(f"Variants generated: {len(result['variants'])}")
         print(f"Docs after fusion: {len(result['fused_docs'])}")
         print(f"A: {result['answer']}")

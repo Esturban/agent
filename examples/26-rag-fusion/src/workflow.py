@@ -7,7 +7,7 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langgraph.constants import Send
 from langgraph.graph import END, START, StateGraph
 
-from src.tools import DOCS, K, NUM_VARIANTS, RRF_K
+from src.tools import DOCS, NUM_VARIANTS, RRF_K, K
 
 # ---------------------------------------------------------------------------
 # RAG Fusion — why it exists
@@ -34,6 +34,7 @@ from src.tools import DOCS, K, NUM_VARIANTS, RRF_K
 
 class VariantState(TypedDict):
     """State for one parallel retrieval branch."""
+
     variant: str
     ranked_docs: list[str]
 
@@ -64,24 +65,30 @@ def create_workflow():
 
     def generate_variants(state: RAGFusionState) -> dict:
         """LLM generates N semantically diverse paraphrases of the original query."""
-        response = llm.invoke([
-            SystemMessage(content=(
-                f"Generate exactly {NUM_VARIANTS} alternative phrasings of the user's question. "
-                "Each should approach the topic from a slightly different angle. "
-                f"Return only the {NUM_VARIANTS} questions, one per line, no numbering."
-            )),
-            HumanMessage(content=state["question"]),
-        ])
+        response = llm.invoke(
+            [
+                SystemMessage(
+                    content=(
+                        f"Generate exactly {NUM_VARIANTS} alternative phrasings of the user's question. "
+                        "Each should approach the topic from a slightly different angle. "
+                        f"Return only the {NUM_VARIANTS} questions, one per line, no numbering."
+                    )
+                ),
+                HumanMessage(content=state["question"]),
+            ]
+        )
         raw = response.content.strip().split("\n")
         variants = [q.strip() for q in raw if q.strip()][:NUM_VARIANTS]
         # Always include the original
         if state["question"] not in variants:
-            variants = [state["question"]] + variants[:NUM_VARIANTS - 1]
+            variants = [state["question"]] + variants[: NUM_VARIANTS - 1]
         return {"variants": variants}
 
     def fan_out(state: RAGFusionState):
         """Dispatch one Send per variant — parallel retrieval via LangGraph Send API."""
-        return [Send("retrieve_variant", {"variant": v, "ranked_docs": []}) for v in state["variants"]]
+        return [
+            Send("retrieve_variant", {"variant": v, "ranked_docs": []}) for v in state["variants"]
+        ]
 
     def retrieve_variant(state: VariantState) -> dict:
         """Retrieve top-k for a single query variant. Runs in parallel across all variants."""
@@ -95,14 +102,18 @@ def create_workflow():
 
     def generate(state: RAGFusionState) -> dict:
         context = "\n\n".join(state["fused_docs"])
-        response = llm.invoke([
-            SystemMessage(content=(
-                "Answer using only the context below. "
-                "The context was retrieved and fused from multiple query paraphrases "
-                "for better recall.\n\nContext:\n" + context
-            )),
-            HumanMessage(content=state["question"]),
-        ])
+        response = llm.invoke(
+            [
+                SystemMessage(
+                    content=(
+                        "Answer using only the context below. "
+                        "The context was retrieved and fused from multiple query paraphrases "
+                        "for better recall.\n\nContext:\n" + context
+                    )
+                ),
+                HumanMessage(content=state["question"]),
+            ]
+        )
         return {"answer": response.content}
 
     graph = StateGraph(RAGFusionState)
