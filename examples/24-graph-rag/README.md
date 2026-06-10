@@ -1,5 +1,7 @@
 # 24-graph-rag
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/24-graph-rag/graph_rag_workbook.ipynb)
+
 ## Prerequisites
 **Keys:** `OPENAI_API_KEY`
 **Files:** none — knowledge base is hardcoded inline
