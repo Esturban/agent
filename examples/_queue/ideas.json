@@ -346,6 +346,43 @@
       "status": "pending",
       "priority": "medium",
       "notes": "Supervisor node uses with_structured_output to decide which worker to call next (web_researcher, code_writer, fact_checker) or FINISH. Each worker is a sub-graph with its own tools. Uses LangGraph prebuilt create_react_agent for workers. Supervisor loops until it emits FINISH or hits MAX_TURNS. Teaches the most common production multi-agent pattern (60% of real-world use cases per 2026 surveys). Extends 6-multi-agent-graph with dynamic routing instead of hardcoded edges. No new deps."
+    },
+    {
+      "id": 44,
+      "slug": "44-mcp-client-agent",
+      "framework": "langgraph",
+      "topic": "MCP client agent -- LangGraph agent discovers and calls tools from a local MCP server over stdio",
+      "pattern": "script",
+      "requires_deps": [
+        "mcp"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Add mcp to requirements.txt. Spin up a tiny local stdio MCP server (Python script) that exposes two tools: get_weather and unit_convert. LangGraph agent connects via MultiServerMCPClient, loads tool definitions at runtime, and uses them in a standard ReAct loop. Teaches the MCP client-server architecture without needing a remote server. By 2026, MCP has 10k+ servers (97M monthly SDK downloads) -- this is an essential pattern for any production agent. Good framework demo to contrast with hard-coded LangChain tools."
+    },
+    {
+      "id": 45,
+      "slug": "45-a2a-agent-handoff",
+      "framework": "langgraph",
+      "topic": "A2A agent handoff -- two LangGraph agents communicate over the Agent-to-Agent protocol, one delegates a subtask to the other",
+      "pattern": "script",
+      "requires_deps": [
+        "google-adk"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Add google-adk to requirements.txt. Orchestrator agent (LangGraph) receives a research + summarize task; it sends the research subtask to a Specialist agent running as an A2A-compatible HTTP service; specialist returns a result card; orchestrator synthesizes final answer. Uses Google ADK's A2A server wrapper. Teaches the 2026 A2A protocol standard adopted by Salesforce Agentforce, ServiceNow, and others -- horizontal agent-to-agent coordination vs MCP vertical tool calls. Companion to 44-mcp-client-agent."
+    },
+    {
+      "id": 46,
+      "slug": "46-tree-of-thoughts",
+      "framework": "langgraph",
+      "topic": "Tree of Thoughts agent -- explore multiple reasoning branches in parallel, score each, prune and select the best path",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Notebook implementing ToT (Yao et al. 2023): at each step the Proposer node generates N candidate thoughts via LLM sampling; Evaluator scores each with a second LLM call; Selector prunes to top-k using beam search; loop repeats until final answer. Uses LangGraph Send API for parallel branch expansion. Teaches deliberative reasoning as an alternative to greedy chain-of-thought. Good capstone after 18-self-reflecting-agent and 37-rewoo-agent -- completes the reasoning-strategy trio."
     }
   ]
 }
