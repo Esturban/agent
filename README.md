@@ -36,6 +36,14 @@ Each example is self-contained — clone, install, and run.
 | 16 | [16-rag-eval-notebook](./examples/16-rag-eval-notebook/README.md) | RAGAS evaluation workbook — score a RAG pipeline on faithfulness, answer relevance, and context recall | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/16-rag-eval-notebook/rag_eval_workbook.ipynb) |
 | 17 | [17-corrective-rag](./examples/17-corrective-rag/README.md) | Corrective RAG (CRAG) — LLM grades each retrieved doc, rewrites query if irrelevant, falls back to web search | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/17-corrective-rag/corrective_rag_workbook.ipynb) |
 | 18 | [18-self-reflecting-agent](./examples/18-self-reflecting-agent/README.md) | Reflexion loop — generate answer, critique with structured confidence score, revise until confident or capped | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/18-self-reflecting-agent/reflexion_workbook.ipynb) |
+| 19 | [19-multi-agent-notebook](./examples/19-multi-agent-notebook/README.md) | Supervisor/Worker multi-agent pattern — supervisor LLM routes tasks to researcher + writer workers via `add_messages` state | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/19-multi-agent-notebook/multi_agent_workbook.ipynb) |
+| 20 | [20-code-interpreter](./examples/20-code-interpreter/README.md) | Code interpreter loop — write Python, run in subprocess sandbox, fix on error until max iterations | |
+| 21 | [21-autogen-debate](./examples/21-autogen-debate/README.md) | Two-agent AutoGen debate — Proponent vs Opponent argue back and forth for MAX_TURNS exchanges | |
+| 22 | [22-hybrid-search-rag](./examples/22-hybrid-search-rag/README.md) | Hybrid Search RAG — BM25 keyword + vector retrieval merged via Reciprocal Rank Fusion | |
+| 23 | [23-crewai-notebook](./examples/23-crewai-notebook/README.md) | CrewAI deep-dive workbook — `Agent`, `Task`, `Crew`, sequential and hierarchical processes | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/23-crewai-notebook/crewai_workbook.ipynb) |
+| 24 | [24-graph-rag](./examples/24-graph-rag/README.md) | Graph RAG — extract `(subject, predicate, object)` triples into NetworkX, answer multi-hop questions via graph traversal | |
+| 25 | [25-adaptive-rag](./examples/25-adaptive-rag/README.md) | Adaptive RAG — classify each query and route to the cheapest correct strategy: direct LLM, vectorstore, or web search | |
+| 26 | [26-rag-fusion](./examples/26-rag-fusion/README.md) | RAG Fusion — generate N query paraphrases in parallel via Send API, retrieve each, merge with RRF for higher recall | |
 
 > Links in the Workbook column open the .ipynb directly in Google Colab. Blank = script only, no workbook.
 
@@ -71,8 +79,16 @@ cp .env.example .env   # then fill in your keys
 | 16 | `OPENAI_API_KEY` | — | — |
 | 17 | `OPENAI_API_KEY` | — | — |
 | 18 | `OPENAI_API_KEY` | — | — |
+| 19 | `OPENAI_API_KEY` | — | — |
+| 20 | `OPENAI_API_KEY` | — | — |
+| 21 | `OPENAI_API_KEY` | — | — |
+| 22 | `OPENAI_API_KEY` | — | — |
+| 23 | `OPENAI_API_KEY` | — | — |
+| 24 | `OPENAI_API_KEY` | — | — |
+| 25 | `OPENAI_API_KEY` | — | — |
+| 26 | `OPENAI_API_KEY` | — | — |
 
-Each folder's README has a `## Prerequisites` section with exact setup steps.
+Each folder's README has the exact setup steps.
 
 ---
 

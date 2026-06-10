@@ -1,30 +1,12 @@
-# Prospect Agent Example
+# 3-prospect-agent
 
-## Prerequisites
+Prospect research agent: reads LinkedIn connections from a CSV, searches the web for each person, and writes a personalized outreach message with a confidence score.
+
 **Keys:** `OPENAI_API_KEY` · optional `BRAVE_API_KEY` · optional `OPENROUTER_API_KEY`
-**Files:** `data/Connections.csv` — a sample is included at `examples/3-prospect-agent/data/sample_connections.csv`
-**Colab:** ⚠️ upload your CSV to the Colab session, or use the bundled sample
-
----
-
-This example demonstrates a minimal CLI using the Prospect Augment Agent. Place a `Connections.csv` in the repository `data/` folder or use the provided sample CSV in `examples/3-prospect-agent/data/sample_connections.csv`.
-
-Run the example from this directory:
+**Files:** `data/Connections.csv` — a sample is at `examples/3-prospect-agent/data/sample_connections.csv`
 
 ```bash
-python main.py --input examples/3-prospect-agent/data/sample_connections.csv
+python examples/3-prospect-agent/main.py --input examples/3-prospect-agent/data/sample_connections.csv
 ```
 
-Output will be written to `data/aug/connections_aug_<timestamp>.csv` relative to the repo root.
-
-Note: This tool continues to grow from a basic example. Almost worth duplicating since the original example was written to do some research. But now, this does research and creates a draft message with confidence.
-
-
-CSV output change: `source_summary` now contains a semicolon-separated list of the top 2–3 URLs the researcher found (replacing the copywriter's free-text source summary). This keeps CSV rows compact and ensures URLs are machine-parseable.
-
-Behavior details:
-- If the researcher found no recent URLs, `source_summary` will contain: `No recent information found for this prospect.`
-- At most 3 URLs are included, separated by `; ` (semicolon + space) to avoid breaking CSV commas.
-
-# Inspiration
-https://www.pinecone.io/learn/langgraph-research-agent/
+Output is written to `data/aug/connections_aug_<timestamp>.csv`. The `source_summary` column contains up to 3 semicolon-separated URLs from the researcher.

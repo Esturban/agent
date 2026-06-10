@@ -1,32 +1,25 @@
-## RAG Agent - Basic
+# 1-basic-local-rag
 
-## Prerequisites
+Minimal RAG: fetch web documents at runtime, split and embed into a local ChromaDB, answer questions via a single-node LangGraph.
+
 **Keys:** `OPENAI_API_KEY`
 **Files:** none — documents are fetched from the web at runtime
-**Colab:** ✅ fully self-contained
 
 ```bash
 python examples/1-basic-local-rag/main.py
 ```
 
-The following file is the implementation of a very basic RAG model made with LangGraph and LangChain.
+![State graph](./assets/stategraph.png)
 
-The way it works:
+---
 
-- `src` contains the definition of the retrieval tool and builds embeddings for the documents after loading and splitting them.  
-- `main.py` contains the workflow definition and the execution of the model.  
+### How it works
 
-![](./assets/stategraph.png)
+- `src/tools.py` — loads web documents, splits into chunks, builds a ChromaDB collection
+- `src/workflow.py` — `retrieve → generate` graph
+- `main.py` — entry point
 
-### Purpose
+### Notes
 
-The purpose of this model is to demonstrate, a simple RAG model and how it can rely on documents pulled from the internet. Consider how you could vary this to be a RAG agent from a different site or locally loaded PDFs to create the embeddings.
-
-### Drawbacks
-
-- Each time this runtime is initialized, it will load all the documents and split them into chunks instead of keeping them persistent in the DB.
-- The model will not be able to recall previous responses so it will mostly repeat the answer without much variation.
-
-### References
-
-- [Building Agentic RAG with LangGraph: A Step-by-Step Guide](https://medium.com/@wendell_89912/building-an-agentic-rag-with-langgraph-a-step-by-step-guide-009c5f0cce0a)
+- Every run re-loads and re-embeds documents (no persistence between runs)
+- No conversation memory — each query is independent

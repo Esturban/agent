@@ -1,13 +1,13 @@
 # 23-crewai-notebook
 
-## Prerequisites
-**Keys:** `OPENAI_API_KEY`
-**Files:** none — all tasks and knowledge base are hardcoded inline
-**Colab:** fully self-contained; notebook installs its own dependencies
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/23-crewai-notebook/crewai_workbook.ipynb)
 
+Deep-dive workbook into CrewAI's role-based multi-agent model. Covers `Agent`, `Task`, `Crew`, `Process.sequential`, `Process.hierarchical`, and custom `@tool` definitions — with explicit comparisons to the LangGraph supervisor pattern from example 19.
+
+**Keys:** `OPENAI_API_KEY`
+
 ```bash
+# local notebook (recommended)
 jupyter notebook examples/23-crewai-notebook/crewai_workbook.ipynb
 ```
 
