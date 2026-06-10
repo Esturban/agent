@@ -152,9 +152,9 @@
       "topic": "RAG Fusion -- generate multiple query variants, retrieve for each, merge with Reciprocal Rank Fusion",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Generate 4-5 query paraphrases in parallel (LangGraph Send API), retrieve top-k for each, re-rank with RRF, generate from merged context. Significantly better recall than single-query RAG. Based on Lawrence 2024 paper."
+      "notes": "LangGraph Send API fans out to N parallel retrieve_variant nodes; Annotated[list, add] merges ranked_docs lists back into shared state; _rrf_merge applies RRF_K=60 scoring across all lists. Shows how Send enables map-reduce patterns in LangGraph. Based on Lawrence 2024 paper. Follow-on to 22-hybrid-search-rag and 25-adaptive-rag."
     },
     {
       "id": 27,
