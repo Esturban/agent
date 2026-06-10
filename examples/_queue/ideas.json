@@ -78,9 +78,9 @@
       "topic": "Code interpreter agent -- generates Python code, executes in subprocess sandbox, returns result",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan → write → run → fix on error."
+      "notes": "Script-based agent: write_code node (LLM generates Python) \u2192 run_code node (subprocess sandbox, 10s timeout) \u2192 conditional route (success \u2192 END / error+iterations<MAX \u2192 write_code). 3 sample tasks, MAX_ITERATIONS=3. No Colab (subprocess unavailable)."
     },
     {
       "id": 21,
