@@ -67,9 +67,9 @@
       "topic": "Multi-agent patterns notebook -- supervisor/worker routing, message passing, shared state",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Notebook expanding on 6-multi-agent-graph. Cover supervisor pattern, subgraphs, and agent handoffs."
+      "notes": "Notebook expanding on 6-multi-agent-graph. Covers supervisor/worker pattern with add_messages reducer, create_react_agent workers, conditional routing, and streaming. 11 cells + 4 exercises."
     },
     {
       "id": 20,
