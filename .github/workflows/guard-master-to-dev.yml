@@ -1,0 +1,19 @@
+name: 'guard: block master -> dev'
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  block-master-into-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block if source branch is master
+        run: |
+          if [ "${{ github.head_ref }}" = "master" ]; then
+            echo "::error::Merging master into dev is not allowed."
+            echo "::error::Flow is one-way: dev -> master. Never master -> dev."
+            exit 1
+          fi
+          echo "Source branch '${{ github.head_ref }}' is allowed to target dev."
