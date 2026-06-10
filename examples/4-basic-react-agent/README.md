@@ -1,5 +1,7 @@
 # 4-basic-react-agent
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/4-basic-react-agent/basic_react_agent_workbook.ipynb)
+
 ReAct agent with two tools: semantic search over a CSV pricing table and PDF retrieval from a product spec document. Maintains full conversation history across turns with `MemorySaver`.
 
 **Keys:** `OPENAI_API_KEY`
