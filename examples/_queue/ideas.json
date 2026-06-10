@@ -247,6 +247,50 @@
       "status": "pending",
       "priority": "low",
       "notes": "Add openai-agents to requirements.txt. Implement triage agent that hands off to a researcher agent and a writer agent. Uses SDK-native tool definitions and tracing. Framework contrast to LangGraph: same multi-agent pattern, different primitives (handoffs vs edges)."
+    },
+    {
+      "id": 35,
+      "slug": "35-plan-execute-agent",
+      "framework": "langgraph",
+      "topic": "Plan-and-Execute agent -- planner generates a structured step list, executor runs each step and passes output forward",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Separate planner and executor nodes: planner uses with_structured_output to emit a typed Plan (list of steps), executor processes one step per iteration and writes result to shared state, final node synthesizes all step outputs. Teaches DAG-style task decomposition vs monolithic ReAct loops. Contrast to 4-basic-react-agent: planner commits to full plan before execution, executor never replans. Good for teaching how to reduce token spend on simple multi-step tasks."
+    },
+    {
+      "id": 36,
+      "slug": "36-long-term-memory",
+      "framework": "langgraph",
+      "topic": "Long-term cross-thread memory -- agent stores and recalls facts across separate sessions using LangGraph BaseStore",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Two-turn demo: turn 1 has user share personal facts (name, preferences), agent extracts and saves to InMemoryStore under a user namespace; turn 2 runs in a new thread_id and recalls stored facts via semantic lookup. Uses LangGraph InMemoryStore built into langgraph 0.6+ (no new deps). Teaches the checkpointer-vs-store distinction: checkpointer = within-thread history, store = cross-thread persistent facts. Good follow-on to 11-hitl-approval. Extend to show list_namespaces and delete operations."
+    },
+    {
+      "id": 37,
+      "slug": "37-rewoo-agent",
+      "framework": "langgraph",
+      "topic": "ReWOO agent -- generate all tool calls upfront as a plan, execute in bulk, then synthesize (no interleaved observation)",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Three-node graph: Planner emits a list of (tool, args) pairs via with_structured_output; Worker node executes each tool call in sequence and appends results to state; Solver node receives full evidence list and writes final answer. Based on Xu et al. 2023 (ReWOO paper). Key teaching contrast to standard ReAct: no observation interleaving means fewer tokens but less adaptive. Use DuckDuckGo + mock calculator as tools. Companion to 4-basic-react-agent and 5-react-agent-lg."
+    },
+    {
+      "id": 38,
+      "slug": "38-langgraph-command-pattern",
+      "framework": "langgraph",
+      "topic": "LangGraph Command primitive -- edgeless dynamic routing where nodes return Command objects to jump to any node",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Build a triage node + two specialist nodes (researcher, summarizer) with NO explicit edges -- routing is handled entirely by Command(goto='node_name', update={...}) returned from each node. Add a human-in-the-loop step using interrupt() + Command(resume=) to show how Command unifies routing and HITL in one primitive. Teaches LangGraph 0.6.x Command API as an alternative to conditional_edges for fully dynamic flows. Contrast to 6-multi-agent-graph which uses add_conditional_edges."
     }
   ]
 }
