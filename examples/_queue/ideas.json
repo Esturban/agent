@@ -104,9 +104,9 @@
       "requires_deps": [
         "rank-bm25"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Add rank-bm25. Use EnsembleRetriever with BM25Retriever + Chroma. Good complement to 12-basic-rag-notebook."
+      "notes": "EnsembleRetriever with BM25Retriever (rank-bm25) + Chroma vector store, weights=[0.5, 0.5]. Two-node LangGraph: retrieve -> generate. Knowledge base uses product model codes to demonstrate BM25 advantage on exact keyword queries. SAMPLE_QUESTIONS annotated with which retriever wins each query type. README explains Reciprocal Rank Fusion and production weight tuning. Complement to 12-basic-rag-notebook and 16-rag-eval-notebook."
     },
     {
       "id": 23,
