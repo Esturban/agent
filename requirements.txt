@@ -161,6 +161,7 @@ pypdf==6.1.0
 pypdfium2==4.30.0
 PyPika==0.48.9
 pyproject_hooks==1.2.0
+pyautogen>=0.2.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 python-json-logger==3.3.0
