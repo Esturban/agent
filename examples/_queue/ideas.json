@@ -141,9 +141,9 @@
       "topic": "Adaptive RAG -- classify query complexity, route to no-retrieval / vectorstore / web-search path",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "LLM classifier decides retrieval strategy per query: (1) direct LLM answer for simple questions, (2) vectorstore RAG for factual lookups, (3) live web search for current events. Three-path conditional graph. Good follow-on to 17-corrective-rag."
+      "notes": "LLM classifier with with_structured_output(RouteDecision) routes each query before retrieval: simple (direct LLM), vectorstore (Chroma), web (DuckDuckGoSearchResults). Three-path conditional graph via add_conditional_edges. Shows decision-before-retrieval as contrast to CRAG's correction-after-retrieval. Follow-on: 26-rag-fusion."
     },
     {
       "id": 26,
