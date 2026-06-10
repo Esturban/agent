@@ -44,6 +44,10 @@ Each example is self-contained — clone, install, and run.
 | 24 | [24-graph-rag](./examples/24-graph-rag/README.md) | Graph RAG — extract `(subject, predicate, object)` triples into NetworkX, answer multi-hop questions via graph traversal | |
 | 25 | [25-adaptive-rag](./examples/25-adaptive-rag/README.md) | Adaptive RAG — classify each query and route to the cheapest correct strategy: direct LLM, vectorstore, or web search | |
 | 26 | [26-rag-fusion](./examples/26-rag-fusion/README.md) | RAG Fusion — generate N query paraphrases in parallel via Send API, retrieve each, merge with RRF for higher recall | |
+| 27 | [27-self-rag](./examples/27-self-rag/README.md) | Self-RAG — three decision gates: classify if retrieval is needed, grade doc relevance, check answer groundedness | |
+| 28 | [28-parallel-subgraph](./examples/28-parallel-subgraph/README.md) | Parallel subgraphs — Send API map-reduce: fan out N workers via `Send`, merge with `Annotated[list, operator.add]` | |
+| 29 | [29-llm-judge-harness](./examples/29-llm-judge-harness/README.md) | LLM-as-judge eval harness — score RAG answers on Relevance, Faithfulness, Completeness with a structured rubric | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/29-llm-judge-harness/llm_judge_workbook.ipynb) |
+| 30 | [30-agentic-rag](./examples/30-agentic-rag/README.md) | Agentic RAG — retrieval as one tool in a ReAct loop alongside web search and calculator; agent chooses per-turn | |
 
 > Links in the Workbook column open the .ipynb directly in Google Colab. Blank = script only, no workbook.
 
@@ -87,6 +91,10 @@ cp .env.example .env   # then fill in your keys
 | 24 | `OPENAI_API_KEY` | — | — |
 | 25 | `OPENAI_API_KEY` | — | — |
 | 26 | `OPENAI_API_KEY` | — | — |
+| 27 | `OPENAI_API_KEY` | — | — |
+| 28 | `OPENAI_API_KEY` | — | — |
+| 29 | `OPENAI_API_KEY` | — | — |
+| 30 | `OPENAI_API_KEY` | — | — |
 
 Each folder's README has the exact setup steps.
 

@@ -163,7 +163,7 @@
       "topic": "Self-RAG -- selective retrieval with retrieval/critique/support decisions as conditional nodes",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Model decides IF to retrieve per sentence, then scores each doc for relevance and support. Implements isRelevant, isSupported, isUseful decision gates as LangGraph conditional edges. Asai et al. 2023. Best companion to 17-corrective-rag for teaching retrieval strategies."
     },
@@ -174,7 +174,7 @@
       "topic": "Parallel subgraphs -- LangGraph Send API for true fan-out / fan-in across independent sub-tasks",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Use Send() to fan-out N independent retrieval or processing tasks concurrently, then aggregate with a reduce node. Demonstrates LangGraph 0.6.x map-reduce pattern. Critical for teaching parallel agent execution vs sequential graphs."
     },
@@ -185,7 +185,7 @@
       "topic": "LLM-as-judge eval harness -- score pipeline outputs on relevance, faithfulness, completeness with a rubric",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Self-contained eval loop: run RAG pipeline on test set, grade each answer with gpt-5-nano as judge using a structured rubric, report per-dimension scores. Extends 16-rag-eval-notebook with a custom judge approach beyond RAGAS. Useful for teams without labeled data."
     },
@@ -196,7 +196,7 @@
       "topic": "Agentic RAG -- retrieval as one tool in a full ReAct loop alongside web search and a calculator",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Agent decides per-turn which tool to call: vectorstore retriever, DuckDuckGo, or Python eval. Unlike fixed-pipeline RAG, the agent can chain multiple retrieval calls, skip retrieval for math questions, etc. Good contrast to examples 10-17."
     },
