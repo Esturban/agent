@@ -5,11 +5,21 @@ from langchain_core.tools import tool
 from langchain_openai import OpenAIEmbeddings
 
 _DOCS = [
-    Document(page_content="LangGraph is a library for building stateful, multi-actor applications with LLMs."),
-    Document(page_content="RAG combines a retriever with a generative model to ground answers in source documents."),
-    Document(page_content="Self-RAG uses reflection tokens to decide whether retrieval is needed per query."),
-    Document(page_content="Human-in-the-loop checkpointing pauses graph execution and waits for human approval."),
-    Document(page_content="Adaptive RAG classifies each query and routes it to the cheapest correct retrieval path."),
+    Document(
+        page_content="LangGraph is a library for building stateful, multi-actor applications with LLMs."
+    ),
+    Document(
+        page_content="RAG combines a retriever with a generative model to ground answers in source documents."
+    ),
+    Document(
+        page_content="Self-RAG uses reflection tokens to decide whether retrieval is needed per query."
+    ),
+    Document(
+        page_content="Human-in-the-loop checkpointing pauses graph execution and waits for human approval."
+    ),
+    Document(
+        page_content="Adaptive RAG classifies each query and routes it to the cheapest correct retrieval path."
+    ),
 ]
 
 _store = Chroma.from_documents(_DOCS, OpenAIEmbeddings())

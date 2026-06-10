@@ -42,8 +42,6 @@ def build_rag_chain():
     def run(question: str) -> str:
         docs = retriever.invoke(question)
         ctx = "\n\n".join(d.page_content for d in docs)
-        return (prompt | llm | StrOutputParser()).invoke(
-            {"context": ctx, "question": question}
-        )
+        return (prompt | llm | StrOutputParser()).invoke({"context": ctx, "question": question})
 
     return run

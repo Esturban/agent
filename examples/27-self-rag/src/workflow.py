@@ -61,9 +61,7 @@ def generate(state: State) -> dict:
             ("human", "Context:\n{ctx}\n\nQuestion: {question}"),
         ]
     )
-    answer = (prompt | _llm | StrOutputParser()).invoke(
-        {"ctx": ctx, "question": state["question"]}
-    )
+    answer = (prompt | _llm | StrOutputParser()).invoke({"ctx": ctx, "question": state["question"]})
     return {"generation": answer}
 
 

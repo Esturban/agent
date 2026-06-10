@@ -7,8 +7,6 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send
 
-from .tools import SAMPLE_DOCS
-
 
 class State(TypedDict):
     documents: list
