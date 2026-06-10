@@ -1,5 +1,7 @@
 # 26-rag-fusion
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/26-rag-fusion/rag_fusion_workbook.ipynb)
+
 Generate N query paraphrases in parallel using the LangGraph Send API, retrieve independently for each, then merge results with Reciprocal Rank Fusion for higher recall than any single-query RAG.
 
 ## What makes it interesting
