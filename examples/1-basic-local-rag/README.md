@@ -1,5 +1,7 @@
 # 1-basic-local-rag
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/1-basic-local-rag/basic_local_rag_workbook.ipynb)
+
 Minimal RAG: fetch web documents at runtime, split and embed into a local ChromaDB, answer questions via a single-node LangGraph.
 
 **Keys:** `OPENAI_API_KEY`
