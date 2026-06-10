@@ -291,6 +291,61 @@
       "status": "pending",
       "priority": "high",
       "notes": "Build a triage node + two specialist nodes (researcher, summarizer) with NO explicit edges -- routing is handled entirely by Command(goto='node_name', update={...}) returned from each node. Add a human-in-the-loop step using interrupt() + Command(resume=) to show how Command unifies routing and HITL in one primitive. Teaches LangGraph 0.6.x Command API as an alternative to conditional_edges for fully dynamic flows. Contrast to 6-multi-agent-graph which uses add_conditional_edges."
+    },
+    {
+      "id": 39,
+      "slug": "39-checkpoint-resume",
+      "framework": "langgraph",
+      "topic": "Checkpoint and resume -- persist workflow state to SQLite mid-run, kill process, resume from exact breakpoint",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Demonstrate SqliteSaver checkpointer: run a multi-step research agent, inject an interrupt after step 2, print the saved state, then resume in a new Python process from the same thread_id. No new deps (langgraph-checkpoint and SQLAlchemy already in requirements). Teaches the production pattern of durable agent execution -- agent can survive crashes, deploys, and timeouts. Good companion to 11-hitl-approval and 38-langgraph-command-pattern."
+    },
+    {
+      "id": 40,
+      "slug": "40-agent-observability",
+      "framework": "langgraph",
+      "topic": "Agent observability -- trace token counts, latency, and errors with LangSmith and OpenTelemetry callbacks",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Notebook showing three observability layers: (1) LangSmith run tracing via LANGCHAIN_TRACING_V2 env var; (2) custom callback handler that logs token usage per node to a pandas DataFrame; (3) OpenTelemetry span export using the opentelemetry-sdk already in requirements. All deps already installed. Teaches students how to measure and monitor agents in production -- cost per run, slowest nodes, failure rates. Good capstone companion to any RAG example."
+    },
+    {
+      "id": 41,
+      "slug": "41-pdf-extraction-agent",
+      "framework": "langgraph",
+      "topic": "Structured PDF extraction agent -- read a PDF with pdfplumber, extract typed schema via LLM, validate and retry on failure",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Three-node loop: Reader uses pdfplumber (already in requirements) to extract raw text from a local PDF; Extractor calls with_structured_output to populate a typed Pydantic model (e.g. invoice fields); Validator checks required fields and routes back to Extractor with a correction prompt if validation fails, or to END if valid. Max 3 retries. Teaches the extract-validate-retry loop pattern central to document processing pipelines. pdfplumber and pypdf already in requirements."
+    },
+    {
+      "id": 42,
+      "slug": "42-multimodal-rag",
+      "framework": "langgraph",
+      "topic": "Multimodal RAG -- index images alongside text using GPT-4o vision descriptions, retrieve and answer image questions",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Notebook: for each image, call GPT-4o vision to generate a rich text description, embed the description with text-embedding-3-small, store in Chroma. At query time, retrieve the top-k image descriptions and pass image URLs to GPT-4o for final answer. Uses pillow (already in requirements) for image loading. Teaches multi-modal indexing without specialized vision embeddings -- accessible pattern for any team with GPT-4o access. Good follow-on to 12-basic-rag-notebook."
+    },
+    {
+      "id": 43,
+      "slug": "43-supervisor-worker",
+      "framework": "langgraph",
+      "topic": "Supervisor-worker multi-agent system -- supervisor LLM dynamically routes tasks to a pool of specialist worker agents",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Supervisor node uses with_structured_output to decide which worker to call next (web_researcher, code_writer, fact_checker) or FINISH. Each worker is a sub-graph with its own tools. Uses LangGraph prebuilt create_react_agent for workers. Supervisor loops until it emits FINISH or hits MAX_TURNS. Teaches the most common production multi-agent pattern (60% of real-world use cases per 2026 surveys). Extends 6-multi-agent-graph with dynamic routing instead of hardcoded edges. No new deps."
     }
   ]
 }
