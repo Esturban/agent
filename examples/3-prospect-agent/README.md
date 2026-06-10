@@ -1,5 +1,7 @@
 # 3-prospect-agent
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/3-prospect-agent/prospect_agent_workbook.ipynb)
+
 Prospect research agent: reads LinkedIn connections from a CSV, searches the web for each person, and writes a personalized outreach message with a confidence score.
 
 **Keys:** `OPENAI_API_KEY` · optional `BRAVE_API_KEY` · optional `OPENROUTER_API_KEY`
