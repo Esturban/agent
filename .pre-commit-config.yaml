@@ -1,0 +1,17 @@
+# Pre-commit hooks. Run once: `pip install pre-commit && pre-commit install`
+# Thereafter ruff lints and formats staged files on every commit, mirroring the
+# CI gate in .github/workflows/pr-dev.yml and the `make check` target.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.12
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: detect-private-key
