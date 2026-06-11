@@ -48,6 +48,10 @@ Each example is self-contained — clone, install, and run.
 | 28 | [28-parallel-subgraph](./examples/28-parallel-subgraph/README.md) | Parallel subgraphs — Send API map-reduce: fan out N workers via `Send`, merge with `Annotated[list, operator.add]` | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/28-parallel-subgraph/parallel_subgraph_workbook.ipynb) |
 | 29 | [29-llm-judge-harness](./examples/29-llm-judge-harness/README.md) | LLM-as-judge eval harness — score RAG answers on Relevance, Faithfulness, Completeness with a structured rubric | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/29-llm-judge-harness/llm_judge_workbook.ipynb) |
 | 30 | [30-agentic-rag](./examples/30-agentic-rag/README.md) | Agentic RAG — retrieval as one tool in a ReAct loop alongside web search and calculator; agent chooses per-turn | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/30-agentic-rag/agentic_rag_workbook.ipynb) |
+| 31 | [31-multi-agent-debate](./examples/31-multi-agent-debate/README.md) | Multi-agent debate — two solver agents argue Specialization vs Generalization across rounds; a judge LLM picks the winner | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/31-multi-agent-debate/multi_agent_debate_workbook.ipynb) |
+| 32 | [32-speculative-rag](./examples/32-speculative-rag/README.md) | Speculative RAG — draft from training knowledge, extract claims, retrieve evidence per claim, revise only unsupported parts | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/32-speculative-rag/speculative_rag_workbook.ipynb) |
+| 33 | [33-dspy-rag](./examples/33-dspy-rag/README.md) | DSPy RAG — declare Signatures instead of hand-crafting prompts; compile with BootstrapFewShot and compare base vs compiled answers | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/33-dspy-rag/dspy_rag_workbook.ipynb) |
+| 34 | [34-openai-agents-sdk](./examples/34-openai-agents-sdk/README.md) | OpenAI Agents SDK — triage agent routes to Researcher (with `@tool`) or Writer via `handoff()`; built-in tracing, no LangGraph | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/34-openai-agents-sdk/openai_agents_workbook.ipynb) |
 
 > Links in the Workbook column open the .ipynb directly in Google Colab. — = requires local service or external credentials not available in Colab.
 
@@ -95,6 +99,10 @@ cp .env.example .env   # then fill in your keys
 | 28 | `OPENAI_API_KEY` | — | — |
 | 29 | `OPENAI_API_KEY` | — | — |
 | 30 | `OPENAI_API_KEY` | — | — |
+| 31 | `OPENAI_API_KEY` | — | — |
+| 32 | `OPENAI_API_KEY` | — | — |
+| 33 | `OPENAI_API_KEY` | — | — |
+| 34 | `OPENAI_API_KEY` | — | — |
 
 Each folder's README has the exact setup steps.
 
