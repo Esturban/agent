@@ -244,7 +244,7 @@
       "requires_deps": [
         "openai-agents"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
       "notes": "Add openai-agents to requirements.txt. Implement triage agent that hands off to a researcher agent and a writer agent. Uses SDK-native tool definitions and tracing. Framework contrast to LangGraph: same multi-agent pattern, different primitives (handoffs vs edges)."
     },
