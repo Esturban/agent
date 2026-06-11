@@ -231,7 +231,7 @@
       "requires_deps": [
         "dspy-ai"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Add dspy-ai to requirements.txt. Show how DSPy Signatures replace hand-crafted prompts. MIPROv2 optimizer tunes few-shot examples from a small labeled dev set. Framework contrast to LangChain: show how the same RAG task is expressed in DSPy vs LangChain LCEL."
     },
