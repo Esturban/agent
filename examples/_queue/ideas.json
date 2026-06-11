@@ -207,7 +207,7 @@
       "topic": "Multi-agent debate -- two agents independently answer then critique each other to converge on best answer",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Two solver nodes generate independent answers. A debate node has them exchange critiques for N rounds. A judge node selects the winner. Based on Du et al. 2023 (Society of Mind). Good contrast to 6-multi-agent-graph which uses routing rather than debate."
     },
@@ -218,7 +218,7 @@
       "topic": "Speculative RAG -- draft answer first, then retrieve only to verify and fix unsupported claims",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Generate draft without retrieval. Extract factual claims. Retrieve evidence per claim. Revision node fires only if a claim is unsupported. Faster path for questions the model can answer from training; retrieval becomes a fact-check layer, not a mandatory step."
     },
