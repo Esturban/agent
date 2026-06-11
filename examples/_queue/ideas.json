@@ -383,6 +383,85 @@
       "status": "pending",
       "priority": "low",
       "notes": "Notebook implementing ToT (Yao et al. 2023): at each step the Proposer node generates N candidate thoughts via LLM sampling; Evaluator scores each with a second LLM call; Selector prunes to top-k using beam search; loop repeats until final answer. Uses LangGraph Send API for parallel branch expansion. Teaches deliberative reasoning as an alternative to greedy chain-of-thought. Good capstone after 18-self-reflecting-agent and 37-rewoo-agent -- completes the reasoning-strategy trio."
+    },
+    {
+      "id": 47,
+      "slug": "47-deepeval-rag-metrics",
+      "framework": "deepeval",
+      "topic": "DeepEval RAG metrics deep-dive -- Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, Contextual Relevancy",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook in the style of example 12. Cover all 5 RAG-specific DeepEval metrics with math definitions (e.g. Faithfulness = statements_supported / total_statements), build a ChromaDB RAG pipeline, run deepeval.evaluate() on a golden dataset, print score breakdowns, show what a failing test looks like and why. Include a failure-mode table (hallucinated answer -> low Faithfulness, off-topic retrieval -> low Contextual Precision). Exercises: (1) change k and measure Contextual Recall, (2) inject a wrong fact and watch Faithfulness drop, (3) write your own golden dataset from scratch. Answer key included."
+    },
+    {
+      "id": 48,
+      "slug": "48-deepeval-hallucination-bias",
+      "framework": "deepeval",
+      "topic": "DeepEval safety metrics -- HallucinationMetric, BiasMetric, ToxicityMetric with deliberate failure injection",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook. Show HallucinationMetric (no retrieval -- just LLM output vs context), BiasMetric, ToxicityMetric. Deliberately inject hallucinated answers, biased phrasing, and toxic outputs to show scores respond correctly. Explain the difference between Faithfulness (RAG-grounded) and Hallucination (standalone LLM). Include math: hallucination_score = contradicted_statements / total_statements. Exercises: (1) write a prompt that forces hallucination and verify the score catches it, (2) build a bias detector for job-posting text, (3) compare Hallucination vs Faithfulness on the same output."
+    },
+    {
+      "id": 49,
+      "slug": "49-deepeval-geval-custom",
+      "framework": "deepeval",
+      "topic": "G-Eval and custom metrics -- define any evaluation criterion in natural language using LLM-as-judge with chain-of-thought scoring",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook. Show GEval(name, criteria, evaluation_steps) for fully custom criteria (Conciseness, Format Adherence, Citation Accuracy, Code Correctness). Explain the G-Eval paper: CoT scoring with LLM judge, why it correlates better with human judgment than ROUGE/BLEU. Show how to write good vs bad evaluation_steps. Compare G-Eval to a fixed DeepEval metric on the same test case. Also show BaseMetric subclassing for deterministic custom metrics (e.g. exact string match, JSON schema validation). Exercises: (1) write a GEval for email tone, (2) write a deterministic metric for answer length, (3) combine G-Eval + Faithfulness in one evaluate() call."
+    },
+    {
+      "id": 50,
+      "slug": "50-deepeval-agentic-eval",
+      "framework": "deepeval",
+      "topic": "DeepEval agentic metrics -- TaskCompletion, ToolCorrectnessMetric, and AgentGoalCompletionMetric for ReAct agent evaluation",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval",
+        "langgraph"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook. Build a simple LangGraph ReAct agent with 2-3 tools (search, calculator, lookup). Use deepeval LLMTestCase with tools_called and expected_tools fields. Run ToolCorrectnessMetric (did it call the right tools in the right order?), TaskCompletion (did it complete the assigned task?). Explain why agent eval is harder than RAG eval: non-determinism, multi-step reasoning, tool side effects. Show how to log tool calls from a LangGraph run into a DeepEval test case. Exercises: (1) make the agent call the wrong tool and verify ToolCorrectness fails, (2) set expected_tools in wrong order and see partial credit, (3) evaluate a 5-step agent task end-to-end."
+    },
+    {
+      "id": 51,
+      "slug": "51-deepeval-conversational",
+      "framework": "deepeval",
+      "topic": "DeepEval conversational metrics -- KnowledgeRetention, ConversationCompleteness, ConversationRelevancy for multi-turn chatbot evaluation",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Teaching workbook. Use ConversationalTestCase with a list of LLMTestCase turns. Run KnowledgeRetention (does the bot remember what was said earlier?), ConversationCompleteness (did it address every user intent?), ConversationRelevancy (are replies on-topic across turns?). Build a multi-turn FAQ chatbot, craft a conversation where the bot forgets context after turn 3, and show the score drop. Contrast turn-level vs conversation-level scoring. Exercises: (1) insert an off-topic bot reply and watch ConversationRelevancy drop, (2) build a 6-turn conversation where knowledge is retained, (3) compare a stateless vs stateful chatbot score."
+    },
+    {
+      "id": 52,
+      "slug": "52-deepeval-synthesizer",
+      "framework": "deepeval",
+      "topic": "DeepEval Synthesizer -- auto-generate golden test datasets from documents, run regression benchmarks, track score drift over time",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Teaching workbook. Use deepeval Synthesizer to generate goldens (question + expected_output + context) from inline document chunks. Show the different evolution strategies (SIMPLE, REASONING, MULTI-HOP, COMPARATIVE). Run evaluate() on the generated dataset. Show how to save/load an EvaluationDataset and re-run it after changing the RAG pipeline to detect regressions. Explain the full eval loop: generate goldens -> evaluate -> fix pipeline -> re-evaluate -> compare deltas. Exercises: (1) generate 10 goldens from your own docs, (2) deliberately degrade the RAG pipeline and measure score drop, (3) add a new document and regenerate goldens to cover it."
     }
   ]
 }
