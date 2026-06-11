@@ -7,12 +7,6 @@ from langchain_core.tools import tool
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langgraph.graph import StateGraph
 
-# Optional: Graphviz export helpers
-try:
-    _HAS_GRAPHVIZ = True
-except Exception:
-    _HAS_GRAPHVIZ = False
-
 
 @tool
 def retrieve_context(query: str) -> str:

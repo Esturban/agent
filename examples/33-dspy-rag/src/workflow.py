@@ -1,7 +1,7 @@
 import dspy
 from dspy.teleprompt import BootstrapFewShot
 
-from .tools import GenerateAnswer, TRAINSET, keyword_retrieve
+from .tools import TRAINSET, GenerateAnswer, keyword_retrieve
 
 
 class RAG(dspy.Module):
@@ -20,7 +20,6 @@ def _validate(example, pred, trace=None) -> bool:
 def create_pipeline() -> tuple[RAG, RAG]:
     """Return (base_rag, compiled_rag) — compiled has auto-bootstrapped few-shots."""
     base = RAG()
-    compiler = BootstrapFewShot(metric=_validate, max_bootstrapped_demos=2,
-                                max_labeled_demos=2)
+    compiler = BootstrapFewShot(metric=_validate, max_bootstrapped_demos=2, max_labeled_demos=2)
     compiled = compiler.compile(RAG(), trainset=TRAINSET)
     return base, compiled

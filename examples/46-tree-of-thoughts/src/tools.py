@@ -1,7 +1,8 @@
 import operator
 from typing import Annotated
-from typing_extensions import TypedDict
+
 from langchain_openai import ChatOpenAI
+from typing_extensions import TypedDict
 
 N_BRANCHES = 3
 
@@ -13,6 +14,7 @@ SAMPLE_PROBLEMS = [
 
 class BranchState(TypedDict):
     """State for a single thought branch."""
+
     problem: str
     branch_id: int
     thought: str
@@ -21,13 +23,14 @@ class BranchState(TypedDict):
 
 class ToTState(TypedDict):
     """Root state for the Tree of Thoughts graph."""
+
     problem: str
-    branches: Annotated[list[dict], operator.add]   # reducer: accumulate all branch results
+    branches: Annotated[list[dict], operator.add]  # reducer: accumulate all branch results
     best_thought: str
     final_answer: str
 
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.8)   # higher temp for branch diversity
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.8)  # higher temp for branch diversity
 judge_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.1)  # low temp for consistent scoring
 
 BRANCH_PROMPT = """You are exploring solution path {branch_id} of {n_branches} for this problem.

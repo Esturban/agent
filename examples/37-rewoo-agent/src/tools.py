@@ -46,8 +46,8 @@ class ToolPlan(BaseModel):
 
 class ReWOOState(TypedDict):
     task: str
-    plans: list[dict]       # list of {tool, args, output_var}
-    evidence: dict          # output_var -> result
+    plans: list[dict]  # list of {tool, args, output_var}
+    evidence: dict  # output_var -> result
     final_answer: str
 
 

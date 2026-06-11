@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.tools import DEMO_TASKS, ObservabilityCallback
 from src.workflow import create_workflow
 
@@ -14,7 +13,7 @@ def main():
         result = app.invoke({"task": task, "response": ""})
         print(f"Response: {result['response'][:120]}")
 
-    print(f"\n--- Telemetry Report ---")
+    print("\n--- Telemetry Report ---")
     report = cb.report()
     for k, v in report.items():
         print(f"  {k}: {v}")

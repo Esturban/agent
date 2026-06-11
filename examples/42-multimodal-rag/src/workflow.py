@@ -12,10 +12,15 @@ def describe_images(state: MultimodalState) -> dict:
     for doc in IMAGE_DOCS:
         try:
             b64 = fetch_image_b64(doc["url"])
-            msg = HumanMessage(content=[
-                {"type": "text", "text": f"Describe this image in 2 sentences. Label: {doc['label']}"},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
-            ])
+            msg = HumanMessage(
+                content=[
+                    {
+                        "type": "text",
+                        "text": f"Describe this image in 2 sentences. Label: {doc['label']}",
+                    },
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
+                ]
+            )
             result = vision_llm.invoke([msg])
             desc = f"[{doc['id']}] {result.content}"
         except Exception as e:

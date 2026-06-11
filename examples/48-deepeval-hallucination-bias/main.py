@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
-
 from src.tools import HALLUCINATION_CASES
-from src.workflow import create_grounded_workflow, create_freeform_workflow
+from src.workflow import create_freeform_workflow, create_grounded_workflow
 
 
 def main():

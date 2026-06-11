@@ -2,8 +2,6 @@ import base64
 from typing import TypedDict
 
 import httpx
-from langchain_community.vectorstores import Chroma
-from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 IMAGE_DOCS = [

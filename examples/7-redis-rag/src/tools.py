@@ -28,7 +28,6 @@ def doc_retriever(
     debug=None,
     **search_kwargs,
 ):
-    print(f"Creating retriever tool with search_kwargs: {search_kwargs}")
     docs = [WebBaseLoader(url).load() for url in urls]
     docs_list = [item for sublist in docs for item in sublist]
 

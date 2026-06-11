@@ -28,6 +28,7 @@ def download_pdf_text(url: str) -> str:
         import io
 
         import pdfplumber
+
         resp = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         with pdfplumber.open(io.BytesIO(resp.content)) as pdf:

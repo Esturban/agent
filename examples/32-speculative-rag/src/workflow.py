@@ -29,10 +29,12 @@ def draft(state: SpeculativeState) -> dict:
 
 def extract_claims(state: SpeculativeState) -> dict:
     """Parse the draft into individual checkable facts."""
-    result = llm.invoke([
-        SystemMessage(CLAIM_SYSTEM),
-        HumanMessage(f"Answer to fact-check:\n{state['draft']}"),
-    ])
+    result = llm.invoke(
+        [
+            SystemMessage(CLAIM_SYSTEM),
+            HumanMessage(f"Answer to fact-check:\n{state['draft']}"),
+        ]
+    )
     lines = [l.strip() for l in result.content.strip().split("\n") if l.strip()]
     claims = [l.split(". ", 1)[-1] if l[0].isdigit() else l for l in lines]
     return {"claims": claims}
@@ -45,10 +47,12 @@ def retrieve_and_grade(state: SpeculativeState) -> dict:
     for claim in state["claims"]:
         docs = retriever.invoke(claim)
         context = "\n".join(d.page_content for d in docs)
-        label = llm.invoke([
-            SystemMessage(SUPPORT_SYSTEM),
-            HumanMessage(f"Claim: {claim}\n\nContext:\n{context}"),
-        ])
+        label = llm.invoke(
+            [
+                SystemMessage(SUPPORT_SYSTEM),
+                HumanMessage(f"Claim: {claim}\n\nContext:\n{context}"),
+            ]
+        )
         evidence.append(context)
         labels.append(label.content.strip().upper())
     return {"evidence": evidence, "support_labels": labels}
@@ -56,7 +60,9 @@ def retrieve_and_grade(state: SpeculativeState) -> dict:
 
 def needs_revision(state: SpeculativeState) -> str:
     unsupported = [l for l in state["support_labels"] if l != "SUPPORTED"]
-    print(f"  Labels: {state['support_labels']} — {'revising' if unsupported else 'no revision needed'}")
+    print(
+        f"  Labels: {state['support_labels']} — {'revising' if unsupported else 'no revision needed'}"
+    )
     return "revise" if unsupported else "end"
 
 
@@ -66,10 +72,14 @@ def revise(state: SpeculativeState) -> dict:
         f"Claim: {c}\nStatus: {l}\nEvidence: {e}"
         for c, l, e in zip(state["claims"], state["support_labels"], state["evidence"])
     )
-    result = llm.invoke([
-        SystemMessage(REVISE_SYSTEM),
-        HumanMessage(f"Original answer:\n{state['draft']}\n\nFact-check results:\n{evidence_block}"),
-    ])
+    result = llm.invoke(
+        [
+            SystemMessage(REVISE_SYSTEM),
+            HumanMessage(
+                f"Original answer:\n{state['draft']}\n\nFact-check results:\n{evidence_block}"
+            ),
+        ]
+    )
     return {"revised": result.content}
 
 

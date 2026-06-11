@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Callable, TypedDict
+from typing import Callable, TypedDict
 
 from langchain_openai import ChatOpenAI
 
@@ -37,9 +37,15 @@ class MockMCPServer:
 
 def build_mock_server() -> MockMCPServer:
     server = MockMCPServer()
-    server.register("get_weather", "Get current weather for a city", lambda city: f"Sunny, 22°C in {city}")
-    server.register("calculate_tip", "Calculate tip amount", lambda bill, pct: f"${bill * pct / 100:.2f} tip")
-    server.register("get_time", "Get current time in a timezone", lambda city: f"12:34 PM in {city}")
+    server.register(
+        "get_weather", "Get current weather for a city", lambda city: f"Sunny, 22°C in {city}"
+    )
+    server.register(
+        "calculate_tip", "Calculate tip amount", lambda bill, pct: f"${bill * pct / 100:.2f} tip"
+    )
+    server.register(
+        "get_time", "Get current time in a timezone", lambda city: f"12:34 PM in {city}"
+    )
     return server
 
 

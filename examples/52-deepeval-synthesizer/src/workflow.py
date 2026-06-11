@@ -29,7 +29,9 @@ def retrieve(state: RAGState, k: int = 3) -> dict:
 
 def generate(state: RAGState) -> dict:
     context_text = "\n".join(f"- {c}" for c in state["context"])
-    result = llm.invoke([HumanMessage(content=ANSWER_PROMPT.format(context=context_text, query=state["query"]))])
+    result = llm.invoke(
+        [HumanMessage(content=ANSWER_PROMPT.format(context=context_text, query=state["query"]))]
+    )
     return {"answer": result.content}
 
 

@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.tools import CONVERSATIONS
 from src.workflow import create_workflow
 
@@ -9,7 +8,7 @@ def main():
     app = create_workflow()
 
     for thread_id, messages in CONVERSATIONS:
-        print(f"\n{'='*60}\nThread: {thread_id}")
+        print(f"\n{'=' * 60}\nThread: {thread_id}")
         state = {
             "thread_id": thread_id,
             "messages": messages,

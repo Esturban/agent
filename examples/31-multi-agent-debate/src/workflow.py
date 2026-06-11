@@ -83,8 +83,6 @@ def create_workflow():
     graph.set_entry_point("solve_a")
     graph.add_edge("solve_a", "solve_b")
     graph.add_edge("solve_b", "debate")
-    graph.add_conditional_edges(
-        "debate", should_continue, {"solve_a": "solve_a", "judge": "judge"}
-    )
+    graph.add_conditional_edges("debate", should_continue, {"solve_a": "solve_a", "judge": "judge"})
     graph.add_edge("judge", END)
     return graph.compile()

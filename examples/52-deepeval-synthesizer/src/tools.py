@@ -1,5 +1,5 @@
 from typing import TypedDict
-from langchain_chroma import Chroma
+
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 DOCUMENTS = [

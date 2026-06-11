@@ -15,12 +15,17 @@ DOCS = [
 
 TRAINSET = [
     dspy.Example(question="Who created DSPy?", answer="Stanford NLP").with_inputs("question"),
-    dspy.Example(question="What does DSPy ChainOfThought do?",
-                 answer="adds step-by-step reasoning before the final answer").with_inputs("question"),
-    dspy.Example(question="When was LangGraph released?",
-                 answer="January 2024").with_inputs("question"),
-    dspy.Example(question="What is BootstrapFewShot?",
-                 answer="selects few-shot examples automatically from a trainset").with_inputs("question"),
+    dspy.Example(
+        question="What does DSPy ChainOfThought do?",
+        answer="adds step-by-step reasoning before the final answer",
+    ).with_inputs("question"),
+    dspy.Example(question="When was LangGraph released?", answer="January 2024").with_inputs(
+        "question"
+    ),
+    dspy.Example(
+        question="What is BootstrapFewShot?",
+        answer="selects few-shot examples automatically from a trainset",
+    ).with_inputs("question"),
 ]
 
 SAMPLE_QUESTIONS = [

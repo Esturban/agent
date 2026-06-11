@@ -19,7 +19,9 @@ Answer:"""
 def build_vectorstore() -> Chroma:
     global _vectorstore
     if _vectorstore is None:
-        _vectorstore = Chroma.from_texts(KNOWLEDGE_BASE, embeddings, collection_name="deepeval_demo")
+        _vectorstore = Chroma.from_texts(
+            KNOWLEDGE_BASE, embeddings, collection_name="deepeval_demo"
+        )
     return _vectorstore
 
 

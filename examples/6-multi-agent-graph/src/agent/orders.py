@@ -66,7 +66,6 @@ class OrdersAgent:
     # Check if the next action is a tool call.
     def is_tool_call(self, state: OrdersAgentState):
         last_message = state["messages"][-1]
-        # print("Last result from LLM : ", last_message)
         # If tool action is requested
         if len(last_message.tool_calls) > 0:
             return True
