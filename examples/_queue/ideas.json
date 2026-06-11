@@ -310,7 +310,7 @@
       "topic": "Agent observability -- trace token counts, latency, and errors with LangSmith and OpenTelemetry callbacks",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Notebook showing three observability layers: (1) LangSmith run tracing via LANGCHAIN_TRACING_V2 env var; (2) custom callback handler that logs token usage per node to a pandas DataFrame; (3) OpenTelemetry span export using the opentelemetry-sdk already in requirements. All deps already installed. Teaches students how to measure and monitor agents in production -- cost per run, slowest nodes, failure rates. Good capstone companion to any RAG example."
     },
@@ -321,7 +321,7 @@
       "topic": "Structured PDF extraction agent -- read a PDF with pdfplumber, extract typed schema via LLM, validate and retry on failure",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Three-node loop: Reader uses pdfplumber (already in requirements) to extract raw text from a local PDF; Extractor calls with_structured_output to populate a typed Pydantic model (e.g. invoice fields); Validator checks required fields and routes back to Extractor with a correction prompt if validation fails, or to END if valid. Max 3 retries. Teaches the extract-validate-retry loop pattern central to document processing pipelines. pdfplumber and pypdf already in requirements."
     },
@@ -332,7 +332,7 @@
       "topic": "Multimodal RAG -- index images alongside text using GPT-4o vision descriptions, retrieve and answer image questions",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Notebook: for each image, call GPT-4o vision to generate a rich text description, embed the description with text-embedding-3-small, store in Chroma. At query time, retrieve the top-k image descriptions and pass image URLs to GPT-4o for final answer. Uses pillow (already in requirements) for image loading. Teaches multi-modal indexing without specialized vision embeddings -- accessible pattern for any team with GPT-4o access. Good follow-on to 12-basic-rag-notebook."
     },
@@ -343,7 +343,7 @@
       "topic": "Supervisor-worker multi-agent system -- supervisor LLM dynamically routes tasks to a pool of specialist worker agents",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Supervisor node uses with_structured_output to decide which worker to call next (web_researcher, code_writer, fact_checker) or FINISH. Each worker is a sub-graph with its own tools. Uses LangGraph prebuilt create_react_agent for workers. Supervisor loops until it emits FINISH or hits MAX_TURNS. Teaches the most common production multi-agent pattern (60% of real-world use cases per 2026 surveys). Extends 6-multi-agent-graph with dynamic routing instead of hardcoded edges. No new deps."
     },
@@ -356,7 +356,7 @@
       "requires_deps": [
         "mcp"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
       "notes": "Add mcp to requirements.txt. Spin up a tiny local stdio MCP server (Python script) that exposes two tools: get_weather and unit_convert. LangGraph agent connects via MultiServerMCPClient, loads tool definitions at runtime, and uses them in a standard ReAct loop. Teaches the MCP client-server architecture without needing a remote server. By 2026, MCP has 10k+ servers (97M monthly SDK downloads) -- this is an essential pattern for any production agent. Good framework demo to contrast with hard-coded LangChain tools."
     },
@@ -369,7 +369,7 @@
       "requires_deps": [
         "google-adk"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
       "notes": "Add google-adk to requirements.txt. Orchestrator agent (LangGraph) receives a research + summarize task; it sends the research subtask to a Specialist agent running as an A2A-compatible HTTP service; specialist returns a result card; orchestrator synthesizes final answer. Uses Google ADK's A2A server wrapper. Teaches the 2026 A2A protocol standard adopted by Salesforce Agentforce, ServiceNow, and others -- horizontal agent-to-agent coordination vs MCP vertical tool calls. Companion to 44-mcp-client-agent."
     },
@@ -380,7 +380,7 @@
       "topic": "Tree of Thoughts agent -- explore multiple reasoning branches in parallel, score each, prune and select the best path",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
       "notes": "Notebook implementing ToT (Yao et al. 2023): at each step the Proposer node generates N candidate thoughts via LLM sampling; Evaluator scores each with a second LLM call; Selector prunes to top-k using beam search; loop repeats until final answer. Uses LangGraph Send API for parallel branch expansion. Teaches deliberative reasoning as an alternative to greedy chain-of-thought. Good capstone after 18-self-reflecting-agent and 37-rewoo-agent -- completes the reasoning-strategy trio."
     },
