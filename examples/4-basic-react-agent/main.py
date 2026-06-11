@@ -30,34 +30,7 @@ agent_graph = create_react_agent(
     model=llm,
     prompt=system_prompt,
     tools=agent_tools,
-    # debug=True,
 )
-
-# Example 1
-# inputs = {"messages":[("user","what is the sum of 2 and 3 ?")]}
-
-# result = agent_graph.invoke(inputs)
-
-# Get the final answer
-# print(f"Agent returned : {result['messages'][-1].content} \n")
-
-# print("Step by Step execution : ")
-# for message in result['messages']:
-#    print(message.pretty_repr())
-
-# Example 2
-# inputs = {"messages":[("user","What is 3 multipled by 2 and 5 + 1 ?")]}
-
-# result = agent_graph.invoke(inputs)
-
-# Get the final answer
-# print(f"Agent returned : {result['messages'][-1].content} \n")
-
-# print("Step by Step execution : ")
-# for message in result['messages']:
-#    print(message.pretty_repr())
-
-## Example 1 End
 
 from src.agent.product_qna import product_qna
 

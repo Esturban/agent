@@ -114,22 +114,17 @@ with open(os.path.join(assets_dir, "stategraph.png"), "wb") as f:
 
 print(f"Graph visualization exported to: {os.path.join(assets_dir, 'stategraph.png')}")
 
-# Display the image
-# Image(graph_png)
 loader = PyPDFLoader(f"{_repo_root}/data/product/EcoSprint_Specification_Document.pdf")
 docs = loader.load()
 
 # Pick the first page of the doc as content
 source_content = docs[0].page_content.replace("\n", " ")
-# print(f"Input :==============\n {source_content}\n")
 
 import uuid
 
 # Execute a single request with debug ON
 config = {"configurable": {"thread_id": str(uuid.uuid4())}}
 
-messages = [HumanMessage(content=source_content)]
-# result=summary_chatbot.summary_agent_graph.invoke({"messages":messages},config)
 # Take user feedback on the summary through a chatbot
 summary_chatbot = SummaryAgent(llm, summarizer_prompt, reviewer_prompt, debug=False)
 

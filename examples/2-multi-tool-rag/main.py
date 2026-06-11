@@ -7,8 +7,6 @@ from langchain.tools import tool
 from langchain_community.document_loaders import HuggingFaceDatasetLoader
 from langchain_community.tools import BraveSearch
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-
-# from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, MessagesState, StateGraph
@@ -35,11 +33,9 @@ print(f"Time taken to load the documents: {end_time - start_time:.2f} seconds")
 start_time = time()
 # Split the documents into chunks for embeddings
 # Complete set of documents taken from the hugging face documentation
-# number_of_docs = len(hugging_face_doc.load())
 number_of_docs = 40
 hf_splits = preprocess_dataset(hugging_face_doc.load()[:number_of_docs])
 # Complete set of documents taken from the transformers documentation
-# number_of_docs = len(transformers_doc.load())
 transformer_splits = preprocess_dataset(transformers_doc.load()[:number_of_docs])
 end_time = time()
 print(f"Time taken to preprocess the documents: {end_time - start_time:.2f} seconds")
@@ -210,16 +206,6 @@ workflow = StateGraph(MessagesState)
 def call_model(state: MessagesState):
     messages = state["messages"]
     response = llm_with_tools.invoke(messages)
-    # Debug: print tool calls and content emitted by the LLM
-    # try:
-    #     tc = getattr(response, "tool_calls", None)
-    #     print("DEBUG: model response content:", getattr(response, "content", None))
-    #     print("DEBUG: model tool_calls:", tc)
-    #     if tc:
-    #         for t in tc:
-    #             print("DEBUG: tool call name:", getattr(t, "name", None) or getattr(t, "tool_name", None))
-    # except Exception as _e:
-    #     print("DEBUG: could not inspect response tool_calls:", _e)
     return {"messages": [response]}
 
 
