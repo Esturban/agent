@@ -1,4 +1,4 @@
-from typing import Annotated, TypedDict
+from typing import TypedDict
 
 from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -49,8 +49,8 @@ class SpeculativeState(TypedDict):
     query: str
     draft: str
     claims: list[str]
-    evidence: list[str]         # retrieved doc per claim
-    support_labels: list[str]   # SUPPORTED / CONTRADICTED / UNRELATED
+    evidence: list[str]  # retrieved doc per claim
+    support_labels: list[str]  # SUPPORTED / CONTRADICTED / UNRELATED
     revised: str
 
 
@@ -60,5 +60,6 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 def build_vectorstore() -> Chroma:
     from langchain_core.documents import Document
+
     docs = [Document(page_content=d) for d in DOCS]
     return Chroma.from_documents(docs, embeddings)

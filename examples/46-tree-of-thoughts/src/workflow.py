@@ -17,7 +17,9 @@ from .tools import (
 def generate_branches(state: ToTState) -> list[Send]:
     """Fan out N branches using the Send API."""
     return [
-        Send("score_branch", {"problem": state["problem"], "branch_id": i, "thought": "", "score": 0})
+        Send(
+            "score_branch", {"problem": state["problem"], "branch_id": i, "thought": "", "score": 0}
+        )
         for i in range(N_BRANCHES)
     ]
 

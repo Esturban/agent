@@ -31,9 +31,11 @@ def executor(state: ReWOOState) -> dict:
         for var, val in evidence.items():
             args = args.replace(var, val[:200] if isinstance(val, str) else str(val))
         desc = TOOL_DESCRIPTIONS.get(tool, "process")
-        prompt = f"Tool: {tool} ({desc})\nInput: {args}\nProvide a detailed result in 3-5 sentences."
+        prompt = (
+            f"Tool: {tool} ({desc})\nInput: {args}\nProvide a detailed result in 3-5 sentences."
+        )
         result = llm.invoke([HumanMessage(content=prompt)])
-        output_var = step.get("output_var", f"$E{len(evidence)+1}")
+        output_var = step.get("output_var", f"$E{len(evidence) + 1}")
         evidence[output_var] = result.content
         print(f"  ✓ {tool}({args[:40]}...) → {output_var}")
     return {"evidence": evidence}

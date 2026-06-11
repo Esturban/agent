@@ -1,7 +1,8 @@
 from typing import Optional
+
+from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
-from langchain_openai import ChatOpenAI
 
 SAMPLE_REQUESTS = [
     "Research the key benefits of vector databases and write a summary.",
@@ -11,6 +12,7 @@ SAMPLE_REQUESTS = [
 
 class AgentTask(BaseModel):
     """Structured handoff from Planner to Executor."""
+
     task_id: str = Field(description="Unique identifier for this task")
     task_type: str = Field(description="Type: research, analysis, or synthesis")
     instruction: str = Field(description="Clear instruction for the executor")
@@ -20,7 +22,7 @@ class AgentTask(BaseModel):
 
 class A2AState(TypedDict):
     original_request: str
-    task_dict: Optional[dict]      # serialized AgentTask
+    task_dict: Optional[dict]  # serialized AgentTask
     execution_result: str
     final_synthesis: str
 

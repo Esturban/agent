@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.tools import HAND_WRITTEN_GOLDENS
 from src.workflow import create_workflow
 

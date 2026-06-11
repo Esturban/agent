@@ -31,7 +31,11 @@ def discover_and_select(state: MCPState) -> dict:
             text = "\n".join(text.split("\n")[1:-1])
         parsed = json.loads(text)
         print(f"  Selected: {parsed.get('tool')} with args {parsed.get('args')}")
-        return {"available_tools": tools, "tool_name": parsed.get("tool", "none"), "tool_args": parsed.get("args", {})}
+        return {
+            "available_tools": tools,
+            "tool_name": parsed.get("tool", "none"),
+            "tool_args": parsed.get("args", {}),
+        }
     except Exception:
         return {"available_tools": tools, "tool_name": "none", "tool_args": {}}
 

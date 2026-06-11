@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.tools import GOLDEN_DATASET
 from src.workflow import create_workflow
 

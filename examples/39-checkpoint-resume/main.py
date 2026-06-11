@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.tools import TASKS
 from src.workflow import create_workflow
 
@@ -23,7 +22,9 @@ def main():
         # Demonstrate resume: invoke again with same thread_id
         print(f"\nResuming thread '{thread_id}'...")
         resumed = app.get_state(config)
-        print(f"Resumed state — step: {resumed.values.get('step')}, done: {resumed.values.get('done')}")
+        print(
+            f"Resumed state — step: {resumed.values.get('step')}, done: {resumed.values.get('done')}"
+        )
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
-import json
 from typing import TypedDict
+
 from langchain_openai import ChatOpenAI
 
 TEST_CASES = [
@@ -21,9 +21,9 @@ TEST_CASES = [
 ]
 
 JSON_OUTPUTS = [
-    '{"name": "Alice", "age": 30, "role": "engineer"}',   # valid
-    '{"name": "Bob", "age": "thirty"}',                    # age should be int
-    'name: Charlie, age: 25',                               # not valid JSON
+    '{"name": "Alice", "age": 30, "role": "engineer"}',  # valid
+    '{"name": "Bob", "age": "thirty"}',  # age should be int
+    "name: Charlie, age: 25",  # not valid JSON
 ]
 
 

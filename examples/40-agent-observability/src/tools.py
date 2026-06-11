@@ -23,11 +23,13 @@ class ObservabilityCallback(BaseCallbackHandler):
         usage = {}
         if response.llm_output:
             usage = response.llm_output.get("token_usage", {})
-        self.calls.append({
-            "latency_ms": elapsed,
-            "prompt_tokens": usage.get("prompt_tokens", 0),
-            "completion_tokens": usage.get("completion_tokens", 0),
-        })
+        self.calls.append(
+            {
+                "latency_ms": elapsed,
+                "prompt_tokens": usage.get("prompt_tokens", 0),
+                "completion_tokens": usage.get("completion_tokens", 0),
+            }
+        )
 
     def on_llm_error(self, error: Any, run_id: Any, **kwargs):
         self.calls.append({"error": str(error)})
@@ -38,7 +40,9 @@ class ObservabilityCallback(BaseCallbackHandler):
             "total_calls": len(self.calls),
             "errors": len(self.calls) - len(ok),
             "avg_latency_ms": round(sum(c["latency_ms"] for c in ok) / max(len(ok), 1)),
-            "total_tokens": sum(c.get("prompt_tokens", 0) + c.get("completion_tokens", 0) for c in ok),
+            "total_tokens": sum(
+                c.get("prompt_tokens", 0) + c.get("completion_tokens", 0) for c in ok
+            ),
         }
 
 

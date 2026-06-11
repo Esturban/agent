@@ -1,8 +1,8 @@
+import operator
 from typing import Annotated, TypedDict
 
-import operator
-from pydantic import BaseModel
 from langchain_openai import ChatOpenAI
+from pydantic import BaseModel
 
 SAMPLE_TASKS = [
     "Write a 3-step launch plan for a developer tool startup.",

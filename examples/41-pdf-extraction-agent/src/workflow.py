@@ -21,7 +21,7 @@ def extract(state: ExtractionState) -> dict:
         result = extractor.invoke([HumanMessage(content=prompt)])
         return {"extracted": result.model_dump(), "success": True}
     except Exception as e:
-        print(f"  Extraction failed (attempt {state['retries']+1}): {e}")
+        print(f"  Extraction failed (attempt {state['retries'] + 1}): {e}")
         return {"extracted": {}, "success": False, "retries": state["retries"] + 1}
 
 

@@ -21,6 +21,7 @@ def make_worker(worker_type: str):
         prompt = WORKER_PROMPTS[worker_type].format(task=state["task"])
         result = llm.invoke([SystemMessage(content=prompt)])
         return {"worker_result": result.content}
+
     worker.__name__ = f"{worker_type}_worker"
     return worker
 

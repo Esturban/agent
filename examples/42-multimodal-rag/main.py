@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 from src.tools import QUERIES
 from src.workflow import create_workflow
 

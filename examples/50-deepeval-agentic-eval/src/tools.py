@@ -1,5 +1,6 @@
-from typing import TypedDict, Annotated
 import operator
+from typing import Annotated, TypedDict
+
 from langchain_core.tools import tool
 
 

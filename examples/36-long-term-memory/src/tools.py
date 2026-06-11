@@ -7,14 +7,20 @@ USER_ID = "user-alice"
 NAMESPACE = ("memories", USER_ID)
 
 CONVERSATIONS = [
-    ("thread-1", [
-        "Hi! I'm Alice. I'm a Python developer working on LangGraph.",
-        "I love building agentic systems and I prefer concise responses.",
-    ]),
-    ("thread-2", [
-        "What do I like about LangGraph?",
-        "What's my background?",
-    ]),
+    (
+        "thread-1",
+        [
+            "Hi! I'm Alice. I'm a Python developer working on LangGraph.",
+            "I love building agentic systems and I prefer concise responses.",
+        ],
+    ),
+    (
+        "thread-2",
+        [
+            "What do I like about LangGraph?",
+            "What's my background?",
+        ],
+    ),
 ]
 
 SYSTEM_PROMPT = (

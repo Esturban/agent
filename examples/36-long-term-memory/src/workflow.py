@@ -24,10 +24,11 @@ def store_memories(state: MemoryState) -> dict:
     extract_prompt = (
         f"From this conversation, extract 1-3 factual statements about the user as a JSON list. "
         f"Conversation: {state['messages']}\nResponse: {state['response']}\n"
-        f"Return only a JSON array of strings, e.g. [\"User is a Python developer\"]"
+        f'Return only a JSON array of strings, e.g. ["User is a Python developer"]'
     )
     result = llm.invoke([HumanMessage(content=extract_prompt)])
     import json
+
     try:
         facts = json.loads(result.content)
         for i, fact in enumerate(facts[:3]):

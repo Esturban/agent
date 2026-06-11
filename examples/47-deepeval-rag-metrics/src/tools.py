@@ -1,5 +1,5 @@
 from typing import TypedDict
-from langchain_chroma import Chroma
+
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 KNOWLEDGE_BASE = [
@@ -19,17 +19,23 @@ GOLDEN_DATASET = [
     {
         "input": "What is LangGraph?",
         "expected_output": "LangGraph is a library for building stateful, multi-actor LLM applications using graph-based workflows.",
-        "context": ["LangGraph is a library for building stateful, multi-actor applications with LLMs using graph-based workflows."],
+        "context": [
+            "LangGraph is a library for building stateful, multi-actor applications with LLMs using graph-based workflows."
+        ],
     },
     {
         "input": "What does Faithfulness measure?",
         "expected_output": "Faithfulness measures whether the LLM answer is grounded in the retrieved context, preventing hallucinations.",
-        "context": ["Faithfulness measures whether an LLM answer is grounded in the retrieved context (no hallucinations)."],
+        "context": [
+            "Faithfulness measures whether an LLM answer is grounded in the retrieved context (no hallucinations)."
+        ],
     },
     {
         "input": "What is ChromaDB used for?",
         "expected_output": "ChromaDB is an open-source vector database for storing and querying embeddings locally.",
-        "context": ["ChromaDB is an open-source vector database for storing and retrieving embeddings at local scale."],
+        "context": [
+            "ChromaDB is an open-source vector database for storing and retrieving embeddings at local scale."
+        ],
     },
 ]
 
