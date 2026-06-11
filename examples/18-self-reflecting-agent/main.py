@@ -12,13 +12,15 @@ def main():
     for question in SAMPLE_QUESTIONS[:3]:
         print(f"\n{'=' * 60}")
         print(f"Q: {question}")
-        result = app.invoke({
-            "question": question,
-            "answer": "",
-            "critique": "",
-            "iterations": 0,
-            "confident": False,
-        })
+        result = app.invoke(
+            {
+                "question": question,
+                "answer": "",
+                "critique": "",
+                "iterations": 0,
+                "confident": False,
+            }
+        )
         print(f"Iterations: {result['iterations']}  |  Confident: {result['confident']}")
         print(f"\nAnswer:\n{result['answer']}")
 

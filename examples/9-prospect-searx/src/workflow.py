@@ -1,8 +1,10 @@
 # workflow.py - Workflow graph definition and related functions
 
-from langgraph.graph import StateGraph, END, START
+from langgraph.graph import END, START, StateGraph
+
+from .agent import copywriter_agent, researcher_agent
 from .models import AgentState
-from .agent import researcher_agent, copywriter_agent
+
 
 def create_workflow(researcher_llm, copywriter_llm, search_tool):
     """Create the decoupled two-agent workflow"""

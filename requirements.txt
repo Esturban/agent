@@ -29,6 +29,7 @@ coloredlogs==15.0.1
 comm==0.2.3
 cryptography==46.0.2
 dataclasses-json==0.6.7
+dspy-ai>=2.4.0
 ddgs==9.6.0
 debugpy==1.8.17
 decorator==5.2.1
@@ -120,6 +121,7 @@ numpy==2.3.3
 oauthlib==3.3.1
 onnxruntime==1.23.0
 openai==1.109.1
+openai-agents>=0.0.15
 opentelemetry-api==1.37.0
 opentelemetry-exporter-otlp-proto-common==1.37.0
 opentelemetry-exporter-otlp-proto-grpc==1.37.0
@@ -161,6 +163,9 @@ pypdf==6.1.0
 pypdfium2==4.30.0
 PyPika==0.48.9
 pyproject_hooks==1.2.0
+pyautogen>=0.2.0
+networkx>=3.0
+rank-bm25>=0.2.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 python-json-logger==3.3.0

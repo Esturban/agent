@@ -1,11 +1,11 @@
 # 10-streaming-rag
 
-## Prerequisites
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/10-streaming-rag/streaming_rag_workbook.ipynb)
+
+RAG pipeline with `.stream(stream_mode="updates")` — prints each node's output to the terminal as it runs, so you can see `retrieve → fallback → generate` in real time. ChromaDB in-memory with hardcoded documents; DuckDuckGo fires as a fallback when local retrieval is sparse.
+
 **Keys:** `OPENAI_API_KEY`
-**Files:** none — uses a hardcoded in-memory document set
-**Colab:** ✅ fully self-contained
 
-RAG pipeline using `.stream(stream_mode="updates")` to surface each node's output as it runs.
-ChromaDB ingests a small hardcoded document set; DuckDuckGo fires as a web fallback if local retrieval is sparse.
-
-Run: `python examples/10-streaming-rag/main.py`
+```bash
+python examples/10-streaming-rag/main.py
+```

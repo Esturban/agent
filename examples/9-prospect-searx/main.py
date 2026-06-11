@@ -1,17 +1,17 @@
-import os
-import json
 import argparse
+import json
+import os
 from datetime import datetime
-from dotenv import load_dotenv
 from time import time
+
 import pandas as pd
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
 # Import from new modules
 from src.models import ProspectMetadata
 from src.tools import create_tools
 from src.workflow import create_workflow
-
 
 load_dotenv()
 
@@ -23,9 +23,7 @@ def prospect_agent(
     # Skip the first 3 lines which contain LinkedIn export notes
     start_time = time()
     prospects = pd.read_csv(prospect_path, skiprows=3)
-    prospects = prospects.dropna(
-        subset=["First Name", "Last Name", "Company", "Position"]
-    )
+    prospects = prospects.dropna(subset=["First Name", "Last Name", "Company", "Position"])
     print(f"Raw prospects: {prospects.shape[0]}")
     if prospects.empty:
         raise ValueError(f"Prospects CSV is empty or unreadable: {prospect_path}")
@@ -33,9 +31,7 @@ def prospect_agent(
     # Simple filtering if since_date is provided
     if since_date:
         try:
-            since_date_dt = datetime.strptime(
-                since_date, "%Y-%m-%d"
-            )  # CLI input in YYYY-MM-DD
+            since_date_dt = datetime.strptime(since_date, "%Y-%m-%d")  # CLI input in YYYY-MM-DD
             prospects["Connected On"] = pd.to_datetime(
                 prospects["Connected On"], format="%d %b %Y", errors="coerce"
             )  # CSV format: DD MMM YYYY
@@ -170,9 +166,7 @@ def prospect_agent(
                                 "Last Name": last_completed.get("Last Name", ""),
                                 "Company": last_completed.get("Company", ""),
                                 "Position": last_completed.get("Position", ""),
-                                "Connected On": str(
-                                    last_completed.get("Connected On", "")
-                                ),
+                                "Connected On": str(last_completed.get("Connected On", "")),
                             },
                             indent=2,
                         )
@@ -186,7 +180,9 @@ def prospect_agent(
 
             # Save partial results if any were produced
             if processed_rows:
-                partial_path = f"{output_suffix}_partial_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
+                partial_path = (
+                    f"{output_suffix}_partial_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
+                )
                 pd.DataFrame(processed_rows).to_csv(partial_path, index=False)
                 print(f"Partial results saved to {partial_path}")
 
@@ -194,9 +190,7 @@ def prospect_agent(
             raise
 
     # After successful run, persist full results and log summary
-    out_dir = os.path.dirname(
-        output_suffix
-    )  # Fixed: was output_path, should be output_suffix
+    out_dir = os.path.dirname(output_suffix)  # Fixed: was output_path, should be output_suffix
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
 
@@ -225,9 +219,7 @@ def prospect_agent(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Prospect Agent CLI")
-    parser.add_argument(
-        "--input", "-i", default="data/Connections.csv", help="Path to input CSV"
-    )
+    parser.add_argument("--input", "-i", default="data/Connections.csv", help="Path to input CSV")
     parser.add_argument(
         "--output_suffix",
         "-o",

@@ -17,12 +17,14 @@ def main():
     for question in questions:
         print(f"\n{'=' * 60}")
         print(f"Q: {question}")
-        result = app.invoke({
-            "question": question,
-            "documents": [],
-            "generation": "",
-            "web_search": False,
-        })
+        result = app.invoke(
+            {
+                "question": question,
+                "documents": [],
+                "generation": "",
+                "web_search": False,
+            }
+        )
         used_web = result["web_search"]
         doc_count = len(result["documents"])
         print(f"Web search triggered: {used_web}  |  Docs used: {doc_count}")

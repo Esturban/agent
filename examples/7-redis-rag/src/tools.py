@@ -1,10 +1,11 @@
 import os
+
 from dotenv import load_dotenv
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_redis import RedisVectorStore
-from langchain_openai import OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.tools.retriever import create_retriever_tool
+from langchain_community.document_loaders import WebBaseLoader
+from langchain_openai import OpenAIEmbeddings
+from langchain_redis import RedisVectorStore
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 load_dotenv()
 
@@ -25,12 +26,12 @@ def doc_retriever(
     tool_name="retrieve_blog_posts",
     tool_description="Search and return information about Lilian Weng blog posts on LLM agents, prompt engineering, and adversarial attacks on LLMs.",
     debug=None,
-    **search_kwargs
+    **search_kwargs,
 ):
     print(f"Creating retriever tool with search_kwargs: {search_kwargs}")
     docs = [WebBaseLoader(url).load() for url in urls]
     docs_list = [item for sublist in docs for item in sublist]
-    
+
     # Chunk the documents to provide some overlap and complete sections
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap

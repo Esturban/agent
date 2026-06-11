@@ -1,9 +1,10 @@
-from typing import List, Dict, Set
 from qdrant_client import QdrantClient
 from qdrant_client.http import models as rest
 
 
-def batch_existing_checksums(client: QdrantClient, collection_name: str, checksums: List[str], batch_size: int = 256) -> Set[str]:
+def batch_existing_checksums(
+    client: QdrantClient, collection_name: str, checksums: list[str], batch_size: int = 256
+) -> set[str]:
     """Return a set of checksums that already exist in the collection's payload.
 
     This implementation uses Qdrant `scroll` with a payload filter that matches any
@@ -15,7 +16,11 @@ def batch_existing_checksums(client: QdrantClient, collection_name: str, checksu
     for i in range(0, len(checksums), batch_size):
         batch = checksums[i : i + batch_size]
         try:
-            condition = rest.Filter(must=[rest.FieldCondition(key="content_checksum", match=rest.MatchValue(value=batch))])
+            condition = rest.Filter(
+                must=[
+                    rest.FieldCondition(key="content_checksum", match=rest.MatchValue(value=batch))
+                ]
+            )
             hits = client.scroll(collection_name=collection_name, filter=condition, limit=1000)
             for hit in hits:
                 payload = hit.payload or {}
@@ -27,7 +32,9 @@ def batch_existing_checksums(client: QdrantClient, collection_name: str, checksu
     return existing
 
 
-def missing_documents_by_checksum(client: QdrantClient, collection_name: str, docs: List[Dict], checksum_fn) -> List[Dict]:
+def missing_documents_by_checksum(
+    client: QdrantClient, collection_name: str, docs: list[dict], checksum_fn
+) -> list[dict]:
     """Return subset of docs that are not present (by checksum) in the collection.
 
     `docs` may be LangChain Document objects or dicts with a `content` field. The
@@ -37,7 +44,9 @@ def missing_documents_by_checksum(client: QdrantClient, collection_name: str, do
     checksum_to_docs = {}
     checksums = []
     for d in docs:
-        content = getattr(d, "page_content", None) or d.get("content") if isinstance(d, dict) else str(d)
+        content = (
+            getattr(d, "page_content", None) or d.get("content") if isinstance(d, dict) else str(d)
+        )
         cs = checksum_fn(content or "")
         checksums.append(cs)
         checksum_to_docs.setdefault(cs, []).append(d)
@@ -48,5 +57,3 @@ def missing_documents_by_checksum(client: QdrantClient, collection_name: str, do
         if cs not in existing:
             missing.extend(original_docs)
     return missing
-
-

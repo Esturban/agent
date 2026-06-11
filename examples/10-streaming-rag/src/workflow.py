@@ -1,4 +1,4 @@
-from typing import TypedDict, Literal
+from typing import Literal, TypedDict
 
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate
@@ -18,16 +18,16 @@ class RAGState(TypedDict):
 def create_workflow():
     splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=30)
     chunks = splitter.split_documents(SAMPLE_DOCS)
-    vectorstore = Chroma.from_documents(
-        chunks, OpenAIEmbeddings(), collection_name="streaming-rag"
-    )
+    vectorstore = Chroma.from_documents(chunks, OpenAIEmbeddings(), collection_name="streaming-rag")
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
     llm = ChatOpenAI(model="gpt-5-nano")
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "Answer the question using only the context below.\n\nContext:\n{context}"),
-        ("human", "{question}"),
-    ])
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "Answer the question using only the context below.\n\nContext:\n{context}"),
+            ("human", "{question}"),
+        ]
+    )
 
     def retrieve(state: RAGState) -> dict:
         docs = retriever.invoke(state["question"])

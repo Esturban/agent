@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 # main.py - CLI entry point for the idea generation agent
 
-import os
-import json
 import argparse
+import json
+import os
 from datetime import datetime
+
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
 # Import from local modules
-from src.models import AgentState, IdeaOutput
+from src.models import AgentState
 from src.tools import create_tools
 from src.workflow import create_workflow
 
 load_dotenv()
+
 
 def idea_generation_agent():
     """Main function to run the idea generation agent"""
@@ -30,7 +32,7 @@ def idea_generation_agent():
         base_url="https://openrouter.ai/api/v1",
         api_key=os.getenv("OPENROUTER_API_KEY", openai_key),
         model="meta-llama/llama-3.1-8b-instruct:free",
-        temperature=0
+        temperature=0,
     )
     idea_llm = ChatOpenAI(model="gpt-5-mini")
 
@@ -39,14 +41,11 @@ def idea_generation_agent():
     graph = create_workflow(parser_llm, idea_llm, tools)
 
     # Initialize state
-    initial_state = AgentState(
-        parsed_content=None,
-        ideas=None
-    )
+    initial_state = AgentState(parsed_content=None, ideas=None)
 
     # Run the workflow
     print("🚀 Starting idea generation agent...")
-    print(f"📋 Will parse free-for-dev list and generate high-value, low-effort agentic solutions")
+    print("📋 Will parse free-for-dev list and generate high-value, low-effort agentic solutions")
 
     try:
         result = graph.invoke(initial_state)
@@ -75,12 +74,16 @@ def idea_generation_agent():
         output_data = {
             "timestamp": timestamp,
             "total_ideas": len(ideas),
-            "parsed_tools_summary": parsed_content.summary if parsed_content else "No summary available",
+            "parsed_tools_summary": parsed_content.summary
+            if parsed_content
+            else "No summary available",
             "available_tools_count": len(parsed_content.tools) if parsed_content else 0,
             "available_categories": parsed_content.categories if parsed_content else [],
             "sample_tools": [
                 {"name": tool.name, "category": tool.category, "description": tool.description}
-                for tool in (parsed_content.tools[:10] if parsed_content else [])  # Include first 10 tools as sample
+                for tool in (
+                    parsed_content.tools[:10] if parsed_content else []
+                )  # Include first 10 tools as sample
             ],
             "ideas": [
                 {
@@ -92,14 +95,14 @@ def idea_generation_agent():
                     "implementation_complexity": idea.idea_concept.implementation_complexity,
                     "confidence": idea.confidence,
                     "reasoning": idea.reasoning,
-                    "next_steps": idea.next_steps
+                    "next_steps": idea.next_steps,
                 }
                 for idea in ideas
-            ]
+            ],
         }
 
         # Save to file
-        with open(output_file, 'w') as f:
+        with open(output_file, "w") as f:
             json.dump(output_data, f, indent=2)
 
         # print(f"💾 Ideas saved to: {output_file}")
@@ -121,13 +124,14 @@ def idea_generation_agent():
         print(f"❌ Error running agent: {str(e)}")
         raise
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Idea Generation Agent CLI")
-    parser.add_argument("--output", "-o", default="data/ideas/free_dev_ideas", help="Output file prefix")
+    parser.add_argument(
+        "--output", "-o", default="data/ideas/free_dev_ideas", help="Output file prefix"
+    )
     args = parser.parse_args()
 
-    
     result_file = idea_generation_agent()
     if result_file:
         print(f"\n📄 Results saved to: {result_file}")
-    

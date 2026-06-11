@@ -1,32 +1,27 @@
-## Redis RAG Agent
+# 7-redis-rag
 
-## Prerequisites
+RAG backed by Redis vector store. A grader node scores each retrieved document for relevance — if any are irrelevant, the query is rewritten and retrieval runs again until the answer is satisfactory.
+
 **Keys:** `OPENAI_API_KEY`
-**Files:** none
-**Services:** Redis — `docker run -p 6379:6379 -d redis` or a free Redis Cloud instance
-**Colab:** ❌ requires a running Redis server; use Redis Cloud if you need a hosted option
+**Services:** Redis — `docker run -p 6379:6379 -d redis` or a free [Redis Cloud](https://redis.io/try-free/) instance
+**Colab:** ❌ requires a running Redis server
 
 ```bash
 python examples/7-redis-rag/main.py
 ```
 
-The purpose of this workbook is to introduce various conditional tools and logic to assess whether a task is done or not.
+---
 
-The way the graph works:
+### Graph
 
-- Decides whether or not to execute the function for retrieval
-- Goes into the VDB to retrieve the documents
-- Determines if the content is relevant with a grader
-- If it's relevant, then it summarizes
-- If it's irrelevant, then it rewrites the question (initiating the retrieval again until the agent is satisfied with the answer)
-
-
-### Requirements
-
-- Redis - There are several different ways to run a redis server. Your two easiest options:
-    - Docker: `docker run -p 6379:6379 -d redis`
-    - Cloud: Start a free account and use the link and API key (will need to adjust the server URL a bit)
-
-### Inspiration / References
-
-- [Langgraph - Redis Agentic RAG](https://colab.research.google.com/github/redis-developer/redis-ai-resources/blob/main/python-recipes/agents/00_langgraph_redis_agentic_rag.ipynb)
+```
+START
+  |
+retrieve      <- Redis vector store, top-k docs
+  |
+grade         <- LLM scores each doc "relevant" / "irrelevant"
+  |
+  +-- relevant ─────────────────────► generate → END
+  |
+  +-- irrelevant → rewrite_query → retrieve  (loop)
+```

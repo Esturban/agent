@@ -1,59 +1,55 @@
 import os
-import json
-from typing import Annotated, TypedDict, Literal
-from dotenv import load_dotenv
 from time import time
-from langchain.tools import tool
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from typing import Annotated, Literal, TypedDict
 
+from dotenv import load_dotenv
+from langchain.tools import tool
 from langchain_community.document_loaders import HuggingFaceDatasetLoader
 from langchain_community.tools import BraveSearch
-# from langchain_community.embeddings import OpenAIEmbeddings
-from langchain_qdrant import QdrantVectorStore
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
-from langgraph.prebuilt import ToolNode
-from langgraph.graph import StateGraph, MessagesState, END, START
-from langgraph.graph.message import add_messages
+# from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_qdrant import QdrantVectorStore
 from langgraph.checkpoint.memory import MemorySaver
-
+from langgraph.graph import END, START, MessagesState, StateGraph
+from langgraph.graph.message import add_messages
+from langgraph.prebuilt import ToolNode
 from qdrant_client import QdrantClient
-
-from qdrant_client.http.models import VectorParams
-from src.utils import preprocess_dataset, export_stategraph
 from src.checksum import compute_checksum
 from src.dedup import missing_documents_by_checksum
+from src.utils import export_stategraph, preprocess_dataset
 
-
-#Load the environment variables
+# Load the environment variables
 load_dotenv()
 qdrant_key = os.getenv("QDRANT_KEY")
 qdrant_url = os.getenv("QDRANT_URL")
 brave_key = os.getenv("BRAVE_API_KEY")
 start_time = time()
-#Let's load the text from a predefined dataset in HuggingFace
-hugging_face_doc = HuggingFaceDatasetLoader("m-ric/huggingface_doc","text")
-transformers_doc = HuggingFaceDatasetLoader("m-ric/transformers_documentation_en","text")
+# Let's load the text from a predefined dataset in HuggingFace
+hugging_face_doc = HuggingFaceDatasetLoader("m-ric/huggingface_doc", "text")
+transformers_doc = HuggingFaceDatasetLoader("m-ric/transformers_documentation_en", "text")
 
 end_time = time()
 print(f"Time taken to load the documents: {end_time - start_time:.2f} seconds")
 
 start_time = time()
-#Split the documents into chunks for embeddings
-#Complete set of documents taken from the hugging face documentation
+# Split the documents into chunks for embeddings
+# Complete set of documents taken from the hugging face documentation
 # number_of_docs = len(hugging_face_doc.load())
 number_of_docs = 40
 hf_splits = preprocess_dataset(hugging_face_doc.load()[:number_of_docs])
-#Complete set of documents taken from the transformers documentation
+# Complete set of documents taken from the transformers documentation
 # number_of_docs = len(transformers_doc.load())
 transformer_splits = preprocess_dataset(transformers_doc.load()[:number_of_docs])
 end_time = time()
 print(f"Time taken to preprocess the documents: {end_time - start_time:.2f} seconds")
 
+
 class State(TypedDict):
     messages: Annotated[list, add_messages]
-    
-#A way to quickly make a retriever for a specific datastore
+
+
+# A way to quickly make a retriever for a specific datastore
 def create_retriever(collection_name, doc_splits):
     "Definition of the retriever, for a specific datastore"
 
@@ -67,7 +63,9 @@ def create_retriever(collection_name, doc_splits):
     # Create client with increased timeout to tolerate larger writes
     client = QdrantClient(url=qdrant_url, api_key=qdrant_key, timeout=60)
     try:
-        missing_docs = missing_documents_by_checksum(client, collection_name, doc_splits, compute_checksum)
+        missing_docs = missing_documents_by_checksum(
+            client, collection_name, doc_splits, compute_checksum
+        )
     except Exception:
         # If metadata lookup fails, fall back to indexing all documents (best-effort)
         missing_docs = list(doc_splits)
@@ -92,15 +90,33 @@ def create_retriever(collection_name, doc_splits):
     vectorstore = None
     if docs_to_index:
         import time as _time
+
         attempts = 3
         backoff = 1.0
         for attempt in range(1, attempts + 1):
             try:
                 # Diagnostic logging before attempting upsert
-                total_bytes = sum(len((getattr(d, "page_content", None) or getattr(d, "content", None) or str(d)).encode("utf-8")) for d in docs_to_index)
-                sample_checksums = [getattr(d, "metadata", {}).get("content_checksum") or compute_checksum(getattr(d, "page_content", None) or getattr(d, "content", None) or str(d)) for d in docs_to_index[:10]]
+                total_bytes = sum(
+                    len(
+                        (
+                            getattr(d, "page_content", None)
+                            or getattr(d, "content", None)
+                            or str(d)
+                        ).encode("utf-8")
+                    )
+                    for d in docs_to_index
+                )
+                sample_checksums = [
+                    getattr(d, "metadata", {}).get("content_checksum")
+                    or compute_checksum(
+                        getattr(d, "page_content", None) or getattr(d, "content", None) or str(d)
+                    )
+                    for d in docs_to_index[:10]
+                ]
                 batch_size = 64
-                print(f"Indexing {len(docs_to_index)} docs (est {total_bytes} bytes), sample checksums: {sample_checksums}, batch_size={batch_size}")
+                print(
+                    f"Indexing {len(docs_to_index)} docs (est {total_bytes} bytes), sample checksums: {sample_checksums}, batch_size={batch_size}"
+                )
 
                 vectorstore = QdrantVectorStore.from_documents(
                     docs_to_index,
@@ -131,6 +147,7 @@ def create_retriever(collection_name, doc_splits):
 
     return vectorstore.as_retriever()
 
+
 start_time = time()
 hf_retriever = create_retriever("hugging_face_documentation", hf_splits)
 transformer_retriever = create_retriever("transformer_documentation", transformer_splits)
@@ -138,16 +155,24 @@ end_time = time()
 print(f"Time taken to create the retrievers: {end_time - start_time:.2f} seconds")
 
 
-@tool("retriever_hugging_face_documentation", description="Search and return information about hugging face documentation; returns concatenated page contents.")
+@tool(
+    "retriever_hugging_face_documentation",
+    description="Search and return information about hugging face documentation; returns concatenated page contents.",
+)
 def hf_retriever_tool(query: str) -> str:
     docs = hf_retriever.get_relevant_documents(query)
     return "\n".join([getattr(d, "page_content", "") for d in docs])
 
 
-@tool("retriever_transformer", description="Search and return information specifically about transformers library; returns concatenated page contents.")
+@tool(
+    "retriever_transformer",
+    description="Search and return information specifically about transformers library; returns concatenated page contents.",
+)
 def transformer_retriever_tool(query: str) -> str:
     docs = transformer_retriever.get_relevant_documents(query)
     return "\n".join([getattr(d, "page_content", "") for d in docs])
+
+
 @tool("web_search_tool")
 def search_tool(query):
     """
@@ -155,6 +180,7 @@ def search_tool(query):
     """
     search = BraveSearch.from_api_key(api_key=brave_key, search_kwargs={"count": 3})
     return search.run(query)
+
 
 tools = [hf_retriever_tool, transformer_retriever_tool, search_tool]
 end_time = time()
@@ -174,7 +200,6 @@ def route(state: MessagesState) -> Literal["tools", END]:
         return "tools"
     # Otherwise, finish the workflow
     return END
-
 
 
 llm_with_tools = llm.bind_tools(tools)
@@ -210,7 +235,9 @@ workflow.add_edge("tools", "agent")
 # Compile the graph into a runnable application with simple memory saver
 graph = workflow.compile(checkpointer=MemorySaver())
 # Try to export the stategraph to an image and print the path for convenience
-_exported_path = export_stategraph(workflow, out_path="examples/2-external-vdb/assets/stategraph.png")
+_exported_path = export_stategraph(
+    workflow, out_path="examples/2-external-vdb/assets/stategraph.png"
+)
 if _exported_path:
     print(f"StateGraph exported to: {_exported_path}")
 else:

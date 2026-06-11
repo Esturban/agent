@@ -67,9 +67,9 @@
       "topic": "Multi-agent patterns notebook -- supervisor/worker routing, message passing, shared state",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Notebook expanding on 6-multi-agent-graph. Cover supervisor pattern, subgraphs, and agent handoffs."
+      "notes": "Notebook expanding on 6-multi-agent-graph. Covers supervisor/worker pattern with add_messages reducer, create_react_agent workers, conditional routing, and streaming. 11 cells + 4 exercises."
     },
     {
       "id": 20,
@@ -78,9 +78,9 @@
       "topic": "Code interpreter agent -- generates Python code, executes in subprocess sandbox, returns result",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Use subprocess with timeout for sandboxing. Agent loop: plan → write → run → fix on error."
+      "notes": "Script-based agent: write_code node (LLM generates Python) \u2192 run_code node (subprocess sandbox, 10s timeout) \u2192 conditional route (success \u2192 END / error+iterations<MAX \u2192 write_code). 3 sample tasks, MAX_ITERATIONS=3. No Colab (subprocess unavailable)."
     },
     {
       "id": 21,
@@ -91,9 +91,9 @@
       "requires_deps": [
         "pyautogen"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Add pyautogen to requirements.txt. Framework contrast to LangGraph -- useful for teaching loop."
+      "notes": "Two ConversableAgent instances (Proponent + Opponent) debate via initiate_chat. MAX_TURNS=4, silent=True, returns chat_history list. Framework contrast to LangGraph: no StateGraph -- AutoGen manages the turn loop internally. pyautogen>=0.2.0 added to requirements.txt."
     },
     {
       "id": 22,
@@ -104,9 +104,9 @@
       "requires_deps": [
         "rank-bm25"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Add rank-bm25. Use EnsembleRetriever with BM25Retriever + Chroma. Good complement to 12-basic-rag-notebook."
+      "notes": "EnsembleRetriever with BM25Retriever (rank-bm25) + Chroma vector store, weights=[0.5, 0.5]. Two-node LangGraph: retrieve -> generate. Knowledge base uses product model codes to demonstrate BM25 advantage on exact keyword queries. SAMPLE_QUESTIONS annotated with which retriever wins each query type. README explains Reciprocal Rank Fusion and production weight tuning. Complement to 12-basic-rag-notebook and 16-rag-eval-notebook."
     },
     {
       "id": 23,
@@ -117,9 +117,9 @@
       "requires_deps": [
         "crewai"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
-      "notes": "Companion notebook to 15-crewai-research-crew. Deep dive into CrewAI concepts."
+      "notes": "12-cell notebook covering Agent (role/goal/backstory/tools/llm), Task (description/expected_output/context), Crew with Process.sequential and Process.hierarchical, and custom @tool definitions. Explicit comparison table between LangGraph and CrewAI mental models. Uses LLM(model=\"openai/gpt-5-nano\") from crewai. 3 exercises: fact-checker agent, sequential-to-hierarchical conversion, DuckDuckGo tool swap. Links to examples 15, 19, 21 in What's Next."
     },
     {
       "id": 24,
@@ -130,9 +130,9 @@
       "requires_deps": [
         "networkx"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
-      "notes": "Add networkx. Entity extraction via LLM, graph stored in-memory. Contrast to vector-only RAG."
+      "notes": "LLM extracts (subject, predicate, object) triples per doc using with_structured_output(Triples). NetworkX DiGraph built at create_workflow() call time. Three-node graph: find_entities -> retrieve_subgraph -> generate. Entity matching is case-insensitive partial match against graph nodes. Knowledge base uses AI company founding facts with multi-hop questions annotated. Inspired by Microsoft GraphRAG (Edge et al., 2024). networkx>=3.0 added to requirements.txt."
     },
     {
       "id": 25,
@@ -141,9 +141,9 @@
       "topic": "Adaptive RAG -- classify query complexity, route to no-retrieval / vectorstore / web-search path",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "LLM classifier decides retrieval strategy per query: (1) direct LLM answer for simple questions, (2) vectorstore RAG for factual lookups, (3) live web search for current events. Three-path conditional graph. Good follow-on to 17-corrective-rag."
+      "notes": "LLM classifier with with_structured_output(RouteDecision) routes each query before retrieval: simple (direct LLM), vectorstore (Chroma), web (DuckDuckGoSearchResults). Three-path conditional graph via add_conditional_edges. Shows decision-before-retrieval as contrast to CRAG's correction-after-retrieval. Follow-on: 26-rag-fusion."
     },
     {
       "id": 26,
@@ -152,9 +152,9 @@
       "topic": "RAG Fusion -- generate multiple query variants, retrieve for each, merge with Reciprocal Rank Fusion",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Generate 4-5 query paraphrases in parallel (LangGraph Send API), retrieve top-k for each, re-rank with RRF, generate from merged context. Significantly better recall than single-query RAG. Based on Lawrence 2024 paper."
+      "notes": "LangGraph Send API fans out to N parallel retrieve_variant nodes; Annotated[list, add] merges ranked_docs lists back into shared state; _rrf_merge applies RRF_K=60 scoring across all lists. Shows how Send enables map-reduce patterns in LangGraph. Based on Lawrence 2024 paper. Follow-on to 22-hybrid-search-rag and 25-adaptive-rag."
     },
     {
       "id": 27,
@@ -163,7 +163,7 @@
       "topic": "Self-RAG -- selective retrieval with retrieval/critique/support decisions as conditional nodes",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Model decides IF to retrieve per sentence, then scores each doc for relevance and support. Implements isRelevant, isSupported, isUseful decision gates as LangGraph conditional edges. Asai et al. 2023. Best companion to 17-corrective-rag for teaching retrieval strategies."
     },
@@ -174,7 +174,7 @@
       "topic": "Parallel subgraphs -- LangGraph Send API for true fan-out / fan-in across independent sub-tasks",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Use Send() to fan-out N independent retrieval or processing tasks concurrently, then aggregate with a reduce node. Demonstrates LangGraph 0.6.x map-reduce pattern. Critical for teaching parallel agent execution vs sequential graphs."
     },
@@ -185,7 +185,7 @@
       "topic": "LLM-as-judge eval harness -- score pipeline outputs on relevance, faithfulness, completeness with a rubric",
       "pattern": "notebook",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Self-contained eval loop: run RAG pipeline on test set, grade each answer with gpt-5-nano as judge using a structured rubric, report per-dimension scores. Extends 16-rag-eval-notebook with a custom judge approach beyond RAGAS. Useful for teams without labeled data."
     },
@@ -196,7 +196,7 @@
       "topic": "Agentic RAG -- retrieval as one tool in a full ReAct loop alongside web search and a calculator",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Agent decides per-turn which tool to call: vectorstore retriever, DuckDuckGo, or Python eval. Unlike fixed-pipeline RAG, the agent can chain multiple retrieval calls, skip retrieval for math questions, etc. Good contrast to examples 10-17."
     },
@@ -207,7 +207,7 @@
       "topic": "Multi-agent debate -- two agents independently answer then critique each other to converge on best answer",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Two solver nodes generate independent answers. A debate node has them exchange critiques for N rounds. A judge node selects the winner. Based on Du et al. 2023 (Society of Mind). Good contrast to 6-multi-agent-graph which uses routing rather than debate."
     },
@@ -218,7 +218,7 @@
       "topic": "Speculative RAG -- draft answer first, then retrieve only to verify and fix unsupported claims",
       "pattern": "script",
       "requires_deps": [],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Generate draft without retrieval. Extract factual claims. Retrieve evidence per claim. Revision node fires only if a claim is unsupported. Faster path for questions the model can answer from training; retrieval becomes a fact-check layer, not a mandatory step."
     },
@@ -231,7 +231,7 @@
       "requires_deps": [
         "dspy-ai"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Add dspy-ai to requirements.txt. Show how DSPy Signatures replace hand-crafted prompts. MIPROv2 optimizer tunes few-shot examples from a small labeled dev set. Framework contrast to LangChain: show how the same RAG task is expressed in DSPy vs LangChain LCEL."
     },
@@ -244,9 +244,224 @@
       "requires_deps": [
         "openai-agents"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
       "notes": "Add openai-agents to requirements.txt. Implement triage agent that hands off to a researcher agent and a writer agent. Uses SDK-native tool definitions and tracing. Framework contrast to LangGraph: same multi-agent pattern, different primitives (handoffs vs edges)."
+    },
+    {
+      "id": 35,
+      "slug": "35-plan-execute-agent",
+      "framework": "langgraph",
+      "topic": "Plan-and-Execute agent -- planner generates a structured step list, executor runs each step and passes output forward",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Separate planner and executor nodes: planner uses with_structured_output to emit a typed Plan (list of steps), executor processes one step per iteration and writes result to shared state, final node synthesizes all step outputs. Teaches DAG-style task decomposition vs monolithic ReAct loops. Contrast to 4-basic-react-agent: planner commits to full plan before execution, executor never replans. Good for teaching how to reduce token spend on simple multi-step tasks."
+    },
+    {
+      "id": 36,
+      "slug": "36-long-term-memory",
+      "framework": "langgraph",
+      "topic": "Long-term cross-thread memory -- agent stores and recalls facts across separate sessions using LangGraph BaseStore",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Two-turn demo: turn 1 has user share personal facts (name, preferences), agent extracts and saves to InMemoryStore under a user namespace; turn 2 runs in a new thread_id and recalls stored facts via semantic lookup. Uses LangGraph InMemoryStore built into langgraph 0.6+ (no new deps). Teaches the checkpointer-vs-store distinction: checkpointer = within-thread history, store = cross-thread persistent facts. Good follow-on to 11-hitl-approval. Extend to show list_namespaces and delete operations."
+    },
+    {
+      "id": 37,
+      "slug": "37-rewoo-agent",
+      "framework": "langgraph",
+      "topic": "ReWOO agent -- generate all tool calls upfront as a plan, execute in bulk, then synthesize (no interleaved observation)",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Three-node graph: Planner emits a list of (tool, args) pairs via with_structured_output; Worker node executes each tool call in sequence and appends results to state; Solver node receives full evidence list and writes final answer. Based on Xu et al. 2023 (ReWOO paper). Key teaching contrast to standard ReAct: no observation interleaving means fewer tokens but less adaptive. Use DuckDuckGo + mock calculator as tools. Companion to 4-basic-react-agent and 5-react-agent-lg."
+    },
+    {
+      "id": 38,
+      "slug": "38-langgraph-command-pattern",
+      "framework": "langgraph",
+      "topic": "LangGraph Command primitive -- edgeless dynamic routing where nodes return Command objects to jump to any node",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Build a triage node + two specialist nodes (researcher, summarizer) with NO explicit edges -- routing is handled entirely by Command(goto='node_name', update={...}) returned from each node. Add a human-in-the-loop step using interrupt() + Command(resume=) to show how Command unifies routing and HITL in one primitive. Teaches LangGraph 0.6.x Command API as an alternative to conditional_edges for fully dynamic flows. Contrast to 6-multi-agent-graph which uses add_conditional_edges."
+    },
+    {
+      "id": 39,
+      "slug": "39-checkpoint-resume",
+      "framework": "langgraph",
+      "topic": "Checkpoint and resume -- persist workflow state to SQLite mid-run, kill process, resume from exact breakpoint",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Demonstrate SqliteSaver checkpointer: run a multi-step research agent, inject an interrupt after step 2, print the saved state, then resume in a new Python process from the same thread_id. No new deps (langgraph-checkpoint and SQLAlchemy already in requirements). Teaches the production pattern of durable agent execution -- agent can survive crashes, deploys, and timeouts. Good companion to 11-hitl-approval and 38-langgraph-command-pattern."
+    },
+    {
+      "id": 40,
+      "slug": "40-agent-observability",
+      "framework": "langgraph",
+      "topic": "Agent observability -- trace token counts, latency, and errors with LangSmith and OpenTelemetry callbacks",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Notebook showing three observability layers: (1) LangSmith run tracing via LANGCHAIN_TRACING_V2 env var; (2) custom callback handler that logs token usage per node to a pandas DataFrame; (3) OpenTelemetry span export using the opentelemetry-sdk already in requirements. All deps already installed. Teaches students how to measure and monitor agents in production -- cost per run, slowest nodes, failure rates. Good capstone companion to any RAG example."
+    },
+    {
+      "id": 41,
+      "slug": "41-pdf-extraction-agent",
+      "framework": "langgraph",
+      "topic": "Structured PDF extraction agent -- read a PDF with pdfplumber, extract typed schema via LLM, validate and retry on failure",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Three-node loop: Reader uses pdfplumber (already in requirements) to extract raw text from a local PDF; Extractor calls with_structured_output to populate a typed Pydantic model (e.g. invoice fields); Validator checks required fields and routes back to Extractor with a correction prompt if validation fails, or to END if valid. Max 3 retries. Teaches the extract-validate-retry loop pattern central to document processing pipelines. pdfplumber and pypdf already in requirements."
+    },
+    {
+      "id": 42,
+      "slug": "42-multimodal-rag",
+      "framework": "langgraph",
+      "topic": "Multimodal RAG -- index images alongside text using GPT-4o vision descriptions, retrieve and answer image questions",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Notebook: for each image, call GPT-4o vision to generate a rich text description, embed the description with text-embedding-3-small, store in Chroma. At query time, retrieve the top-k image descriptions and pass image URLs to GPT-4o for final answer. Uses pillow (already in requirements) for image loading. Teaches multi-modal indexing without specialized vision embeddings -- accessible pattern for any team with GPT-4o access. Good follow-on to 12-basic-rag-notebook."
+    },
+    {
+      "id": 43,
+      "slug": "43-supervisor-worker",
+      "framework": "langgraph",
+      "topic": "Supervisor-worker multi-agent system -- supervisor LLM dynamically routes tasks to a pool of specialist worker agents",
+      "pattern": "script",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Supervisor node uses with_structured_output to decide which worker to call next (web_researcher, code_writer, fact_checker) or FINISH. Each worker is a sub-graph with its own tools. Uses LangGraph prebuilt create_react_agent for workers. Supervisor loops until it emits FINISH or hits MAX_TURNS. Teaches the most common production multi-agent pattern (60% of real-world use cases per 2026 surveys). Extends 6-multi-agent-graph with dynamic routing instead of hardcoded edges. No new deps."
+    },
+    {
+      "id": 44,
+      "slug": "44-mcp-client-agent",
+      "framework": "langgraph",
+      "topic": "MCP client agent -- LangGraph agent discovers and calls tools from a local MCP server over stdio",
+      "pattern": "script",
+      "requires_deps": [
+        "mcp"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Add mcp to requirements.txt. Spin up a tiny local stdio MCP server (Python script) that exposes two tools: get_weather and unit_convert. LangGraph agent connects via MultiServerMCPClient, loads tool definitions at runtime, and uses them in a standard ReAct loop. Teaches the MCP client-server architecture without needing a remote server. By 2026, MCP has 10k+ servers (97M monthly SDK downloads) -- this is an essential pattern for any production agent. Good framework demo to contrast with hard-coded LangChain tools."
+    },
+    {
+      "id": 45,
+      "slug": "45-a2a-agent-handoff",
+      "framework": "langgraph",
+      "topic": "A2A agent handoff -- two LangGraph agents communicate over the Agent-to-Agent protocol, one delegates a subtask to the other",
+      "pattern": "script",
+      "requires_deps": [
+        "google-adk"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Add google-adk to requirements.txt. Orchestrator agent (LangGraph) receives a research + summarize task; it sends the research subtask to a Specialist agent running as an A2A-compatible HTTP service; specialist returns a result card; orchestrator synthesizes final answer. Uses Google ADK's A2A server wrapper. Teaches the 2026 A2A protocol standard adopted by Salesforce Agentforce, ServiceNow, and others -- horizontal agent-to-agent coordination vs MCP vertical tool calls. Companion to 44-mcp-client-agent."
+    },
+    {
+      "id": 46,
+      "slug": "46-tree-of-thoughts",
+      "framework": "langgraph",
+      "topic": "Tree of Thoughts agent -- explore multiple reasoning branches in parallel, score each, prune and select the best path",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Notebook implementing ToT (Yao et al. 2023): at each step the Proposer node generates N candidate thoughts via LLM sampling; Evaluator scores each with a second LLM call; Selector prunes to top-k using beam search; loop repeats until final answer. Uses LangGraph Send API for parallel branch expansion. Teaches deliberative reasoning as an alternative to greedy chain-of-thought. Good capstone after 18-self-reflecting-agent and 37-rewoo-agent -- completes the reasoning-strategy trio."
+    },
+    {
+      "id": 47,
+      "slug": "47-deepeval-rag-metrics",
+      "framework": "deepeval",
+      "topic": "DeepEval RAG metrics deep-dive -- Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, Contextual Relevancy",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook in the style of example 12. Cover all 5 RAG-specific DeepEval metrics with math definitions (e.g. Faithfulness = statements_supported / total_statements), build a ChromaDB RAG pipeline, run deepeval.evaluate() on a golden dataset, print score breakdowns, show what a failing test looks like and why. Include a failure-mode table (hallucinated answer -> low Faithfulness, off-topic retrieval -> low Contextual Precision). Exercises: (1) change k and measure Contextual Recall, (2) inject a wrong fact and watch Faithfulness drop, (3) write your own golden dataset from scratch. Answer key included."
+    },
+    {
+      "id": 48,
+      "slug": "48-deepeval-hallucination-bias",
+      "framework": "deepeval",
+      "topic": "DeepEval safety metrics -- HallucinationMetric, BiasMetric, ToxicityMetric with deliberate failure injection",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook. Show HallucinationMetric (no retrieval -- just LLM output vs context), BiasMetric, ToxicityMetric. Deliberately inject hallucinated answers, biased phrasing, and toxic outputs to show scores respond correctly. Explain the difference between Faithfulness (RAG-grounded) and Hallucination (standalone LLM). Include math: hallucination_score = contradicted_statements / total_statements. Exercises: (1) write a prompt that forces hallucination and verify the score catches it, (2) build a bias detector for job-posting text, (3) compare Hallucination vs Faithfulness on the same output."
+    },
+    {
+      "id": 49,
+      "slug": "49-deepeval-geval-custom",
+      "framework": "deepeval",
+      "topic": "G-Eval and custom metrics -- define any evaluation criterion in natural language using LLM-as-judge with chain-of-thought scoring",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook. Show GEval(name, criteria, evaluation_steps) for fully custom criteria (Conciseness, Format Adherence, Citation Accuracy, Code Correctness). Explain the G-Eval paper: CoT scoring with LLM judge, why it correlates better with human judgment than ROUGE/BLEU. Show how to write good vs bad evaluation_steps. Compare G-Eval to a fixed DeepEval metric on the same test case. Also show BaseMetric subclassing for deterministic custom metrics (e.g. exact string match, JSON schema validation). Exercises: (1) write a GEval for email tone, (2) write a deterministic metric for answer length, (3) combine G-Eval + Faithfulness in one evaluate() call."
+    },
+    {
+      "id": 50,
+      "slug": "50-deepeval-agentic-eval",
+      "framework": "deepeval",
+      "topic": "DeepEval agentic metrics -- TaskCompletion, ToolCorrectnessMetric, and AgentGoalCompletionMetric for ReAct agent evaluation",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval",
+        "langgraph"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Teaching workbook. Build a simple LangGraph ReAct agent with 2-3 tools (search, calculator, lookup). Use deepeval LLMTestCase with tools_called and expected_tools fields. Run ToolCorrectnessMetric (did it call the right tools in the right order?), TaskCompletion (did it complete the assigned task?). Explain why agent eval is harder than RAG eval: non-determinism, multi-step reasoning, tool side effects. Show how to log tool calls from a LangGraph run into a DeepEval test case. Exercises: (1) make the agent call the wrong tool and verify ToolCorrectness fails, (2) set expected_tools in wrong order and see partial credit, (3) evaluate a 5-step agent task end-to-end."
+    },
+    {
+      "id": 51,
+      "slug": "51-deepeval-conversational",
+      "framework": "deepeval",
+      "topic": "DeepEval conversational metrics -- KnowledgeRetention, ConversationCompleteness, ConversationRelevancy for multi-turn chatbot evaluation",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Teaching workbook. Use ConversationalTestCase with a list of LLMTestCase turns. Run KnowledgeRetention (does the bot remember what was said earlier?), ConversationCompleteness (did it address every user intent?), ConversationRelevancy (are replies on-topic across turns?). Build a multi-turn FAQ chatbot, craft a conversation where the bot forgets context after turn 3, and show the score drop. Contrast turn-level vs conversation-level scoring. Exercises: (1) insert an off-topic bot reply and watch ConversationRelevancy drop, (2) build a 6-turn conversation where knowledge is retained, (3) compare a stateless vs stateful chatbot score."
+    },
+    {
+      "id": 52,
+      "slug": "52-deepeval-synthesizer",
+      "framework": "deepeval",
+      "topic": "DeepEval Synthesizer -- auto-generate golden test datasets from documents, run regression benchmarks, track score drift over time",
+      "pattern": "notebook",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Teaching workbook. Use deepeval Synthesizer to generate goldens (question + expected_output + context) from inline document chunks. Show the different evolution strategies (SIMPLE, REASONING, MULTI-HOP, COMPARATIVE). Run evaluate() on the generated dataset. Show how to save/load an EvaluationDataset and re-run it after changing the RAG pipeline to detect regressions. Explain the full eval loop: generate goldens -> evaluate -> fix pipeline -> re-evaluate -> compare deltas. Exercises: (1) generate 10 goldens from your own docs, (2) deliberately degrade the RAG pipeline and measure score drop, (3) add a new document and regenerate goldens to cover it."
     }
   ]
 }

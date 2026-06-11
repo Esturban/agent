@@ -25,26 +25,30 @@ class CRAGState(TypedDict):
 def create_workflow():
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     chunks = splitter.split_documents(SAMPLE_DOCS)
-    vectorstore = Chroma.from_documents(
-        chunks, OpenAIEmbeddings(), collection_name="crag-17"
-    )
+    vectorstore = Chroma.from_documents(chunks, OpenAIEmbeddings(), collection_name="crag-17")
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
     llm = ChatOpenAI(model="gpt-5-nano")
     grader = llm.with_structured_output(GradeDocuments)
 
-    grade_prompt = ChatPromptTemplate.from_messages([
-        ("system", "Is this document relevant to the question? Reply 'yes' or 'no' only."),
-        ("human", "Question: {question}\n\nDocument:\n{document}"),
-    ])
-    answer_prompt = ChatPromptTemplate.from_messages([
-        ("system", "Answer using only the context below. Be concise.\n\nContext:\n{context}"),
-        ("human", "{question}"),
-    ])
-    rewrite_prompt = ChatPromptTemplate.from_messages([
-        ("system", "Rewrite the question to make it more specific and searchable."),
-        ("human", "{question}"),
-    ])
+    grade_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "Is this document relevant to the question? Reply 'yes' or 'no' only."),
+            ("human", "Question: {question}\n\nDocument:\n{document}"),
+        ]
+    )
+    answer_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "Answer using only the context below. Be concise.\n\nContext:\n{context}"),
+            ("human", "{question}"),
+        ]
+    )
+    rewrite_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "Rewrite the question to make it more specific and searchable."),
+            ("human", "{question}"),
+        ]
+    )
 
     def retrieve(state: CRAGState) -> dict:
         docs = retriever.invoke(state["question"])
@@ -53,10 +57,12 @@ def create_workflow():
     def grade_documents(state: CRAGState) -> dict:
         relevant, needs_web = [], False
         for doc in state["documents"]:
-            result = (grade_prompt | grader).invoke({
-                "question": state["question"],
-                "document": doc.page_content,
-            })
+            result = (grade_prompt | grader).invoke(
+                {
+                    "question": state["question"],
+                    "document": doc.page_content,
+                }
+            )
             if result.score == "yes":
                 relevant.append(doc)
             else:
@@ -74,10 +80,12 @@ def create_workflow():
 
     def generate(state: CRAGState) -> dict:
         context = "\n\n".join(d.page_content for d in state["documents"])
-        response = (answer_prompt | llm).invoke({
-            "context": context,
-            "question": state["question"],
-        })
+        response = (answer_prompt | llm).invoke(
+            {
+                "context": context,
+                "question": state["question"],
+            }
+        )
         return {"generation": response.content}
 
     def decide_after_grading(state: CRAGState) -> Literal["transform_query", "generate"]:

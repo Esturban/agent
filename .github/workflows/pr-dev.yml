@@ -10,6 +10,20 @@ on:
     - cron: '0 6 * * *'
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install ruff
+        run: pip install "ruff>=0.6.0"
+      - name: Lint
+        run: ruff check examples/
+      - name: Format check
+        run: ruff format --check examples/
+
   pull-request:
     runs-on: ubuntu-latest
     permissions:
@@ -74,20 +88,20 @@ jobs:
         if [ -n "$EXISTING_PR" ]; then
           echo "Found existing PR #$EXISTING_PR from $CURRENT_BRANCH to dev, updating it..."
           gh pr edit $EXISTING_PR \
-            --title "Pulling $CURRENT_BRANCH into dev" \
-            --body ":crown: *Automated PR*
+            --title "Merging $CURRENT_BRANCH into dev" \
+            --body ":rocket: *Automated PR*
 
-        These are the updates and changes from $CURRENT_BRANCH to be pushed into dev" \
+        Changes from \`$CURRENT_BRANCH\` staged for review into dev" \
             --add-reviewer "Esturban" \
             --add-assignee "Esturban" \
             --add-label "auto-pr,staging"
         else
           echo "No existing PR found from $CURRENT_BRANCH to dev, creating new one..."
           gh pr create \
-            --title "Pulling $CURRENT_BRANCH into production" \
-            --body ":crown: *Automated PR*
+            --title "Merging $CURRENT_BRANCH into dev" \
+            --body ":rocket: *Automated PR*
 
-        These are the updates and changes from $CURRENT_BRANCH to be pushed into production" \
+        Changes from \`$CURRENT_BRANCH\` staged for review into dev" \
             --reviewer "Esturban" \
             --assignee "Esturban" \
             --label "auto-pr,staging" \

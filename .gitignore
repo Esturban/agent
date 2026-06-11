@@ -11,3 +11,7 @@ examples/12-basic-rag-notebook/generate_workbook.py
 .claude/*
 .codegraph/*
 .wolf/*
+.codex/*
+docs/*
+arabic-pdf.py
+dump.rdb

@@ -1,5 +1,5 @@
-from langchain_core.documents import Document
 from langchain_community.tools import DuckDuckGoSearchResults
+from langchain_core.documents import Document
 
 SAMPLE_DOCS = [
     Document(

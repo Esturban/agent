@@ -25,43 +25,59 @@ def create_workflow():
     llm = ChatOpenAI(model="gpt-5-nano")
     evaluator = llm.with_structured_output(Confidence)
 
-    answer_prompt = ChatPromptTemplate.from_messages([
-        ("system", "Answer the question thoroughly and accurately."),
-        ("human", "{question}"),
-    ])
-    revise_prompt = ChatPromptTemplate.from_messages([
-        ("system", (
-            "Improve your answer based on the critique below.\n\n"
-            "Original answer:\n{answer}\n\nCritique:\n{critique}\n\n"
-            "Write a better answer that addresses every point raised."
-        )),
-        ("human", "{question}"),
-    ])
-    critique_prompt = ChatPromptTemplate.from_messages([
-        ("system", (
-            "Evaluate this answer. Identify factual errors, gaps, or unclear explanations. "
-            "Then rate your confidence that the answer is now correct and complete: "
-            "low / medium / high."
-        )),
-        ("human", "Question: {question}\n\nAnswer: {answer}"),
-    ])
+    answer_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "Answer the question thoroughly and accurately."),
+            ("human", "{question}"),
+        ]
+    )
+    revise_prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                (
+                    "Improve your answer based on the critique below.\n\n"
+                    "Original answer:\n{answer}\n\nCritique:\n{critique}\n\n"
+                    "Write a better answer that addresses every point raised."
+                ),
+            ),
+            ("human", "{question}"),
+        ]
+    )
+    critique_prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                (
+                    "Evaluate this answer. Identify factual errors, gaps, or unclear explanations. "
+                    "Then rate your confidence that the answer is now correct and complete: "
+                    "low / medium / high."
+                ),
+            ),
+            ("human", "Question: {question}\n\nAnswer: {answer}"),
+        ]
+    )
 
     def generate(state: ReflexionState) -> dict:
         if state["answer"]:
-            response = (revise_prompt | llm).invoke({
-                "question": state["question"],
-                "answer": state["answer"],
-                "critique": state["critique"],
-            })
+            response = (revise_prompt | llm).invoke(
+                {
+                    "question": state["question"],
+                    "answer": state["answer"],
+                    "critique": state["critique"],
+                }
+            )
         else:
             response = (answer_prompt | llm).invoke({"question": state["question"]})
         return {"answer": response.content, "iterations": state["iterations"] + 1}
 
     def critique(state: ReflexionState) -> dict:
-        result = (critique_prompt | evaluator).invoke({
-            "question": state["question"],
-            "answer": state["answer"],
-        })
+        result = (critique_prompt | evaluator).invoke(
+            {
+                "question": state["question"],
+                "answer": state["answer"],
+            }
+        )
         return {"critique": result.critique, "confident": result.score == "high"}
 
     def should_continue(state: ReflexionState) -> Literal["generate", "__end__"]:

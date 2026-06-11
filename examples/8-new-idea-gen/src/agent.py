@@ -1,15 +1,19 @@
 # agent.py - Core agent logic for parsing and idea generation
 
 import json
-from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
-from langchain_core.output_parsers import JsonOutputParser
-from .models import AgentState, ParsedContent,  IdeaOutput, IdeaConcept
+
+from langchain_core.messages import HumanMessage, SystemMessage
+
+from .models import AgentState, IdeaConcept, IdeaOutput, ParsedContent
+
 
 def parser_agent(state: AgentState, parser_llm, tools) -> dict:
     """Phase 1: Parse the free-for-dev list"""
 
     # Get the free-for-dev URL from the initial state or use default
-    free_dev_url = "https://raw.githubusercontent.com/ripienaar/free-for-dev/refs/heads/master/README.md"
+    free_dev_url = (
+        "https://raw.githubusercontent.com/ripienaar/free-for-dev/refs/heads/master/README.md"
+    )
 
     # Parse the free-for-dev list
     parse_tool = tools[0]  # parse_free_dev_list tool
@@ -21,9 +25,8 @@ def parser_agent(state: AgentState, parser_llm, tools) -> dict:
 
     parsed_content = ParsedContent(**parsed_data)
 
-    return {
-        "parsed_content": parsed_content
-    }
+    return {"parsed_content": parsed_content}
+
 
 def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
     """Phase 2: Generate simple product ideas from free tools"""
@@ -34,10 +37,10 @@ def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
         return {"error": "Missing parsed content"}
 
     # Get sample of actual tools for the prompt
-    sample_tools = parsed_content.tools 
+    sample_tools = parsed_content.tools
     tools_sample = "\n".join([f"- {tool.name} ({tool.category})" for tool in sample_tools])
 
-    categories_text = ", ".join(parsed_content.categories) 
+    categories_text = ", ".join(parsed_content.categories)
 
     system_prompt = f"""You have access to {len(parsed_content.tools)} free developer tools across these categories: {categories_text}.
 
@@ -69,14 +72,11 @@ def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
     - target_tools: 2-3 ACTUAL tool names from the parsed list
     - value_proposition: Who it helps and why it's valuable to them
     - effort_level: "low", "medium", or "high"
-    - reasoning: a single 1-2 sentence plain-text explanation of WHY these specific tools are useful together for implementing this idea. Keep it concise and human-readable, but useful. 
+    - reasoning: a single 1-2 sentence plain-text explanation of WHY these specific tools are useful together for implementing this idea. Keep it concise and human-readable, but useful.
     - implementation_complexity: "simple", "moderate", or "complex"
     """
 
-    messages = [
-        SystemMessage(system_prompt),
-        HumanMessage(idea_prompt)
-    ]
+    messages = [SystemMessage(system_prompt), HumanMessage(idea_prompt)]
 
     response = idea_llm.invoke(messages)
     raw_response = getattr(response, "content", str(response)).strip()
@@ -100,7 +100,7 @@ def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
 
     if ideas_data is None:
         # Look for fenced ```json``` blocks first
-        json_block_match = re.search(r'```json\s*(\[.*?\]|\{.*?\})\s*```', raw_response, re.DOTALL)
+        json_block_match = re.search(r"```json\s*(\[.*?\]|\{.*?\})\s*```", raw_response, re.DOTALL)
         if json_block_match:
             json_content = json_block_match.group(1)
             print(f"📝 Found JSON code fence: {len(json_content)} chars")
@@ -108,7 +108,7 @@ def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
 
     if ideas_data is None:
         # Fallback: try to locate the first JSON array/object by searching for outermost brackets
-        brace_match = re.search(r'(?s)(\[.*\]|\{.*\})', raw_response)
+        brace_match = re.search(r"(?s)(\[.*\]|\{.*\})", raw_response)
         if brace_match:
             json_guess = brace_match.group(1)
             print(f"🔎 Found JSON-like substring: {len(json_guess)} chars — attempting to parse")
@@ -128,18 +128,21 @@ def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
             confidence = 0.8  # Basic confidence for now
 
             # Extract LLM-provided reasoning if present, ensure it's a short string (<=2 sentences)
-            raw_reasoning = ''
+            raw_reasoning = ""
             try:
-                raw_reasoning = idea_data.get('reasoning', '') if isinstance(idea_data, dict) else ''
+                raw_reasoning = (
+                    idea_data.get("reasoning", "") if isinstance(idea_data, dict) else ""
+                )
             except Exception:
-                raw_reasoning = ''
+                raw_reasoning = ""
 
-            reasoning = str(raw_reasoning or '').strip()
+            reasoning = str(raw_reasoning or "").strip()
             # enforce <= 2 sentences
             import re
-            sentences = [s.strip() for s in re.split(r'[.!?]+', reasoning) if s.strip()]
+
+            sentences = [s.strip() for s in re.split(r"[.!?]+", reasoning) if s.strip()]
             if len(sentences) > 2:
-                reasoning = '. '.join(sentences[:2]) + '.'
+                reasoning = ". ".join(sentences[:2]) + "."
             # fallback if empty
             if not reasoning:
                 reasoning = f"Simple idea using {len(idea_concept.target_tools)} free tools to solve developer problems."
@@ -148,18 +151,16 @@ def idea_generation_agent(state: AgentState, idea_llm, tools=None) -> dict:
                 "Pick the tools and understand their APIs",
                 "Build a basic prototype",
                 "Test if it actually helps developers",
-                "Figure out how to monetize it"
+                "Figure out how to monetize it",
             ]
 
-            ideas.append(IdeaOutput(
-                idea_concept=idea_concept,
-                confidence=confidence,
-                reasoning=reasoning,
-                next_steps=next_steps
-            ))
+            ideas.append(
+                IdeaOutput(
+                    idea_concept=idea_concept,
+                    confidence=confidence,
+                    reasoning=reasoning,
+                    next_steps=next_steps,
+                )
+            )
 
-    return {
-        "parsed_content": parsed_content,
-        "ideas": ideas
-    }
-
+    return {"parsed_content": parsed_content, "ideas": ideas}

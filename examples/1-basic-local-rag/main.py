@@ -1,13 +1,12 @@
 from typing import Literal
+
+from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
 from langchain_openai.chat_models import ChatOpenAI
-from langchain_core.tools import tool
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.graph import END, START, StateGraph, MessagesState
+from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.prebuilt import ToolNode
-from dotenv import load_dotenv
-from src.utils import retrieve_context, export_stategraph
-
+from src.utils import export_stategraph, retrieve_context
 
 load_dotenv()
 
@@ -46,9 +45,7 @@ workflow.add_node("tools", tool_node)
 
 # Connect nodes
 workflow.add_edge(START, "agent")  # Initial entry
-workflow.add_conditional_edges(
-    "agent", should_continue
-)  # Decision after the "agent" node
+workflow.add_conditional_edges("agent", should_continue)  # Decision after the "agent" node
 workflow.add_edge("tools", "agent")  # Cycle between tools and agent
 
 # Configure memory to persist the state
@@ -58,7 +55,9 @@ checkpointer = MemorySaver()
 app = workflow.compile(checkpointer=checkpointer)
 
 # Try to export the stategraph to an image and print the path for convenience
-_exported_path = export_stategraph(workflow, out_path="examples/1-basic-local-rag/assets/stategraph.png")
+_exported_path = export_stategraph(
+    workflow, out_path="examples/1-basic-local-rag/assets/stategraph.png"
+)
 if _exported_path:
     print(f"StateGraph exported to: {_exported_path}")
 else:

@@ -1,4 +1,5 @@
 from crewai import Agent, Crew, Task
+
 from src.tools import web_search
 
 

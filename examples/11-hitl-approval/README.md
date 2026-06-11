@@ -1,16 +1,20 @@
-## 11 — Human-in-the-Loop Approval with interrupt()
+# 11-hitl-approval
 
-## Prerequisites
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/11-hitl-approval/hitl_workbook.ipynb)
+
+Human-in-the-loop approval using LangGraph's `interrupt()` primitive. The agent drafts a destructive action, pauses at an `__interrupt__` event, prompts the user for yes/no approval via CLI, then resumes from the saved checkpoint with `Command(resume=...)`.
+
 **Keys:** `OPENAI_API_KEY`
-**Files:** none
-**Colab:** ⚠️ the script uses an interactive CLI prompt; run locally or adapt the approval step for a notebook cell
 
 ```bash
 python examples/11-hitl-approval/main.py
 ```
 
-Drafts a destructive action, pauses mid-graph via `interrupt()` for human yes/no approval, then resumes with `Command(resume=...)`. Demonstrates the key contrast with all prior examples: the first `.stream()` stops at an `__interrupt__` event rather than running to END, and a second `.stream()` continues from the saved checkpoint.
+---
 
-```bash
-python main.py
-```
+### How interrupt differs from all prior examples
+
+Every earlier example runs `.stream()` all the way to `END`. Here:
+1. First `.stream()` stops at `__interrupt__` — the graph is suspended mid-run
+2. User approves or denies via CLI
+3. Second `.stream(Command(resume=...))` resumes from the checkpoint

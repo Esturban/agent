@@ -1,5 +1,5 @@
 import hashlib
-from typing import Iterable
+from collections.abc import Iterable
 
 
 def normalize_text(text: str) -> str:
@@ -23,5 +23,3 @@ def compute_checksums_for_docs(docs: Iterable[dict], content_field: str = "conte
         if content is None and hasattr(d, "page_content"):
             content = getattr(d, "page_content")
         yield compute_checksum(content or ""), d
-
-

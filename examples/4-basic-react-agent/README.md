@@ -1,11 +1,11 @@
-## Basic React Agent
+# 4-basic-react-agent
 
-Making a conversation with a React Agent about handling separate functions that do rag on a dataset and the ability to remember conversation history as well as referencing PDFs.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/4-basic-react-agent/basic_react_agent_workbook.ipynb)
 
-## Prerequisites
+ReAct agent with two tools: semantic search over a CSV pricing table and PDF retrieval from a product spec document. Maintains full conversation history across turns with `MemorySaver`.
+
 **Keys:** `OPENAI_API_KEY`
 **Files:** `data/product/Laptop pricing.csv` · `data/product/Laptop product descriptions.pdf`
-**Colab:** ⚠️ upload the `data/product/` files to your Colab session before running
 
 ```bash
 python examples/4-basic-react-agent/main.py
