@@ -1436,9 +1436,9 @@
         "two-stage retrieval",
         "FlashRank"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Chroma returns top-20 (high recall, low precision); FlashRank cross-encoder scores each (query, doc) pair jointly and returns top-4 (high precision). LangGraph: retrieve -> rerank -> generate. Show retriever rank vs reranker rank for 3-4 queries. Explain bi-encoder (fast, imprecise) vs cross-encoder (slow, accurate) tradeoff. Add flashrank to requirements.txt."
+      "notes": "Three-node LangGraph: retrieve (Chroma top-20) -> rerank (FlashRank cross-encoder top-4) -> generate. Demonstrates bi-encoder vs cross-encoder tradeoff. flashrank added to requirements.txt."
     },
     {
       "id": 55,
