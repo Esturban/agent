@@ -1528,9 +1528,9 @@
         "CSV retrieval",
         "structured data QA"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Most RAG examples work on prose. This handles structured data. Three-node LangGraph: load_table (pandas read_csv, show schema), write_query (LLM generates a pandas expression given schema + question), execute_query (run expression in sandbox). On error, route back to write_query with error message. Sample dataset: public CSV. Show 5 questions: aggregations, filters, group-by. Contrast to 14-sql-agent. All deps already in requirements (pandas installed)."
+      "notes": "Most RAG examples work on prose. This handles structured data. Three-node LangGraph: load_table (pandas read_csv, show schema), write_query (LLM generates a pandas expression given schema + question), execute_query (run expression in sandbox). On error, route back to write_query with error message. Sample dataset: 10-row product sales CSV inline in tools.py. Shows 3 questions: aggregations, filters, region totals. Contrast to 14-sql-agent. Built 2026-06-12."
     },
     {
       "id": 59,
