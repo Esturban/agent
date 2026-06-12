@@ -1795,9 +1795,9 @@
         "self-critique",
         "revision loop"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
-      "notes": "Constitutional AI (Bai et al. 2022, Anthropic): use a written constitution (list of principles) to self-improve outputs instead of human feedback. Three-node LangGraph: generate -> critique (for each principle, 'does the response violate this?') -> revise. Loop until no violations or MAX_REVISIONS. Sample constitution: 5 principles (be factual, stay under 100 words, cite sources, use plain language). Show deliberate violation injection. No new deps. Contrast to 18-self-reflecting-agent: Reflexion uses quality self-critique; CAI uses rule-based principle critique."
+      "notes": "5-principle constitution, generate→critique→revise loop, MAX_REVISIONS=3. 2 sample prompts. Built 2026-06-12."
     },
     {
       "id": 70,
