@@ -1482,9 +1482,9 @@
         "ContextualCompressionRetriever",
         "passage filtering"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Problem: retrieved chunks are 200-400 tokens but only 1-2 sentences actually answer the question. Solution: LLMChainFilter asks 'does this passage answer the query?' and returns only the relevant portion. Use LangChain ContextualCompressionRetriever wrapping a Chroma base retriever. Three-node LangGraph: retrieve -> compress -> generate. Show token count before vs after compression for 3 queries. Explain cost-quality tradeoff: one extra LLM call per chunk but reduces hallucination. No new deps."
+      "notes": "Three-node LangGraph: retrieve (Chroma top-8) -> compress (LLMChainFilter via ContextualCompressionRetriever) -> generate. Shows token reduction from raw to compressed context. No new deps."
     },
     {
       "id": 57,
