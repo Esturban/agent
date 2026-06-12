@@ -1551,9 +1551,9 @@
         "embedding-based routing",
         "no-LLM routing"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Problem: LLM-based routing (like 25-adaptive-rag) adds 200-400ms and tokens per query. Solution: pre-embed route descriptors, embed the incoming query, route by highest cosine similarity. LangGraph: route_by_similarity -> {code_handler, billing_handler, fallback_handler}. Show routing decision table: query, predicted route, cosine scores. Similarity threshold: below 0.6, fall back to general handler. No new deps (OpenAI embeddings + numpy already available). Comparison table: semantic routing vs LLM routing vs keyword routing -- latency, cost, accuracy."
+      "notes": "Routes code/billing/general via cosine similarity on pre-embedded descriptors. Threshold 0.6 fallback to general. 5 SAMPLE_QUERIES. Built 2026-06-12."
     },
     {
       "id": 60,
