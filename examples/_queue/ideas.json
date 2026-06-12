@@ -1574,9 +1574,9 @@
         "dynamic RAG",
         "link-following"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Given a URL and a question: fetch the page (requests), strip HTML with BeautifulSoup, chunk, embed into an ephemeral Chroma collection, answer via RAG. Four-node LangGraph: fetch -> parse -> index -> answer. Extension: if the answer is not found, extract 2-3 relevant links and crawl them (breadth-first, depth=1). Show BeautifulSoup selectors for main content vs nav/footer noise. Contrast to 3-prospect-agent: no API key needed. All deps already in requirements."
+      "notes": "Fetch Wikipedia RAG article, parse with BeautifulSoup, chunk, embed into ephemeral Chroma, answer 3 questions. Built 2026-06-12."
     },
     {
       "id": 61,
