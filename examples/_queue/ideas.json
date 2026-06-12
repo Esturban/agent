@@ -1841,9 +1841,9 @@
         "child chunks",
         "parent context"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Classic RAG problem: small chunks retrieve precisely but lack context for generation; large chunks have context but retrieve imprecisely. Solution: index small child chunks (100 tokens) for similarity search, retrieve their parent document (600 tokens) for generation. Use LangChain ParentDocumentRetriever backed by Chroma (child vectors) + InMemoryDocStore (parent docs). Two-node LangGraph: retrieve_parent -> generate. Compare child vs parent context on 3 queries where the answer spans multiple child chunks. No new deps. Companion to 53-chunking-strategies."
+      "notes": "ParentDocumentRetriever + InMemoryStore. child=100 chars, parent=600 chars. 3 AI/ML questions. Built 2026-06-12."
     },
     {
       "id": 72,
