@@ -1505,9 +1505,9 @@
         "Zheng et al. 2023",
         "retrieval improvement"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Step-Back (Zheng et al. 2023): instead of retrieving on 'What was Einstein's GPA?' retrieve on 'What are Einstein's academic records?' -- the broader query finds richer context. Two-stage LangGraph: step_back -> retrieve_and_answer. Comparison table: direct retrieval hit rate vs step-back hit rate on 5 narrow factual queries. Show where it helps (highly specific) and where it hurts (already-broad queries). No new deps. Companion to 55-hyde-rag."
+      "notes": "Three-node LangGraph: step_back (LLM rewrites specific query to broader principle) -> retrieve (search on abstract query k=3) -> answer (LLM uses background context to answer original query). No new deps. Teaches Zheng et al. 2023."
     },
     {
       "id": 58,
