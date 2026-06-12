@@ -1671,9 +1671,9 @@
         "typed agents",
         "framework contrast"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Add pydantic-ai to requirements.txt. Implement the same researcher + structured output pattern from 13-structured-output using Pydantic AI: Agent(model, result_type=MyModel, tools=[...]). Show: @agent.tool decorator, result_type enforcing a structured output (no with_structured_output boilerplate), RunContext for injected dependencies. Side-by-side comparison table: LangGraph StateGraph vs Pydantic AI Agent -- when to choose each. Fastest-growing Python agent framework in 2025-2026. Follows the same framework contrast pattern as 15, 21, 34."
+      "notes": "pydantic_ai.Agent with result_type=ResearchResult (topic, summary, key_facts, confidence). No LangGraph -- direct run_sync. Built 2026-06-12."
     },
     {
       "id": 65,
