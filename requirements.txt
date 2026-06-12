@@ -100,12 +100,14 @@ langgraph-prebuilt==0.6.4
 langgraph-sdk==0.2.9
 langsmith==0.4.31
 lark==1.3.0
+litellm==1.72.6
 lxml==6.0.2
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 marshmallow==3.26.1
 matplotlib-inline==0.1.7
 mdurl==0.1.2
+mem0ai==0.1.108
 mistune==3.1.4
 ml_dtypes==0.5.3
 mmh3==5.2.0
@@ -157,6 +159,7 @@ pyasn1_modules==0.4.2
 pybase64==1.4.2
 pycparser==2.23
 pydantic==2.11.9
+pydantic-ai==0.0.14
 pydantic-settings==2.11.0
 pydantic_core==2.33.2
 Pygments==2.19.2
@@ -192,6 +195,7 @@ Send2Trash==1.8.3
 setuptools==80.9.0
 shellingham==1.5.4
 six==1.17.0
+smolagents==1.14.0
 sniffio==1.3.1
 socksio==1.0.0
 soupsieve==2.8
