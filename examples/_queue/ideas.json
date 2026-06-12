@@ -1866,9 +1866,9 @@
         "JSONL checkpointing",
         "tqdm"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Production pattern: run the same agent over 50 inputs without hitting OpenAI rate limits or losing progress on failure. Split inputs into batches of N; run each batch with asyncio.gather(); on 429 apply exponential backoff via tenacity (already in requirements); write results to JSONL incrementally so a crash only loses the current batch. LangGraph: simple RAG agent per item; aggregate all results. tqdm progress bar (already in requirements). Show checkpoint recovery: kill mid-run, restart, pick up from last completed batch. Contrast to 28-parallel-subgraph: that fans out within one workflow; this fans out across independent workflow invocations."
+      "notes": "9 tasks, BATCH_SIZE=3, asyncio.gather per batch, exponential backoff retry per task, summary table. Built 2026-06-12."
     }
   ]
 }
