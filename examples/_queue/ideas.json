@@ -1459,9 +1459,9 @@
         "embedding trick",
         "Gao et al. 2022"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Hypothetical Document Embeddings (Gao et al. 2022). Problem: a short keyword query has a different embedding space from a full-sentence answer. Solution: ask the LLM to write a plausible answer (even hallucinated), embed it, use as the retrieval query. Two-node LangGraph: hypothesize -> retrieve_and_generate. Show cosine similarity comparison: raw query vs HyDE embedding to the gold document. Include a failure case: HyDE hurts on factual queries where the model hallucinates a wrong hypothetical. No new deps. Companion to 57-step-back-prompting."
+      "notes": "Three-node LangGraph: hypothesize (LLM writes plausible answer) -> retrieve (embed hypothesis vector via similarity_search_by_vector) -> generate. No new deps. Teaches HyDE paper (Gao et al. 2022)."
     },
     {
       "id": 56,
