@@ -1645,9 +1645,9 @@
         "cost control",
         "graceful degradation"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Use tiktoken (already in requirements) to count prompt + completion tokens for each LLM call. Store running total in graph state (tokens_used: int). After each LLM node, check tokens_used > BUDGET_LIMIT; if yes, route to budget_exceeded that returns a partial answer with a warning. Build a 4-step research agent with a tight budget that trips the limit on step 3. Include token usage table per node. Contrast to 40-agent-observability (passive observation); this one actively enforces."
+      "notes": "4-step neural network history research. BUDGET_LIMIT=800, tiktoken per step, short-circuit on budget exceeded. Built 2026-06-12."
     },
     {
       "id": 64,
