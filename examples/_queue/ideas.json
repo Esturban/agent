@@ -1598,9 +1598,9 @@
         "PII detection",
         "policy enforcement"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Input guard: classify query for topic relevance and PII presence using with_structured_output(InputGuard); block if off-topic or contains PII patterns. Output guard: validate against OutputGuard schema (no untrusted URLs, answer length within bounds); if it fails, route back with a correction prompt. Four-node LangGraph: validate_input -> agent -> validate_output -> end. Include deliberate failures: PII query gets blocked, output violating URL policy gets corrected. No new deps (Pydantic already in requirements)."
+      "notes": "InputGuard + OutputGuard Pydantic schemas. 5 sample inputs (2 valid, 3 blocked: SSN, off-topic, email). Built 2026-06-12."
     },
     {
       "id": 62,
