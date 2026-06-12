@@ -1772,9 +1772,9 @@
         "claim extraction",
         "fact checking"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "CoVe (Dhuliawala et al. 2023): reduces hallucination by forcing claim-level fact-checking. Four-node LangGraph: generate -> plan_verification (extract N verifiable claims) -> execute_verification (independent query per claim via web search or vector store) -> revise (rewrite replacing failed claims). Show concrete failure: biography question, wrong birth year, verification catches it, revision fixes it. No new deps. Companion to 32-speculative-rag: both do post-generation checking, but CoVe is claim-level while SpecRAG is retrieve-then-check."
+      "notes": "4-node: generate, extract claims, verify each (ClaimVerification), revise failures. Einstein and Python biographies. Built 2026-06-12."
     },
     {
       "id": 69,
