@@ -1,14 +1,14 @@
 # 32-speculative-rag
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/32-speculative-rag/speculative_rag_workbook.ipynb)
-
-Generates a draft answer first (without retrieval), extracts its factual claims, retrieves evidence per claim, and revises only the unsupported parts. Retrieval becomes a targeted fact-check layer rather than a mandatory first step.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/32-speculative-rag/main.py
 ```
+
+Generates a draft answer first (without retrieval), extracts its factual claims, retrieves evidence per claim, and revises only the unsupported parts. Retrieval becomes a targeted fact-check layer rather than a mandatory first step.
 
 ---
 
