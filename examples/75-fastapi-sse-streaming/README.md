@@ -1,17 +1,21 @@
 # 75-fastapi-sse-streaming
 
-FastAPI server that wraps a LangGraph agent and streams token-by-token output to any HTTP client via Server-Sent Events. Uses `graph.astream_events()` piped through a `StreamingResponse` generator.
-
-## How to run
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`
+**Deps:** `pip install fastapi uvicorn`
 
 ```bash
-python main.py
-# or
-uvicorn main:app --reload
+python examples/75-fastapi-sse-streaming/main.py
+```
 
-# Test with curl:
-curl -X POST http://localhost:8000/ask \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What is retrieval-augmented generation?"}' \
-  --no-buffer
+FastAPI server that wraps a single-node LangGraph agent and streams token-by-token output to HTTP clients via Server-Sent Events using `graph.astream_events()` piped through a `StreamingResponse`.
+
+---
+
+### Graph
+
+```
+answer (async LLM call with streaming=True)
+  ↓
+END
 ```
