@@ -5,6 +5,10 @@
 **Files:** none -- sample text is inline
 **Colab:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/53-chunking-strategies/chunking_workbook.ipynb)
 
+```bash
+jupyter notebook examples/53-chunking-strategies/chunking_workbook.ipynb
+```
+
 Open `chunking_workbook.ipynb` in Colab or Jupyter. Compares four chunking strategies on the same document: fixed-size, recursive, sentence-window, and semantic (cosine boundary detection), indexing each into a separate Chroma collection and comparing RAG answer quality.
 
 ---
