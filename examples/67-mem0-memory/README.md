@@ -2,6 +2,7 @@
 
 ## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none -- sample sessions are inline in main.py
 **Deps:** `mem0ai`
 
 ```bash
