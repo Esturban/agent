@@ -163,6 +163,22 @@
           70,
           72
         ]
+      },
+      {
+        "id": "M14",
+        "name": "Production and Evaluation",
+        "examples": [
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82
+        ]
       }
     ]
   },
@@ -1869,6 +1885,262 @@
       "status": "done",
       "priority": "medium",
       "notes": "9 tasks, BATCH_SIZE=3, asyncio.gather per batch, exponential backoff retry per task, summary table. Built 2026-06-12."
+    },
+    {
+      "id": 73,
+      "slug": "73-langsmith-tracing",
+      "module": "M14",
+      "video_title": "LangSmith Tracing: See Inside Every Agent Run",
+      "framework": "langgraph",
+      "topic": "LangSmith tracing integration -- decorate LangGraph nodes with @traceable, enable LANGCHAIN_TRACING_V2, inspect runs in the LangSmith UI",
+      "pattern": "script",
+      "requires_deps": [
+        "langsmith"
+      ],
+      "prereqs": [
+        4,
+        40
+      ],
+      "concepts": [
+        "LangSmith",
+        "traceable decorator",
+        "LANGCHAIN_TRACING_V2",
+        "run inspection",
+        "observability"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Problem: agents are black boxes in production. Concept: LangSmith wraps every LLM call and node in a named trace with inputs/outputs/latency. Demo: @traceable on each node, set LANGCHAIN_API_KEY + LANGCHAIN_TRACING_V2=true, run the agent, show the trace tree in LangSmith UI. Exercise: add custom metadata tags to traces."
+    },
+    {
+      "id": 74,
+      "slug": "74-ragas-evaluation",
+      "module": "M14",
+      "video_title": "RAGAS Evaluation: Score Your RAG Pipeline in Code",
+      "framework": "ragas",
+      "topic": "RAGAS evaluation script -- build a QA dataset, run faithfulness and answer_relevancy metrics programmatically",
+      "pattern": "script",
+      "requires_deps": [
+        "ragas"
+      ],
+      "prereqs": [
+        16,
+        1
+      ],
+      "concepts": [
+        "RAGAS",
+        "faithfulness",
+        "answer_relevancy",
+        "Dataset",
+        "evaluate()"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Problem: notebook-only eval is hard to automate. Concept: RAGAS evaluate() takes a Dataset of (question, answer, contexts, ground_truth) rows and returns metric scores. Demo: build a 5-row QA dataset, run evaluate() with faithfulness + answer_relevancy, print score table. Extension: wire into CI to catch regressions."
+    },
+    {
+      "id": 75,
+      "slug": "75-fastapi-sse-streaming",
+      "module": "M14",
+      "video_title": "Streaming AI API: LangGraph + FastAPI Server-Sent Events",
+      "framework": "langgraph",
+      "topic": "FastAPI SSE server -- stream LangGraph astream_events over HTTP as Server-Sent Events so any browser or client can consume token-by-token output",
+      "pattern": "script",
+      "requires_deps": [
+        "fastapi",
+        "uvicorn"
+      ],
+      "prereqs": [
+        10,
+        62
+      ],
+      "concepts": [
+        "FastAPI",
+        "Server-Sent Events",
+        "StreamingResponse",
+        "astream_events",
+        "async generator"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Problem: LangGraph streaming only works in Python scripts; real apps need HTTP. Concept: FastAPI StreamingResponse wraps an async generator that calls graph.astream_events() and formats each token as an SSE data: line. Demo: POST /ask, stream back token events, show curl consuming the stream. Extension: add a stop-sequence event type."
+    },
+    {
+      "id": 76,
+      "slug": "76-langgraph-cloud-deploy",
+      "module": "M14",
+      "video_title": "LangGraph Cloud: Deploy Your Agent as a Managed API",
+      "framework": "langgraph",
+      "topic": "LangGraph Cloud deployment -- package a LangGraph agent with langgraph.json, deploy to LangGraph Cloud, call via SDK",
+      "pattern": "notebook",
+      "requires_deps": [
+        "langgraph-sdk"
+      ],
+      "prereqs": [
+        73,
+        75
+      ],
+      "concepts": [
+        "LangGraph Cloud",
+        "langgraph.json",
+        "RemoteGraph",
+        "managed deployment",
+        "SDK client"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Problem: running agents locally does not scale. Concept: LangGraph Cloud hosts graphs as persistent APIs with built-in checkpointing and streaming. Demo: write langgraph.json, deploy with langgraph up, call RemoteGraph.invoke() from the notebook. Show the built-in thread management UI."
+    },
+    {
+      "id": 77,
+      "slug": "77-langfuse-observability",
+      "module": "M14",
+      "video_title": "Langfuse Observability: Open-Source LLM Tracing",
+      "framework": "langgraph",
+      "topic": "Langfuse agent observability -- self-hostable LLM tracing alternative to LangSmith; wrap LangGraph with Langfuse callback handler",
+      "pattern": "script",
+      "requires_deps": [
+        "langfuse"
+      ],
+      "prereqs": [
+        73,
+        40
+      ],
+      "concepts": [
+        "Langfuse",
+        "CallbackHandler",
+        "self-hosted tracing",
+        "cost tracking",
+        "user sessions"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Problem: LangSmith requires Anthropic/LangChain account. Concept: Langfuse is open-source, self-hostable, GDPR-friendly. Demo: add LangfuseCallbackHandler to LangGraph config, run agent, inspect trace in local Langfuse UI. Show cost per run and user session grouping."
+    },
+    {
+      "id": 78,
+      "slug": "78-langsmith-ab-testing",
+      "module": "M14",
+      "video_title": "A/B Test Your Prompts with LangSmith Datasets",
+      "framework": "langgraph",
+      "topic": "LangSmith A/B prompt testing -- create a dataset, run two prompt variants against it, compare scores in LangSmith Experiments",
+      "pattern": "script",
+      "requires_deps": [
+        "langsmith"
+      ],
+      "prereqs": [
+        73,
+        29
+      ],
+      "concepts": [
+        "LangSmith datasets",
+        "Experiments",
+        "evaluate()",
+        "prompt variants",
+        "A/B testing"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Problem: changing a prompt is risky without measurement. Concept: LangSmith evaluate() runs a dataset through a target function and scores each example with evaluators. Demo: 10-example dataset, two prompt templates (control vs treatment), compare faithfulness scores. Show the experiment comparison view."
+    },
+    {
+      "id": 79,
+      "slug": "79-langgraph-studio-debug",
+      "module": "M14",
+      "video_title": "LangGraph Studio: Visual Graph Debugging in Your Browser",
+      "framework": "langgraph",
+      "topic": "LangGraph Studio local debugging -- visualize the graph, step through nodes interactively, inspect state at each checkpoint",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        39,
+        73
+      ],
+      "concepts": [
+        "LangGraph Studio",
+        "visual debugging",
+        "node inspection",
+        "checkpoint state",
+        "interactive replay"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Problem: debugging graph logic from print statements is painful. Concept: LangGraph Studio provides a browser UI to run, step, and replay graphs with full state visibility. Demo: open an existing complex graph in Studio, walk through node execution, modify state mid-run, re-run from checkpoint. Show how to write langgraph.json for local Studio."
+    },
+    {
+      "id": 80,
+      "slug": "80-supervisor-revisited",
+      "module": "M14",
+      "video_title": "Production Supervisor Agent: Routing, Retries, and Fallbacks",
+      "framework": "langgraph",
+      "topic": "Production-grade multi-agent supervisor -- dynamic worker routing with retry logic, worker health checks, and graceful fallback",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        43,
+        72
+      ],
+      "concepts": [
+        "supervisor pattern",
+        "worker retries",
+        "health check",
+        "graceful fallback",
+        "production hardening"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Problem: example 43 has no error handling. Concept: production supervisors need retry logic when a worker fails and a fallback path when max retries are exceeded. Demo: inject a worker failure, show supervisor retry, show fallback to a simpler answer. Teaches defensive multi-agent design."
+    },
+    {
+      "id": 81,
+      "slug": "81-hitl-interrupt-approval",
+      "module": "M14",
+      "video_title": "Production HITL: Interrupt, Approve, and Audit Trails",
+      "framework": "langgraph",
+      "topic": "Production human-in-the-loop -- interrupt() with audit logging, approval/rejection/edit paths, and a durable approval record",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        11,
+        39
+      ],
+      "concepts": [
+        "interrupt",
+        "Command(resume)",
+        "audit trail",
+        "approval workflow",
+        "durable state"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Problem: example 11 only does yes/no. Production needs approve/reject/edit plus an audit log. Concept: interrupt() captures the proposed action; user can approve, reject, or provide an edited version; all decisions are written to an audit JSONL file. Demo: agent proposes a database write, user edits the payload, approval is logged. Extends 39-checkpoint-resume for durability."
+    },
+    {
+      "id": 82,
+      "slug": "82-redis-memory-langgraph",
+      "module": "M14",
+      "video_title": "Production Memory: Persist Agent State in Redis",
+      "framework": "langgraph",
+      "topic": "Production memory with Redis -- replace InMemoryStore with a Redis-backed store for durable cross-session agent memory",
+      "pattern": "script",
+      "requires_deps": [
+        "redis",
+        "langchain-redis"
+      ],
+      "prereqs": [
+        36,
+        7
+      ],
+      "concepts": [
+        "Redis",
+        "RedisSaver",
+        "cross-session memory",
+        "production persistence",
+        "TTL"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Problem: InMemoryStore is lost on process restart. Concept: RedisSaver checkpointer + Redis vector store provide durable cross-session memory. Demo: session 1 stores user facts in Redis; kill the process; session 2 recovers facts by thread_id. Show TTL configuration to expire old memories. Contrasts with 36-long-term-memory (in-memory) and 67-mem0-memory (auto-extraction)."
     }
   ]
 }
