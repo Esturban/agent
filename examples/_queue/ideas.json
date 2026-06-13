@@ -1961,7 +1961,7 @@
         "astream_events",
         "async generator"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Problem: LangGraph streaming only works in Python scripts; real apps need HTTP. Concept: FastAPI StreamingResponse wraps an async generator that calls graph.astream_events() and formats each token as an SSE data: line. Demo: POST /ask, stream back token events, show curl consuming the stream. Extension: add a stop-sequence event type."
     },
