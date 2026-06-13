@@ -1,17 +1,26 @@
 # 51-deepeval-conversational
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/51-deepeval-conversational/conversational_eval_workbook.ipynb)
-
-DeepEval conversational metrics: KnowledgeRetention, ConversationCompleteness, ConversationRelevancy. Evaluates multi-turn chatbot conversations end-to-end and shows the score difference between stateful (with history) and stateless (no memory) chatbots.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install deepeval
 python examples/51-deepeval-conversational/main.py
 ```
 
+DeepEval conversational metrics: KnowledgeRetention, ConversationCompleteness, ConversationRelevancy. Evaluates multi-turn chatbot conversations end-to-end and shows the score difference between stateful (with history) and stateless (no memory) chatbots.
+
 ---
+
+### Graph
+
+```
+stateful:   turn 1 → turn 2 → turn 3   (full message history passed each turn)
+stateless:  turn 1   turn 2   turn 3   (each turn sees only system prompt)
+
+Both → ConversationalTestCase → deepeval.evaluate()
+```
 
 ### Conversational metrics
 
