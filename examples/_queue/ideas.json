@@ -1748,7 +1748,7 @@
         "auto-extraction",
         "cross-process memory"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Add mem0ai to requirements.txt. Mem0 (MemoryAI, 2024) automatically extracts semantic facts and episodic memories using an LLM. Three-node LangGraph: recall_memories (m.search(query, user_id)) -> respond -> store_memories (m.add(messages, user_id)). Demo: session 1 user says 'I prefer Python'; session 2 in a fresh process recalls this without being told. Compare to 36-long-term-memory: Mem0 auto-extracts facts, LangGraph InMemoryStore is explicit. Include a memory dump showing raw Mem0 objects."
     },
