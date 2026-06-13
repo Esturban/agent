@@ -1696,7 +1696,7 @@
         "cost tracking",
         "vendor lock-in"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "Add litellm to requirements.txt. Notebook showing: (1) litellm.completion() works identically for openai/gpt-4o-mini, anthropic/claude-haiku-4-5, mistral/mistral-small -- only the model string changes; (2) fallback chains: if primary provider errors, automatically retry on the next; (3) cost tracking via litellm.completion_cost(); (4) integrate with LangChain via ChatLiteLLM wrapper. Provider comparison table: cost per 1M tokens, context window, strengths. Exercises: run the same query on 3 providers and compare latency; simulate a 429 error and watch fallback trigger."
     },
@@ -1797,7 +1797,7 @@
       ],
       "status": "done",
       "priority": "low",
-      "notes": "5-principle constitution, generate→critique→revise loop, MAX_REVISIONS=3. 2 sample prompts. Built 2026-06-12."
+      "notes": "5-principle constitution, generate\u2192critique\u2192revise loop, MAX_REVISIONS=3. 2 sample prompts. Built 2026-06-12."
     },
     {
       "id": 70,
@@ -1820,7 +1820,7 @@
       ],
       "status": "done",
       "priority": "high",
-      "notes": "10-doc corpus with 3 planted injections. retrieve→classify_chunks→filter→generate. InjectionRisk high/low classifier. Built 2026-06-12."
+      "notes": "10-doc corpus with 3 planted injections. retrieve\u2192classify_chunks\u2192filter\u2192generate. InjectionRisk high/low classifier. Built 2026-06-12."
     },
     {
       "id": 71,
