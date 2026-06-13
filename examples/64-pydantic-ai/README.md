@@ -14,7 +14,7 @@ Pydantic AI: builds a typed research agent using `pydantic_ai.Agent` with `resul
 
 ---
 
-### Pattern (no LangGraph)
+### Graph
 
 ```
 pydantic_ai.Agent("openai:gpt-5-nano", result_type=ResearchResult)
