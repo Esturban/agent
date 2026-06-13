@@ -1967,29 +1967,27 @@
     },
     {
       "id": 76,
-      "slug": "76-langgraph-cloud-deploy",
+      "slug": "76-agent-evaluation",
       "module": "M14",
-      "video_title": "LangGraph Cloud: Deploy Your Agent as a Managed API",
+      "video_title": "Agent Evaluation: Score Your Agent Against a Golden QA Dataset",
       "framework": "langgraph",
-      "topic": "LangGraph Cloud deployment -- package a LangGraph agent with langgraph.json, deploy to LangGraph Cloud, call via SDK",
-      "pattern": "notebook",
-      "requires_deps": [
-        "langgraph-sdk"
-      ],
+      "topic": "Agent evaluation with golden QA dataset -- exact match and cosine similarity scoring, pass rate summary",
+      "pattern": "script",
+      "requires_deps": [],
       "prereqs": [
-        73,
-        75
+        29,
+        4
       ],
       "concepts": [
-        "LangGraph Cloud",
-        "langgraph.json",
-        "RemoteGraph",
-        "managed deployment",
-        "SDK client"
+        "golden dataset",
+        "exact match",
+        "cosine similarity",
+        "pass rate",
+        "evaluation loop"
       ],
-      "status": "pending",
-      "priority": "medium",
-      "notes": "Problem: running agents locally does not scale. Concept: LangGraph Cloud hosts graphs as persistent APIs with built-in checkpointing and streaming. Demo: write langgraph.json, deploy with langgraph up, call RemoteGraph.invoke() from the notebook. Show the built-in thread management UI."
+      "status": "done",
+      "priority": "high",
+      "notes": "5-pair golden QA set, single evaluate_one node, exact match + embedding cosine similarity scoring, per-question PASS/FAIL, avg score and pass rate summary. Built 2026-06-13."
     },
     {
       "id": 77,
@@ -2013,35 +2011,33 @@
         "cost tracking",
         "user sessions"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Problem: LangSmith requires Anthropic/LangChain account. Concept: Langfuse is open-source, self-hostable, GDPR-friendly. Demo: add LangfuseCallbackHandler to LangGraph config, run agent, inspect trace in local Langfuse UI. Show cost per run and user session grouping."
+      "notes": "SimpleTraceHandler mirrors LangfuseCallbackHandler interface (BaseCallbackHandler). ask_question -> format_answer 2-node graph, per-task trace IDs, llm_start/llm_end event capture. Built 2026-06-13."
     },
     {
       "id": 78,
-      "slug": "78-langsmith-ab-testing",
+      "slug": "78-prompt-ab-testing",
       "module": "M14",
-      "video_title": "A/B Test Your Prompts with LangSmith Datasets",
+      "video_title": "Prompt A/B Testing: Compare Concise vs Detailed Variants",
       "framework": "langgraph",
-      "topic": "LangSmith A/B prompt testing -- create a dataset, run two prompt variants against it, compare scores in LangSmith Experiments",
+      "topic": "Prompt A/B testing -- run two prompt variants on 5 inputs, score by word count, declare winner with comparison table",
       "pattern": "script",
-      "requires_deps": [
-        "langsmith"
-      ],
+      "requires_deps": [],
       "prereqs": [
-        73,
+        4,
         29
       ],
       "concepts": [
-        "LangSmith datasets",
-        "Experiments",
-        "evaluate()",
         "prompt variants",
-        "A/B testing"
+        "A/B testing",
+        "word count scoring",
+        "side-by-side comparison",
+        "winner declaration"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Problem: changing a prompt is risky without measurement. Concept: LangSmith evaluate() runs a dataset through a target function and scores each example with evaluators. Demo: 10-example dataset, two prompt templates (control vs treatment), compare faithfulness scores. Show the experiment comparison view."
+      "notes": "VARIANT_A (concise) vs VARIANT_B (detailed), 5 TEST_INPUTS, score_response = word_count/100, sequential run_variant_a -> run_variant_b nodes, printed comparison table with avg score and winner. Built 2026-06-13."
     },
     {
       "id": 79,
