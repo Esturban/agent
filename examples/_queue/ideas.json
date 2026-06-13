@@ -1722,7 +1722,7 @@
         "HuggingFace",
         "framework contrast"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
       "notes": "Add smolagents to requirements.txt. SmolAgents (HuggingFace, 2025): instead of defining named tools, the LLM writes Python code that imports and calls functions directly. Show a CodeAgent with web_search, text_summarize, and calculator tools where the agent's reasoning trace is runnable Python. Contrast table: LangGraph (nodes + edges + state) vs CrewAI (roles + tasks) vs SmolAgents (code generation + direct execution). Show the code execution sandboxing concern and how SmolAgents handles it."
     },
