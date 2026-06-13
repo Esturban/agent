@@ -1,7 +1,6 @@
 import tiktoken
 
 BUDGET_LIMIT = 800
-MODEL_NAME = "gpt-5-nano"
 
 RESEARCH_TOPIC = "Explain the history and key contributions of neural networks"
 

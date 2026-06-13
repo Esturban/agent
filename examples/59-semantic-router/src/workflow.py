@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langgraph.graph import END, START, StateGraph
 
-from src.tools import build_route_embeddings, find_best_route  # noqa: F401
+from src.tools import build_route_embeddings, find_best_route
 
 HANDLER_PROMPTS = {
     "code": "You are a coding assistant. Answer this programming question concisely:\n{query}",
