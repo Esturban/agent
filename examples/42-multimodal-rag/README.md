@@ -1,15 +1,15 @@
 # 42-multimodal-rag
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/42-multimodal-rag/multimodal_rag_workbook.ipynb)
-
-Index images into a vector store using GPT-4o vision descriptions, then answer natural-language questions via similarity search over those descriptions.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install langchain-community chromadb httpx
 python examples/42-multimodal-rag/main.py
 ```
+
+Index images into a vector store using GPT-4o vision descriptions, then answer natural-language questions via similarity search over those descriptions.
 
 ---
 
