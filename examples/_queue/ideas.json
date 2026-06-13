@@ -1908,7 +1908,7 @@
         "run inspection",
         "observability"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Problem: agents are black boxes in production. Concept: LangSmith wraps every LLM call and node in a named trace with inputs/outputs/latency. Demo: @traceable on each node, set LANGCHAIN_API_KEY + LANGCHAIN_TRACING_V2=true, run the agent, show the trace tree in LangSmith UI. Exercise: add custom metadata tags to traces."
     },
