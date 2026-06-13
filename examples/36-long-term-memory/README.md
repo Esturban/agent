@@ -1,14 +1,14 @@
 # 36-long-term-memory
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/36-long-term-memory/long_term_memory_workbook.ipynb)
-
-Persists facts about a user across conversation threads using LangGraph's `InMemoryStore`. Each run retrieves relevant memories via semantic search, responds with that context, then extracts and stores new facts — enabling personalized behavior that improves across sessions.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/36-long-term-memory/main.py
 ```
+
+Persists facts about a user across conversation threads using LangGraph's `InMemoryStore`. Each run retrieves relevant memories via semantic search, responds with that context, then extracts and stores new facts — enabling personalized behavior that improves across sessions.
 
 ---
 
