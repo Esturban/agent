@@ -1622,7 +1622,7 @@
         "astream",
         "concurrent tool calls"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "notes": "All prior examples use synchronous .invoke(). This notebook shows the async path: async def nodes; graph.ainvoke() and graph.astream(); asyncio.gather() inside a node to call 3 tools concurrently. Show wall-clock time: sequential 3x1s=3s vs concurrent 1s. Explain when async matters: I/O-bound tasks (API calls, DB reads) benefit; CPU-bound (tokenization, embeddings) do not. Include async streaming: async for event in graph.astream_events(). No new deps."
     },
