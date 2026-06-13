@@ -13,7 +13,7 @@ Batch Agent Runner: processes 9 tasks in parallel batches of 3 using `asyncio.ga
 
 ---
 
-### Pattern (no LangGraph — pure asyncio)
+### Graph
 
 ```
 SAMPLE_TASKS (9 tasks)
