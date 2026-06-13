@@ -2,6 +2,7 @@
 
 ## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none -- tools and sandboxing demo are inline in src/tools.py
 **Deps:** `smolagents`
 
 ```bash
