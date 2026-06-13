@@ -1,5 +1,14 @@
 # 9-prospect-searx
 
+## Prerequisites
+**Keys:** `OPENAI_API_KEY` or `OPENROUTER_API_KEY`
+**Files:** `data/Connections.csv` (LinkedIn export)
+**Services:** SearXNG running in Docker (see setup below)
+
+```bash
+./examples/9-prospect-searx/run.sh
+```
+
 Prospect research agent upgraded to **SearXNG** — a self-hosted, privacy-focused, multi-engine search backend. Intelligently selects the best engines per query (LinkedIn profiles → Google/Bing; academic → arXiv/PubMed).
 
 **Keys:** `OPENAI_API_KEY` or `OPENROUTER_API_KEY`
@@ -44,3 +53,20 @@ curl "http://localhost:8888/search?q=test&format=json"
 ```
 
 If you get `403 Forbidden`, check that `search.formats` includes `json` in your settings file.
+
+---
+
+### Graph
+
+```
+START
+  ↓
+prospect_loop   ← iterates over each row in Connections.csv
+  ↓
+  ├─ searxng_search  ← multi-engine search (Google/Bing for profiles, arXiv for academic)
+  └─ researcher      ← LLM synthesizes search results into facts + source URLs
+  ↓
+copywriter       ← LLM writes personalized outreach message with confidence score
+  ↓
+END              → data/aug/Connections_aug_<timestamp>.csv
+```
