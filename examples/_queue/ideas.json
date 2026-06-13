@@ -2041,75 +2041,77 @@
     },
     {
       "id": 79,
-      "slug": "79-langgraph-studio-debug",
-      "module": "M14",
-      "video_title": "LangGraph Studio: Visual Graph Debugging in Your Browser",
+      "slug": "79-interrupt-human-approval",
+      "module": "M2",
+      "video_title": "LangGraph Interrupt: Pause for Human Approval Mid-Graph",
       "framework": "langgraph",
-      "topic": "LangGraph Studio local debugging -- visualize the graph, step through nodes interactively, inspect state at each checkpoint",
-      "pattern": "notebook",
-      "requires_deps": [],
-      "prereqs": [
-        39,
-        73
-      ],
-      "concepts": [
-        "LangGraph Studio",
-        "visual debugging",
-        "node inspection",
-        "checkpoint state",
-        "interactive replay"
-      ],
-      "status": "pending",
-      "priority": "low",
-      "notes": "Problem: debugging graph logic from print statements is painful. Concept: LangGraph Studio provides a browser UI to run, step, and replay graphs with full state visibility. Demo: open an existing complex graph in Studio, walk through node execution, modify state mid-run, re-run from checkpoint. Show how to write langgraph.json for local Studio."
-    },
-    {
-      "id": 80,
-      "slug": "80-supervisor-revisited",
-      "module": "M14",
-      "video_title": "Production Supervisor Agent: Routing, Retries, and Fallbacks",
-      "framework": "langgraph",
-      "topic": "Production-grade multi-agent supervisor -- dynamic worker routing with retry logic, worker health checks, and graceful fallback",
-      "pattern": "script",
-      "requires_deps": [],
-      "prereqs": [
-        43,
-        72
-      ],
-      "concepts": [
-        "supervisor pattern",
-        "worker retries",
-        "health check",
-        "graceful fallback",
-        "production hardening"
-      ],
-      "status": "pending",
-      "priority": "medium",
-      "notes": "Problem: example 43 has no error handling. Concept: production supervisors need retry logic when a worker fails and a fallback path when max retries are exceeded. Demo: inject a worker failure, show supervisor retry, show fallback to a simpler answer. Teaches defensive multi-agent design."
-    },
-    {
-      "id": 81,
-      "slug": "81-hitl-interrupt-approval",
-      "module": "M14",
-      "video_title": "Production HITL: Interrupt, Approve, and Audit Trails",
-      "framework": "langgraph",
-      "topic": "Production human-in-the-loop -- interrupt() with audit logging, approval/rejection/edit paths, and a durable approval record",
+      "topic": "LangGraph interrupt() for human-in-the-loop approval -- pause graph mid-execution, surface an action for human review, resume with Command(resume=approved_bool)",
       "pattern": "script",
       "requires_deps": [],
       "prereqs": [
         11,
-        39
+        38
       ],
       "concepts": [
-        "interrupt",
+        "interrupt()",
         "Command(resume)",
-        "audit trail",
-        "approval workflow",
-        "durable state"
+        "MemorySaver",
+        "human-in-the-loop",
+        "risk-based approval"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "Problem: example 11 only does yes/no. Production needs approve/reject/edit plus an audit log. Concept: interrupt() captures the proposed action; user can approve, reject, or provide an edited version; all decisions are written to an audit JSONL file. Demo: agent proposes a database write, user edits the payload, approval is logged. Extends 39-checkpoint-resume for durability."
+      "notes": "5 SAMPLE_ACTIONS with low/medium/high risk. propose_action node drafts action, await_approval node calls interrupt(), main.py auto-approves low/medium and rejects high risk. Two .stream() calls per action -- first catches __interrupt__, second resumes with Command(resume=). Built 2026-06-13."
+    },
+    {
+      "id": 80,
+      "slug": "80-multi-agent-supervisor",
+      "module": "M6",
+      "video_title": "Multi-Agent Supervisor: Route Tasks to Specialist Agents",
+      "framework": "langgraph",
+      "topic": "Supervisor node routes questions to specialist agents -- LLM classifies domain and dispatches to math, history, or science expert",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        6,
+        43
+      ],
+      "concepts": [
+        "supervisor pattern",
+        "conditional routing",
+        "specialist agents",
+        "domain classification",
+        "multi-agent graph"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "SPECIALIST_TASKS: 6 questions across math/history/science. SupervisorState with next field. Supervisor uses gpt-5-nano to classify, conditional_edges dispatch to the matching specialist. main.py streams updates to capture routing decision before specialist overwrites state. Built 2026-06-13."
+    },
+    {
+      "id": 81,
+      "slug": "81-streaming-sse-server",
+      "module": "M10",
+      "video_title": "Stream LangGraph as SSE: Token-by-Token with FastAPI",
+      "framework": "langgraph",
+      "topic": "FastAPI server streams LangGraph astream_events as Server-Sent Events -- token-by-token output over HTTP GET endpoint",
+      "pattern": "script",
+      "requires_deps": [
+        "fastapi"
+      ],
+      "prereqs": [
+        10,
+        62
+      ],
+      "concepts": [
+        "astream_events",
+        "Server-Sent Events",
+        "FastAPI",
+        "StreamingResponse",
+        "on_chat_model_stream"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Two-node graph (think→answer) with gpt-5-nano. FastAPI GET /stream?q=... endpoint uses StreamingResponse + async generator over graph.astream_events(version='v2'). Filters on_chat_model_stream events and yields SSE data frames. Test with curl. fastapi>=0.100.0 added to requirements.txt. Built 2026-06-13."
     },
     {
       "id": 82,
