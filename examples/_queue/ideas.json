@@ -1,5 +1,5 @@
 {
-  "_description": "Teaching loop queue -- planned examples for the py/agent repo. Pick the next pending item, scaffold it following CLAUDE.md phased commits.",
+  "_description": "Teaching loop queue -- lesson plans for the py/agent course. Each entry is one lesson/video. Modules group lessons by theme. Pick the next pending item and scaffold following CLAUDE.md phased commits.",
   "_status_values": [
     "pending",
     "in-progress",
@@ -11,457 +11,2134 @@
     "medium",
     "low"
   ],
+  "_curriculum": {
+    "title": "Agentic AI: From RAG to Production",
+    "description": "A progressive course on building AI agents with LangGraph and LangChain. Each example is one lesson and one video. Complete a module before moving to the next. Modules 1-8 cover the foundations; Modules 9-13 are advanced and production-focused.",
+    "modules": [
+      {
+        "id": "M1",
+        "name": "RAG Foundations",
+        "examples": [
+          1,
+          10,
+          12
+        ]
+      },
+      {
+        "id": "M2",
+        "name": "Agent Fundamentals",
+        "examples": [
+          4,
+          5,
+          11,
+          13,
+          14,
+          20,
+          38
+        ]
+      },
+      {
+        "id": "M3",
+        "name": "Multi-Tool and Stores",
+        "examples": [
+          2,
+          7,
+          22
+        ]
+      },
+      {
+        "id": "M4",
+        "name": "Advanced RAG",
+        "examples": [
+          17,
+          24,
+          25,
+          26,
+          27,
+          30,
+          32,
+          42
+        ]
+      },
+      {
+        "id": "M5",
+        "name": "Agent Reasoning",
+        "examples": [
+          18,
+          35,
+          37,
+          46
+        ]
+      },
+      {
+        "id": "M6",
+        "name": "Multi-Agent Systems",
+        "examples": [
+          3,
+          6,
+          8,
+          9,
+          15,
+          19,
+          21,
+          23,
+          28,
+          31,
+          34,
+          43,
+          44,
+          45
+        ]
+      },
+      {
+        "id": "M7",
+        "name": "Memory and State",
+        "examples": [
+          36,
+          39
+        ]
+      },
+      {
+        "id": "M8",
+        "name": "Evaluation",
+        "examples": [
+          16,
+          29,
+          33,
+          40,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52
+        ]
+      },
+      {
+        "id": "M9",
+        "name": "RAG Techniques II",
+        "examples": [
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          71
+        ]
+      },
+      {
+        "id": "M10",
+        "name": "Agent Infrastructure",
+        "examples": [
+          59,
+          60,
+          61,
+          62,
+          63
+        ]
+      },
+      {
+        "id": "M11",
+        "name": "Framework Landscape",
+        "examples": [
+          64,
+          65,
+          66,
+          67
+        ]
+      },
+      {
+        "id": "M12",
+        "name": "Reasoning Strategies",
+        "examples": [
+          68,
+          69
+        ]
+      },
+      {
+        "id": "M13",
+        "name": "Production and Safety",
+        "examples": [
+          70,
+          72
+        ]
+      },
+      {
+        "id": "M14",
+        "name": "Production and Evaluation",
+        "examples": [
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82
+        ]
+      }
+    ]
+  },
   "queue": [
+    {
+      "id": 1,
+      "slug": "1-basic-local-rag",
+      "module": "M1",
+      "video_title": "Build Your First RAG Agent in Python (Local ChromaDB)",
+      "framework": "langgraph",
+      "topic": "Minimal RAG pipeline -- load documents, split, embed, store in ChromaDB, retrieve, generate",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [],
+      "concepts": [
+        "RAG",
+        "ChromaDB",
+        "embeddings",
+        "retrieval-augmented generation"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Entry point for the entire course. No prior knowledge needed. Teaches the four stages: chunk, embed, store, retrieve+generate."
+    },
+    {
+      "id": 2,
+      "slug": "2-multi-tool-rag",
+      "module": "M3",
+      "video_title": "RAG with Cloud Vector DB + Web Search Fallback (Qdrant + Brave)",
+      "framework": "langgraph",
+      "topic": "RAG with cloud-hosted Qdrant vector DB and a web-search fallback tool",
+      "pattern": "script",
+      "requires_deps": [
+        "qdrant-client",
+        "langchain-qdrant"
+      ],
+      "prereqs": [
+        1
+      ],
+      "concepts": [
+        "Qdrant",
+        "cloud vector store",
+        "tool fallback",
+        "multi-tool agent"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Shows how to swap ChromaDB for a managed cloud store and add a Brave Search fallback when the vector store has no relevant results."
+    },
+    {
+      "id": 3,
+      "slug": "3-prospect-agent",
+      "module": "M6",
+      "video_title": "Prospect Research Agent: Personalized Outreach with AI",
+      "framework": "langgraph",
+      "topic": "Prospect research agent -- DuckDuckGo search then personalized outreach draft with confidence score",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "prospect research",
+        "DuckDuckGo",
+        "outreach generation",
+        "confidence scoring"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "First practical application example. Shows how to chain search + generation into a useful product-like workflow."
+    },
+    {
+      "id": 4,
+      "slug": "4-basic-react-agent",
+      "module": "M2",
+      "video_title": "Build a ReAct Agent with Memory and PDF Retrieval",
+      "framework": "langgraph",
+      "topic": "ReAct agent with conversation memory and PDF retrieval tool",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1
+      ],
+      "concepts": [
+        "ReAct",
+        "tool use",
+        "conversation memory",
+        "reason-act loop"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Teaches the ReAct pattern (Yao et al. 2022): reason, act, observe, repeat. Uses LangChain tools and memory. Core pattern for all agent work."
+    },
+    {
+      "id": 5,
+      "slug": "5-react-agent-lg",
+      "module": "M2",
+      "video_title": "LangGraph ReAct Agent: Summarize + Critique Loop",
+      "framework": "langgraph",
+      "topic": "LangGraph ReAct agent: PDF summarizer with a critique loop between two specialist nodes",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "StateGraph",
+        "agent loop",
+        "specialist nodes",
+        "critique"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Upgrades example 4 from a linear chain to a proper LangGraph StateGraph with conditional routing between a summarizer and a critic."
+    },
+    {
+      "id": 6,
+      "slug": "6-multi-agent-graph",
+      "module": "M6",
+      "video_title": "Two-Agent Graph: Route Between Specialists with LangGraph",
+      "framework": "langgraph",
+      "topic": "Two-agent graph: ProductQnA and OrdersAgent routed by a supervisor node",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "multi-agent graph",
+        "supervisor routing",
+        "specialist agents",
+        "message routing"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "First multi-agent example. Introduces the supervisor pattern where a router node directs incoming messages to the correct specialist."
+    },
+    {
+      "id": 7,
+      "slug": "7-redis-rag",
+      "module": "M3",
+      "video_title": "RAG with Redis Vector Store and Query Rewriting",
+      "framework": "langgraph",
+      "topic": "RAG backed by Redis vector store with a grader node that rewrites the query if retrieval fails",
+      "pattern": "script",
+      "requires_deps": [
+        "redis",
+        "redisvl",
+        "langchain-redis"
+      ],
+      "prereqs": [
+        1
+      ],
+      "concepts": [
+        "Redis",
+        "vector store",
+        "query rewriting",
+        "retrieval grading"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Shows Redis as a production-grade vector store and introduces the query-rewrite pattern when initial retrieval is not relevant enough."
+    },
+    {
+      "id": 8,
+      "slug": "8-new-idea-gen",
+      "module": "M6",
+      "video_title": "Idea Generation Agent: Parse and Score Business Ideas",
+      "framework": "langgraph",
+      "topic": "Two-stage pipeline: parse the free-for-dev list then generate structured, scored ideas",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        3
+      ],
+      "concepts": [
+        "pipeline agent",
+        "structured scoring",
+        "idea generation",
+        "DuckDuckGo"
+      ],
+      "status": "done",
+      "priority": "low",
+      "notes": "Practical application. Shows how to chain a scraping/parsing step with an LLM generation step to produce a scored idea list."
+    },
+    {
+      "id": 9,
+      "slug": "9-prospect-searx",
+      "module": "M6",
+      "video_title": "Prospect Agent with SearXNG: Privacy-First Web Search",
+      "framework": "langgraph",
+      "topic": "Prospect agent upgraded to SearXNG (self-hosted, privacy-focused, multi-engine search)",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        3
+      ],
+      "concepts": [
+        "SearXNG",
+        "self-hosted search",
+        "privacy",
+        "search engine aggregation"
+      ],
+      "status": "done",
+      "priority": "low",
+      "notes": "Upgrades example 3 to use SearXNG instead of DuckDuckGo. Teaches how to swap search backends and why self-hosted search matters for production."
+    },
+    {
+      "id": 10,
+      "slug": "10-streaming-rag",
+      "module": "M1",
+      "video_title": "Real-Time RAG: Stream LangGraph Output Token by Token",
+      "framework": "langgraph",
+      "topic": "RAG pipeline with .stream(stream_mode='updates') for live node-by-node output",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        12
+      ],
+      "concepts": [
+        "streaming",
+        "stream_mode",
+        "real-time output",
+        "node events"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Teaches LangGraph's streaming API. Same pipeline as example 1 but emits events per node so users see partial results while the graph runs."
+    },
+    {
+      "id": 11,
+      "slug": "11-hitl-approval",
+      "module": "M2",
+      "video_title": "Human-in-the-Loop: Pause and Resume Any AI Agent",
+      "framework": "langgraph",
+      "topic": "HITL: interrupt() pauses the graph mid-run for yes/no approval, Command(resume=) continues from checkpoint",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "human-in-the-loop",
+        "interrupt",
+        "Command(resume)",
+        "checkpointer"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Teaches LangGraph's interrupt primitive. Critical pattern for any production agent where a human must approve before an action is taken."
+    },
+    {
+      "id": 12,
+      "slug": "12-basic-rag-notebook",
+      "module": "M1",
+      "video_title": "RAG from Scratch: Complete Tutorial Notebook (Colab)",
+      "framework": "langgraph",
+      "topic": "Jupyter/Colab teaching workbook -- chunk, embed, store, retrieve, generate end-to-end with exercises",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        1
+      ],
+      "concepts": [
+        "RecursiveCharacterTextSplitter",
+        "text-embedding-3-small",
+        "ChromaDB",
+        "retrieval chain"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "The deep-dive companion to example 1. Colab-ready, includes exercises. Teaches the full RAG pipeline with cell-by-cell explanation."
+    },
+    {
+      "id": 13,
+      "slug": "13-structured-output",
+      "module": "M2",
+      "video_title": "Structured Output with Pydantic and LangChain",
+      "framework": "langgraph",
+      "topic": "Search then extract a validated Pydantic model with with_structured_output()",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "structured output",
+        "Pydantic",
+        "with_structured_output",
+        "schema validation"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Teaches how to force an LLM to return a validated Pydantic object instead of free-form text. Foundational for every example that uses typed state."
+    },
+    {
+      "id": 14,
+      "slug": "14-sql-agent",
+      "module": "M2",
+      "video_title": "Build a Text-to-SQL Agent with LangGraph",
+      "framework": "langgraph",
+      "topic": "ReAct agent over a local SQLite DB using create_react_agent; seeds sample data on first run",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "text-to-SQL",
+        "SQLite",
+        "create_react_agent",
+        "database agent"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Shows how to point a ReAct agent at a relational database. The agent writes and executes SQL queries to answer natural language questions."
+    },
     {
       "id": 15,
       "slug": "15-crewai-research-crew",
+      "module": "M6",
+      "video_title": "CrewAI Basics: Build a Research + Writer Crew",
       "framework": "crewai",
       "topic": "Multi-agent research crew with researcher + writer roles using CrewAI",
       "pattern": "script",
       "requires_deps": [
         "crewai"
       ],
+      "prereqs": [
+        6
+      ],
+      "concepts": [
+        "CrewAI",
+        "Crew",
+        "Agent roles",
+        "Task",
+        "sequential process"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Add crewai to requirements.txt first. Demonstrate Crew, Agent, Task primitives as contrast to LangGraph."
+      "notes": "First framework contrast example. Same multi-agent pattern as example 6 but using CrewAI's Crew/Agent/Task primitives instead of LangGraph StateGraph."
     },
     {
       "id": 16,
       "slug": "16-rag-eval-notebook",
+      "module": "M8",
+      "video_title": "Evaluate Your RAG Pipeline with RAGAS",
       "framework": "ragas",
       "topic": "RAG evaluation notebook -- faithfulness, answer relevance, context recall with RAGAS",
       "pattern": "notebook",
       "requires_deps": [
         "ragas"
       ],
+      "prereqs": [
+        1,
+        12
+      ],
+      "concepts": [
+        "RAGAS",
+        "faithfulness",
+        "context recall",
+        "answer relevance"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Notebook format matching 12-basic-rag-notebook. Shows how to score a RAG pipeline automatically."
+      "notes": "First evaluation example. Teaches how to score a RAG pipeline automatically using the RAGAS library on a labeled test set."
     },
     {
       "id": 17,
       "slug": "17-corrective-rag",
+      "module": "M4",
+      "video_title": "Corrective RAG (CRAG): Self-Healing Retrieval",
       "framework": "langgraph",
       "topic": "Corrective RAG (CRAG) -- grade retrieved docs, rewrite query if irrelevant, fall back to web search",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        1,
+        12
+      ],
+      "concepts": [
+        "CRAG",
+        "retrieval grader",
+        "query rewriting",
+        "web fallback"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Based on CRAG paper (Yan et al. 2024). Adds retrieval grader node and conditional rewrite loop. Includes Colab workbook with 10 cells and 4 exercises."
+      "notes": "Based on CRAG paper (Yan et al. 2024). Adds a grader node that checks retrieved docs and rewrites the query or falls back to web search if they are irrelevant."
     },
     {
       "id": 18,
       "slug": "18-self-reflecting-agent",
+      "module": "M5",
+      "video_title": "Reflexion Agent: Critique Your Own Answers Until Confident",
       "framework": "langgraph",
-      "topic": "Reflexion agent -- generate answer, critique it, revise in a loop until confident",
+      "topic": "Reflexion agent -- generate answer, critique it with structured confidence score, revise in a loop until confident",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "Reflexion",
+        "self-critique",
+        "revision loop",
+        "confidence score"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Based on Reflexion paper (Shinn et al. 2023). Shows critique and revision loop with a stopping condition. Includes Colab workbook with 11 cells and 5 exercises."
+      "notes": "Based on Reflexion paper (Shinn et al. 2023). The agent generates an answer, critiques it for accuracy and completeness, and revises until a confidence threshold is met."
     },
     {
       "id": 19,
       "slug": "19-multi-agent-notebook",
+      "module": "M6",
+      "video_title": "Multi-Agent Patterns: Supervisor, Workers, and Shared State",
       "framework": "langgraph",
       "topic": "Multi-agent patterns notebook -- supervisor/worker routing, message passing, shared state",
       "pattern": "notebook",
       "requires_deps": [],
+      "prereqs": [
+        6,
+        15
+      ],
+      "concepts": [
+        "supervisor-worker",
+        "add_messages reducer",
+        "create_react_agent",
+        "message passing"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Notebook expanding on 6-multi-agent-graph. Covers supervisor/worker pattern with add_messages reducer, create_react_agent workers, conditional routing, and streaming. 11 cells + 4 exercises."
+      "notes": "Deep-dive notebook on multi-agent patterns. Covers the supervisor pattern with add_messages reducer, create_react_agent workers, and conditional routing."
     },
     {
       "id": 20,
       "slug": "20-code-interpreter",
+      "module": "M2",
+      "video_title": "AI Code Interpreter: Write, Run, and Fix Python Automatically",
       "framework": "langgraph",
       "topic": "Code interpreter agent -- generates Python code, executes in subprocess sandbox, returns result",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "code generation",
+        "subprocess sandbox",
+        "error retry",
+        "code interpreter loop"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Script-based agent: write_code node (LLM generates Python) \u2192 run_code node (subprocess sandbox, 10s timeout) \u2192 conditional route (success \u2192 END / error+iterations<MAX \u2192 write_code). 3 sample tasks, MAX_ITERATIONS=3. No Colab (subprocess unavailable)."
+      "notes": "write_code node generates Python, run_code node executes it in a subprocess sandbox with 10s timeout. On error, routes back to write_code with the error message. MAX_ITERATIONS=3."
     },
     {
       "id": 21,
       "slug": "21-autogen-debate",
+      "module": "M6",
+      "video_title": "AutoGen Debate: Two AI Agents Argue a Topic",
       "framework": "autogen",
-      "topic": "Two AutoGen agents debate a topic -- demonstrates AutoGen ConversableAgent multi-agent chat",
+      "topic": "Two AutoGen agents debate a topic -- ConversableAgent multi-agent chat",
       "pattern": "script",
       "requires_deps": [
         "pyautogen"
       ],
+      "prereqs": [
+        6
+      ],
+      "concepts": [
+        "AutoGen",
+        "ConversableAgent",
+        "multi-turn debate",
+        "framework contrast"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Two ConversableAgent instances (Proponent + Opponent) debate via initiate_chat. MAX_TURNS=4, silent=True, returns chat_history list. Framework contrast to LangGraph: no StateGraph -- AutoGen manages the turn loop internally. pyautogen>=0.2.0 added to requirements.txt."
+      "notes": "Framework contrast: AutoGen ConversableAgent vs LangGraph StateGraph. AutoGen manages the turn loop internally with initiate_chat; no StateGraph needed."
     },
     {
       "id": 22,
       "slug": "22-hybrid-search-rag",
+      "module": "M3",
+      "video_title": "Hybrid Search RAG: BM25 + Vector = Better Retrieval",
       "framework": "langgraph",
-      "topic": "Hybrid search RAG -- combine BM25 keyword search with vector similarity for better precision",
+      "topic": "Hybrid search RAG -- combine BM25 keyword search with vector similarity via Reciprocal Rank Fusion",
       "pattern": "script",
       "requires_deps": [
         "rank-bm25"
       ],
+      "prereqs": [
+        1,
+        12
+      ],
+      "concepts": [
+        "BM25",
+        "EnsembleRetriever",
+        "Reciprocal Rank Fusion",
+        "hybrid search"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "EnsembleRetriever with BM25Retriever (rank-bm25) + Chroma vector store, weights=[0.5, 0.5]. Two-node LangGraph: retrieve -> generate. Knowledge base uses product model codes to demonstrate BM25 advantage on exact keyword queries. SAMPLE_QUESTIONS annotated with which retriever wins each query type. README explains Reciprocal Rank Fusion and production weight tuning. Complement to 12-basic-rag-notebook and 16-rag-eval-notebook."
+      "notes": "EnsembleRetriever with BM25Retriever + Chroma vector store, weights=[0.5, 0.5]. Teaches RRF merging and when keyword search outperforms vector search."
     },
     {
       "id": 23,
       "slug": "23-crewai-notebook",
+      "module": "M6",
+      "video_title": "CrewAI Deep Dive: Agents, Tasks, Processes, and Tools",
       "framework": "crewai",
-      "topic": "CrewAI patterns notebook -- agents, tasks, crews, tools, process types (sequential vs hierarchical)",
+      "topic": "CrewAI patterns notebook -- agents, tasks, crews, tools, sequential vs hierarchical processes",
       "pattern": "notebook",
       "requires_deps": [
         "crewai"
       ],
+      "prereqs": [
+        15,
+        21
+      ],
+      "concepts": [
+        "CrewAI",
+        "Process.sequential",
+        "Process.hierarchical",
+        "custom tool decorator"
+      ],
       "status": "done",
       "priority": "low",
-      "notes": "12-cell notebook covering Agent (role/goal/backstory/tools/llm), Task (description/expected_output/context), Crew with Process.sequential and Process.hierarchical, and custom @tool definitions. Explicit comparison table between LangGraph and CrewAI mental models. Uses LLM(model=\"openai/gpt-5-nano\") from crewai. 3 exercises: fact-checker agent, sequential-to-hierarchical conversion, DuckDuckGo tool swap. Links to examples 15, 19, 21 in What's Next."
+      "notes": "12-cell deep-dive notebook on CrewAI. Covers Agent (role/goal/backstory/tools), Task (description/expected_output), and process types. Includes LangGraph vs CrewAI comparison table."
     },
     {
       "id": 24,
       "slug": "24-graph-rag",
+      "module": "M4",
+      "video_title": "Graph RAG: Entity Extraction + Knowledge Graph Traversal",
       "framework": "langgraph",
-      "topic": "Graph RAG -- extract entities and relationships into a knowledge graph, traverse for retrieval",
+      "topic": "Graph RAG -- extract entities and relationships into a NetworkX knowledge graph, traverse for retrieval",
       "pattern": "script",
       "requires_deps": [
         "networkx"
       ],
+      "prereqs": [
+        1
+      ],
+      "concepts": [
+        "knowledge graph",
+        "entity extraction",
+        "NetworkX",
+        "triples",
+        "multi-hop retrieval"
+      ],
       "status": "done",
       "priority": "low",
-      "notes": "LLM extracts (subject, predicate, object) triples per doc using with_structured_output(Triples). NetworkX DiGraph built at create_workflow() call time. Three-node graph: find_entities -> retrieve_subgraph -> generate. Entity matching is case-insensitive partial match against graph nodes. Knowledge base uses AI company founding facts with multi-hop questions annotated. Inspired by Microsoft GraphRAG (Edge et al., 2024). networkx>=3.0 added to requirements.txt."
+      "notes": "LLM extracts (subject, predicate, object) triples; NetworkX DiGraph built at startup. Teaches multi-hop retrieval by traversing graph edges rather than vector similarity. Inspired by Microsoft GraphRAG."
     },
     {
       "id": 25,
       "slug": "25-adaptive-rag",
+      "module": "M4",
+      "video_title": "Adaptive RAG: Route Queries to the Right Retrieval Strategy",
       "framework": "langgraph",
-      "topic": "Adaptive RAG -- classify query complexity, route to no-retrieval / vectorstore / web-search path",
+      "topic": "Adaptive RAG -- classify query complexity, route to direct LLM / vectorstore / web-search path",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        1,
+        17
+      ],
+      "concepts": [
+        "query routing",
+        "adaptive retrieval",
+        "conditional edges",
+        "decision before retrieval"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "LLM classifier with with_structured_output(RouteDecision) routes each query before retrieval: simple (direct LLM), vectorstore (Chroma), web (DuckDuckGoSearchResults). Three-path conditional graph via add_conditional_edges. Shows decision-before-retrieval as contrast to CRAG's correction-after-retrieval. Follow-on: 26-rag-fusion."
+      "notes": "LLM classifier routes each query to the cheapest correct strategy: simple (direct LLM), vectorstore (Chroma), web (DuckDuckGo). Decision-before-retrieval vs CRAG's correction-after-retrieval."
     },
     {
       "id": 26,
       "slug": "26-rag-fusion",
+      "module": "M4",
+      "video_title": "RAG Fusion: Generate Multiple Queries, Rank with RRF",
       "framework": "langgraph",
-      "topic": "RAG Fusion -- generate multiple query variants, retrieve for each, merge with Reciprocal Rank Fusion",
+      "topic": "RAG Fusion -- generate N query variants, retrieve for each, merge with Reciprocal Rank Fusion",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        1,
+        25
+      ],
+      "concepts": [
+        "RAG Fusion",
+        "query variants",
+        "RRF scoring",
+        "Send API map-reduce"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "LangGraph Send API fans out to N parallel retrieve_variant nodes; Annotated[list, add] merges ranked_docs lists back into shared state; _rrf_merge applies RRF_K=60 scoring across all lists. Shows how Send enables map-reduce patterns in LangGraph. Based on Lawrence 2024 paper. Follow-on to 22-hybrid-search-rag and 25-adaptive-rag."
+      "notes": "LangGraph Send API fans out to N parallel retrieve_variant nodes; Annotated[list, add] merges back. Shows how Send enables map-reduce in LangGraph. Based on Lawrence 2024."
     },
     {
       "id": 27,
       "slug": "27-self-rag",
+      "module": "M4",
+      "video_title": "Self-RAG: Three Decision Gates for Smarter Retrieval",
       "framework": "langgraph",
-      "topic": "Self-RAG -- selective retrieval with retrieval/critique/support decisions as conditional nodes",
+      "topic": "Self-RAG -- three decision gates: classify if retrieval needed, grade doc relevance, check answer groundedness",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        1,
+        17
+      ],
+      "concepts": [
+        "Self-RAG",
+        "isRelevant",
+        "isSupported",
+        "isUseful",
+        "retrieval decision gates"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Model decides IF to retrieve per sentence, then scores each doc for relevance and support. Implements isRelevant, isSupported, isUseful decision gates as LangGraph conditional edges. Asai et al. 2023. Best companion to 17-corrective-rag for teaching retrieval strategies."
+      "notes": "Implements Asai et al. 2023. Model decides IF to retrieve, then grades each retrieved doc for relevance and support. Three conditional edges replace fixed retrieval."
     },
     {
       "id": 28,
       "slug": "28-parallel-subgraph",
+      "module": "M6",
+      "video_title": "Parallel Subgraphs: Fan-Out and Fan-In with LangGraph Send API",
       "framework": "langgraph",
       "topic": "Parallel subgraphs -- LangGraph Send API for true fan-out / fan-in across independent sub-tasks",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        6,
+        4
+      ],
+      "concepts": [
+        "Send API",
+        "map-reduce",
+        "fan-out",
+        "fan-in",
+        "Annotated reducer"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Use Send() to fan-out N independent retrieval or processing tasks concurrently, then aggregate with a reduce node. Demonstrates LangGraph 0.6.x map-reduce pattern. Critical for teaching parallel agent execution vs sequential graphs."
+      "notes": "Demonstrates the LangGraph 0.6.x map-reduce pattern using Send() for fan-out and Annotated[list, add] for fan-in. Critical for teaching parallel agent execution."
     },
     {
       "id": 29,
       "slug": "29-llm-judge-harness",
+      "module": "M8",
+      "video_title": "LLM-as-Judge: Score RAG Outputs with a Rubric",
       "framework": "langgraph",
-      "topic": "LLM-as-judge eval harness -- score pipeline outputs on relevance, faithfulness, completeness with a rubric",
+      "topic": "LLM-as-judge eval harness -- score pipeline outputs on relevance, faithfulness, completeness",
       "pattern": "notebook",
       "requires_deps": [],
+      "prereqs": [
+        16,
+        1
+      ],
+      "concepts": [
+        "LLM-as-judge",
+        "evaluation rubric",
+        "structured scoring",
+        "G-Eval pattern"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Self-contained eval loop: run RAG pipeline on test set, grade each answer with gpt-5-nano as judge using a structured rubric, report per-dimension scores. Extends 16-rag-eval-notebook with a custom judge approach beyond RAGAS. Useful for teams without labeled data."
+      "notes": "Self-contained eval loop using an LLM as the judge. Extends 16-rag-eval-notebook with a custom judge approach for teams without labeled data or a RAGAS budget."
     },
     {
       "id": 30,
       "slug": "30-agentic-rag",
+      "module": "M4",
+      "video_title": "Agentic RAG: Let the Agent Choose When to Retrieve",
       "framework": "langgraph",
       "topic": "Agentic RAG -- retrieval as one tool in a full ReAct loop alongside web search and a calculator",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        1
+      ],
+      "concepts": [
+        "agentic RAG",
+        "tool selection",
+        "ReAct with retrieval",
+        "per-turn tool choice"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Agent decides per-turn which tool to call: vectorstore retriever, DuckDuckGo, or Python eval. Unlike fixed-pipeline RAG, the agent can chain multiple retrieval calls, skip retrieval for math questions, etc. Good contrast to examples 10-17."
+      "notes": "Agent decides per-turn which tool to call: vectorstore, DuckDuckGo, or Python eval. Unlike fixed-pipeline RAG, the agent can skip retrieval, chain multiple calls, or answer from memory."
     },
     {
       "id": 31,
       "slug": "31-multi-agent-debate",
+      "module": "M6",
+      "video_title": "Multi-Agent Debate: Independent Answers + Critique Loop",
       "framework": "langgraph",
-      "topic": "Multi-agent debate -- two agents independently answer then critique each other to converge on best answer",
+      "topic": "Multi-agent debate -- two agents independently answer then critique each other to converge",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        6,
+        18
+      ],
+      "concepts": [
+        "multi-agent debate",
+        "Du et al. 2023",
+        "Society of Mind",
+        "judge agent"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Two solver nodes generate independent answers. A debate node has them exchange critiques for N rounds. A judge node selects the winner. Based on Du et al. 2023 (Society of Mind). Good contrast to 6-multi-agent-graph which uses routing rather than debate."
+      "notes": "Based on Du et al. 2023 (Society of Mind). Two solver nodes generate independent answers, exchange critiques for N rounds, a judge picks the winner. Contrast to example 6's routing pattern."
     },
     {
       "id": 32,
       "slug": "32-speculative-rag",
+      "module": "M4",
+      "video_title": "Speculative RAG: Draft First, Retrieve Only to Verify",
       "framework": "langgraph",
-      "topic": "Speculative RAG -- draft answer first, then retrieve only to verify and fix unsupported claims",
+      "topic": "Speculative RAG -- draft answer first, retrieve only to verify and fix unsupported claims",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        1,
+        27
+      ],
+      "concepts": [
+        "speculative RAG",
+        "claim extraction",
+        "fact verification",
+        "post-generation checking"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Generate draft without retrieval. Extract factual claims. Retrieve evidence per claim. Revision node fires only if a claim is unsupported. Faster path for questions the model can answer from training; retrieval becomes a fact-check layer, not a mandatory step."
+      "notes": "Draft without retrieval; extract claims; retrieve evidence per claim; revise only unsupported parts. Faster path for questions the model can answer from training. Retrieval as fact-checker, not first step."
     },
     {
       "id": 33,
       "slug": "33-dspy-rag",
+      "module": "M8",
+      "video_title": "DSPy: Auto-Optimize Your Prompts Without Hand-Crafting",
       "framework": "dspy",
       "topic": "DSPy-compiled RAG -- auto-optimize prompt signatures using MIPROv2 teleprompter",
       "pattern": "notebook",
       "requires_deps": [
         "dspy-ai"
       ],
+      "prereqs": [
+        1,
+        12
+      ],
+      "concepts": [
+        "DSPy",
+        "Signatures",
+        "MIPROv2",
+        "teleprompter",
+        "prompt optimization"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Add dspy-ai to requirements.txt. Show how DSPy Signatures replace hand-crafted prompts. MIPROv2 optimizer tunes few-shot examples from a small labeled dev set. Framework contrast to LangChain: show how the same RAG task is expressed in DSPy vs LangChain LCEL."
+      "notes": "Framework contrast: DSPy Signatures declare what a prompt should do; MIPROv2 tunes few-shot examples from a small labeled dev set. No hand-crafted prompt engineering."
     },
     {
       "id": 34,
       "slug": "34-openai-agents-sdk",
+      "module": "M6",
+      "video_title": "OpenAI Agents SDK: Triage, Handoffs, and Built-In Tracing",
       "framework": "openai-agents",
-      "topic": "OpenAI Agents SDK -- triage agent, specialist handoffs, structured tools, and built-in tracing",
+      "topic": "OpenAI Agents SDK -- triage agent, specialist handoffs, structured tools, built-in tracing",
       "pattern": "script",
       "requires_deps": [
         "openai-agents"
       ],
+      "prereqs": [
+        6
+      ],
+      "concepts": [
+        "OpenAI Agents SDK",
+        "handoffs",
+        "triage agent",
+        "built-in tracing"
+      ],
       "status": "done",
       "priority": "low",
-      "notes": "Add openai-agents to requirements.txt. Implement triage agent that hands off to a researcher agent and a writer agent. Uses SDK-native tool definitions and tracing. Framework contrast to LangGraph: same multi-agent pattern, different primitives (handoffs vs edges)."
+      "notes": "Framework contrast: same multi-agent pattern as example 6 but using OpenAI's SDK primitives -- Agent, Runner, handoff() instead of StateGraph, nodes, conditional edges."
     },
     {
       "id": 35,
       "slug": "35-plan-execute-agent",
+      "module": "M5",
+      "video_title": "Plan-and-Execute Agent: Structured Multi-Step Task Solving",
       "framework": "langgraph",
-      "topic": "Plan-and-Execute agent -- planner generates a structured step list, executor runs each step and passes output forward",
+      "topic": "Plan-and-Execute agent -- planner generates a typed step list, executor runs each step forward",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "plan-execute",
+        "structured planning",
+        "step-by-step execution",
+        "typed Plan model"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Separate planner and executor nodes: planner uses with_structured_output to emit a typed Plan (list of steps), executor processes one step per iteration and writes result to shared state, final node synthesizes all step outputs. Teaches DAG-style task decomposition vs monolithic ReAct loops. Contrast to 4-basic-react-agent: planner commits to full plan before execution, executor never replans. Good for teaching how to reduce token spend on simple multi-step tasks."
+      "notes": "Planner commits to a full plan before execution begins. Executor processes one step per iteration. Teaches DAG-style task decomposition vs monolithic ReAct loops. Contrast: planner never replans mid-run."
     },
     {
       "id": 36,
       "slug": "36-long-term-memory",
+      "module": "M7",
+      "video_title": "Long-Term Memory: Persist User Facts Across Sessions",
       "framework": "langgraph",
-      "topic": "Long-term cross-thread memory -- agent stores and recalls facts across separate sessions using LangGraph BaseStore",
+      "topic": "Long-term cross-thread memory -- agent stores and recalls facts across separate sessions using LangGraph InMemoryStore",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        11,
+        4
+      ],
+      "concepts": [
+        "InMemoryStore",
+        "cross-thread memory",
+        "user namespace",
+        "checkpointer vs store"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Two-turn demo: turn 1 has user share personal facts (name, preferences), agent extracts and saves to InMemoryStore under a user namespace; turn 2 runs in a new thread_id and recalls stored facts via semantic lookup. Uses LangGraph InMemoryStore built into langgraph 0.6+ (no new deps). Teaches the checkpointer-vs-store distinction: checkpointer = within-thread history, store = cross-thread persistent facts. Good follow-on to 11-hitl-approval. Extend to show list_namespaces and delete operations."
+      "notes": "Two-turn demo: turn 1 user shares facts, agent stores them; turn 2 runs in a new thread_id and recalls. Teaches checkpointer (within-thread history) vs store (cross-thread facts)."
     },
     {
       "id": 37,
       "slug": "37-rewoo-agent",
+      "module": "M5",
+      "video_title": "ReWOO Agent: Plan All Tool Calls Upfront, Execute in Bulk",
       "framework": "langgraph",
-      "topic": "ReWOO agent -- generate all tool calls upfront as a plan, execute in bulk, then synthesize (no interleaved observation)",
+      "topic": "ReWOO agent -- generate all tool calls as a plan upfront, execute in bulk, synthesize (no interleaved observation)",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        35
+      ],
+      "concepts": [
+        "ReWOO",
+        "upfront planning",
+        "bulk execution",
+        "evidence substitution"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Three-node graph: Planner emits a list of (tool, args) pairs via with_structured_output; Worker node executes each tool call in sequence and appends results to state; Solver node receives full evidence list and writes final answer. Based on Xu et al. 2023 (ReWOO paper). Key teaching contrast to standard ReAct: no observation interleaving means fewer tokens but less adaptive. Use DuckDuckGo + mock calculator as tools. Companion to 4-basic-react-agent and 5-react-agent-lg."
+      "notes": "Based on Xu et al. 2023. Planner emits all (tool, args) pairs at once; Worker executes in sequence; Solver synthesizes. Key contrast to ReAct: no observation interleaving = fewer tokens but less adaptive."
     },
     {
       "id": 38,
       "slug": "38-langgraph-command-pattern",
+      "module": "M2",
+      "video_title": "LangGraph Command Pattern: Dynamic Routing Without Edges",
       "framework": "langgraph",
-      "topic": "LangGraph Command primitive -- edgeless dynamic routing where nodes return Command objects to jump to any node",
+      "topic": "LangGraph Command primitive -- edgeless dynamic routing where nodes return Command objects",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        11
+      ],
+      "concepts": [
+        "Command",
+        "dynamic routing",
+        "edgeless graph",
+        "interrupt + resume"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Build a triage node + two specialist nodes (researcher, summarizer) with NO explicit edges -- routing is handled entirely by Command(goto='node_name', update={...}) returned from each node. Add a human-in-the-loop step using interrupt() + Command(resume=) to show how Command unifies routing and HITL in one primitive. Teaches LangGraph 0.6.x Command API as an alternative to conditional_edges for fully dynamic flows. Contrast to 6-multi-agent-graph which uses add_conditional_edges."
+      "notes": "Triage node + two specialist nodes with NO explicit edges. Routing is entirely via Command(goto='node_name', update={...}). Teaches LangGraph 0.6.x Command API as alternative to add_conditional_edges."
     },
     {
       "id": 39,
       "slug": "39-checkpoint-resume",
+      "module": "M7",
+      "video_title": "Checkpoint and Resume: Survive Crashes with SqliteSaver",
       "framework": "langgraph",
-      "topic": "Checkpoint and resume -- persist workflow state to SQLite mid-run, kill process, resume from exact breakpoint",
+      "topic": "Checkpoint and resume -- persist workflow state to SQLite mid-run, resume from exact breakpoint",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        11,
+        38
+      ],
+      "concepts": [
+        "SqliteSaver",
+        "checkpoint",
+        "resume",
+        "durable execution",
+        "thread_id"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Demonstrate SqliteSaver checkpointer: run a multi-step research agent, inject an interrupt after step 2, print the saved state, then resume in a new Python process from the same thread_id. No new deps (langgraph-checkpoint and SQLAlchemy already in requirements). Teaches the production pattern of durable agent execution -- agent can survive crashes, deploys, and timeouts. Good companion to 11-hitl-approval and 38-langgraph-command-pattern."
+      "notes": "SqliteSaver checkpointer: run a multi-step agent, inject an interrupt after step 2, resume in a new Python process from the same thread_id. Teaches production-grade durable execution."
     },
     {
       "id": 40,
       "slug": "40-agent-observability",
+      "module": "M8",
+      "video_title": "Agent Observability: Token Counts, Latency, and Errors",
       "framework": "langgraph",
-      "topic": "Agent observability -- trace token counts, latency, and errors with LangSmith and OpenTelemetry callbacks",
+      "topic": "Agent observability -- trace token counts, latency, and errors with callbacks and OpenTelemetry",
       "pattern": "notebook",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        16
+      ],
+      "concepts": [
+        "observability",
+        "BaseCallbackHandler",
+        "token tracking",
+        "OpenTelemetry",
+        "LangSmith"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Notebook showing three observability layers: (1) LangSmith run tracing via LANGCHAIN_TRACING_V2 env var; (2) custom callback handler that logs token usage per node to a pandas DataFrame; (3) OpenTelemetry span export using the opentelemetry-sdk already in requirements. All deps already installed. Teaches students how to measure and monitor agents in production -- cost per run, slowest nodes, failure rates. Good capstone companion to any RAG example."
+      "notes": "Three observability layers: (1) LangSmith run tracing, (2) custom callback handler logging token usage per node to a DataFrame, (3) OpenTelemetry span export. Teaches cost-per-run and bottleneck detection."
     },
     {
       "id": 41,
       "slug": "41-pdf-extraction-agent",
+      "module": "M2",
+      "video_title": "PDF Extraction Agent: Extract Typed Schemas from Any PDF",
       "framework": "langgraph",
-      "topic": "Structured PDF extraction agent -- read a PDF with pdfplumber, extract typed schema via LLM, validate and retry on failure",
+      "topic": "Structured PDF extraction agent -- pdfplumber reads PDF, LLM extracts typed schema, validator retries on failure",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "PDF extraction",
+        "pdfplumber",
+        "extract-validate-retry",
+        "Pydantic schema"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Three-node loop: Reader uses pdfplumber (already in requirements) to extract raw text from a local PDF; Extractor calls with_structured_output to populate a typed Pydantic model (e.g. invoice fields); Validator checks required fields and routes back to Extractor with a correction prompt if validation fails, or to END if valid. Max 3 retries. Teaches the extract-validate-retry loop pattern central to document processing pipelines. pdfplumber and pypdf already in requirements."
+      "notes": "Three-node loop: reader extracts raw text, extractor populates a typed Pydantic model, validator routes back with a correction prompt if required fields are missing. Max 3 retries."
     },
     {
       "id": 42,
       "slug": "42-multimodal-rag",
+      "module": "M4",
+      "video_title": "Multimodal RAG: Index and Retrieve Images with GPT-4o",
       "framework": "langgraph",
-      "topic": "Multimodal RAG -- index images alongside text using GPT-4o vision descriptions, retrieve and answer image questions",
+      "topic": "Multimodal RAG -- describe images with GPT-4o vision, embed descriptions in Chroma, answer image questions",
       "pattern": "notebook",
       "requires_deps": [],
+      "prereqs": [
+        1,
+        13
+      ],
+      "concepts": [
+        "multimodal",
+        "GPT-4o vision",
+        "image indexing",
+        "vision-to-text embedding"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Notebook: for each image, call GPT-4o vision to generate a rich text description, embed the description with text-embedding-3-small, store in Chroma. At query time, retrieve the top-k image descriptions and pass image URLs to GPT-4o for final answer. Uses pillow (already in requirements) for image loading. Teaches multi-modal indexing without specialized vision embeddings -- accessible pattern for any team with GPT-4o access. Good follow-on to 12-basic-rag-notebook."
+      "notes": "For each image, GPT-4o vision generates a text description; embed the description; store in Chroma. At query time, retrieve top-k descriptions and pass image URLs to GPT-4o for final answer."
     },
     {
       "id": 43,
       "slug": "43-supervisor-worker",
+      "module": "M6",
+      "video_title": "Supervisor-Worker Multi-Agent: Dynamic Task Routing",
       "framework": "langgraph",
-      "topic": "Supervisor-worker multi-agent system -- supervisor LLM dynamically routes tasks to a pool of specialist worker agents",
+      "topic": "Supervisor-worker multi-agent system -- supervisor LLM dynamically routes tasks to specialist worker agents",
       "pattern": "script",
       "requires_deps": [],
+      "prereqs": [
+        6,
+        19
+      ],
+      "concepts": [
+        "supervisor-worker",
+        "dynamic routing",
+        "worker pool",
+        "with_structured_output routing"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Supervisor node uses with_structured_output to decide which worker to call next (web_researcher, code_writer, fact_checker) or FINISH. Each worker is a sub-graph with its own tools. Uses LangGraph prebuilt create_react_agent for workers. Supervisor loops until it emits FINISH or hits MAX_TURNS. Teaches the most common production multi-agent pattern (60% of real-world use cases per 2026 surveys). Extends 6-multi-agent-graph with dynamic routing instead of hardcoded edges. No new deps."
+      "notes": "Supervisor uses with_structured_output to decide which worker to call (web_researcher, code_writer, fact_checker) or FINISH. Each worker is a sub-graph. Supervisor loops until FINISH or MAX_TURNS."
     },
     {
       "id": 44,
       "slug": "44-mcp-client-agent",
+      "module": "M6",
+      "video_title": "MCP Client Agent: Discover and Call Tools at Runtime",
       "framework": "langgraph",
       "topic": "MCP client agent -- LangGraph agent discovers and calls tools from a local MCP server over stdio",
       "pattern": "script",
       "requires_deps": [
         "mcp"
       ],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "MCP",
+        "tool discovery",
+        "stdio server",
+        "MultiServerMCPClient"
+      ],
       "status": "done",
       "priority": "low",
-      "notes": "Add mcp to requirements.txt. Spin up a tiny local stdio MCP server (Python script) that exposes two tools: get_weather and unit_convert. LangGraph agent connects via MultiServerMCPClient, loads tool definitions at runtime, and uses them in a standard ReAct loop. Teaches the MCP client-server architecture without needing a remote server. By 2026, MCP has 10k+ servers (97M monthly SDK downloads) -- this is an essential pattern for any production agent. Good framework demo to contrast with hard-coded LangChain tools."
+      "notes": "Spins up a local stdio MCP server exposing get_weather and unit_convert. LangGraph agent connects via MultiServerMCPClient, loads tool definitions at runtime, uses them in a ReAct loop."
     },
     {
       "id": 45,
       "slug": "45-a2a-agent-handoff",
+      "module": "M6",
+      "video_title": "A2A Agent Handoff: Agent-to-Agent Protocol in Action",
       "framework": "langgraph",
-      "topic": "A2A agent handoff -- two LangGraph agents communicate over the Agent-to-Agent protocol, one delegates a subtask to the other",
+      "topic": "A2A agent handoff -- two LangGraph agents communicate over the Agent-to-Agent protocol",
       "pattern": "script",
       "requires_deps": [
         "google-adk"
       ],
+      "prereqs": [
+        44,
+        43
+      ],
+      "concepts": [
+        "A2A protocol",
+        "agent handoff",
+        "inter-agent communication",
+        "task delegation"
+      ],
       "status": "done",
       "priority": "low",
-      "notes": "Add google-adk to requirements.txt. Orchestrator agent (LangGraph) receives a research + summarize task; it sends the research subtask to a Specialist agent running as an A2A-compatible HTTP service; specialist returns a result card; orchestrator synthesizes final answer. Uses Google ADK's A2A server wrapper. Teaches the 2026 A2A protocol standard adopted by Salesforce Agentforce, ServiceNow, and others -- horizontal agent-to-agent coordination vs MCP vertical tool calls. Companion to 44-mcp-client-agent."
+      "notes": "Orchestrator agent sends a research subtask to a Specialist agent running as an A2A-compatible HTTP service. Specialist returns a result card. Teaches the 2026 A2A protocol standard."
     },
     {
       "id": 46,
       "slug": "46-tree-of-thoughts",
+      "module": "M5",
+      "video_title": "Tree of Thoughts: Explore and Prune Reasoning Branches",
       "framework": "langgraph",
-      "topic": "Tree of Thoughts agent -- explore multiple reasoning branches in parallel, score each, prune and select the best path",
+      "topic": "Tree of Thoughts agent -- explore multiple reasoning branches in parallel, score and prune, select best",
       "pattern": "notebook",
       "requires_deps": [],
+      "prereqs": [
+        4,
+        18
+      ],
+      "concepts": [
+        "Tree of Thoughts",
+        "Yao et al. 2023",
+        "beam search",
+        "branch pruning"
+      ],
       "status": "done",
       "priority": "low",
-      "notes": "Notebook implementing ToT (Yao et al. 2023): at each step the Proposer node generates N candidate thoughts via LLM sampling; Evaluator scores each with a second LLM call; Selector prunes to top-k using beam search; loop repeats until final answer. Uses LangGraph Send API for parallel branch expansion. Teaches deliberative reasoning as an alternative to greedy chain-of-thought. Good capstone after 18-self-reflecting-agent and 37-rewoo-agent -- completes the reasoning-strategy trio."
+      "notes": "Proposer generates N candidate thoughts; Evaluator scores each; Selector prunes to top-k. Uses Send API for parallel branch expansion. Deliberative reasoning vs greedy chain-of-thought."
     },
     {
       "id": 47,
       "slug": "47-deepeval-rag-metrics",
+      "module": "M8",
+      "video_title": "DeepEval RAG Metrics: Faithfulness, Recall, and Precision",
       "framework": "deepeval",
-      "topic": "DeepEval RAG metrics deep-dive -- Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, Contextual Relevancy",
+      "topic": "DeepEval RAG metrics -- Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, Contextual Relevancy",
       "pattern": "notebook",
       "requires_deps": [
         "deepeval"
       ],
+      "prereqs": [
+        16,
+        29
+      ],
+      "concepts": [
+        "DeepEval",
+        "faithfulness",
+        "contextual recall",
+        "contextual precision",
+        "golden dataset"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Teaching workbook in the style of example 12. Cover all 5 RAG-specific DeepEval metrics with math definitions (e.g. Faithfulness = statements_supported / total_statements), build a ChromaDB RAG pipeline, run deepeval.evaluate() on a golden dataset, print score breakdowns, show what a failing test looks like and why. Include a failure-mode table (hallucinated answer -> low Faithfulness, off-topic retrieval -> low Contextual Precision). Exercises: (1) change k and measure Contextual Recall, (2) inject a wrong fact and watch Faithfulness drop, (3) write your own golden dataset from scratch. Answer key included."
+      "notes": "Covers all 5 RAG-specific DeepEval metrics with math definitions. Builds ChromaDB RAG pipeline, runs deepeval.evaluate() on a golden dataset, shows failure modes and score breakdowns."
     },
     {
       "id": 48,
       "slug": "48-deepeval-hallucination-bias",
+      "module": "M8",
+      "video_title": "DeepEval Safety: Detect Hallucination, Bias, and Toxicity",
       "framework": "deepeval",
       "topic": "DeepEval safety metrics -- HallucinationMetric, BiasMetric, ToxicityMetric with deliberate failure injection",
       "pattern": "notebook",
       "requires_deps": [
         "deepeval"
       ],
+      "prereqs": [
+        47
+      ],
+      "concepts": [
+        "HallucinationMetric",
+        "BiasMetric",
+        "ToxicityMetric",
+        "failure injection"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Teaching workbook. Show HallucinationMetric (no retrieval -- just LLM output vs context), BiasMetric, ToxicityMetric. Deliberately inject hallucinated answers, biased phrasing, and toxic outputs to show scores respond correctly. Explain the difference between Faithfulness (RAG-grounded) and Hallucination (standalone LLM). Include math: hallucination_score = contradicted_statements / total_statements. Exercises: (1) write a prompt that forces hallucination and verify the score catches it, (2) build a bias detector for job-posting text, (3) compare Hallucination vs Faithfulness on the same output."
+      "notes": "Deliberately injects hallucinated answers, biased phrasing, and toxic outputs to show scores respond correctly. Explains difference between Faithfulness (RAG-grounded) and Hallucination (standalone LLM)."
     },
     {
       "id": 49,
       "slug": "49-deepeval-geval-custom",
+      "module": "M8",
+      "video_title": "G-Eval: Write Custom Evaluation Criteria in Plain Language",
       "framework": "deepeval",
-      "topic": "G-Eval and custom metrics -- define any evaluation criterion in natural language using LLM-as-judge with chain-of-thought scoring",
+      "topic": "G-Eval and custom metrics -- define any evaluation criterion in natural language with LLM-as-judge chain-of-thought",
       "pattern": "notebook",
       "requires_deps": [
         "deepeval"
       ],
+      "prereqs": [
+        47,
+        48
+      ],
+      "concepts": [
+        "G-Eval",
+        "LLM judge",
+        "custom metrics",
+        "BaseMetric",
+        "evaluation_steps"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Teaching workbook. Show GEval(name, criteria, evaluation_steps) for fully custom criteria (Conciseness, Format Adherence, Citation Accuracy, Code Correctness). Explain the G-Eval paper: CoT scoring with LLM judge, why it correlates better with human judgment than ROUGE/BLEU. Show how to write good vs bad evaluation_steps. Compare G-Eval to a fixed DeepEval metric on the same test case. Also show BaseMetric subclassing for deterministic custom metrics (e.g. exact string match, JSON schema validation). Exercises: (1) write a GEval for email tone, (2) write a deterministic metric for answer length, (3) combine G-Eval + Faithfulness in one evaluate() call."
+      "notes": "GEval(name, criteria, evaluation_steps) for fully custom criteria. G-Eval paper: CoT scoring with LLM judge correlates better with human judgment than ROUGE/BLEU. Also covers BaseMetric for deterministic checks."
     },
     {
       "id": 50,
       "slug": "50-deepeval-agentic-eval",
+      "module": "M8",
+      "video_title": "Evaluate AI Agents: Tool Correctness and Task Completion",
       "framework": "deepeval",
-      "topic": "DeepEval agentic metrics -- TaskCompletion, ToolCorrectnessMetric, and AgentGoalCompletionMetric for ReAct agent evaluation",
+      "topic": "DeepEval agentic metrics -- ToolCorrectnessMetric and TaskCompletion for ReAct agent evaluation",
       "pattern": "notebook",
       "requires_deps": [
         "deepeval",
         "langgraph"
       ],
+      "prereqs": [
+        47,
+        4
+      ],
+      "concepts": [
+        "agentic eval",
+        "ToolCorrectnessMetric",
+        "TaskCompletion",
+        "tools_called"
+      ],
       "status": "done",
       "priority": "high",
-      "notes": "Teaching workbook. Build a simple LangGraph ReAct agent with 2-3 tools (search, calculator, lookup). Use deepeval LLMTestCase with tools_called and expected_tools fields. Run ToolCorrectnessMetric (did it call the right tools in the right order?), TaskCompletion (did it complete the assigned task?). Explain why agent eval is harder than RAG eval: non-determinism, multi-step reasoning, tool side effects. Show how to log tool calls from a LangGraph run into a DeepEval test case. Exercises: (1) make the agent call the wrong tool and verify ToolCorrectness fails, (2) set expected_tools in wrong order and see partial credit, (3) evaluate a 5-step agent task end-to-end."
+      "notes": "LangGraph ReAct agent with 2-3 tools. LLMTestCase with tools_called + expected_tools. Runs ToolCorrectnessMetric (right tools, right order?) and TaskCompletion. Shows why agent eval is harder than RAG eval."
     },
     {
       "id": 51,
       "slug": "51-deepeval-conversational",
+      "module": "M8",
+      "video_title": "Conversational AI Evaluation: Multi-Turn Chatbot Scoring",
       "framework": "deepeval",
-      "topic": "DeepEval conversational metrics -- KnowledgeRetention, ConversationCompleteness, ConversationRelevancy for multi-turn chatbot evaluation",
+      "topic": "DeepEval conversational metrics -- KnowledgeRetention, ConversationCompleteness, ConversationRelevancy",
       "pattern": "notebook",
       "requires_deps": [
         "deepeval"
       ],
+      "prereqs": [
+        47,
+        36
+      ],
+      "concepts": [
+        "KnowledgeRetention",
+        "ConversationCompleteness",
+        "ConversationRelevancy",
+        "ConversationalTestCase"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Teaching workbook. Use ConversationalTestCase with a list of LLMTestCase turns. Run KnowledgeRetention (does the bot remember what was said earlier?), ConversationCompleteness (did it address every user intent?), ConversationRelevancy (are replies on-topic across turns?). Build a multi-turn FAQ chatbot, craft a conversation where the bot forgets context after turn 3, and show the score drop. Contrast turn-level vs conversation-level scoring. Exercises: (1) insert an off-topic bot reply and watch ConversationRelevancy drop, (2) build a 6-turn conversation where knowledge is retained, (3) compare a stateless vs stateful chatbot score."
+      "notes": "ConversationalTestCase with a list of LLMTestCase turns. Shows score drop when the bot forgets context after turn 3. Contrast turn-level vs conversation-level scoring."
     },
     {
       "id": 52,
       "slug": "52-deepeval-synthesizer",
+      "module": "M8",
+      "video_title": "Auto-Generate Test Datasets and Run Regression Benchmarks",
       "framework": "deepeval",
-      "topic": "DeepEval Synthesizer -- auto-generate golden test datasets from documents, run regression benchmarks, track score drift over time",
+      "topic": "DeepEval Synthesizer -- auto-generate golden test datasets from documents, track score drift over time",
       "pattern": "notebook",
       "requires_deps": [
         "deepeval"
       ],
+      "prereqs": [
+        47,
+        16
+      ],
+      "concepts": [
+        "Synthesizer",
+        "golden dataset",
+        "regression testing",
+        "evolution strategies"
+      ],
       "status": "done",
       "priority": "medium",
-      "notes": "Teaching workbook. Use deepeval Synthesizer to generate goldens (question + expected_output + context) from inline document chunks. Show the different evolution strategies (SIMPLE, REASONING, MULTI-HOP, COMPARATIVE). Run evaluate() on the generated dataset. Show how to save/load an EvaluationDataset and re-run it after changing the RAG pipeline to detect regressions. Explain the full eval loop: generate goldens -> evaluate -> fix pipeline -> re-evaluate -> compare deltas. Exercises: (1) generate 10 goldens from your own docs, (2) deliberately degrade the RAG pipeline and measure score drop, (3) add a new document and regenerate goldens to cover it."
+      "notes": "Synthesizer generates goldens (question + expected_output + context) with SIMPLE, REASONING, MULTI-HOP, COMPARATIVE strategies. Run evaluate(), save/load EvaluationDataset, re-run after pipeline changes."
+    },
+    {
+      "id": 53,
+      "slug": "53-chunking-strategies",
+      "module": "M9",
+      "video_title": "Chunking Strategies: Fixed, Recursive, Semantic, and Sentence-Window",
+      "framework": "langgraph",
+      "topic": "Chunking strategies notebook -- compare four chunking approaches side-by-side on the same corpus",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        12
+      ],
+      "concepts": [
+        "CharacterTextSplitter",
+        "RecursiveCharacterTextSplitter",
+        "semantic chunking",
+        "sentence-window chunking"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Notebook comparing CharacterTextSplitter, RecursiveCharacterTextSplitter, sentence-window (manual), and semantic (cosine boundary detection via OpenAI embeddings). Includes RAG quality comparison across all four strategies and an exercise on threshold tuning."
+    },
+    {
+      "id": 54,
+      "slug": "54-reranking-rag",
+      "module": "M9",
+      "video_title": "Reranking RAG: Two-Stage Retrieval for Higher Precision",
+      "framework": "langgraph",
+      "topic": "Cross-encoder reranking -- retrieve top-k candidates with vector search, rerank with a cross-encoder, pass top-n to generation",
+      "pattern": "script",
+      "requires_deps": [
+        "flashrank"
+      ],
+      "prereqs": [
+        1,
+        22
+      ],
+      "concepts": [
+        "cross-encoder",
+        "bi-encoder vs cross-encoder",
+        "two-stage retrieval",
+        "FlashRank"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Three-node LangGraph: retrieve (Chroma top-20) -> rerank (FlashRank cross-encoder top-4) -> generate. Demonstrates bi-encoder vs cross-encoder tradeoff. flashrank added to requirements.txt."
+    },
+    {
+      "id": 55,
+      "slug": "55-hyde-rag",
+      "module": "M9",
+      "video_title": "HyDE RAG: Retrieve with a Hypothetical Answer Embedding",
+      "framework": "langgraph",
+      "topic": "HyDE RAG -- generate a hypothetical answer first, embed it instead of the raw query, retrieve with the richer embedding",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        25
+      ],
+      "concepts": [
+        "HyDE",
+        "hypothetical document embeddings",
+        "embedding trick",
+        "Gao et al. 2022"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Three-node LangGraph: hypothesize (LLM writes plausible answer) -> retrieve (embed hypothesis vector via similarity_search_by_vector) -> generate. No new deps. Teaches HyDE paper (Gao et al. 2022)."
+    },
+    {
+      "id": 56,
+      "slug": "56-contextual-compression",
+      "module": "M9",
+      "video_title": "Contextual Compression: Filter Retrieved Chunks Before Generation",
+      "framework": "langgraph",
+      "topic": "Contextual compression -- filter retrieved chunks down to only the passage that answers the query",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        54
+      ],
+      "concepts": [
+        "contextual compression",
+        "LLMChainFilter",
+        "ContextualCompressionRetriever",
+        "passage filtering"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Three-node LangGraph: retrieve (Chroma top-8) -> compress (LLMChainFilter via ContextualCompressionRetriever) -> generate. Shows token reduction from raw to compressed context. No new deps."
+    },
+    {
+      "id": 57,
+      "slug": "57-step-back-prompting",
+      "module": "M9",
+      "video_title": "Step-Back Prompting: Abstract the Question, Then Retrieve",
+      "framework": "langgraph",
+      "topic": "Step-Back Prompting -- abstract a specific question to a broader principle, retrieve on the principle, answer the original",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        25
+      ],
+      "concepts": [
+        "step-back prompting",
+        "query abstraction",
+        "Zheng et al. 2023",
+        "retrieval improvement"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Three-node LangGraph: step_back (LLM rewrites specific query to broader principle) -> retrieve (search on abstract query k=3) -> answer (LLM uses background context to answer original query). No new deps. Teaches Zheng et al. 2023."
+    },
+    {
+      "id": 58,
+      "slug": "58-tabular-rag",
+      "module": "M9",
+      "video_title": "Tabular RAG: Answer Questions Over CSV Files with Pandas",
+      "framework": "langgraph",
+      "topic": "Tabular RAG -- answer natural language questions over a CSV/Excel file using pandas code generation",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        14
+      ],
+      "concepts": [
+        "tabular RAG",
+        "pandas code generation",
+        "CSV retrieval",
+        "structured data QA"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Most RAG examples work on prose. This handles structured data. Three-node LangGraph: load_table (pandas read_csv, show schema), write_query (LLM generates a pandas expression given schema + question), execute_query (run expression in sandbox). On error, route back to write_query with error message. Sample dataset: 10-row product sales CSV inline in tools.py. Shows 3 questions: aggregations, filters, region totals. Contrast to 14-sql-agent. Built 2026-06-12."
+    },
+    {
+      "id": 59,
+      "slug": "59-semantic-router",
+      "module": "M10",
+      "video_title": "Semantic Router: Route Queries Without an LLM Call",
+      "framework": "langgraph",
+      "topic": "Semantic router -- embed incoming queries and route to specialist nodes by cosine similarity, no LLM call needed",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        25,
+        1
+      ],
+      "concepts": [
+        "semantic routing",
+        "cosine similarity",
+        "embedding-based routing",
+        "no-LLM routing"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Routes code/billing/general via cosine similarity on pre-embedded descriptors. Threshold 0.6 fallback to general. 5 SAMPLE_QUERIES. Built 2026-06-12."
+    },
+    {
+      "id": 60,
+      "slug": "60-web-scraper-agent",
+      "module": "M10",
+      "video_title": "Web Scraper Agent: Crawl, Extract, and Answer from Any URL",
+      "framework": "langgraph",
+      "topic": "Web scraper agent -- crawl a URL, extract clean text with BeautifulSoup, chunk and answer questions",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        4
+      ],
+      "concepts": [
+        "web scraping",
+        "BeautifulSoup",
+        "dynamic RAG",
+        "link-following"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Fetch Wikipedia RAG article, parse with BeautifulSoup, chunk, embed into ephemeral Chroma, answer 3 questions. Built 2026-06-12."
+    },
+    {
+      "id": 61,
+      "slug": "61-guardrails-agent",
+      "module": "M10",
+      "video_title": "Guardrails Agent: Validate Input and Output with Pydantic",
+      "framework": "langgraph",
+      "topic": "Guardrails agent -- validate user input and LLM output against Pydantic schemas, block violations, retry on failure",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "guardrails",
+        "input validation",
+        "output validation",
+        "PII detection",
+        "policy enforcement"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "InputGuard + OutputGuard Pydantic schemas. 5 sample inputs (2 valid, 3 blocked: SSN, off-topic, email). Built 2026-06-12."
+    },
+    {
+      "id": 62,
+      "slug": "62-async-langgraph",
+      "module": "M10",
+      "video_title": "Async LangGraph: Concurrent Tool Calls with asyncio",
+      "framework": "langgraph",
+      "topic": "Async LangGraph -- fully async nodes using ainvoke/astream, concurrent tool calls with asyncio.gather",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        4,
+        28
+      ],
+      "concepts": [
+        "async",
+        "asyncio.gather",
+        "ainvoke",
+        "astream",
+        "concurrent tool calls"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "All prior examples use synchronous .invoke(). This notebook shows the async path: async def nodes; graph.ainvoke() and graph.astream(); asyncio.gather() inside a node to call 3 tools concurrently. Show wall-clock time: sequential 3x1s=3s vs concurrent 1s. Explain when async matters: I/O-bound tasks (API calls, DB reads) benefit; CPU-bound (tokenization, embeddings) do not. Include async streaming: async for event in graph.astream_events(). No new deps."
+    },
+    {
+      "id": 63,
+      "slug": "63-token-budget-manager",
+      "module": "M10",
+      "video_title": "Token Budget Manager: Control AI Costs Per Run",
+      "framework": "langgraph",
+      "topic": "Token budget manager -- track exact token usage per node, enforce a per-run budget, short-circuit gracefully when exceeded",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4,
+        40
+      ],
+      "concepts": [
+        "token budget",
+        "tiktoken",
+        "cost control",
+        "graceful degradation"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "4-step neural network history research. BUDGET_LIMIT=800, tiktoken per step, short-circuit on budget exceeded. Built 2026-06-12."
+    },
+    {
+      "id": 64,
+      "slug": "64-pydantic-ai",
+      "module": "M11",
+      "video_title": "Pydantic AI: Typed Agents vs LangGraph",
+      "framework": "pydantic-ai",
+      "topic": "Pydantic AI -- build a typed research agent using the Pydantic AI framework as a contrast to LangGraph",
+      "pattern": "script",
+      "requires_deps": [
+        "pydantic-ai"
+      ],
+      "prereqs": [
+        4,
+        13
+      ],
+      "concepts": [
+        "Pydantic AI",
+        "result_type",
+        "RunContext",
+        "typed agents",
+        "framework contrast"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "pydantic_ai.Agent with result_type=ResearchResult (topic, summary, key_facts, confidence). No LangGraph -- direct run_sync. Built 2026-06-12."
+    },
+    {
+      "id": 65,
+      "slug": "65-litellm-multi-provider",
+      "module": "M11",
+      "video_title": "LiteLLM: Swap OpenAI, Anthropic, and Mistral Transparently",
+      "framework": "litellm",
+      "topic": "LiteLLM multi-provider -- swap models across OpenAI, Anthropic, Mistral through a unified completion() interface",
+      "pattern": "notebook",
+      "requires_deps": [
+        "litellm"
+      ],
+      "prereqs": [
+        4
+      ],
+      "concepts": [
+        "LiteLLM",
+        "multi-provider",
+        "fallback chains",
+        "cost tracking",
+        "vendor lock-in"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Add litellm to requirements.txt. Notebook showing: (1) litellm.completion() works identically for openai/gpt-4o-mini, anthropic/claude-haiku-4-5, mistral/mistral-small -- only the model string changes; (2) fallback chains: if primary provider errors, automatically retry on the next; (3) cost tracking via litellm.completion_cost(); (4) integrate with LangChain via ChatLiteLLM wrapper. Provider comparison table: cost per 1M tokens, context window, strengths. Exercises: run the same query on 3 providers and compare latency; simulate a 429 error and watch fallback trigger."
+    },
+    {
+      "id": 66,
+      "slug": "66-smol-agents",
+      "module": "M11",
+      "video_title": "SmolAgents: HuggingFace's Code-Executing Agent Framework",
+      "framework": "smolagents",
+      "topic": "SmolAgents -- HuggingFace's minimal code-executing agent: LLM writes and runs Python directly as its reasoning trace",
+      "pattern": "script",
+      "requires_deps": [
+        "smolagents"
+      ],
+      "prereqs": [
+        4,
+        20
+      ],
+      "concepts": [
+        "SmolAgents",
+        "CodeAgent",
+        "code execution",
+        "HuggingFace",
+        "framework contrast"
+      ],
+      "status": "done",
+      "priority": "low",
+      "notes": "Add smolagents to requirements.txt. SmolAgents (HuggingFace, 2025): instead of defining named tools, the LLM writes Python code that imports and calls functions directly. Show a CodeAgent with web_search, text_summarize, and calculator tools where the agent's reasoning trace is runnable Python. Contrast table: LangGraph (nodes + edges + state) vs CrewAI (roles + tasks) vs SmolAgents (code generation + direct execution). Show the code execution sandboxing concern and how SmolAgents handles it."
+    },
+    {
+      "id": 67,
+      "slug": "67-mem0-memory",
+      "module": "M11",
+      "video_title": "Mem0: Cross-Session Memory That Remembers Across Processes",
+      "framework": "langgraph",
+      "topic": "Mem0 cross-session memory -- store and retrieve semantic + episodic memories that persist across completely separate processes",
+      "pattern": "script",
+      "requires_deps": [
+        "mem0ai"
+      ],
+      "prereqs": [
+        36,
+        4
+      ],
+      "concepts": [
+        "Mem0",
+        "episodic memory",
+        "semantic memory",
+        "auto-extraction",
+        "cross-process memory"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Add mem0ai to requirements.txt. Mem0 (MemoryAI, 2024) automatically extracts semantic facts and episodic memories using an LLM. Three-node LangGraph: recall_memories (m.search(query, user_id)) -> respond -> store_memories (m.add(messages, user_id)). Demo: session 1 user says 'I prefer Python'; session 2 in a fresh process recalls this without being told. Compare to 36-long-term-memory: Mem0 auto-extracts facts, LangGraph InMemoryStore is explicit. Include a memory dump showing raw Mem0 objects."
+    },
+    {
+      "id": 68,
+      "slug": "68-chain-of-verification",
+      "module": "M12",
+      "video_title": "Chain-of-Verification: Fact-Check Your AI's Own Answers",
+      "framework": "langgraph",
+      "topic": "Chain-of-Verification (CoVe) -- generate an answer, enumerate verifiable claims, check each independently, revise failures",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        18,
+        32
+      ],
+      "concepts": [
+        "Chain-of-Verification",
+        "CoVe",
+        "Dhuliawala et al. 2023",
+        "claim extraction",
+        "fact checking"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "4-node: generate, extract claims, verify each (ClaimVerification), revise failures. Einstein and Python biographies. Built 2026-06-12."
+    },
+    {
+      "id": 69,
+      "slug": "69-constitutional-ai",
+      "module": "M12",
+      "video_title": "Constitutional AI: Self-Critique Against Written Principles",
+      "framework": "langgraph",
+      "topic": "Constitutional AI -- critique LLM output against a set of written principles, revise to comply, loop until satisfied",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        18
+      ],
+      "concepts": [
+        "Constitutional AI",
+        "Bai et al. 2022",
+        "principles",
+        "self-critique",
+        "revision loop"
+      ],
+      "status": "done",
+      "priority": "low",
+      "notes": "5-principle constitution, generate\u2192critique\u2192revise loop, MAX_REVISIONS=3. 2 sample prompts. Built 2026-06-12."
+    },
+    {
+      "id": 70,
+      "slug": "70-prompt-injection-defense",
+      "module": "M13",
+      "video_title": "Prompt Injection Defense: Protect RAG from Malicious Documents",
+      "framework": "langgraph",
+      "topic": "Prompt injection defense -- detect and neutralize indirect prompt injection in retrieved documents before they reach the LLM",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        60
+      ],
+      "concepts": [
+        "prompt injection",
+        "indirect injection",
+        "safety filter",
+        "InjectionRisk classifier"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "10-doc corpus with 3 planted injections. retrieve\u2192classify_chunks\u2192filter\u2192generate. InjectionRisk high/low classifier. Built 2026-06-12."
+    },
+    {
+      "id": 71,
+      "slug": "71-parent-document-retriever",
+      "module": "M9",
+      "video_title": "Parent Document Retriever: Small Chunks In, Full Docs Out",
+      "framework": "langgraph",
+      "topic": "Parent document retriever -- index small child chunks for precise matching, return their full parent document for rich context",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        53,
+        1
+      ],
+      "concepts": [
+        "parent document retriever",
+        "small-to-large retrieval",
+        "child chunks",
+        "parent context"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "ParentDocumentRetriever + InMemoryStore. child=100 chars, parent=600 chars. 3 AI/ML questions. Built 2026-06-12."
+    },
+    {
+      "id": 72,
+      "slug": "72-batch-agent-runner",
+      "module": "M13",
+      "video_title": "Batch Agent Runner: Process 100 Tasks Without Rate Limits",
+      "framework": "langgraph",
+      "topic": "Batch agent runner -- process a list of tasks in parallel batches with rate limiting, retry backoff, and progress tracking",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4,
+        62,
+        40
+      ],
+      "concepts": [
+        "batch processing",
+        "rate limiting",
+        "tenacity backoff",
+        "JSONL checkpointing",
+        "tqdm"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "9 tasks, BATCH_SIZE=3, asyncio.gather per batch, exponential backoff retry per task, summary table. Built 2026-06-12."
+    },
+    {
+      "id": 73,
+      "slug": "73-langsmith-tracing",
+      "module": "M14",
+      "video_title": "LangSmith Tracing: See Inside Every Agent Run",
+      "framework": "langgraph",
+      "topic": "LangSmith tracing integration -- decorate LangGraph nodes with @traceable, enable LANGCHAIN_TRACING_V2, inspect runs in the LangSmith UI",
+      "pattern": "script",
+      "requires_deps": [
+        "langsmith"
+      ],
+      "prereqs": [
+        4,
+        40
+      ],
+      "concepts": [
+        "LangSmith",
+        "traceable decorator",
+        "LANGCHAIN_TRACING_V2",
+        "run inspection",
+        "observability"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Problem: agents are black boxes in production. Concept: LangSmith wraps every LLM call and node in a named trace with inputs/outputs/latency. Demo: @traceable on each node, set LANGCHAIN_API_KEY + LANGCHAIN_TRACING_V2=true, run the agent, show the trace tree in LangSmith UI. Exercise: add custom metadata tags to traces."
+    },
+    {
+      "id": 74,
+      "slug": "74-ragas-evaluation",
+      "module": "M14",
+      "video_title": "RAGAS Evaluation: Score Your RAG Pipeline in Code",
+      "framework": "ragas",
+      "topic": "RAGAS evaluation script -- build a QA dataset, run faithfulness and answer_relevancy metrics programmatically",
+      "pattern": "script",
+      "requires_deps": [
+        "ragas"
+      ],
+      "prereqs": [
+        16,
+        1
+      ],
+      "concepts": [
+        "RAGAS",
+        "faithfulness",
+        "answer_relevancy",
+        "Dataset",
+        "evaluate()"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Problem: notebook-only eval is hard to automate. Concept: RAGAS evaluate() takes a Dataset of (question, answer, contexts, ground_truth) rows and returns metric scores. Demo: build a 5-row QA dataset, run evaluate() with faithfulness + answer_relevancy, print score table. Extension: wire into CI to catch regressions."
+    },
+    {
+      "id": 75,
+      "slug": "75-fastapi-sse-streaming",
+      "module": "M14",
+      "video_title": "Streaming AI API: LangGraph + FastAPI Server-Sent Events",
+      "framework": "langgraph",
+      "topic": "FastAPI SSE server -- stream LangGraph astream_events over HTTP as Server-Sent Events so any browser or client can consume token-by-token output",
+      "pattern": "script",
+      "requires_deps": [
+        "fastapi",
+        "uvicorn"
+      ],
+      "prereqs": [
+        10,
+        62
+      ],
+      "concepts": [
+        "FastAPI",
+        "Server-Sent Events",
+        "StreamingResponse",
+        "astream_events",
+        "async generator"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "Problem: LangGraph streaming only works in Python scripts; real apps need HTTP. Concept: FastAPI StreamingResponse wraps an async generator that calls graph.astream_events() and formats each token as an SSE data: line. Demo: POST /ask, stream back token events, show curl consuming the stream. Extension: add a stop-sequence event type."
+    },
+    {
+      "id": 76,
+      "slug": "76-agent-evaluation",
+      "module": "M14",
+      "video_title": "Agent Evaluation: Score Your Agent Against a Golden QA Dataset",
+      "framework": "langgraph",
+      "topic": "Agent evaluation with golden QA dataset -- exact match and cosine similarity scoring, pass rate summary",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        29,
+        4
+      ],
+      "concepts": [
+        "golden dataset",
+        "exact match",
+        "cosine similarity",
+        "pass rate",
+        "evaluation loop"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "5-pair golden QA set, single evaluate_one node, exact match + embedding cosine similarity scoring, per-question PASS/FAIL, avg score and pass rate summary. Built 2026-06-13."
+    },
+    {
+      "id": 77,
+      "slug": "77-langfuse-observability",
+      "module": "M14",
+      "video_title": "Langfuse Observability: Open-Source LLM Tracing",
+      "framework": "langgraph",
+      "topic": "Langfuse agent observability -- self-hostable LLM tracing alternative to LangSmith; wrap LangGraph with Langfuse callback handler",
+      "pattern": "script",
+      "requires_deps": [
+        "langfuse"
+      ],
+      "prereqs": [
+        73,
+        40
+      ],
+      "concepts": [
+        "Langfuse",
+        "CallbackHandler",
+        "self-hosted tracing",
+        "cost tracking",
+        "user sessions"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "SimpleTraceHandler mirrors LangfuseCallbackHandler interface (BaseCallbackHandler). ask_question -> format_answer 2-node graph, per-task trace IDs, llm_start/llm_end event capture. Built 2026-06-13."
+    },
+    {
+      "id": 78,
+      "slug": "78-prompt-ab-testing",
+      "module": "M14",
+      "video_title": "Prompt A/B Testing: Compare Concise vs Detailed Variants",
+      "framework": "langgraph",
+      "topic": "Prompt A/B testing -- run two prompt variants on 5 inputs, score by word count, declare winner with comparison table",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        4,
+        29
+      ],
+      "concepts": [
+        "prompt variants",
+        "A/B testing",
+        "word count scoring",
+        "side-by-side comparison",
+        "winner declaration"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "VARIANT_A (concise) vs VARIANT_B (detailed), 5 TEST_INPUTS, score_response = word_count/100, sequential run_variant_a -> run_variant_b nodes, printed comparison table with avg score and winner. Built 2026-06-13."
+    },
+    {
+      "id": 79,
+      "slug": "79-interrupt-human-approval",
+      "module": "M2",
+      "video_title": "LangGraph Interrupt: Pause for Human Approval Mid-Graph",
+      "framework": "langgraph",
+      "topic": "LangGraph interrupt() for human-in-the-loop approval -- pause graph mid-execution, surface an action for human review, resume with Command(resume=approved_bool)",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        11,
+        38
+      ],
+      "concepts": [
+        "interrupt()",
+        "Command(resume)",
+        "MemorySaver",
+        "human-in-the-loop",
+        "risk-based approval"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "5 SAMPLE_ACTIONS with low/medium/high risk. propose_action node drafts action, await_approval node calls interrupt(), main.py auto-approves low/medium and rejects high risk. Two .stream() calls per action -- first catches __interrupt__, second resumes with Command(resume=). Built 2026-06-13."
+    },
+    {
+      "id": 80,
+      "slug": "80-multi-agent-supervisor",
+      "module": "M6",
+      "video_title": "Multi-Agent Supervisor: Route Tasks to Specialist Agents",
+      "framework": "langgraph",
+      "topic": "Supervisor node routes questions to specialist agents -- LLM classifies domain and dispatches to math, history, or science expert",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        6,
+        43
+      ],
+      "concepts": [
+        "supervisor pattern",
+        "conditional routing",
+        "specialist agents",
+        "domain classification",
+        "multi-agent graph"
+      ],
+      "status": "done",
+      "priority": "high",
+      "notes": "SPECIALIST_TASKS: 6 questions across math/history/science. SupervisorState with next field. Supervisor uses gpt-5-nano to classify, conditional_edges dispatch to the matching specialist. main.py streams updates to capture routing decision before specialist overwrites state. Built 2026-06-13."
+    },
+    {
+      "id": 81,
+      "slug": "81-streaming-sse-server",
+      "module": "M10",
+      "video_title": "Stream LangGraph as SSE: Token-by-Token with FastAPI",
+      "framework": "langgraph",
+      "topic": "FastAPI server streams LangGraph astream_events as Server-Sent Events -- token-by-token output over HTTP GET endpoint",
+      "pattern": "script",
+      "requires_deps": [
+        "fastapi"
+      ],
+      "prereqs": [
+        10,
+        62
+      ],
+      "concepts": [
+        "astream_events",
+        "Server-Sent Events",
+        "FastAPI",
+        "StreamingResponse",
+        "on_chat_model_stream"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "Two-node graph (think→answer) with gpt-5-nano. FastAPI GET /stream?q=... endpoint uses StreamingResponse + async generator over graph.astream_events(version='v2'). Filters on_chat_model_stream events and yields SSE data frames. Test with curl. fastapi>=0.100.0 added to requirements.txt. Built 2026-06-13."
+    },
+    {
+      "id": 82,
+      "slug": "82-redis-memory",
+      "module": "M14",
+      "video_title": "Production Memory: Persist Agent State in Redis",
+      "framework": "langgraph",
+      "topic": "Production memory with Redis -- replace InMemoryStore with a Redis-backed store for durable cross-session agent memory",
+      "pattern": "script",
+      "requires_deps": [
+        "redis",
+        "langchain-redis"
+      ],
+      "prereqs": [
+        36,
+        7
+      ],
+      "concepts": [
+        "Redis",
+        "RedisSaver",
+        "cross-session memory",
+        "production persistence",
+        "TTL"
+      ],
+      "status": "done",
+      "priority": "medium",
+      "notes": "USER_ID, REDIS_URL, SESSION_MESSAGES seeded into Redis list. load_history->respond->save_history nodes. 3 sessions show accumulated context. Built 2026-06-13."
     }
   ]
 }

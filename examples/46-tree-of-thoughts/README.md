@@ -1,14 +1,14 @@
 # 46-tree-of-thoughts
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/46-tree-of-thoughts/tree_of_thoughts_workbook.ipynb)
-
-Implements Tree of Thoughts (ToT) with LangGraph's Send API: fan out N=3 independent thought branches in parallel, score each with a judge LLM (0-10), select the best, and synthesize the final answer. Demonstrates the Send API pattern for branch exploration + `Annotated[list, operator.add]` reducer accumulation.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/46-tree-of-thoughts/main.py
 ```
+
+Implements Tree of Thoughts (ToT) with LangGraph's Send API: fan out N=3 independent thought branches in parallel, score each with a judge LLM (0-10), select the best, and synthesize the final answer. Demonstrates the Send API pattern for branch exploration + `Annotated[list, operator.add]` reducer accumulation.
 
 ---
 

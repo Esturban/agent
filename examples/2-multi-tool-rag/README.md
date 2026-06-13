@@ -1,17 +1,26 @@
 # 2-multi-tool-rag
 
-RAG backed by a cloud-hosted Qdrant vector store with a DuckDuckGo web-search fallback. Demonstrates using a persistent, cloud-hosted vector DB instead of an in-memory one, and wiring multiple tools into a single agent.
-
-**Keys:** `OPENAI_API_KEY` · `QDRANT_URL` · `QDRANT_KEY` · `BRAVE_API_KEY`
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_KEY`, `BRAVE_API_KEY`
 **Files:** none
 
 ```bash
 python examples/2-multi-tool-rag/main.py
 ```
 
+RAG backed by a cloud-hosted Qdrant vector store with a Brave web-search fallback. Demonstrates using a persistent, cloud-hosted vector DB instead of an in-memory one, and wiring multiple tools into a single ReAct agent.
+
 ---
 
-### How it works
+### Graph
 
-- `src/` — checksum and deduplication logic for safe upsert into Qdrant
-- `main.py` — ReAct agent with two tools: vector retrieval and web search fallback
+```
+START
+  ↓
+agent   ← ReAct loop: reason → call tool → observe
+  ↓
+  ├─ tool: vector_search  ← Qdrant cloud retrieval
+  ├─ tool: web_search     ← Brave API fallback
+  ↓
+END
+```

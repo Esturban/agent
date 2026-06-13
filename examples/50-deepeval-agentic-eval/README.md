@@ -1,17 +1,27 @@
 # 50-deepeval-agentic-eval
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/50-deepeval-agentic-eval/agentic_eval_workbook.ipynb)
-
-Evaluate a LangGraph ReAct agent with DeepEval's `ToolCorrectnessMetric` and `TaskCompletionMetric`. Shows how to extract tool call history from LangGraph message state and map it to DeepEval's `tools_called` + `expected_tools` fields.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install deepeval
 python examples/50-deepeval-agentic-eval/main.py
 ```
 
+Evaluate a LangGraph ReAct agent with DeepEval's `ToolCorrectnessMetric` and `TaskCompletionMetric`. Shows how to extract tool call history from LangGraph message state and map it to DeepEval's `tools_called` + `expected_tools` fields.
+
 ---
+
+### Graph
+
+```
+START
+  |
+ReAct agent   ← create_react_agent with [search_web, calculate, lookup_fact]
+  |           ← loops: think → tool call → observe
+END           (tool call history extracted → deepeval.evaluate())
+```
 
 ### Why agent eval is harder than RAG eval
 

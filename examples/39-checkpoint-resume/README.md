@@ -1,14 +1,14 @@
 # 39-checkpoint-resume
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/39-checkpoint-resume/checkpoint_resume_workbook.ipynb)
-
-Demonstrates LangGraph's `SqliteSaver` checkpointer: persist full graph state to SQLite mid-run, resume from any `thread_id`, and inspect historical states. Shows how thread-based isolation lets multiple tasks run independently with full state recovery.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/39-checkpoint-resume/main.py
 ```
+
+Demonstrates LangGraph's `SqliteSaver` checkpointer: persist full graph state to SQLite mid-run, resume from any `thread_id`, and inspect historical states. Shows how thread-based isolation lets multiple tasks run independently with full state recovery.
 
 ---
 

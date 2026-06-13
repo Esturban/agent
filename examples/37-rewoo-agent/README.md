@@ -1,14 +1,14 @@
 # 37-rewoo-agent
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/37-rewoo-agent/rewoo_workbook.ipynb)
-
-ReWOO (Reasoning WithOut Observation) emits all tool calls upfront as a structured plan, executes them in bulk with variable substitution, then solves using accumulated evidence — eliminating the interleaved observe-think-act loop of ReAct.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/37-rewoo-agent/main.py
 ```
+
+ReWOO (Reasoning WithOut Observation) emits all tool calls upfront as a structured plan, executes them in bulk with variable substitution, then solves using accumulated evidence — eliminating the interleaved observe-think-act loop of ReAct.
 
 ---
 

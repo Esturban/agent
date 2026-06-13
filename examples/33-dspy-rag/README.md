@@ -1,14 +1,14 @@
 # 33-dspy-rag
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/33-dspy-rag/dspy_rag_workbook.ipynb)
-
-Builds a RAG pipeline using DSPy Signatures instead of hand-crafted prompts. Compiles the module with BootstrapFewShot to auto-discover few-shot examples, then compares base vs compiled answers side-by-side.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/33-dspy-rag/main.py
 ```
+
+Builds a RAG pipeline using DSPy Signatures instead of hand-crafted prompts. Compiles the module with BootstrapFewShot to auto-discover few-shot examples, then compares base vs compiled answers side-by-side.
 
 ---
 

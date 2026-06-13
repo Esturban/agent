@@ -1,14 +1,14 @@
 # 43-supervisor-worker
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/43-supervisor-worker/supervisor_worker_workbook.ipynb)
-
-A supervisor LLM uses `with_structured_output(WorkerRoute)` to classify each task and route it to the best specialist worker — researcher, summarizer, or analyst — each with a tailored system prompt.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/43-supervisor-worker/main.py
 ```
+
+A supervisor LLM uses `with_structured_output(WorkerRoute)` to classify each task and route it to the best specialist worker — researcher, summarizer, or analyst — each with a tailored system prompt.
 
 ---
 

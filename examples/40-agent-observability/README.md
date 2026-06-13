@@ -1,16 +1,26 @@
 # 40-agent-observability
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/40-agent-observability/observability_workbook.ipynb)
-
-Instrument a LangGraph agent with a custom `BaseCallbackHandler` to track per-call latency, token counts, and errors — no LangSmith account required. The callback plugs into any `invoke()` call via LangChain's `callbacks=` parameter.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/40-agent-observability/main.py
 ```
 
+Instrument a LangGraph agent with a custom `BaseCallbackHandler` to track per-call latency, token counts, and errors — no LangSmith account required. The callback plugs into any `invoke()` call via LangChain's `callbacks=` parameter.
+
 ---
+
+### Graph
+
+```
+START
+  |
+llm    ← invoke with callbacks=[ObservabilityCallback]
+  |
+END
+```
 
 ### Key Concepts
 

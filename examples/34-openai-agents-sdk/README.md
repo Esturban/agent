@@ -1,18 +1,18 @@
 # 34-openai-agents-sdk
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/34-openai-agents-sdk/openai_agents_workbook.ipynb)
-
-Builds a triage agent that routes questions to specialist agents using OpenAI Agents SDK handoffs. A Researcher agent answers factual questions using a `@tool` function; a Writer agent rewrites findings into polished prose. Demonstrates SDK-native tracing and the handoff primitive as an alternative to LangGraph edges.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/34-openai-agents-sdk/main.py
 ```
 
+Builds a triage agent that routes questions to specialist agents using OpenAI Agents SDK handoffs. A Researcher agent answers factual questions using a `@tool` function; a Writer agent rewrites findings into polished prose. Demonstrates SDK-native tracing and the handoff primitive as an alternative to LangGraph edges.
+
 ---
 
-### Agent graph
+### Graph
 
 ```
 user question

@@ -1,17 +1,27 @@
 # 49-deepeval-geval-custom
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/49-deepeval-geval-custom/geval_custom_workbook.ipynb)
-
-G-Eval and custom metrics in DeepEval: define any evaluation criterion in natural language with `GEval(name, criteria, evaluation_steps)`, plus deterministic `BaseMetric` subclassing for exact-match and JSON schema checks.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install deepeval
 python examples/49-deepeval-geval-custom/main.py
 ```
 
+G-Eval and custom metrics in DeepEval: define any evaluation criterion in natural language with `GEval(name, criteria, evaluation_steps)`, plus deterministic `BaseMetric` subclassing for exact-match and JSON schema checks.
+
 ---
+
+### Graph
+
+```
+START
+  |
+generate   ← ChatOpenAI answers input query
+  |
+END        (GEval + BaseMetric run on the output)
+```
 
 ### Two metric types
 

@@ -1,14 +1,14 @@
 # 38-langgraph-command-pattern
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/38-langgraph-command-pattern/command_pattern_workbook.ipynb)
-
-Demonstrates LangGraph's `Command` primitive for edgeless dynamic routing. A router node classifies the task and returns `Command(goto="code"|"explain"|"math"|"creative", update={...})` — no `add_conditional_edges` needed, routing is entirely in code.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/38-langgraph-command-pattern/main.py
 ```
+
+Demonstrates LangGraph's `Command` primitive for edgeless dynamic routing. A router node classifies the task and returns `Command(goto="code"|"explain"|"math"|"creative", update={...})` — no `add_conditional_edges` needed, routing is entirely in code.
 
 ---
 

@@ -1,17 +1,29 @@
 # 52-deepeval-synthesizer
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/52-deepeval-synthesizer/synthesizer_workbook.ipynb)
-
-DeepEval Synthesizer: auto-generate golden test datasets from documents using SIMPLE, REASONING, MULTI_HOP, and COMPARATIVE evolution strategies. Run `evaluate()`, save the dataset, re-run after changing the pipeline, and compare score deltas to detect regressions.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install deepeval
 python examples/52-deepeval-synthesizer/main.py
 ```
 
+DeepEval Synthesizer: auto-generate golden test datasets from documents using SIMPLE, REASONING, MULTI_HOP, and COMPARATIVE evolution strategies. Run `evaluate()`, save the dataset, re-run after changing the pipeline, and compare score deltas to detect regressions.
+
 ---
+
+### Graph
+
+```
+START
+  |
+retrieve   ← Chroma similarity_search, k=3 (or k=1 for degraded run)
+  |
+generate   ← ChatOpenAI with retrieved context
+  |
+END        (Synthesizer generates goldens → evaluate() → compare delta)
+```
 
 ### Evolution strategies
 

@@ -1,15 +1,15 @@
 # 41-pdf-extraction-agent
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/41-pdf-extraction-agent/pdf_extraction_workbook.ipynb)
-
-Downloads an arXiv PDF, extracts text with `pdfplumber`, then uses `with_structured_output(PaperSchema)` to extract typed fields — with automatic retry on validation failure.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install pdfplumber requests
 python examples/41-pdf-extraction-agent/main.py
 ```
+
+Downloads an arXiv PDF, extracts text with `pdfplumber`, then uses `with_structured_output(PaperSchema)` to extract typed fields — with automatic retry on validation failure.
 
 ---
 

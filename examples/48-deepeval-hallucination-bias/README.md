@@ -1,17 +1,24 @@
 # 48-deepeval-hallucination-bias
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/48-deepeval-hallucination-bias/hallucination_bias_workbook.ipynb)
-
-DeepEval safety metrics: HallucinationMetric, BiasMetric, ToxicityMetric. Deliberately injects failing outputs to show scores respond correctly. Explains the Faithfulness vs Hallucination distinction and includes math definitions.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 pip install deepeval
 python examples/48-deepeval-hallucination-bias/main.py
 ```
 
+DeepEval safety metrics: HallucinationMetric, BiasMetric, ToxicityMetric. Deliberately injects failing outputs to show scores respond correctly. Explains the Faithfulness vs Hallucination distinction and includes math definitions.
+
 ---
+
+### Graph
+
+```
+grounded workflow:   START → respond (context-grounded) → END
+freeform workflow:   START → respond (no context)        → END
+```
 
 ### Safety Metrics
 

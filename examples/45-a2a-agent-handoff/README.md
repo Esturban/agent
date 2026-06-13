@@ -1,14 +1,14 @@
 # 45-a2a-agent-handoff
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/45-a2a-agent-handoff/a2a_handoff_workbook.ipynb)
-
-Demonstrates Agent-to-Agent (A2A) handoff with a structured Pydantic schema. Planner Agent creates an `AgentTask`, passes it to Executor Agent, then synthesizes the final result — agents communicate via typed contracts, not raw strings.
-
+## Prerequisites
 **Keys:** `OPENAI_API_KEY`
+**Files:** none
 
 ```bash
 python examples/45-a2a-agent-handoff/main.py
 ```
+
+Demonstrates Agent-to-Agent (A2A) handoff with a structured Pydantic schema. Planner Agent creates an `AgentTask`, passes it to Executor Agent, then synthesizes the final result — agents communicate via typed contracts, not raw strings.
 
 ---
 
