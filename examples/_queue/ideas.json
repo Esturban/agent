@@ -1934,7 +1934,7 @@
         "Dataset",
         "evaluate()"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "Problem: notebook-only eval is hard to automate. Concept: RAGAS evaluate() takes a Dataset of (question, answer, contexts, ground_truth) rows and returns metric scores. Demo: build a 5-row QA dataset, run evaluate() with faithfulness + answer_relevancy, print score table. Extension: wire into CI to catch regressions."
     },
