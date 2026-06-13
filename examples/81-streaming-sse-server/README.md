@@ -1,6 +1,23 @@
-# 81 — Streaming SSE Server
+# 81-streaming-sse-server
 
-FastAPI endpoint streams a LangGraph graph's token-by-token output as Server-Sent Events (SSE).
+## Prerequisites
+**Keys:** `OPENAI_API_KEY`
+**Deps:** `pip install fastapi uvicorn`
 
-Run: `python main.py`
-Test: `curl 'http://localhost:8000/stream'`
+```bash
+python examples/81-streaming-sse-server/main.py
+```
+
+FastAPI endpoint that streams a 2-node LangGraph's token-by-token output as Server-Sent Events, demonstrating think-then-answer reasoning delivered over SSE.
+
+---
+
+### Graph
+
+```
+think_node (brief reasoning pass)
+  ↓
+answer_node (final concise answer)
+  ↓
+END
+```
