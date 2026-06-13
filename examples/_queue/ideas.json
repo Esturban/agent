@@ -2117,7 +2117,7 @@
     },
     {
       "id": 82,
-      "slug": "82-redis-memory-langgraph",
+      "slug": "82-redis-memory",
       "module": "M14",
       "video_title": "Production Memory: Persist Agent State in Redis",
       "framework": "langgraph",
@@ -2138,9 +2138,9 @@
         "production persistence",
         "TTL"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Problem: InMemoryStore is lost on process restart. Concept: RedisSaver checkpointer + Redis vector store provide durable cross-session memory. Demo: session 1 stores user facts in Redis; kill the process; session 2 recovers facts by thread_id. Show TTL configuration to expire old memories. Contrasts with 36-long-term-memory (in-memory) and 67-mem0-memory (auto-extraction)."
+      "notes": "USER_ID, REDIS_URL, SESSION_MESSAGES seeded into Redis list. load_history->respond->save_history nodes. 3 sessions show accumulated context. Built 2026-06-13."
     }
   ]
 }
