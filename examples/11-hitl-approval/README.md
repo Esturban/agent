@@ -18,3 +18,18 @@ Every earlier example runs `.stream()` all the way to `END`. Here:
 1. First `.stream()` stops at `__interrupt__` — the graph is suspended mid-run
 2. User approves or denies via CLI
 3. Second `.stream(Command(resume=...))` resumes from the checkpoint
+
+---
+
+### Graph
+
+```
+START
+  ↓
+draft_action    ← LLM drafts a destructive action
+  ↓
+await_approval  ← interrupt() pauses here; user approves or denies via CLI
+  ↓
+  ├─ approved ──► result: "EXECUTED: {action}" → END
+  └─ denied   ──► result: "CANCELLED: {action}" → END
+```
