@@ -1,0 +1,40 @@
+name: 'dev → master PR'
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create or update PR to master
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          EXISTING_PR=$(gh pr list \
+            --repo ${{ github.repository }} \
+            --head dev --base master \
+            --json number --jq '.[0].number // empty')
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "Updating existing PR #$EXISTING_PR..."
+            gh pr edit "$EXISTING_PR" \
+              --title "dev → master" \
+              --body "Changes from \`dev\` ready for review before merging to \`master\`." \
+              --add-reviewer "Esturban"
+          else
+            echo "Creating PR dev → master..."
+            gh pr create \
+              --title "dev → master" \
+              --body "Changes from \`dev\` ready for review before merging to \`master\`." \
+              --reviewer "Esturban" \
+              --base master \
+              --head dev
+          fi
