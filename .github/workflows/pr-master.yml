@@ -14,26 +14,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create or update PR to master
+      - name: Create or update PR dev → master
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING_PR=$(gh pr list \
-            --repo ${{ github.repository }} \
-            --head dev --base master \
-            --json number --jq '.[0].number // empty')
+          PR_BODY="Automated PR: changes from \`dev\` ready for Esturban to review and merge to \`master\`."
 
-          if [ -n "$EXISTING_PR" ]; then
-            echo "Updating existing PR #$EXISTING_PR..."
-            gh pr edit "$EXISTING_PR" \
+          # Find any open PR from dev → master
+          EXISTING=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --head dev --base master \
+            --state open \
+            --json number,author \
+            --jq '.[0] // empty')
+
+          PR_NUMBER=$(echo "$EXISTING" | jq -r '.number // empty')
+          PR_AUTHOR=$(echo "$EXISTING" | jq -r '.author.login // empty')
+
+          if [ -n "$PR_NUMBER" ] && [ "$PR_AUTHOR" = "github-actions[bot]" ]; then
+            # Bot-authored PR already exists — update body only
+            echo "✓ Updating existing bot PR #${PR_NUMBER}"
+            gh pr edit "$PR_NUMBER" \
               --title "dev → master" \
-              --body "Changes from \`dev\` ready for review before merging to \`master\`." \
-              --add-reviewer "Esturban"
+              --body "$PR_BODY"
           else
-            echo "Creating PR dev → master..."
+            if [ -n "$PR_NUMBER" ]; then
+              # Human-authored PR exists — close it so bot can create correctly
+              echo "⚠ Closing human-authored PR #${PR_NUMBER} (author: ${PR_AUTHOR})"
+              gh pr close "$PR_NUMBER" \
+                --comment "Closing human-authored PR. CI will recreate as github-actions[bot] with Esturban as reviewer."
+            fi
+            echo "✓ Creating new bot PR with Esturban as reviewer"
             gh pr create \
               --title "dev → master" \
-              --body "Changes from \`dev\` ready for review before merging to \`master\`." \
+              --body "$PR_BODY" \
               --reviewer "Esturban" \
               --base master \
               --head dev
