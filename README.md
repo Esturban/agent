@@ -2,13 +2,16 @@
 
 A progressive workbook covering core agentic AI patterns using LangGraph and LangChain:
 
-- **RAG** — local and cloud vector stores, streaming, Corrective RAG (CRAG) with document grading and query rewrite
-- **ReAct agents** — tool use, conversation memory, PDF retrieval
-- **Multi-agent graphs** — supervisor routing, specialist agents, shared state
-- **Human-in-the-loop** — interrupt and resume with checkpointing
-- **Structured output** — search → validated Pydantic extraction
-- **SQL agents** — natural language to SQL with a local SQLite database
-- **Evaluation** — RAGAS faithfulness/relevance/recall scoring and LLM-as-judge harnesses
+- **RAG** — local/cloud vector stores, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, tabular RAG, parent document retriever
+- **ReAct agents** — tool use, conversation memory, PDF retrieval, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI
+- **Multi-agent graphs** — supervisor routing, specialist agents, parallel subgraphs, supervisor-worker, multi-agent debate
+- **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates
+- **Structured output** — search → validated Pydantic extraction, guardrails, prompt injection defense
+- **Memory and state** — long-term cross-session memory, Redis memory, Mem0, checkpoint/resume
+- **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, agent golden dataset, prompt A/B testing
+- **Observability** — LangSmith tracing, Langfuse, custom callback handler, token budget manager
+- **Production** — FastAPI SSE streaming, async LangGraph, batch agent runner, semantic router
+- **Framework landscape** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents
 
 Each example is self-contained — clone, install, and run.
 
@@ -70,6 +73,36 @@ Each example is self-contained — clone, install, and run.
 | 50 | [50-deepeval-agentic-eval](./examples/50-deepeval-agentic-eval/README.md) | DeepEval agentic metrics: `ToolCorrectnessMetric` with LangGraph tool call extraction from message history | ✅ +DeepEval | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/50-deepeval-agentic-eval/agentic_eval_workbook.ipynb) |
 | 51 | [51-deepeval-conversational](./examples/51-deepeval-conversational/README.md) | DeepEval conversational metrics: KnowledgeRetention, ConversationCompleteness, ConversationRelevancy — stateful vs stateless chatbot comparison | ✅ +DeepEval | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/51-deepeval-conversational/conversational_eval_workbook.ipynb) |
 | 52 | [52-deepeval-synthesizer](./examples/52-deepeval-synthesizer/README.md) | DeepEval Synthesizer: auto-generate golden datasets with SIMPLE/REASONING/MULTI_HOP/COMPARATIVE strategies; regression testing loop | ✅ +DeepEval | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/52-deepeval-synthesizer/synthesizer_workbook.ipynb) |
+| 53 | [53-chunking-strategies](./examples/53-chunking-strategies/README.md) | Compare four chunking approaches side-by-side: CharacterTextSplitter, RecursiveCharacterTextSplitter, sentence-window, and semantic (cosine boundary detection) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/53-chunking-strategies/chunking_workbook.ipynb) |
+| 54 | [54-reranking-rag](./examples/54-reranking-rag/README.md) | Two-stage retrieval — retrieve top-20 candidates with Chroma vector search, rerank with FlashRank cross-encoder, pass top-4 to generation | ✅ +flashrank | — |
+| 55 | [55-hyde-rag](./examples/55-hyde-rag/README.md) | HyDE — generate a hypothetical answer, embed it instead of the raw query, retrieve with the richer embedding (Gao et al. 2022) | ✅ | — |
+| 56 | [56-contextual-compression](./examples/56-contextual-compression/README.md) | Contextual compression — retrieve top-8 chunks, filter with `LLMChainFilter` to only the passage that answers the query, then generate | ✅ | — |
+| 57 | [57-step-back-prompting](./examples/57-step-back-prompting/README.md) | Step-Back Prompting — abstract a specific question to a broader principle, retrieve on the principle, answer the original (Zheng et al. 2023) | ✅ | — |
+| 58 | [58-tabular-rag](./examples/58-tabular-rag/README.md) | Tabular RAG — load a CSV, LLM writes a pandas expression for the schema + question, execute in a sandbox, retry on error | ✅ | — |
+| 59 | [59-semantic-router](./examples/59-semantic-router/README.md) | Semantic router — embed incoming queries and route to specialist nodes by cosine similarity; no LLM call needed for routing | ✅ | — |
+| 60 | [60-web-scraper-agent](./examples/60-web-scraper-agent/README.md) | Web scraper agent — fetch a URL, parse with BeautifulSoup, chunk into ephemeral Chroma, answer questions about the page | ✅ | — |
+| 61 | [61-guardrails-agent](./examples/61-guardrails-agent/README.md) | Guardrails agent — Pydantic `InputGuard` + `OutputGuard` validate user input (PII, off-topic) and LLM output before returning | ✅ | — |
+| 62 | [62-async-langgraph](./examples/62-async-langgraph/README.md) | Async LangGraph — fully async nodes with `ainvoke`/`astream`; `asyncio.gather` inside a node for concurrent tool calls | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/62-async-langgraph/async_langgraph_workbook.ipynb) |
+| 63 | [63-token-budget-manager](./examples/63-token-budget-manager/README.md) | Token budget manager — track token usage per node with `tiktoken`, enforce a per-run budget, short-circuit gracefully when exceeded | ✅ | — |
+| 64 | [64-pydantic-ai](./examples/64-pydantic-ai/README.md) | Pydantic AI — typed research agent with `result_type=ResearchResult`; framework contrast to LangGraph's StateGraph | ✅ +pydantic-ai | — |
+| 65 | [65-litellm-multi-provider](./examples/65-litellm-multi-provider/README.md) | LiteLLM — same `completion()` call across OpenAI, Anthropic, and Mistral; fallback chains and cost tracking | ✅ +litellm | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/65-litellm-multi-provider/litellm_workbook.ipynb) |
+| 66 | [66-smol-agents](./examples/66-smol-agents/README.md) | SmolAgents (HuggingFace) — `CodeAgent` writes Python as its reasoning trace; contrast to LangGraph nodes/edges | ✅ +smolagents | — |
+| 67 | [67-mem0-memory](./examples/67-mem0-memory/README.md) | Mem0 cross-session memory — auto-extract semantic facts that persist across completely separate processes; contrast to LangGraph `InMemoryStore` | ✅ +mem0ai | — |
+| 68 | [68-chain-of-verification](./examples/68-chain-of-verification/README.md) | Chain-of-Verification (CoVe) — generate answer, extract verifiable claims, check each independently, revise failures (Dhuliawala et al. 2023) | ✅ | — |
+| 69 | [69-constitutional-ai](./examples/69-constitutional-ai/README.md) | Constitutional AI — critique output against written principles, revise to comply, loop until satisfied (Bai et al. 2022) | ✅ | — |
+| 70 | [70-prompt-injection-defense](./examples/70-prompt-injection-defense/README.md) | Prompt injection defense — classify retrieved chunks for injection risk before passing to the LLM; filter high-risk passages | ✅ | — |
+| 71 | [71-parent-document-retriever](./examples/71-parent-document-retriever/README.md) | Parent document retriever — index small child chunks for precision matching, return full parent document for rich context | ✅ | — |
+| 72 | [72-batch-agent-runner](./examples/72-batch-agent-runner/README.md) | Batch agent runner — process tasks in parallel batches with `asyncio.gather`, tenacity exponential backoff, tqdm progress tracking | ✅ | — |
+| 73 | [73-langsmith-tracing](./examples/73-langsmith-tracing/README.md) | LangSmith tracing — `@traceable` on each node + `LANGCHAIN_TRACING_V2=true`; inspect the full run tree in the LangSmith UI | ✅ +LangSmith | — |
+| 74 | [74-ragas-evaluation](./examples/74-ragas-evaluation/README.md) | RAGAS evaluation script — build a QA dataset, run `evaluate()` with faithfulness + answer_relevancy; CI-ready | ✅ +ragas | — |
+| 75 | [75-fastapi-sse-streaming](./examples/75-fastapi-sse-streaming/README.md) | FastAPI SSE — `StreamingResponse` wraps `graph.astream_events()` and formats each token as an SSE `data:` line over HTTP | ✅ +FastAPI | — |
+| 76 | [76-agent-evaluation](./examples/76-agent-evaluation/README.md) | Agent evaluation — golden QA dataset, exact match + embedding cosine similarity scoring, per-question PASS/FAIL summary | ✅ | — |
+| 77 | [77-langfuse-observability](./examples/77-langfuse-observability/README.md) | Langfuse observability — self-hostable LLM tracing via `CallbackHandler`; open-source alternative to LangSmith | ✅ +langfuse | — |
+| 78 | [78-prompt-ab-testing](./examples/78-prompt-ab-testing/README.md) | Prompt A/B testing — run two prompt variants on 5 inputs, score by word count, declare winner with comparison table | ✅ | — |
+| 79 | [79-interrupt-human-approval](./examples/79-interrupt-human-approval/README.md) | LangGraph interrupt — `interrupt()` pauses graph mid-execution; `Command(resume=approved)` resumes after human review; risk-based auto-approve | ✅ | — |
+| 80 | [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor/README.md) | Multi-agent supervisor — LLM classifies domain and dispatches to math, history, or science specialist agents via conditional edges | ✅ | — |
+| 81 | [81-streaming-sse-server](./examples/81-streaming-sse-server/README.md) | SSE server — FastAPI `GET /stream?q=` endpoint streams `graph.astream_events()` token-by-token as Server-Sent Events | ✅ +FastAPI | — |
+| 82 | [82-redis-memory](./examples/82-redis-memory/README.md) | Redis memory — Redis-backed cross-session agent memory with `load_history→respond→save_history` nodes and TTL | ✅ +Redis | — |
 
 > Links in the Workbook column open the .ipynb directly in Google Colab. — = requires local service or external credentials not available in Colab.
 
@@ -95,6 +128,14 @@ cp .env.example .env   # then fill in your keys
 | `+Redis` | local Redis (`docker run -p 6379:6379 -d redis`) |
 | `+SearXNG` | self-hosted SearXNG (see folder README) |
 | `+DeepEval` | `pip install deepeval` (not in default requirements.txt) |
+| `+flashrank` | `pip install flashrank` |
+| `+litellm` | `pip install litellm` |
+| `+smolagents` | `pip install smolagents` |
+| `+mem0ai` | `pip install mem0ai` |
+| `+pydantic-ai` | `pip install pydantic-ai` |
+| `+LangSmith` | `LANGCHAIN_API_KEY` + `LANGCHAIN_TRACING_V2=true` |
+| `+langfuse` | `pip install langfuse` + `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` |
+| `+FastAPI` | included in requirements.txt (`fastapi`, `uvicorn`) |
 
 Full key list in each folder's README.
 
@@ -123,6 +164,6 @@ examples/
       tools.py       # tool definitions
     README.md
 _queue/
-  ideas.json         # planned examples (15+)
+  ideas.json         # lesson plan (82 examples, all complete)
 requirements.txt
 ```
