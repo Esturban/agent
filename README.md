@@ -1,17 +1,17 @@
-# Agentic AI Examples — LangGraph & LangChain
+# Agentic AI Examples
 
-A progressive workbook covering core agentic AI patterns using LangGraph and LangChain:
+82 practical examples covering the core patterns, techniques, and tools in production agentic AI. Each example focuses on a concept — the frameworks are the vehicle, not the point.
 
 - **RAG** — local/cloud vector stores, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, tabular RAG, parent document retriever
 - **ReAct agents** — tool use, conversation memory, PDF retrieval, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI
-- **Multi-agent graphs** — supervisor routing, specialist agents, parallel subgraphs, supervisor-worker, multi-agent debate
-- **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates
-- **Structured output** — search → validated Pydantic extraction, guardrails, prompt injection defense
+- **Multi-agent systems** — supervisor routing, specialist agents, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP tool discovery
+- **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates, approval with edits and audit logs
+- **Structured output** — Pydantic extraction, guardrails, prompt injection defense
 - **Memory and state** — long-term cross-session memory, Redis memory, Mem0, checkpoint/resume
-- **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, agent golden dataset, prompt A/B testing
-- **Observability** — LangSmith tracing, Langfuse, custom callback handler, token budget manager
-- **Production** — FastAPI SSE streaming, async LangGraph, batch agent runner, semantic router
-- **Framework landscape** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents
+- **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, golden datasets, prompt A/B testing, regression detection
+- **Observability** — distributed tracing, callback handlers, token budgets, cost tracking, session correlation
+- **Production** — FastAPI SSE streaming, async pipelines, batch runners with retry, semantic routing
+- **Framework survey** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents — each explored on its own terms
 
 Each example is self-contained — clone, install, and run.
 
@@ -266,7 +266,7 @@ Custom callback handler, token budget manager, LangSmith tracing, Langfuse (self
 <details>
 <summary><strong>Production & Async</strong> &nbsp;·&nbsp; 6 examples</summary>
 
-Semantic routing, web scraping, fully async nodes, batch runners with retries, FastAPI SSE streaming servers.
+Semantic routing, web scraping, fully async pipelines, batch runners with retries, FastAPI SSE streaming servers.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -280,9 +280,9 @@ Semantic routing, web scraping, fully async nodes, batch runners with retries, F
 </details>
 
 <details>
-<summary><strong>Framework Landscape</strong> &nbsp;·&nbsp; 8 examples</summary>
+<summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 8 examples</summary>
 
-CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents — each contrasted against LangGraph patterns.
+CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents — each explored on its own terms, with comparisons to show where the paradigms differ.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
