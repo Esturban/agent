@@ -2589,7 +2589,7 @@
         "latency reduction",
         "Send() parallelism"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Ning et al. 2023 -- 'Skeleton-of-Thought: Large Language Models Can Do Parallel Decoding'. Generate a skeleton (numbered points) in one LLM call, then expand each point in parallel. Reduces latency by 2x+ for long answers since expansions run concurrently. LangGraph: skeleton_node -> Send() to N expand_nodes -> concatenate_node. Ref: arxiv.org/abs/2307.15337"
     },

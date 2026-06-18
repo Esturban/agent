@@ -1,6 +1,6 @@
 # Agentic AI Examples
 
-**97 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
+**98 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
 > The frameworks are the vehicle. The patterns are the point.
 
@@ -41,7 +41,7 @@
 ## All Examples
 
 <details>
-<summary>Complete list — all 97 examples in order</summary>
+<summary>Complete list — all 98 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -142,6 +142,7 @@
 | 95 | [95-memory-compaction](./examples/95-memory-compaction/README.md) | MemGPT-style 3-tier compaction — importance-scored hot→warm→cold pipeline; recency decay + keyword boost keeps high-signal turns verbatim longer (Packer et al. 2023) | ✅ | — |
 | 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}`; private ThinkingBlock + TextBlock; side-by-side accuracy comparison on CRT/math puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | — |
 | 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out generates N chains at temp 0.8; LLM judge scores step clarity + rigor + correctness; highest-scoring chain wins (Cobbe et al. 2021) | ✅ | — |
+| 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — one LLM call builds a numbered outline, then each point expanded concurrently via `Send()`; `idx` tagging restores order after parallel arrival (Ning et al. 2023) | ✅ | — |
 
 </details>
 
@@ -253,7 +254,7 @@ Unstructured text is the enemy of reliable systems. `with_structured_output()` f
 </details>
 
 <details>
-<summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 5 examples</summary>
+<summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 6 examples</summary>
 
 These techniques come from NLP research papers and produce measurable accuracy gains on hard reasoning tasks — no fine-tuning, no extra tools, just prompt strategy. Self-consistency samples N paths and takes a majority vote (Wang et al., +18 points on GSM8K). Least-to-most decomposes a problem into ordered sub-questions and solves each with the prior answers in context. Analogical prompting asks the model to recall its own analogous examples before solving. Extended thinking (example 96) goes further: it's a provider-native o1-style scratchpad built into the Anthropic API — the model reasons privately before answering.
 
@@ -264,6 +265,7 @@ These techniques come from NLP research papers and produce measurable accuracy g
 | 91 | [91-analogical-reasoning](./examples/91-analogical-reasoning/README.md) | Analogical prompting — ask the LLM to recall its own analogous solved problems before solving the target; outperforms human few-shot (Webb et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/91-analogical-reasoning/analogical_reasoning_workbook.ipynb) |
 | 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}` adds a private scratchpad; ThinkingBlock vs TextBlock; side-by-side comparison on CRT puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | — |
 | 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out, N chains at temp 0.8, LLM judge scores step clarity + rigor + correctness, highest-scoring chain wins (Cobbe et al. 2021) | ✅ | — |
+| 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — serial outline call, then each point expanded concurrently; wall-clock ≈ 1 expand call not N; `idx` field restores order (Ning et al. 2023) | ✅ | — |
 
 </details>
 
