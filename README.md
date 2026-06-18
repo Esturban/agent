@@ -1,6 +1,6 @@
 # Agentic AI Examples
 
-**98 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
+**100 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
 > The frameworks are the vehicle. The patterns are the point.
 
@@ -15,6 +15,7 @@
 | **Multi-Agent** | Supervisor routing, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP discovery, Mixture of Agents |
 | **Human-in-the-Loop** | `interrupt()` / `Command(resume=)`, risk-based approval gates, audit logs |
 | **Advanced Reasoning** | Self-consistency majority vote, least-to-most decomposition, analogical self-exemplar prompting, Anthropic extended thinking |
+| **Agents in the Wild** | Playwright browser agent (real browser automation), Anthropic computer use (bash + file-editor action loop) |
 | **Memory & State** | Long-term store, Redis TTL, Mem0, vector memory, episodic/semantic/procedural tiers, Zep auto-summarization |
 | **Safety & Sandboxing** | E2B isolated microVM execution, LlamaGuard S1-S6 input classification, Pydantic guardrails |
 | **Structured Output** | `with_structured_output`, PDF extraction with retry, prompt injection defense |
@@ -41,7 +42,7 @@
 ## All Examples
 
 <details>
-<summary>Complete list — all 98 examples in order</summary>
+<summary>Complete list — all 100 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -143,6 +144,8 @@
 | 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}`; private ThinkingBlock + TextBlock; side-by-side accuracy comparison on CRT/math puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | — |
 | 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out generates N chains at temp 0.8; LLM judge scores step clarity + rigor + correctness; highest-scoring chain wins (Cobbe et al. 2021) | ✅ | — |
 | 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — one LLM call builds a numbered outline, then each point expanded concurrently via `Send()`; `idx` tagging restores order after parallel arrival (Ning et al. 2023) | ✅ | — |
+| 99 | [99-browser-agent-playwright](./examples/99-browser-agent-playwright/README.md) | Playwright browser agent — `PlaywrightBrowserToolkit` wraps a sync Chromium browser; ReAct agent navigates, clicks, reads, and summarises real web pages | ✅ +playwright | — |
+| 100 | [100-computer-use-agent](./examples/100-computer-use-agent/README.md) | Anthropic computer use — `betas=["computer-use-2024-10-22"]` action loop with `bash_20241022` + `text_editor_20241022`; model writes and runs code with no human steering | ✅ +anthropic +ANTHROPIC_API_KEY | — |
 
 </details>
 
@@ -266,6 +269,18 @@ These techniques come from NLP research papers and produce measurable accuracy g
 | 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}` adds a private scratchpad; ThinkingBlock vs TextBlock; side-by-side comparison on CRT puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | — |
 | 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out, N chains at temp 0.8, LLM judge scores step clarity + rigor + correctness, highest-scoring chain wins (Cobbe et al. 2021) | ✅ | — |
 | 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — serial outline call, then each point expanded concurrently; wall-clock ≈ 1 expand call not N; `idx` field restores order (Ning et al. 2023) | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Agents in the Wild</strong> &nbsp;·&nbsp; 2 examples</summary>
+
+All 99 examples before this point run in a terminal. Here the agent escapes into the real world. The Playwright browser agent controls a full Chromium browser — it navigates, clicks, reads DOM, and synthesises answers about live pages. The computer use agent speaks Anthropic's `computer-use-2024-10-22` beta: the model issues `bash` and `text_editor` tool calls, the loop executes them locally, feeds results back, and iterates until the task is complete. These are the patterns behind agentic systems that interact with software the same way a human would.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 99 | [99-browser-agent-playwright](./examples/99-browser-agent-playwright/README.md) | Playwright browser agent — `PlaywrightBrowserToolkit` wraps a sync Chromium browser; ReAct agent navigates, reads, and summarises real web pages via `create_react_agent` | ✅ +playwright | — |
+| 100 | [100-computer-use-agent](./examples/100-computer-use-agent/README.md) | Anthropic computer use — `betas=["computer-use-2024-10-22"]` action loop; model issues `bash_20241022` + `text_editor_20241022` calls, writes and runs `/tmp/fib.py` with no human steering | ✅ +anthropic +ANTHROPIC_API_KEY | — |
 
 </details>
 
@@ -397,6 +412,7 @@ cp .env.example .env   # then fill in your keys
 | `+E2B_API_KEY` | `E2B_API_KEY` from e2b.dev (free tier) |
 | `+zep-cloud` | `pip install zep-cloud` |
 | `+ZEP_API_KEY` | `ZEP_API_KEY` from getzep.com (free tier) |
+| `+playwright` | `pip install playwright && playwright install chromium` |
 | `+anthropic` | `pip install anthropic` |
 | `+ANTHROPIC_API_KEY` | `ANTHROPIC_API_KEY` from console.anthropic.com |
 

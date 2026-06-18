@@ -2617,7 +2617,7 @@
         "ReAct loop",
         "DOM interaction"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Browser agents are one of the highest-demand agentic use cases. LangChain PlaywrightBrowserToolkit provides navigate, click, extract_text, current_page tools. ReAct agent loops: observe page state -> decide action -> execute. Key challenges: flaky selectors, login walls, rate limits. Pattern is foundation for web research agents, RPA automation. Playwright must be installed: playwright install chromium."
     },
@@ -2644,7 +2644,7 @@
         "mouse and keyboard tools",
         "action loop"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Anthropic computer use (beta, claude-3-5-sonnet-20241022). Agent sees screenshots, emits tool_use actions: computer(action='screenshot'), computer(action='left_click', coordinate=[x,y]), computer(action='type', text='...'). Requires a sandboxed environment (Docker + Xvfb). Shows the frontier of agentic capability. Framework: pure anthropic SDK, no LangChain. Anthropic computer use reference: docs.anthropic.com/en/docs/agents/computer-use."
     },
