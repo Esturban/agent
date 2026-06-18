@@ -1,13 +1,15 @@
 # Agentic AI Examples
 
-88 practical examples covering the core patterns, techniques, and tools in production agentic AI. Each example focuses on a concept — the frameworks are the vehicle, not the point.
+94 practical examples covering the core patterns, techniques, and tools in production agentic AI. Each example focuses on a concept — the frameworks are the vehicle, not the point.
 
 - **RAG** — local/cloud vector stores, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, tabular RAG, parent document retriever
 - **ReAct agents** — tool use, conversation memory, PDF retrieval, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI
 - **Multi-agent systems** — supervisor routing, specialist agents, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP tool discovery, Mixture of Agents
 - **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates, approval with edits and audit logs
 - **Structured output** — Pydantic extraction, guardrails, prompt injection defense
-- **Memory and state** — long-term cross-session memory, Redis memory, Mem0, vector memory, episodic/semantic/procedural architecture
+- **Advanced reasoning** — self-consistency majority vote, least-to-most decomposition, analogical self-exemplar prompting
+- **Safety** — E2B sandboxed code execution, LlamaGuard S1-S6 input classification, guardrail gates
+- **Memory and state** — long-term cross-session memory, Redis, Mem0, vector memory, episodic/semantic/procedural, Zep auto-summarization
 - **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, golden datasets, prompt A/B testing, regression detection
 - **Observability** — distributed tracing, callback handlers, token budgets, cost tracking, session correlation
 - **Production** — FastAPI SSE streaming, async pipelines, batch runners with retry, semantic routing
@@ -22,7 +24,7 @@ Each example is self-contained — clone, install, and run.
 ## All Examples
 
 <details>
-<summary>Complete list — all 88 examples in order</summary>
+<summary>Complete list — all 94 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -114,6 +116,12 @@ Each example is self-contained — clone, install, and run.
 | 86 | [86-mixture-of-agents](./examples/86-mixture-of-agents/README.md) | Mixture of Agents (Wang et al. 2024) — `Send()` fans out to 3 parallel proposers; `Annotated[list, operator.add]` merges results; aggregator synthesises | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/86-mixture-of-agents/mixture_of_agents_workbook.ipynb) |
 | 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed turns into ChromaDB, retrieve top-k relevant memories at query time; O(k) context cost vs Redis O(N) full-history | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_agent_workbook.ipynb) |
 | 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes inputs to episodic (event log), semantic (user facts), or procedural (behaviour rules) tier (Tulving 1972 + MemGPT) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
+| 89 | [89-self-consistency](./examples/89-self-consistency/README.md) | Self-consistency — sample N CoT paths at temperature 0.7, take majority vote over extracted answers; `Send()` fan-out with `operator.add` reducer (Wang et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/89-self-consistency/self_consistency_workbook.ipynb) |
+| 90 | [90-least-to-most](./examples/90-least-to-most/README.md) | Least-to-most prompting — decompose into ordered sub-problems, solve each with all prior solutions as context; conditional loop in LangGraph (Zhou et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/90-least-to-most/least_to_most_workbook.ipynb) |
+| 91 | [91-analogical-reasoning](./examples/91-analogical-reasoning/README.md) | Analogical prompting — ask the LLM to recall its own analogous solved problems before tackling the target; outperforms human-curated few-shot (Webb et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/91-analogical-reasoning/analogical_reasoning_workbook.ipynb) |
+| 92 | [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b/README.md) | E2B sandbox — generate Python code with LLM, execute in ephemeral cloud microVM; structured stdout/stderr/error capture; nothing runs on the host | ✅ +e2b +E2B_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb) |
+| 93 | [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails/README.md) | LlamaGuard pattern — classify every input against S1-S6 hazard taxonomy before routing to agent; unsafe inputs refused at the gate (Inan et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb) |
+| 94 | [94-zep-memory-server](./examples/94-zep-memory-server/README.md) | Zep Cloud memory — auto-summarization + entity extraction + temporal decay; `memory.context` injected as compressed system prompt; contrast with DIY Redis | ✅ +zep-cloud +ZEP_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/94-zep-memory-server/zep_memory_workbook.ipynb) |
 
 </details>
 
@@ -207,9 +215,9 @@ Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent deb
 </details>
 
 <details>
-<summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 6 examples</summary>
+<summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 8 examples</summary>
 
-Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chain-of-Verification, Constitutional AI, prompt injection defense.
+Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chain-of-Verification, Constitutional AI, prompt injection defense, E2B sandboxed execution, LlamaGuard input classification.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -219,13 +227,28 @@ Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chai
 | 68 | [68-chain-of-verification](./examples/68-chain-of-verification/README.md) | Chain-of-Verification (CoVe) — generate answer, extract verifiable claims, check each independently, revise failures (Dhuliawala et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/68-chain-of-verification/chain_of_verification_workbook.ipynb) |
 | 69 | [69-constitutional-ai](./examples/69-constitutional-ai/README.md) | Constitutional AI — critique output against written principles, revise to comply, loop until satisfied (Bai et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/69-constitutional-ai/constitutional_ai_workbook.ipynb) |
 | 70 | [70-prompt-injection-defense](./examples/70-prompt-injection-defense/README.md) | Prompt injection defense — classify retrieved chunks for injection risk before passing to the LLM; filter high-risk passages | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/70-prompt-injection-defense/prompt_injection_workbook.ipynb) |
+| 92 | [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b/README.md) | E2B sandbox — generate Python code with LLM, execute in ephemeral cloud microVM; structured stdout/stderr/error capture; nothing runs on the host | ✅ +e2b +E2B_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb) |
+| 93 | [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails/README.md) | LlamaGuard pattern — classify every input against S1-S6 hazard taxonomy before routing to agent; unsafe inputs refused at the gate (Inan et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb) |
 
 </details>
 
 <details>
-<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 5 examples</summary>
+<summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 3 examples</summary>
 
-Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memory with TTL, vector memory with ChromaDB, and three-tier episodic/semantic/procedural architecture.
+Self-consistency majority voting, least-to-most decomposition, analogical self-exemplar prompting — research-backed techniques that improve accuracy without fine-tuning.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 89 | [89-self-consistency](./examples/89-self-consistency/README.md) | Self-consistency — sample N CoT paths at temperature 0.7, take majority vote; `Send()` fan-out with `operator.add` reducer (Wang et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/89-self-consistency/self_consistency_workbook.ipynb) |
+| 90 | [90-least-to-most](./examples/90-least-to-most/README.md) | Least-to-most — decompose into ordered sub-problems, solve each with all prior solutions as context; conditional loop accumulating state (Zhou et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/90-least-to-most/least_to_most_workbook.ipynb) |
+| 91 | [91-analogical-reasoning](./examples/91-analogical-reasoning/README.md) | Analogical prompting — ask the LLM to recall its own analogous solved problems before solving the target; outperforms human few-shot (Webb et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/91-analogical-reasoning/analogical_reasoning_workbook.ipynb) |
+
+</details>
+
+<details>
+<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 6 examples</summary>
+
+Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memory with TTL, vector memory with ChromaDB, three-tier episodic/semantic/procedural architecture, and Zep auto-summarization.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -234,6 +257,7 @@ Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memo
 | 82 | [82-redis-memory](./examples/82-redis-memory/README.md) | Redis memory — Redis-backed cross-session agent memory with `load_history→respond→save_history` nodes and TTL | ✅ +Redis | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/82-redis-memory/redis_memory_workbook.ipynb) |
 | 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed conversation turns into ChromaDB, retrieve top-k relevant context by cosine similarity; O(k) vs Redis O(N) full-scan contrast | ✅ +chromadb | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_workbook.ipynb) |
 | 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes facts to episodic (events), semantic (facts), or procedural (rules) stores; inspired by MemGPT (Packer et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
+| 94 | [94-zep-memory-server](./examples/94-zep-memory-server/README.md) | Zep Cloud memory — auto-summarization + entity extraction + temporal decay; `memory.context` injected as compressed system prompt; contrast with DIY Redis | ✅ +zep-cloud +ZEP_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/94-zep-memory-server/zep_memory_workbook.ipynb) |
 
 </details>
 
@@ -344,6 +368,10 @@ cp .env.example .env   # then fill in your keys
 | `+haystack-ai` | `pip install haystack-ai` |
 | `+agno` | `pip install agno` |
 | `+GOOGLE_API_KEY` | `GOOGLE_API_KEY` from Google AI Studio (for ADK / Gemini) |
+| `+e2b` | `pip install e2b-code-interpreter` |
+| `+E2B_API_KEY` | `E2B_API_KEY` from e2b.dev (free tier) |
+| `+zep-cloud` | `pip install zep-cloud` |
+| `+ZEP_API_KEY` | `ZEP_API_KEY` from getzep.com (free tier) |
 
 Full key list in each folder's README.
 
@@ -372,6 +400,6 @@ examples/
       tools.py       # tool definitions
     README.md
 _queue/
-  ideas.json         # lesson plan (105 entries queued, 88 complete)
+  ideas.json         # lesson plan (105 entries queued, 94 complete)
 requirements.txt
 ```
