@@ -2564,7 +2564,7 @@
         "reasoning chain scoring",
         "inference scaling"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Cobbe et al. 2021 (OpenAI) -- 'Training Verifiers to Solve Math Word Problems' introduced process reward models (PRMs) for scoring reasoning chains step-by-step, not just final answers. Best-of-N: sample N solutions, score each with LLM-as-judge on reasoning quality, return best. Demonstrates inference-time scaling law -- more compute at inference -> better answers without fine-tuning. Ref: arxiv.org/abs/2110.14168"
     },
