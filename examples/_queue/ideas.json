@@ -2540,7 +2540,7 @@
         "thinking blocks",
         "o1-style reasoning"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Anthropic extended thinking API (claude-3-7-sonnet) adds a private chain-of-thought scratchpad. Set thinking={'type':'enabled','budget_tokens':8000}. Response includes thinking ContentBlock (not shown to user) + text ContentBlock. Compare accuracy on MATH/logic puzzles with and without. Framework-agnostic -- uses anthropic SDK directly. Shows the o1/o3-style reasoning paradigm from a provider-native angle."
     },
