@@ -2209,7 +2209,7 @@
         "tool registration",
         "ADK streaming"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Google ADK (google-adk package) is Google's opinionated agent SDK released 2025. Mirrors LangGraph patterns but native to Gemini. Shows how to define tools with Python functions + docstrings, wire them to an Agent, run via Runner.run_async(). Contrasts with LangGraph's StateGraph approach. Framework comparison value is high -- same task, different paradigm."
     },
@@ -2235,7 +2235,7 @@
         "BM25Retriever",
         "PromptBuilder"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Haystack 2.x (deepset) uses a DAG of typed components connected by .connect(). Fundamentally different architecture from LangChain chains or LangGraph graphs. Shows pipeline.add_component(), pipeline.connect(), pipeline.run(). Good contrast: LangGraph = stateful graph, Haystack = stateless dataflow DAG. Ref: deepset.ai Haystack 2.0 migration guide."
     },
@@ -2261,7 +2261,7 @@
         "multi-modal",
         "agent composition"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Agno (formerly Phidata) is a lightweight agent framework emphasizing minimal code and multi-modal first-class support. Agent(tools=[...], model=OpenAIChat()) pattern. Team class for multi-agent orchestration. Compare with LangGraph's verbosity for the same task. Good for showing the spectrum: high-level (Agno) vs. low-level (LangGraph)."
     },
@@ -2286,7 +2286,7 @@
         "parallel fan-out",
         "response synthesis"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Wang et al. 2024 (TogetherAI) -- 'Mixture-of-Agents Enhances Large Language Model Capabilities'. MoA beats GPT-4 on AlpacaEval 2.0 by aggregating outputs of multiple LLMs. Pattern: 3 proposer nodes (can use different models or system prompts) run in parallel via Send(), outputs collected in state list, aggregator synthesizes. Ref: arxiv.org/abs/2406.04692"
     },
@@ -2313,7 +2313,7 @@
         "top-k recall",
         "memory vs. context"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Contrast with list-based Redis memory (example 82). Instead of LRANGE all history, embed each turn and store in Chroma. At query time, embed the current query and retrieve top-k similar memories. Shows the tradeoff: full history = high recall, vector search = relevant recall at scale. Pattern widely used in production agents (MemGPT, Zep, mem0)."
     },
@@ -2338,7 +2338,7 @@
         "memory routing",
         "multi-store architecture"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Cognitive science taxonomy applied to LLM agents. Episodic = conversation turns (list/Redis). Semantic = extracted facts about the user (key-value store: 'user likes Python'). Procedural = successful tool-call patterns (few-shot examples prepended to system prompt). Agent uses a classify_memory node to route new information to the correct store. Ref: Tulving 1972 memory taxonomy; MemGPT (Packer et al. 2023, arxiv.org/abs/2310.08560)."
     },
@@ -2362,7 +2362,7 @@
         "temperature > 0",
         "answer aggregation"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Wang et al. 2022 -- 'Self-Consistency Improves Chain of Thought Reasoning in Language Models'. Sample N paths at temperature 0.7, extract final answers, return the most common. Significant accuracy gains on GSM8K/MATH without fine-tuning. Pattern: parallel Send() to N reasoning nodes, aggregation node counts answers. Ref: arxiv.org/abs/2203.11171"
     },
@@ -2387,7 +2387,7 @@
         "context accumulation",
         "compositional reasoning"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Zhou et al. 2022 -- 'Least-to-Most Prompting Enables Complex Reasoning in Large Language Models'. Two-stage prompt: (1) decompose into subproblems, (2) solve each subproblem with prior answers in context. Outperforms CoT on SCAN and DROP compositional tasks. LangGraph: decompose_node -> solve_node in a loop accumulating solved subproblems in state. Ref: arxiv.org/abs/2205.10625"
     },
@@ -2411,7 +2411,7 @@
         "problem-solving by analogy",
         "exemplar recall"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Webb et al. 2023 -- 'Emergent Analogical Reasoning in Large Language Models'. Key insight: asking the LLM to recall/generate its own analogous problems before solving outperforms human-curated few-shot examples on many benchmarks. Two-node graph: generate_analogies_node (produce 3 similar solved problems) -> solve_node (use those as context). Ref: nature.com/articles/s41562-023-01659-w"
     },
@@ -2438,7 +2438,7 @@
         "CodeInterpreter",
         "execution timeout"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "E2B (e2b.dev) provides ephemeral cloud microVMs for safe code execution. Agent generates Python code, E2B Sandbox.run_code() executes it in isolation, result returned to agent. Critical for any agent with a code tool. Pattern: code_generation_node -> sandbox_execution_node -> interpret_result_node. Contrasts with raw exec() which is never safe in production."
     },
@@ -2462,7 +2462,7 @@
         "guardrail node",
         "early exit"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Meta LlamaGuard (Inan et al. 2023 -- arxiv.org/abs/2312.06674) is a fine-tuned LLaMA model for classifying inputs/outputs against safety policies (S1-S6 hazard taxonomy). Pattern: guardrail_node runs before reasoning_node; if classification = UNSAFE, return early with policy refusal instead of routing to the agent. Also covers NeMo Guardrails (NVIDIA) as an alternative approach."
     },
@@ -2489,7 +2489,7 @@
         "memory.get",
         "entity extraction"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Zep (getzep.com) is a production memory layer for LLM apps. Auto-summarizes conversation history, extracts named entities (people, places, facts), applies temporal decay scoring. ZepMemory LangChain integration or direct ZepClient. Contrast with DIY Redis: Zep handles compaction, retrieval ranking, and entity graphs automatically. Shows the ops tradeoff: control (Redis) vs. batteries-included (Zep)."
     },

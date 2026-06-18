@@ -1,23 +1,40 @@
 # Agentic AI Examples
 
-94 practical examples covering the core patterns, techniques, and tools in production agentic AI. Each example focuses on a concept — the frameworks are the vehicle, not the point.
+**94 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
-- **RAG** — local/cloud vector stores, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, tabular RAG, parent document retriever
-- **ReAct agents** — tool use, conversation memory, PDF retrieval, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI
-- **Multi-agent systems** — supervisor routing, specialist agents, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP tool discovery, Mixture of Agents
-- **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates, approval with edits and audit logs
-- **Structured output** — Pydantic extraction, guardrails, prompt injection defense
-- **Advanced reasoning** — self-consistency majority vote, least-to-most decomposition, analogical self-exemplar prompting
-- **Safety** — E2B sandboxed code execution, LlamaGuard S1-S6 input classification, guardrail gates
-- **Memory and state** — long-term cross-session memory, Redis, Mem0, vector memory, episodic/semantic/procedural, Zep auto-summarization
-- **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, golden datasets, prompt A/B testing, regression detection
-- **Observability** — distributed tracing, callback handlers, token budgets, cost tracking, session correlation
-- **Production** — FastAPI SSE streaming, async pipelines, batch runners with retry, semantic routing
-- **Framework survey** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack, Agno — each explored on its own terms
+> The frameworks are the vehicle. The patterns are the point.
 
-Each example is self-contained — clone, install, and run.
+---
 
-> **Workbook column:** links open the `.ipynb` directly in Google Colab. `—` = requires a local service (Redis, SearXNG, FastAPI server) or external account not available in Colab.
+### What you'll learn
+
+| Area | Topics |
+|------|--------|
+| **RAG** | Local & cloud retrieval, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, step-back prompting, graph RAG, tabular RAG |
+| **ReAct Agents** | Tool use, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI |
+| **Multi-Agent** | Supervisor routing, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP discovery, Mixture of Agents |
+| **Human-in-the-Loop** | `interrupt()` / `Command(resume=)`, risk-based approval gates, audit logs |
+| **Advanced Reasoning** | Self-consistency majority vote, least-to-most decomposition, analogical self-exemplar prompting |
+| **Memory & State** | Long-term store, Redis TTL, Mem0, vector memory, episodic/semantic/procedural tiers, Zep auto-summarization |
+| **Safety & Sandboxing** | E2B isolated microVM execution, LlamaGuard S1-S6 input classification, Pydantic guardrails |
+| **Structured Output** | `with_structured_output`, PDF extraction with retry, prompt injection defense |
+| **Evaluation** | RAGAS, DeepEval (7 metric types), LLM-as-judge, golden datasets, A/B testing, regression detection |
+| **Observability** | Callback handlers, token budgets, LangSmith tracing, Langfuse |
+| **Production & Async** | FastAPI SSE streaming, async pipelines, batch runners, semantic routing |
+| **Framework Survey** | CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno |
+
+---
+
+### Where to start
+
+- **New to agents?** → Start at [1-basic-local-rag](./examples/1-basic-local-rag) and work sequentially through the RAG section.
+- **Know RAG, learning agents?** → Jump to [18-react-agent](./examples/18-react-agent) for the core ReAct loop.
+- **Building multi-agent systems?** → [26-agent-supervisor](./examples/26-agent-supervisor) → [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor) → [86-mixture-of-agents](./examples/86-mixture-of-agents).
+- **Adding memory?** → [36-long-term-memory](./examples/36-long-term-memory) → [82-redis-memory](./examples/82-redis-memory) → [87-vector-memory-agent](./examples/87-vector-memory-agent) → [88-memory-architecture](./examples/88-memory-architecture) → [94-zep-memory-server](./examples/94-zep-memory-server).
+- **Improving reasoning?** → [68-chain-of-verification](./examples/68-chain-of-verification) → [89-self-consistency](./examples/89-self-consistency) → [90-least-to-most](./examples/90-least-to-most) → [91-analogical-reasoning](./examples/91-analogical-reasoning).
+- **Safety-first?** → [70-prompt-injection-defense](./examples/70-prompt-injection-defense) → [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails) → [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b).
+
+> **Workbook column:** Colab badges open the `.ipynb` directly in Google Colab. `—` = requires a local service (Redis, SearXNG, FastAPI) that Colab can't reach.
 
 ---
 
@@ -132,7 +149,7 @@ Each example is self-contained — clone, install, and run.
 <details>
 <summary><strong>RAG — Retrieval-Augmented Generation</strong> &nbsp;·&nbsp; 20 examples</summary>
 
-Local and cloud retrieval, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, graph RAG, tabular RAG, multimodal RAG, parent document retriever.
+Every serious agent system is a RAG system at its core. This section starts from the simplest possible pipeline (embed → retrieve → generate) and progressively adds the pieces that matter in production: grading retrieved docs for relevance, rewriting bad queries, fusing multiple retrieval strategies, handling tables and images, and compressing context to stay within token limits. By the end you'll understand why CRAG, HyDE, and Self-RAG exist — and when each one is worth the cost.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -162,7 +179,7 @@ Local and cloud retrieval, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculat
 <details>
 <summary><strong>ReAct Agents & Planning</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-Tool use, conversation memory, code interpreter loops, prospect research, SQL agents, reflexion, Plan-Execute, ReWOO, Tree of Thoughts.
+The Reason + Act loop is the backbone of most production agents. This section builds it from scratch, then explores the planning strategies that scale beyond simple tool calls: Plan-Execute separates upfront planning from execution, ReWOO emits all tool calls before running any of them, Tree of Thoughts branches multiple approaches in parallel. Each pattern exists because vanilla ReAct fails in a specific, observable way — these examples show you both the failure and the fix.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -183,7 +200,7 @@ Tool use, conversation memory, code interpreter loops, prospect research, SQL ag
 <details>
 <summary><strong>Multi-Agent Systems</strong> &nbsp;·&nbsp; 10 examples</summary>
 
-Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent debate, supervisor-worker, MCP tool discovery, A2A handoffs, domain-dispatch supervisor, Mixture of Agents.
+One agent has one context window and one reasoning thread. Multi-agent systems get around both limits: split the work, run in parallel, let specialists focus on what they're good at. This section covers every coordination pattern — supervisor routing, Send() fan-out with reducer merging, typed A2A contracts, MCP-based tool discovery, and the Mixture-of-Agents architecture where parallel proposers feed a single aggregator. The `Annotated[list, operator.add]` reducer pattern introduced here recurs throughout the advanced reasoning section.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -203,7 +220,7 @@ Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent deb
 <details>
 <summary><strong>Human-in-the-Loop</strong> &nbsp;·&nbsp; 4 examples</summary>
 
-`interrupt()` / `Command(resume=…)`, edgeless Command routing, SQLite checkpointing across sessions, risk-based auto-approve gates.
+Fully autonomous agents fail in production — not because the model is wrong, but because humans need visibility and override capability on consequential decisions. LangGraph's `interrupt()` / `Command(resume=)` pair makes this first-class: the graph pauses mid-execution, persists state to a SQLite checkpoint, and resumes from exactly where it left off after a human reviews. These examples cover basic yes/no approval, editable approval with audit logs, and risk-based gates that auto-approve low-risk actions and only interrupt for high-stakes ones.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -217,7 +234,7 @@ Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent deb
 <details>
 <summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 8 examples</summary>
 
-Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chain-of-Verification, Constitutional AI, prompt injection defense, E2B sandboxed execution, LlamaGuard input classification.
+Unstructured text is the enemy of reliable systems. `with_structured_output()` forces the model to return validated Pydantic models — no parsing, no KeyErrors. Beyond extraction, this section covers the defensive patterns that make agents production-safe: input/output guardrails, prompt injection defense, Chain-of-Verification to catch hallucinations, Constitutional AI for self-alignment, LlamaGuard's S1-S6 hazard taxonomy for pre-agent classification, and E2B microVM sandboxing so generated code never touches the host.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -235,7 +252,7 @@ Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chai
 <details>
 <summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 3 examples</summary>
 
-Self-consistency majority voting, least-to-most decomposition, analogical self-exemplar prompting — research-backed techniques that improve accuracy without fine-tuning.
+These three techniques come from NLP research papers and produce measurable accuracy gains on hard reasoning tasks — no fine-tuning, no extra tools, just prompt strategy. Self-consistency samples N paths and takes a majority vote (Wang et al., +18 points on GSM8K). Least-to-most decomposes a problem into ordered sub-questions and solves each with the prior answers in context (Zhou et al., strong gains on compositional tasks). Analogical prompting asks the model to recall its own analogous examples before solving — outperforming human-curated few-shot on many benchmarks (Webb et al.). All three use the same LangGraph fan-out and loop primitives you learned in earlier sections.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -248,7 +265,7 @@ Self-consistency majority voting, least-to-most decomposition, analogical self-e
 <details>
 <summary><strong>Memory & State</strong> &nbsp;·&nbsp; 6 examples</summary>
 
-Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memory with TTL, vector memory with ChromaDB, three-tier episodic/semantic/procedural architecture, and Zep auto-summarization.
+Every stateless agent has the same fatal flaw: it forgets everything after the context window ends. This section builds the full memory stack: `InMemoryStore` for cross-thread facts within a process, Redis for durable cross-session history with TTL, Mem0 for automatic semantic extraction ("the model remembers the important parts, not the raw text"), ChromaDB vector memory for top-k relevance recall, a three-tier Tulving architecture that classifies memories into episodic/semantic/procedural bins, and Zep Cloud for production-grade memory that auto-summarizes, extracts named entities, and handles temporal decay without you writing a single line of compaction logic.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -264,7 +281,7 @@ Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memo
 <details>
 <summary><strong>Evaluation</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-RAGAS, LLM-as-judge, DeepEval (RAG metrics, safety, G-Eval, agentic, conversational, synthesizer), RAGAS evaluation scripts, agent golden datasets, prompt A/B testing.
+A demo that looks right is not the same as a system that _measures_ right. This section covers the full evaluation stack: RAGAS for retrieval quality, LLM-as-judge for open-ended grading, the complete DeepEval suite (faithfulness, hallucination, bias, G-Eval, agentic tool-use, conversational retention, dataset synthesis), agent golden datasets, and prompt A/B testing. These are the tools every production team needs before they can improve what they ship.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -285,7 +302,7 @@ RAGAS, LLM-as-judge, DeepEval (RAG metrics, safety, G-Eval, agentic, conversatio
 <details>
 <summary><strong>Observability</strong> &nbsp;·&nbsp; 4 examples</summary>
 
-Custom callback handler, token budget manager, LangSmith tracing, Langfuse (self-hosted alternative).
+An agent that runs without observability is a black box — you know it costs money and produces outputs, but not why. These four examples instrument pipelines from the inside: a zero-dependency `BaseCallbackHandler` that captures every token count and latency, a `tiktoken`-based budget enforcer that short-circuits before a cost overrun, and both LangSmith and Langfuse for production trace visualization. After this section you can answer: which node is slowest, which prompt is most expensive, and where does the pipeline fail.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -299,7 +316,7 @@ Custom callback handler, token budget manager, LangSmith tracing, Langfuse (self
 <details>
 <summary><strong>Production & Async</strong> &nbsp;·&nbsp; 6 examples</summary>
 
-Semantic routing, web scraping, fully async pipelines, batch runners with retries, FastAPI SSE streaming servers.
+Demo agents are synchronous, single-threaded, and crash on network errors. Production agents are not. This section closes the gap: embedding-based semantic routing that skips the LLM entirely for classification, `asyncio.gather` inside nodes for concurrent tool calls, batch runners that process thousands of inputs with tenacity exponential-backoff retries, and two FastAPI SSE servers that stream token-by-token over HTTP. These are the primitives behind every real deployment.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -315,7 +332,7 @@ Semantic routing, web scraping, fully async pipelines, batch runners with retrie
 <details>
 <summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno — each explored on its own terms, with comparisons to show where the paradigms differ.
+The agent framework space is fragmented on purpose — each library made a different set of tradeoffs. CrewAI optimizes for role-based team metaphors. AutoGen for multi-agent conversation loops. DSPy for prompt compilation over manual engineering. SmolAgents runs Python code as its reasoning trace. Haystack models everything as a stateless DAG. Google ADK wires into Gemini natively. Agno minimizes boilerplate. This section gives you one working example per framework so you can evaluate the tradeoffs yourself instead of trusting blog posts.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
