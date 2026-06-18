@@ -2669,7 +2669,7 @@
         "test-driven agentic repair",
         "ACI (agent-computer interface)"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Yang et al. 2024 -- 'SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering'. Key insight: a well-designed ACI (agent-computer interface) with bash, view, edit, search tools lets LLMs solve real GitHub issues. Pattern: given a failing test, agent reads file -> edits -> runs test -> iterates until green. Simplified version without full SWE-bench harness. Ref: arxiv.org/abs/2405.15793"
     },
@@ -2695,7 +2695,7 @@
         "audio streaming",
         "latency optimization"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Multimodal agents are a key 2024-2025 trend. Pipeline: input audio file -> Whisper transcription -> LangGraph agent (tool-using) -> OpenAI TTS (tts-1) -> output audio. Key metric: TTFA (time to first audio). Latency trick: start TTS as soon as first sentence is generated rather than waiting for full response. Uses openai.audio.speech.create() for TTS. Good demo for voice assistants and real-time agents."
     },
@@ -2720,7 +2720,7 @@
         "tool caching",
         "meta-agent"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Cai et al. 2023 -- 'Large Language Models as Tool Makers'. Two-model system: dispatcher identifies need for new tool, tool-maker generates Python code for it, tool is exec'd and added to registry for future use. Synthesized tools are cached -- amortizes generation cost across many calls. Pattern demonstrates meta-agent capability. Safety note: pair with E2B sandbox (example 92) for safe execution. Ref: arxiv.org/abs/2305.17126"
     },
@@ -2746,7 +2746,7 @@
         "spotlighting",
         "defense-in-depth"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Indirect prompt injection (Greshake et al. 2023 -- arxiv.org/abs/2302.12173): malicious instructions embedded in web content hijack an agent browsing the web. Three attack patterns: (1) role override in page text, (2) hidden instructions via HTML comments, (3) data exfiltration via tool call manipulation. Defenses: input sanitization, Anthropic-style instruction hierarchy (system > human > tool_result), spotlighting (tag external content clearly). Critical for production browser agents."
     },
@@ -2772,7 +2772,7 @@
         "judge LLM",
         "attack success rate"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "high",
       "notes": "Perez et al. 2022 (DeepMind) -- 'Red Teaming Language Models with Language Models'. Use an attacker LLM to automatically generate test cases that elicit harmful outputs from a target LLM. Three-node LangGraph pipeline: attacker_node (generates N attack prompts) -> target_node (responds to each) -> judge_node (scores whether attack succeeded, 0/1). Compute attack success rate. Shows how to build safety evaluation infrastructure. Ref: arxiv.org/abs/2202.03286"
     }

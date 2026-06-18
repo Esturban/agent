@@ -1,6 +1,6 @@
 # Agentic AI Examples
 
-**100 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
+**105 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
 > The frameworks are the vehicle. The patterns are the point.
 
@@ -15,7 +15,8 @@
 | **Multi-Agent** | Supervisor routing, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP discovery, Mixture of Agents |
 | **Human-in-the-Loop** | `interrupt()` / `Command(resume=)`, risk-based approval gates, audit logs |
 | **Advanced Reasoning** | Self-consistency majority vote, least-to-most decomposition, analogical self-exemplar prompting, Anthropic extended thinking |
-| **Agents in the Wild** | Playwright browser agent (real browser automation), Anthropic computer use (bash + file-editor action loop) |
+| **Agents in the Wild** | Playwright browser agent, Anthropic computer use, SWE-agent code repair, voice pipeline (Whisper + TTS), LLMs as Tool Makers |
+| **Safety & Red-Teaming** | Prompt injection defense (spotlighting + instruction hierarchy), automated red-teaming with ASR metric |
 | **Memory & State** | Long-term store, Redis TTL, Mem0, vector memory, episodic/semantic/procedural tiers, Zep auto-summarization |
 | **Safety & Sandboxing** | E2B isolated microVM execution, LlamaGuard S1-S6 input classification, Pydantic guardrails |
 | **Structured Output** | `with_structured_output`, PDF extraction with retry, prompt injection defense |
@@ -42,7 +43,7 @@
 ## All Examples
 
 <details>
-<summary>Complete list — all 100 examples in order</summary>
+<summary>Complete list — all 105 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -146,6 +147,11 @@
 | 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — one LLM call builds a numbered outline, then each point expanded concurrently via `Send()`; `idx` tagging restores order after parallel arrival (Ning et al. 2023) | ✅ | — |
 | 99 | [99-browser-agent-playwright](./examples/99-browser-agent-playwright/README.md) | Playwright browser agent — `PlaywrightBrowserToolkit` wraps a sync Chromium browser; ReAct agent navigates, clicks, reads, and summarises real web pages | ✅ +playwright | — |
 | 100 | [100-computer-use-agent](./examples/100-computer-use-agent/README.md) | Anthropic computer use — `betas=["computer-use-2024-10-22"]` action loop with `bash_20241022` + `text_editor_20241022`; model writes and runs code with no human steering | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 101 | [101-swe-agent-code-editing](./examples/101-swe-agent-code-editing/README.md) | SWE-agent style repair — agent gets buggy file + failing tests, iterates view/edit/run until all tests pass; ACI pattern from Yang et al. 2024 | ✅ | — |
+| 102 | [102-voice-pipeline](./examples/102-voice-pipeline/README.md) | Voice agent pipeline — OpenAI TTS generates input audio, Whisper transcribes it, LangGraph agent responds, TTS speaks the reply; no local model download | ✅ | — |
+| 103 | [103-tool-synthesis-latm](./examples/103-tool-synthesis-latm/README.md) | LLMs as Tool Makers — dispatcher picks existing tool or triggers synthesis; tool-maker generates Python calling zero-auth APIs; synthesized tools cached across tasks (Cai et al. 2023) | ✅ | — |
+| 104 | [104-prompt-injection-defense](./examples/104-prompt-injection-defense/README.md) | Indirect prompt injection — 3 attack patterns in simulated pages; side-by-side undefended vs defended (instruction hierarchy + spotlighting) agent (Greshake et al. 2023) | ✅ | — |
+| 105 | [105-automated-red-teaming](./examples/105-automated-red-teaming/README.md) | Automated red-teaming — `Send()` fan-out generates N adversarial prompts in parallel; target responds; judge scores each; reports attack success rate (Perez et al. 2022) | ✅ | — |
 
 </details>
 
@@ -273,14 +279,29 @@ These techniques come from NLP research papers and produce measurable accuracy g
 </details>
 
 <details>
-<summary><strong>Agents in the Wild</strong> &nbsp;·&nbsp; 2 examples</summary>
+<summary><strong>Agents in the Wild</strong> &nbsp;·&nbsp; 5 examples</summary>
 
-All 99 examples before this point run in a terminal. Here the agent escapes into the real world. The Playwright browser agent controls a full Chromium browser — it navigates, clicks, reads DOM, and synthesises answers about live pages. The computer use agent speaks Anthropic's `computer-use-2024-10-22` beta: the model issues `bash` and `text_editor` tool calls, the loop executes them locally, feeds results back, and iterates until the task is complete. These are the patterns behind agentic systems that interact with software the same way a human would.
+These examples leave the terminal and operate in the real world. The Playwright agent controls a live Chromium browser. The computer use agent issues bash and file-editor tool calls via Anthropic's computer-use beta. The SWE-agent iterates on a real failing test suite until it goes green — no human in the loop. The voice pipeline converts speech to text, processes it through a LangGraph agent, and speaks the answer back. The LATM agent writes its own tools on demand and caches them for reuse. Together they show the frontier: agents that act, not just respond.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
 | 99 | [99-browser-agent-playwright](./examples/99-browser-agent-playwright/README.md) | Playwright browser agent — `PlaywrightBrowserToolkit` wraps a sync Chromium browser; ReAct agent navigates, reads, and summarises real web pages via `create_react_agent` | ✅ +playwright | — |
 | 100 | [100-computer-use-agent](./examples/100-computer-use-agent/README.md) | Anthropic computer use — `betas=["computer-use-2024-10-22"]` action loop; model issues `bash_20241022` + `text_editor_20241022` calls, writes and runs `/tmp/fib.py` with no human steering | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 101 | [101-swe-agent-code-editing](./examples/101-swe-agent-code-editing/README.md) | SWE-agent ACI — view/edit/run tool trio; agent reads failing tests, iterates targeted edits until all tests pass; no human involvement (Yang et al. 2024) | ✅ | — |
+| 102 | [102-voice-pipeline](./examples/102-voice-pipeline/README.md) | Voice pipeline — OpenAI TTS → Whisper STT → LangGraph agent → TTS; three-node graph makes latency explicit; no local model download needed | ✅ | — |
+| 103 | [103-tool-synthesis-latm](./examples/103-tool-synthesis-latm/README.md) | LLMs as Tool Makers — dispatcher selects or triggers synthesis; tool-maker writes Python calling zero-auth APIs; synthesized tools cached and reused (Cai et al. 2023) | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Safety &amp; Red-Teaming</strong> &nbsp;·&nbsp; 2 examples</summary>
+
+Security isn't a layer you add at the end — it's a property you measure and iterate on. This section shows both sides of that loop. The prompt injection example demonstrates how malicious instructions hidden in web page content can hijack a browsing agent, then implements two defenses (instruction hierarchy and spotlighting) side-by-side so you can see the difference in outputs. The red-teaming example automates the adversarial process: an attacker LLM generates N diverse attack prompts in parallel, a target LLM responds, and a judge scores each exchange — giving you a concrete attack success rate (ASR) you can track across safety improvements.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 104 | [104-prompt-injection-defense](./examples/104-prompt-injection-defense/README.md) | Indirect injection — 3 attack patterns in simulated pages; instruction hierarchy + spotlighting defenses; undefended vs defended agent side-by-side (Greshake et al. 2023) | ✅ | — |
+| 105 | [105-automated-red-teaming](./examples/105-automated-red-teaming/README.md) | Automated red-teaming — `Send()` fan-out, N parallel attacker→target→judge chains; judge scores with JSON; ASR computed over results (Perez et al. 2022) | ✅ | — |
 
 </details>
 
