@@ -1,13 +1,5 @@
-"""Simulated web pages for indirect prompt injection demo.
-
-Greshake et al. 2023 "Not What You've Signed Up For: Compromising Real-World
-LLM-Integrated Applications with Indirect Prompt Injections" (arxiv.org/abs/2302.12173).
-
-Three attack patterns embedded in otherwise-legitimate page content:
-  1. Role override    — instructs the model to abandon its persona
-  2. Hidden directive — buries instructions in HTML-comment-style text
-  3. Data exfiltration — asks the model to repeat sensitive context in every reply
-"""
+# Simulated pages for indirect prompt injection demo (Greshake et al. 2023).
+# Three attack patterns: role override, hidden directive, data exfiltration.
 
 # Pages the browsing agent will "visit". Three contain injections; two are benign.
 PAGES: dict[str, str] = {
