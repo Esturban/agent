@@ -1,17 +1,17 @@
 # Agentic AI Examples
 
-82 practical examples covering the core patterns, techniques, and tools in production agentic AI. Each example focuses on a concept — the frameworks are the vehicle, not the point.
+88 practical examples covering the core patterns, techniques, and tools in production agentic AI. Each example focuses on a concept — the frameworks are the vehicle, not the point.
 
 - **RAG** — local/cloud vector stores, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, tabular RAG, parent document retriever
 - **ReAct agents** — tool use, conversation memory, PDF retrieval, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI
-- **Multi-agent systems** — supervisor routing, specialist agents, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP tool discovery
+- **Multi-agent systems** — supervisor routing, specialist agents, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP tool discovery, Mixture of Agents
 - **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates, approval with edits and audit logs
 - **Structured output** — Pydantic extraction, guardrails, prompt injection defense
-- **Memory and state** — long-term cross-session memory, Redis memory, Mem0, checkpoint/resume
+- **Memory and state** — long-term cross-session memory, Redis memory, Mem0, vector memory, episodic/semantic/procedural architecture
 - **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, golden datasets, prompt A/B testing, regression detection
 - **Observability** — distributed tracing, callback handlers, token budgets, cost tracking, session correlation
 - **Production** — FastAPI SSE streaming, async pipelines, batch runners with retry, semantic routing
-- **Framework survey** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents — each explored on its own terms
+- **Framework survey** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack, Agno — each explored on its own terms
 
 Each example is self-contained — clone, install, and run.
 
@@ -22,7 +22,7 @@ Each example is self-contained — clone, install, and run.
 ## All Examples
 
 <details>
-<summary>Complete list — all 82 examples in order</summary>
+<summary>Complete list — all 88 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -108,6 +108,12 @@ Each example is self-contained — clone, install, and run.
 | 80 | [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor/README.md) | Multi-agent supervisor — LLM classifies domain and dispatches to math, history, or science specialist agents via conditional edges | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/80-multi-agent-supervisor/multi_agent_supervisor_workbook.ipynb) |
 | 81 | [81-streaming-sse-server](./examples/81-streaming-sse-server/README.md) | SSE server — FastAPI `GET /stream?q=` endpoint streams `graph.astream_events()` token-by-token as Server-Sent Events | ✅ +FastAPI | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/81-streaming-sse-server/streaming_sse_server_workbook.ipynb) |
 | 82 | [82-redis-memory](./examples/82-redis-memory/README.md) | Redis memory — Redis-backed cross-session agent memory with `load_history→respond→save_history` nodes and TTL | ✅ +Redis | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/82-redis-memory/redis_memory_workbook.ipynb) |
+| 83 | [83-google-adk-agent](./examples/83-google-adk-agent/README.md) | Google ADK — `LlmAgent` + `Runner` + `InMemorySessionService`; tool schemas from docstrings; Gemini async loop vs LangGraph `StateGraph` | ✅ +google-adk +GOOGLE_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/83-google-adk-agent/google_adk_agent_workbook.ipynb) |
+| 84 | [84-haystack-pipeline](./examples/84-haystack-pipeline/README.md) | Haystack 2.x — stateless DAG: `InMemoryBM25Retriever → PromptBuilder → OpenAIGenerator` wired via named ports with `pipeline.connect()` | ✅ +haystack-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/84-haystack-pipeline/haystack_pipeline_workbook.ipynb) |
+| 85 | [85-agno-agent](./examples/85-agno-agent/README.md) | Agno — `Agent(OpenAIChat, tools)` minimal framework; docstring-inferred tool schemas; contrast: 5 lines vs 30 lines for equivalent LangGraph agent | ✅ +agno | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/85-agno-agent/agno_agent_workbook.ipynb) |
+| 86 | [86-mixture-of-agents](./examples/86-mixture-of-agents/README.md) | Mixture of Agents (Wang et al. 2024) — `Send()` fans out to 3 parallel proposers; `Annotated[list, operator.add]` merges results; aggregator synthesises | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/86-mixture-of-agents/mixture_of_agents_workbook.ipynb) |
+| 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed turns into ChromaDB, retrieve top-k relevant memories at query time; O(k) context cost vs Redis O(N) full-history | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_agent_workbook.ipynb) |
+| 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes inputs to episodic (event log), semantic (user facts), or procedural (behaviour rules) tier (Tulving 1972 + MemGPT) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
 
 </details>
 
@@ -167,9 +173,9 @@ Tool use, conversation memory, code interpreter loops, prospect research, SQL ag
 </details>
 
 <details>
-<summary><strong>Multi-Agent Systems</strong> &nbsp;·&nbsp; 9 examples</summary>
+<summary><strong>Multi-Agent Systems</strong> &nbsp;·&nbsp; 10 examples</summary>
 
-Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent debate, supervisor-worker, MCP tool discovery, A2A handoffs, domain-dispatch supervisor.
+Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent debate, supervisor-worker, MCP tool discovery, A2A handoffs, domain-dispatch supervisor, Mixture of Agents.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -182,6 +188,7 @@ Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent deb
 | 44 | [44-mcp-client-agent](./examples/44-mcp-client-agent/README.md) | MCP client agent — dynamic tool discovery via `list_tools()` + `call_tool()` with an in-process mock MCP server | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/44-mcp-client-agent/mcp_client_workbook.ipynb) |
 | 45 | [45-a2a-agent-handoff](./examples/45-a2a-agent-handoff/README.md) | A2A agent handoff — typed `AgentTask(BaseModel)` contract between planner and executor agents; structured inter-agent communication | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/45-a2a-agent-handoff/a2a_handoff_workbook.ipynb) |
 | 80 | [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor/README.md) | Multi-agent supervisor — LLM classifies domain and dispatches to math, history, or science specialist agents via conditional edges | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/80-multi-agent-supervisor/multi_agent_supervisor_workbook.ipynb) |
+| 86 | [86-mixture-of-agents](./examples/86-mixture-of-agents/README.md) | Mixture of Agents (Wang et al. 2024) — `Send()` fans out to 3 parallel proposers; `Annotated[list, operator.add]` merges; aggregator synthesises | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/86-mixture-of-agents/mixture_of_agents_workbook.ipynb) |
 
 </details>
 
@@ -216,15 +223,17 @@ Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chai
 </details>
 
 <details>
-<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 3 examples</summary>
+<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 5 examples</summary>
 
-Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memory with TTL.
+Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memory with TTL, vector memory with ChromaDB, and three-tier episodic/semantic/procedural architecture.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
 | 36 | [36-long-term-memory](./examples/36-long-term-memory/README.md) | Long-term memory — `InMemoryStore` persists user facts across thread boundaries; retrieve→respond→store loop | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/36-long-term-memory/long_term_memory_workbook.ipynb) |
 | 67 | [67-mem0-memory](./examples/67-mem0-memory/README.md) | Mem0 cross-session memory — auto-extract semantic facts that persist across completely separate processes; contrast to LangGraph `InMemoryStore` | ✅ +mem0ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/67-mem0-memory/mem0_workbook.ipynb) |
 | 82 | [82-redis-memory](./examples/82-redis-memory/README.md) | Redis memory — Redis-backed cross-session agent memory with `load_history→respond→save_history` nodes and TTL | ✅ +Redis | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/82-redis-memory/redis_memory_workbook.ipynb) |
+| 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed conversation turns into ChromaDB, retrieve top-k relevant context by cosine similarity; O(k) vs Redis O(N) full-scan contrast | ✅ +chromadb | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_workbook.ipynb) |
+| 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes facts to episodic (events), semantic (facts), or procedural (rules) stores; inspired by MemGPT (Packer et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
 
 </details>
 
@@ -280,9 +289,9 @@ Semantic routing, web scraping, fully async pipelines, batch runners with retrie
 </details>
 
 <details>
-<summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 8 examples</summary>
+<summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents — each explored on its own terms, with comparisons to show where the paradigms differ.
+CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno — each explored on its own terms, with comparisons to show where the paradigms differ.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -294,6 +303,9 @@ CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents — e
 | 64 | [64-pydantic-ai](./examples/64-pydantic-ai/README.md) | Pydantic AI — typed research agent with `result_type=ResearchResult`; framework contrast to LangGraph's StateGraph | ✅ +pydantic-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/64-pydantic-ai/pydantic_ai_workbook.ipynb) |
 | 65 | [65-litellm-multi-provider](./examples/65-litellm-multi-provider/README.md) | LiteLLM — same `completion()` call across OpenAI, Anthropic, and Mistral; fallback chains and cost tracking | ✅ +litellm | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/65-litellm-multi-provider/litellm_workbook.ipynb) |
 | 66 | [66-smol-agents](./examples/66-smol-agents/README.md) | SmolAgents (HuggingFace) — `CodeAgent` writes Python as its reasoning trace; contrast to LangGraph nodes/edges | ✅ +smolagents | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/66-smol-agents/smol_agents_workbook.ipynb) |
+| 83 | [83-google-adk-agent](./examples/83-google-adk-agent/README.md) | Google ADK — `LlmAgent` + `Runner` + `InMemorySessionService`; tool schemas inferred from docstrings; async Gemini event loop vs LangGraph `StateGraph` | ✅ +google-adk +GOOGLE_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/83-google-adk-agent/google_adk_agent_workbook.ipynb) |
+| 84 | [84-haystack-pipeline](./examples/84-haystack-pipeline/README.md) | Haystack 2.x — stateless DAG pipeline; `BM25Retriever → PromptBuilder → OpenAIGenerator`; `pipeline.connect()` wiring vs LangGraph edges | ✅ +haystack-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/84-haystack-pipeline/haystack_pipeline_workbook.ipynb) |
+| 85 | [85-agno-agent](./examples/85-agno-agent/README.md) | Agno — `Agent(OpenAIChat(...), tools=[...])` with docstring-inferred schemas; `show_tool_calls=True`; minimal-boilerplate contrast to LangGraph | ✅ +agno | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/85-agno-agent/agno_agent_workbook.ipynb) |
 
 </details>
 
@@ -327,6 +339,11 @@ cp .env.example .env   # then fill in your keys
 | `+LangSmith` | `LANGCHAIN_API_KEY` + `LANGCHAIN_TRACING_V2=true` |
 | `+langfuse` | `pip install langfuse` + `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` |
 | `+FastAPI` | included in requirements.txt (`fastapi`, `uvicorn`) |
+| `+chromadb` | `pip install chromadb` |
+| `+google-adk` | `pip install google-adk` |
+| `+haystack-ai` | `pip install haystack-ai` |
+| `+agno` | `pip install agno` |
+| `+GOOGLE_API_KEY` | `GOOGLE_API_KEY` from Google AI Studio (for ADK / Gemini) |
 
 Full key list in each folder's README.
 
@@ -355,6 +372,6 @@ examples/
       tools.py       # tool definitions
     README.md
 _queue/
-  ideas.json         # lesson plan (82 examples, all complete)
+  ideas.json         # lesson plan (105 entries queued, 88 complete)
 requirements.txt
 ```
