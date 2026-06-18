@@ -7,9 +7,8 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.constants import Send
 from .tools import N_SAMPLES, JUDGE_PROMPT
 
-# High temperature produces diverse reasoning chains — variety is the point of best-of-N.
+# High temp → diverse chains; zero temp → stable reward signal.
 _gen   = ChatOpenAI(model="gpt-4o-mini", temperature=0.8)
-# Zero temperature gives a stable, reproducible reward signal across candidates.
 _judge = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 
@@ -53,19 +52,16 @@ def score_all(state: BonState) -> dict:
                 question=state["question"], reasoning=c["reasoning"]
             )}
         ]).content
-        # Parse JSON robustly — strip markdown fences if the model adds them.
-        start, end = raw.find("{"), raw.rfind("}") + 1
+            s, e = raw.find("{"), raw.rfind("}") + 1
         try:
-            data   = json.loads(raw[start:end])
-            score  = int(data.get("score", 5))
-            critique = data.get("critique", "")
+            data = json.loads(raw[s:e])
+            score, critique = int(data.get("score", 5)), data.get("critique", "")
         except Exception:
             score, critique = 5, ""
         scored.append({**c, "score": score, "critique": critique})
 
     best = max(scored, key=lambda c: c["score"])
     return {"scored": scored, "best": best["answer"]}
-
 
 def create_workflow():
     g = StateGraph(BonState)
