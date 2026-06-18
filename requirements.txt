@@ -146,6 +146,7 @@ pdfplumber==0.11.7
 pexpect==4.9.0
 pillow==11.3.0
 platformdirs==4.4.0
+playwright==1.51.0
 ply==3.11
 portalocker==3.2.0
 posthog==5.4.0
