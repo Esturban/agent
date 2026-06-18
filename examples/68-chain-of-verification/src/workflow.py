@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 
-from src.tools import ClaimList, ClaimVerification
+from src.tools import ClaimList, ClaimVerification, wiki_summary
 
 
 class CoVeState(TypedDict):
@@ -30,10 +30,23 @@ def create_workflow():
         return {"claims": result.claims}
 
     def execute_verification(state: CoVeState) -> dict:
+        # Derive a search topic from the question: words after "about" if present,
+        # otherwise the first mid-sentence capitalised word.
+        words = state["question"].split()
+        if "about" in words:
+            i = words.index("about") + 1
+            topic = " ".join(w.rstrip(":,?") for w in words[i : i + 2])
+        else:
+            topic = next((w.rstrip(":,?.") for w in words[1:] if w[0].isupper()), words[1])
+
+        # Fetch a real Wikipedia summary — this is the ground truth the verifier checks against,
+        # not the model's own memory.
+        reference = wiki_summary(topic)
+
         verifications = []
         for claim in state["claims"]:
             result: ClaimVerification = claim_verifier.invoke([
-                SystemMessage(content="You are a fact-checker. Verify the following claim using your knowledge."),
+                SystemMessage(content=f"You are a fact-checker. Use ONLY this Wikipedia reference to verify the claim — do not rely on your own memory:\n\n{reference[:800]}"),
                 HumanMessage(content=f"Claim: {claim}"),
             ])
             verifications.append(result.model_dump())
