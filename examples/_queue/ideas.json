@@ -2514,7 +2514,7 @@
         "archival memory",
         "context budget management"
       ],
-      "status": "pending",
+      "status": "complete",
       "priority": "medium",
       "notes": "Extends example 82 (Redis memory) with a 3-tier system: hot tier (last 10 turns, always loaded), warm tier (summarized older turns, loaded on relevance), cold tier (archived, never auto-loaded). Importance scoring: recency + explicit user statements ('remember that') boost score. Background compaction job moves hot\u2192warm\u2192cold. Based on MemGPT architecture (Packer et al. 2023, arxiv.org/abs/2310.08560)."
     },

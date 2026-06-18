@@ -1,6 +1,6 @@
 # Agentic AI Examples
 
-**94 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
+**95 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
 > The frameworks are the vehicle. The patterns are the point.
 
@@ -41,7 +41,7 @@
 ## All Examples
 
 <details>
-<summary>Complete list — all 94 examples in order</summary>
+<summary>Complete list — all 95 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -139,6 +139,7 @@
 | 92 | [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b/README.md) | E2B sandbox — generate Python code with LLM, execute in ephemeral cloud microVM; structured stdout/stderr/error capture; nothing runs on the host | ✅ +e2b +E2B_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb) |
 | 93 | [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails/README.md) | LlamaGuard pattern — classify every input against S1-S6 hazard taxonomy before routing to agent; unsafe inputs refused at the gate (Inan et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb) |
 | 94 | [94-zep-memory-server](./examples/94-zep-memory-server/README.md) | Zep Cloud memory — auto-summarization + entity extraction + temporal decay; `memory.context` injected as compressed system prompt; contrast with DIY Redis | ✅ +zep-cloud +ZEP_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/94-zep-memory-server/zep_memory_workbook.ipynb) |
+| 95 | [95-memory-compaction](./examples/95-memory-compaction/README.md) | MemGPT-style 3-tier compaction — importance-scored hot→warm→cold pipeline; recency decay + keyword boost keeps high-signal turns verbatim longer (Packer et al. 2023) | ✅ | — |
 
 </details>
 
@@ -263,9 +264,9 @@ These three techniques come from NLP research papers and produce measurable accu
 </details>
 
 <details>
-<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 6 examples</summary>
+<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 7 examples</summary>
 
-Every stateless agent has the same fatal flaw: it forgets everything after the context window ends. This section builds the full memory stack: `InMemoryStore` for cross-thread facts within a process, Redis for durable cross-session history with TTL, Mem0 for automatic semantic extraction ("the model remembers the important parts, not the raw text"), ChromaDB vector memory for top-k relevance recall, a three-tier Tulving architecture that classifies memories into episodic/semantic/procedural bins, and Zep Cloud for production-grade memory that auto-summarizes, extracts named entities, and handles temporal decay without you writing a single line of compaction logic.
+Every stateless agent has the same fatal flaw: it forgets everything after the context window ends. This section builds the full memory stack: `InMemoryStore` for cross-thread facts within a process, Redis for durable cross-session history with TTL, Mem0 for automatic semantic extraction, ChromaDB vector memory for top-k relevance recall, a three-tier Tulving architecture that classifies memories into episodic/semantic/procedural bins, Zep Cloud for production-grade managed memory, and MemGPT-style 3-tier compaction that keeps agents coherent across thousands of turns.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -275,6 +276,7 @@ Every stateless agent has the same fatal flaw: it forgets everything after the c
 | 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed conversation turns into ChromaDB, retrieve top-k relevant context by cosine similarity; O(k) vs Redis O(N) full-scan contrast | ✅ +chromadb | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_workbook.ipynb) |
 | 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes facts to episodic (events), semantic (facts), or procedural (rules) stores; inspired by MemGPT (Packer et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
 | 94 | [94-zep-memory-server](./examples/94-zep-memory-server/README.md) | Zep Cloud memory — auto-summarization + entity extraction + temporal decay; `memory.context` injected as compressed system prompt; contrast with DIY Redis | ✅ +zep-cloud +ZEP_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/94-zep-memory-server/zep_memory_workbook.ipynb) |
+| 95 | [95-memory-compaction](./examples/95-memory-compaction/README.md) | MemGPT-style 3-tier compaction — importance-scored hot→warm→cold pipeline; recency decay + keyword boost keeps high-signal turns verbatim longer (Packer et al. 2023) | ✅ | — |
 
 </details>
 
