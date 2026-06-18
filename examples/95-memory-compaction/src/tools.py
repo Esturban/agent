@@ -1,8 +1,6 @@
-# Tier thresholds — hot fills fast so compaction triggers visibly in the demo.
-HOT_TIER_MAX = 6   # turns kept verbatim before compaction fires
-WARM_TIER_MAX = 4  # summary blocks before oldest blocks archive to cold
+HOT_TIER_MAX = 6   # verbatim turns before compaction fires
+WARM_TIER_MAX = 4  # summary blocks before oldest archive to cold
 
-# 12 turns that simulate a returning user — enough to trigger two compaction cycles.
 DEMO_TURNS = [
     "My name is Alex and I'm building a trading bot.",
     "Remember that I only trade ETH, never BTC.",
