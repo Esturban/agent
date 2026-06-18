@@ -1,28 +1,49 @@
-# Agentic AI Examples — LangGraph & LangChain
+# Agentic AI Examples
 
-A progressive workbook covering core agentic AI patterns using LangGraph and LangChain:
+**105 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
-- **RAG** — local/cloud vector stores, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, tabular RAG, parent document retriever
-- **ReAct agents** — tool use, conversation memory, PDF retrieval, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI
-- **Multi-agent graphs** — supervisor routing, specialist agents, parallel subgraphs, supervisor-worker, multi-agent debate
-- **Human-in-the-loop** — interrupt and resume with checkpointing, risk-based approval gates
-- **Structured output** — search → validated Pydantic extraction, guardrails, prompt injection defense
-- **Memory and state** — long-term cross-session memory, Redis memory, Mem0, checkpoint/resume
-- **Evaluation** — RAGAS, DeepEval (RAG, safety, G-Eval, agentic, conversational, synthesizer), LLM-as-judge, agent golden dataset, prompt A/B testing
-- **Observability** — LangSmith tracing, Langfuse, custom callback handler, token budget manager
-- **Production** — FastAPI SSE streaming, async LangGraph, batch agent runner, semantic router
-- **Framework landscape** — CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents
+> The frameworks are the vehicle. The patterns are the point.
 
-Each example is self-contained — clone, install, and run.
+---
 
-> **Workbook column:** links open the `.ipynb` directly in Google Colab. `—` = requires a local service (Redis, SearXNG, FastAPI server) or external account not available in Colab.
+### What you'll learn
+
+| Area | Topics |
+|------|--------|
+| **RAG** | Local & cloud retrieval, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, step-back prompting, graph RAG, tabular RAG |
+| **ReAct Agents** | Tool use, Plan-Execute, ReWOO, Tree of Thoughts, Chain-of-Verification, Constitutional AI |
+| **Multi-Agent** | Supervisor routing, parallel subgraphs, map-reduce, debate, A2A handoffs, MCP discovery, Mixture of Agents |
+| **Human-in-the-Loop** | `interrupt()` / `Command(resume=)`, risk-based approval gates, audit logs |
+| **Advanced Reasoning** | Self-consistency majority vote, least-to-most decomposition, analogical self-exemplar prompting, Anthropic extended thinking |
+| **Agents in the Wild** | Playwright browser agent, Anthropic computer use, SWE-agent code repair, voice pipeline (Whisper + TTS), LLMs as Tool Makers |
+| **Safety & Red-Teaming** | Prompt injection defense (spotlighting + instruction hierarchy), automated red-teaming with ASR metric |
+| **Memory & State** | Long-term store, Redis TTL, Mem0, vector memory, episodic/semantic/procedural tiers, Zep auto-summarization |
+| **Safety & Sandboxing** | E2B isolated microVM execution, LlamaGuard S1-S6 input classification, Pydantic guardrails |
+| **Structured Output** | `with_structured_output`, PDF extraction with retry, prompt injection defense |
+| **Evaluation** | RAGAS, DeepEval (7 metric types), LLM-as-judge, golden datasets, A/B testing, regression detection |
+| **Observability** | Callback handlers, token budgets, LangSmith tracing, Langfuse |
+| **Production & Async** | FastAPI SSE streaming, async pipelines, batch runners, semantic routing |
+| **Framework Survey** | CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno |
+
+---
+
+### Where to start
+
+- **New to agents?** → Start at [1-basic-local-rag](./examples/1-basic-local-rag) and work sequentially through the RAG section.
+- **Know RAG, learning agents?** → Jump to [18-react-agent](./examples/18-react-agent) for the core ReAct loop.
+- **Building multi-agent systems?** → [26-agent-supervisor](./examples/26-agent-supervisor) → [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor) → [86-mixture-of-agents](./examples/86-mixture-of-agents).
+- **Adding memory?** → [36-long-term-memory](./examples/36-long-term-memory) → [82-redis-memory](./examples/82-redis-memory) → [87-vector-memory-agent](./examples/87-vector-memory-agent) → [88-memory-architecture](./examples/88-memory-architecture) → [94-zep-memory-server](./examples/94-zep-memory-server).
+- **Improving reasoning?** → [68-chain-of-verification](./examples/68-chain-of-verification) → [89-self-consistency](./examples/89-self-consistency) → [90-least-to-most](./examples/90-least-to-most) → [91-analogical-reasoning](./examples/91-analogical-reasoning).
+- **Safety-first?** → [70-prompt-injection-defense](./examples/70-prompt-injection-defense) → [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails) → [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b).
+
+> **Workbook column:** Colab badges open the `.ipynb` directly in Google Colab. `—` = requires a local service (Redis, SearXNG, FastAPI) that Colab can't reach.
 
 ---
 
 ## All Examples
 
 <details>
-<summary>Complete list — all 82 examples in order</summary>
+<summary>Complete list — all 105 examples in order</summary>
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -108,6 +129,29 @@ Each example is self-contained — clone, install, and run.
 | 80 | [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor/README.md) | Multi-agent supervisor — LLM classifies domain and dispatches to math, history, or science specialist agents via conditional edges | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/80-multi-agent-supervisor/multi_agent_supervisor_workbook.ipynb) |
 | 81 | [81-streaming-sse-server](./examples/81-streaming-sse-server/README.md) | SSE server — FastAPI `GET /stream?q=` endpoint streams `graph.astream_events()` token-by-token as Server-Sent Events | ✅ +FastAPI | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/81-streaming-sse-server/streaming_sse_server_workbook.ipynb) |
 | 82 | [82-redis-memory](./examples/82-redis-memory/README.md) | Redis memory — Redis-backed cross-session agent memory with `load_history→respond→save_history` nodes and TTL | ✅ +Redis | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/82-redis-memory/redis_memory_workbook.ipynb) |
+| 83 | [83-google-adk-agent](./examples/83-google-adk-agent/README.md) | Google ADK — `LlmAgent` + `Runner` + `InMemorySessionService`; tool schemas from docstrings; Gemini async loop vs LangGraph `StateGraph` | ✅ +google-adk +GOOGLE_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/83-google-adk-agent/google_adk_agent_workbook.ipynb) |
+| 84 | [84-haystack-pipeline](./examples/84-haystack-pipeline/README.md) | Haystack 2.x — stateless DAG: `InMemoryBM25Retriever → PromptBuilder → OpenAIGenerator` wired via named ports with `pipeline.connect()` | ✅ +haystack-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/84-haystack-pipeline/haystack_pipeline_workbook.ipynb) |
+| 85 | [85-agno-agent](./examples/85-agno-agent/README.md) | Agno — `Agent(OpenAIChat, tools)` minimal framework; docstring-inferred tool schemas; contrast: 5 lines vs 30 lines for equivalent LangGraph agent | ✅ +agno | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/85-agno-agent/agno_agent_workbook.ipynb) |
+| 86 | [86-mixture-of-agents](./examples/86-mixture-of-agents/README.md) | Mixture of Agents (Wang et al. 2024) — `Send()` fans out to 3 parallel proposers; `Annotated[list, operator.add]` merges results; aggregator synthesises | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/86-mixture-of-agents/mixture_of_agents_workbook.ipynb) |
+| 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed turns into ChromaDB, retrieve top-k relevant memories at query time; O(k) context cost vs Redis O(N) full-history | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_agent_workbook.ipynb) |
+| 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes inputs to episodic (event log), semantic (user facts), or procedural (behaviour rules) tier (Tulving 1972 + MemGPT) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
+| 89 | [89-self-consistency](./examples/89-self-consistency/README.md) | Self-consistency — sample N CoT paths at temperature 0.7, take majority vote over extracted answers; `Send()` fan-out with `operator.add` reducer (Wang et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/89-self-consistency/self_consistency_workbook.ipynb) |
+| 90 | [90-least-to-most](./examples/90-least-to-most/README.md) | Least-to-most prompting — decompose into ordered sub-problems, solve each with all prior solutions as context; conditional loop in LangGraph (Zhou et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/90-least-to-most/least_to_most_workbook.ipynb) |
+| 91 | [91-analogical-reasoning](./examples/91-analogical-reasoning/README.md) | Analogical prompting — ask the LLM to recall its own analogous solved problems before tackling the target; outperforms human-curated few-shot (Webb et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/91-analogical-reasoning/analogical_reasoning_workbook.ipynb) |
+| 92 | [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b/README.md) | E2B sandbox — generate Python code with LLM, execute in ephemeral cloud microVM; structured stdout/stderr/error capture; nothing runs on the host | ✅ +e2b +E2B_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb) |
+| 93 | [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails/README.md) | LlamaGuard pattern — classify every input against S1-S6 hazard taxonomy before routing to agent; unsafe inputs refused at the gate (Inan et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb) |
+| 94 | [94-zep-memory-server](./examples/94-zep-memory-server/README.md) | Zep Cloud memory — auto-summarization + entity extraction + temporal decay; `memory.context` injected as compressed system prompt; contrast with DIY Redis | ✅ +zep-cloud +ZEP_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/94-zep-memory-server/zep_memory_workbook.ipynb) |
+| 95 | [95-memory-compaction](./examples/95-memory-compaction/README.md) | MemGPT-style 3-tier compaction — importance-scored hot→warm→cold pipeline; recency decay + keyword boost keeps high-signal turns verbatim longer (Packer et al. 2023) | ✅ | — |
+| 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}`; private ThinkingBlock + TextBlock; side-by-side accuracy comparison on CRT/math puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out generates N chains at temp 0.8; LLM judge scores step clarity + rigor + correctness; highest-scoring chain wins (Cobbe et al. 2021) | ✅ | — |
+| 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — one LLM call builds a numbered outline, then each point expanded concurrently via `Send()`; `idx` tagging restores order after parallel arrival (Ning et al. 2023) | ✅ | — |
+| 99 | [99-browser-agent-playwright](./examples/99-browser-agent-playwright/README.md) | Playwright browser agent — `PlaywrightBrowserToolkit` wraps a sync Chromium browser; ReAct agent navigates, clicks, reads, and summarises real web pages | ✅ +playwright | — |
+| 100 | [100-computer-use-agent](./examples/100-computer-use-agent/README.md) | Anthropic computer use — `betas=["computer-use-2024-10-22"]` action loop with `bash_20241022` + `text_editor_20241022`; model writes and runs code with no human steering | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 101 | [101-swe-agent-code-editing](./examples/101-swe-agent-code-editing/README.md) | SWE-agent style repair — agent gets buggy file + failing tests, iterates view/edit/run until all tests pass; ACI pattern from Yang et al. 2024 | ✅ | — |
+| 102 | [102-voice-pipeline](./examples/102-voice-pipeline/README.md) | Voice agent pipeline — OpenAI TTS generates input audio, Whisper transcribes it, LangGraph agent responds, TTS speaks the reply; no local model download | ✅ | — |
+| 103 | [103-tool-synthesis-latm](./examples/103-tool-synthesis-latm/README.md) | LLMs as Tool Makers — dispatcher picks existing tool or triggers synthesis; tool-maker generates Python calling zero-auth APIs; synthesized tools cached across tasks (Cai et al. 2023) | ✅ | — |
+| 104 | [104-prompt-injection-defense](./examples/104-prompt-injection-defense/README.md) | Indirect prompt injection — 3 attack patterns in simulated pages; side-by-side undefended vs defended (instruction hierarchy + spotlighting) agent (Greshake et al. 2023) | ✅ | — |
+| 105 | [105-automated-red-teaming](./examples/105-automated-red-teaming/README.md) | Automated red-teaming — `Send()` fan-out generates N adversarial prompts in parallel; target responds; judge scores each; reports attack success rate (Perez et al. 2022) | ✅ | — |
 
 </details>
 
@@ -118,7 +162,7 @@ Each example is self-contained — clone, install, and run.
 <details>
 <summary><strong>RAG — Retrieval-Augmented Generation</strong> &nbsp;·&nbsp; 20 examples</summary>
 
-Local and cloud retrieval, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculative RAG, hybrid search, reranking, contextual compression, step-back prompting, graph RAG, tabular RAG, multimodal RAG, parent document retriever.
+Every serious agent system is a RAG system at its core. This section starts from the simplest possible pipeline (embed → retrieve → generate) and progressively adds the pieces that matter in production: grading retrieved docs for relevance, rewriting bad queries, fusing multiple retrieval strategies, handling tables and images, and compressing context to stay within token limits. By the end you'll understand why CRAG, HyDE, and Self-RAG exist — and when each one is worth the cost.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -148,7 +192,7 @@ Local and cloud retrieval, streaming, CRAG, HyDE, RAG Fusion, Self-RAG, Speculat
 <details>
 <summary><strong>ReAct Agents & Planning</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-Tool use, conversation memory, code interpreter loops, prospect research, SQL agents, reflexion, Plan-Execute, ReWOO, Tree of Thoughts.
+The Reason + Act loop is the backbone of most production agents. This section builds it from scratch, then explores the planning strategies that scale beyond simple tool calls: Plan-Execute separates upfront planning from execution, ReWOO emits all tool calls before running any of them, Tree of Thoughts branches multiple approaches in parallel. Each pattern exists because vanilla ReAct fails in a specific, observable way — these examples show you both the failure and the fix.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -167,9 +211,9 @@ Tool use, conversation memory, code interpreter loops, prospect research, SQL ag
 </details>
 
 <details>
-<summary><strong>Multi-Agent Systems</strong> &nbsp;·&nbsp; 9 examples</summary>
+<summary><strong>Multi-Agent Systems</strong> &nbsp;·&nbsp; 10 examples</summary>
 
-Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent debate, supervisor-worker, MCP tool discovery, A2A handoffs, domain-dispatch supervisor.
+One agent has one context window and one reasoning thread. Multi-agent systems get around both limits: split the work, run in parallel, let specialists focus on what they're good at. This section covers every coordination pattern — supervisor routing, Send() fan-out with reducer merging, typed A2A contracts, MCP-based tool discovery, and the Mixture-of-Agents architecture where parallel proposers feed a single aggregator. The `Annotated[list, operator.add]` reducer pattern introduced here recurs throughout the advanced reasoning section.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -182,13 +226,14 @@ Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent deb
 | 44 | [44-mcp-client-agent](./examples/44-mcp-client-agent/README.md) | MCP client agent — dynamic tool discovery via `list_tools()` + `call_tool()` with an in-process mock MCP server | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/44-mcp-client-agent/mcp_client_workbook.ipynb) |
 | 45 | [45-a2a-agent-handoff](./examples/45-a2a-agent-handoff/README.md) | A2A agent handoff — typed `AgentTask(BaseModel)` contract between planner and executor agents; structured inter-agent communication | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/45-a2a-agent-handoff/a2a_handoff_workbook.ipynb) |
 | 80 | [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor/README.md) | Multi-agent supervisor — LLM classifies domain and dispatches to math, history, or science specialist agents via conditional edges | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/80-multi-agent-supervisor/multi_agent_supervisor_workbook.ipynb) |
+| 86 | [86-mixture-of-agents](./examples/86-mixture-of-agents/README.md) | Mixture of Agents (Wang et al. 2024) — `Send()` fans out to 3 parallel proposers; `Annotated[list, operator.add]` merges; aggregator synthesises | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/86-mixture-of-agents/mixture_of_agents_workbook.ipynb) |
 
 </details>
 
 <details>
 <summary><strong>Human-in-the-Loop</strong> &nbsp;·&nbsp; 4 examples</summary>
 
-`interrupt()` / `Command(resume=…)`, edgeless Command routing, SQLite checkpointing across sessions, risk-based auto-approve gates.
+Fully autonomous agents fail in production — not because the model is wrong, but because humans need visibility and override capability on consequential decisions. LangGraph's `interrupt()` / `Command(resume=)` pair makes this first-class: the graph pauses mid-execution, persists state to a SQLite checkpoint, and resumes from exactly where it left off after a human reviews. These examples cover basic yes/no approval, editable approval with audit logs, and risk-based gates that auto-approve low-risk actions and only interrupt for high-stakes ones.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -200,9 +245,9 @@ Supervisor routing, parallel subgraphs, map-reduce, agentic RAG, multi-agent deb
 </details>
 
 <details>
-<summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 6 examples</summary>
+<summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 8 examples</summary>
 
-Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chain-of-Verification, Constitutional AI, prompt injection defense.
+Unstructured text is the enemy of reliable systems. `with_structured_output()` forces the model to return validated Pydantic models — no parsing, no KeyErrors. Beyond extraction, this section covers the defensive patterns that make agents production-safe: input/output guardrails, prompt injection defense, Chain-of-Verification to catch hallucinations, Constitutional AI for self-alignment, LlamaGuard's S1-S6 hazard taxonomy for pre-agent classification, and E2B microVM sandboxing so generated code never touches the host.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -212,26 +257,75 @@ Pydantic model extraction, PDF parsing with retry, input/output guardrails, Chai
 | 68 | [68-chain-of-verification](./examples/68-chain-of-verification/README.md) | Chain-of-Verification (CoVe) — generate answer, extract verifiable claims, check each independently, revise failures (Dhuliawala et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/68-chain-of-verification/chain_of_verification_workbook.ipynb) |
 | 69 | [69-constitutional-ai](./examples/69-constitutional-ai/README.md) | Constitutional AI — critique output against written principles, revise to comply, loop until satisfied (Bai et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/69-constitutional-ai/constitutional_ai_workbook.ipynb) |
 | 70 | [70-prompt-injection-defense](./examples/70-prompt-injection-defense/README.md) | Prompt injection defense — classify retrieved chunks for injection risk before passing to the LLM; filter high-risk passages | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/70-prompt-injection-defense/prompt_injection_workbook.ipynb) |
+| 92 | [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b/README.md) | E2B sandbox — generate Python code with LLM, execute in ephemeral cloud microVM; structured stdout/stderr/error capture; nothing runs on the host | ✅ +e2b +E2B_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb) |
+| 93 | [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails/README.md) | LlamaGuard pattern — classify every input against S1-S6 hazard taxonomy before routing to agent; unsafe inputs refused at the gate (Inan et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb) |
 
 </details>
 
 <details>
-<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 3 examples</summary>
+<summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 6 examples</summary>
 
-Long-term cross-session memory, Mem0 semantic fact extraction, Redis-backed memory with TTL.
+These techniques come from NLP research papers and produce measurable accuracy gains on hard reasoning tasks — no fine-tuning, no extra tools, just prompt strategy. Self-consistency samples N paths and takes a majority vote (Wang et al., +18 points on GSM8K). Least-to-most decomposes a problem into ordered sub-questions and solves each with the prior answers in context. Analogical prompting asks the model to recall its own analogous examples before solving. Extended thinking (example 96) goes further: it's a provider-native o1-style scratchpad built into the Anthropic API — the model reasons privately before answering.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 89 | [89-self-consistency](./examples/89-self-consistency/README.md) | Self-consistency — sample N CoT paths at temperature 0.7, take majority vote; `Send()` fan-out with `operator.add` reducer (Wang et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/89-self-consistency/self_consistency_workbook.ipynb) |
+| 90 | [90-least-to-most](./examples/90-least-to-most/README.md) | Least-to-most — decompose into ordered sub-problems, solve each with all prior solutions as context; conditional loop accumulating state (Zhou et al. 2022) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/90-least-to-most/least_to_most_workbook.ipynb) |
+| 91 | [91-analogical-reasoning](./examples/91-analogical-reasoning/README.md) | Analogical prompting — ask the LLM to recall its own analogous solved problems before solving the target; outperforms human few-shot (Webb et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/91-analogical-reasoning/analogical_reasoning_workbook.ipynb) |
+| 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}` adds a private scratchpad; ThinkingBlock vs TextBlock; side-by-side comparison on CRT puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out, N chains at temp 0.8, LLM judge scores step clarity + rigor + correctness, highest-scoring chain wins (Cobbe et al. 2021) | ✅ | — |
+| 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — serial outline call, then each point expanded concurrently; wall-clock ≈ 1 expand call not N; `idx` field restores order (Ning et al. 2023) | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Agents in the Wild</strong> &nbsp;·&nbsp; 5 examples</summary>
+
+These examples leave the terminal and operate in the real world. The Playwright agent controls a live Chromium browser. The computer use agent issues bash and file-editor tool calls via Anthropic's computer-use beta. The SWE-agent iterates on a real failing test suite until it goes green — no human in the loop. The voice pipeline converts speech to text, processes it through a LangGraph agent, and speaks the answer back. The LATM agent writes its own tools on demand and caches them for reuse. Together they show the frontier: agents that act, not just respond.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 99 | [99-browser-agent-playwright](./examples/99-browser-agent-playwright/README.md) | Playwright browser agent — `PlaywrightBrowserToolkit` wraps a sync Chromium browser; ReAct agent navigates, reads, and summarises real web pages via `create_react_agent` | ✅ +playwright | — |
+| 100 | [100-computer-use-agent](./examples/100-computer-use-agent/README.md) | Anthropic computer use — `betas=["computer-use-2024-10-22"]` action loop; model issues `bash_20241022` + `text_editor_20241022` calls, writes and runs `/tmp/fib.py` with no human steering | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 101 | [101-swe-agent-code-editing](./examples/101-swe-agent-code-editing/README.md) | SWE-agent ACI — view/edit/run tool trio; agent reads failing tests, iterates targeted edits until all tests pass; no human involvement (Yang et al. 2024) | ✅ | — |
+| 102 | [102-voice-pipeline](./examples/102-voice-pipeline/README.md) | Voice pipeline — OpenAI TTS → Whisper STT → LangGraph agent → TTS; three-node graph makes latency explicit; no local model download needed | ✅ | — |
+| 103 | [103-tool-synthesis-latm](./examples/103-tool-synthesis-latm/README.md) | LLMs as Tool Makers — dispatcher selects or triggers synthesis; tool-maker writes Python calling zero-auth APIs; synthesized tools cached and reused (Cai et al. 2023) | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Safety &amp; Red-Teaming</strong> &nbsp;·&nbsp; 2 examples</summary>
+
+Security isn't a layer you add at the end — it's a property you measure and iterate on. This section shows both sides of that loop. The prompt injection example demonstrates how malicious instructions hidden in web page content can hijack a browsing agent, then implements two defenses (instruction hierarchy and spotlighting) side-by-side so you can see the difference in outputs. The red-teaming example automates the adversarial process: an attacker LLM generates N diverse attack prompts in parallel, a target LLM responds, and a judge scores each exchange — giving you a concrete attack success rate (ASR) you can track across safety improvements.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 104 | [104-prompt-injection-defense](./examples/104-prompt-injection-defense/README.md) | Indirect injection — 3 attack patterns in simulated pages; instruction hierarchy + spotlighting defenses; undefended vs defended agent side-by-side (Greshake et al. 2023) | ✅ | — |
+| 105 | [105-automated-red-teaming](./examples/105-automated-red-teaming/README.md) | Automated red-teaming — `Send()` fan-out, N parallel attacker→target→judge chains; judge scores with JSON; ASR computed over results (Perez et al. 2022) | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Memory & State</strong> &nbsp;·&nbsp; 7 examples</summary>
+
+Every stateless agent has the same fatal flaw: it forgets everything after the context window ends. This section builds the full memory stack: `InMemoryStore` for cross-thread facts within a process, Redis for durable cross-session history with TTL, Mem0 for automatic semantic extraction, ChromaDB vector memory for top-k relevance recall, a three-tier Tulving architecture that classifies memories into episodic/semantic/procedural bins, Zep Cloud for production-grade managed memory, and MemGPT-style 3-tier compaction that keeps agents coherent across thousands of turns.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
 | 36 | [36-long-term-memory](./examples/36-long-term-memory/README.md) | Long-term memory — `InMemoryStore` persists user facts across thread boundaries; retrieve→respond→store loop | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/36-long-term-memory/long_term_memory_workbook.ipynb) |
 | 67 | [67-mem0-memory](./examples/67-mem0-memory/README.md) | Mem0 cross-session memory — auto-extract semantic facts that persist across completely separate processes; contrast to LangGraph `InMemoryStore` | ✅ +mem0ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/67-mem0-memory/mem0_workbook.ipynb) |
 | 82 | [82-redis-memory](./examples/82-redis-memory/README.md) | Redis memory — Redis-backed cross-session agent memory with `load_history→respond→save_history` nodes and TTL | ✅ +Redis | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/82-redis-memory/redis_memory_workbook.ipynb) |
+| 87 | [87-vector-memory-agent](./examples/87-vector-memory-agent/README.md) | Vector memory — embed conversation turns into ChromaDB, retrieve top-k relevant context by cosine similarity; O(k) vs Redis O(N) full-scan contrast | ✅ +chromadb | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/87-vector-memory-agent/vector_memory_workbook.ipynb) |
+| 88 | [88-memory-architecture](./examples/88-memory-architecture/README.md) | Three-tier memory — LLM classifier routes facts to episodic (events), semantic (facts), or procedural (rules) stores; inspired by MemGPT (Packer et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/88-memory-architecture/memory_architecture_workbook.ipynb) |
+| 94 | [94-zep-memory-server](./examples/94-zep-memory-server/README.md) | Zep Cloud memory — auto-summarization + entity extraction + temporal decay; `memory.context` injected as compressed system prompt; contrast with DIY Redis | ✅ +zep-cloud +ZEP_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/94-zep-memory-server/zep_memory_workbook.ipynb) |
+| 95 | [95-memory-compaction](./examples/95-memory-compaction/README.md) | MemGPT-style 3-tier compaction — importance-scored hot→warm→cold pipeline; recency decay + keyword boost keeps high-signal turns verbatim longer (Packer et al. 2023) | ✅ | — |
 
 </details>
 
 <details>
 <summary><strong>Evaluation</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-RAGAS, LLM-as-judge, DeepEval (RAG metrics, safety, G-Eval, agentic, conversational, synthesizer), RAGAS evaluation scripts, agent golden datasets, prompt A/B testing.
+A demo that looks right is not the same as a system that _measures_ right. This section covers the full evaluation stack: RAGAS for retrieval quality, LLM-as-judge for open-ended grading, the complete DeepEval suite (faithfulness, hallucination, bias, G-Eval, agentic tool-use, conversational retention, dataset synthesis), agent golden datasets, and prompt A/B testing. These are the tools every production team needs before they can improve what they ship.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -252,7 +346,7 @@ RAGAS, LLM-as-judge, DeepEval (RAG metrics, safety, G-Eval, agentic, conversatio
 <details>
 <summary><strong>Observability</strong> &nbsp;·&nbsp; 4 examples</summary>
 
-Custom callback handler, token budget manager, LangSmith tracing, Langfuse (self-hosted alternative).
+An agent that runs without observability is a black box — you know it costs money and produces outputs, but not why. These four examples instrument pipelines from the inside: a zero-dependency `BaseCallbackHandler` that captures every token count and latency, a `tiktoken`-based budget enforcer that short-circuits before a cost overrun, and both LangSmith and Langfuse for production trace visualization. After this section you can answer: which node is slowest, which prompt is most expensive, and where does the pipeline fail.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -266,7 +360,7 @@ Custom callback handler, token budget manager, LangSmith tracing, Langfuse (self
 <details>
 <summary><strong>Production & Async</strong> &nbsp;·&nbsp; 6 examples</summary>
 
-Semantic routing, web scraping, fully async nodes, batch runners with retries, FastAPI SSE streaming servers.
+Demo agents are synchronous, single-threaded, and crash on network errors. Production agents are not. This section closes the gap: embedding-based semantic routing that skips the LLM entirely for classification, `asyncio.gather` inside nodes for concurrent tool calls, batch runners that process thousands of inputs with tenacity exponential-backoff retries, and two FastAPI SSE servers that stream token-by-token over HTTP. These are the primitives behind every real deployment.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -280,9 +374,9 @@ Semantic routing, web scraping, fully async nodes, batch runners with retries, F
 </details>
 
 <details>
-<summary><strong>Framework Landscape</strong> &nbsp;·&nbsp; 8 examples</summary>
+<summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 11 examples</summary>
 
-CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents — each contrasted against LangGraph patterns.
+The agent framework space is fragmented on purpose — each library made a different set of tradeoffs. CrewAI optimizes for role-based team metaphors. AutoGen for multi-agent conversation loops. DSPy for prompt compilation over manual engineering. SmolAgents runs Python code as its reasoning trace. Haystack models everything as a stateless DAG. Google ADK wires into Gemini natively. Agno minimizes boilerplate. This section gives you one working example per framework so you can evaluate the tradeoffs yourself instead of trusting blog posts.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -294,6 +388,9 @@ CrewAI, AutoGen, DSPy, OpenAI Agents SDK, Pydantic AI, LiteLLM, SmolAgents — e
 | 64 | [64-pydantic-ai](./examples/64-pydantic-ai/README.md) | Pydantic AI — typed research agent with `result_type=ResearchResult`; framework contrast to LangGraph's StateGraph | ✅ +pydantic-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/64-pydantic-ai/pydantic_ai_workbook.ipynb) |
 | 65 | [65-litellm-multi-provider](./examples/65-litellm-multi-provider/README.md) | LiteLLM — same `completion()` call across OpenAI, Anthropic, and Mistral; fallback chains and cost tracking | ✅ +litellm | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/65-litellm-multi-provider/litellm_workbook.ipynb) |
 | 66 | [66-smol-agents](./examples/66-smol-agents/README.md) | SmolAgents (HuggingFace) — `CodeAgent` writes Python as its reasoning trace; contrast to LangGraph nodes/edges | ✅ +smolagents | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/66-smol-agents/smol_agents_workbook.ipynb) |
+| 83 | [83-google-adk-agent](./examples/83-google-adk-agent/README.md) | Google ADK — `LlmAgent` + `Runner` + `InMemorySessionService`; tool schemas inferred from docstrings; async Gemini event loop vs LangGraph `StateGraph` | ✅ +google-adk +GOOGLE_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/83-google-adk-agent/google_adk_agent_workbook.ipynb) |
+| 84 | [84-haystack-pipeline](./examples/84-haystack-pipeline/README.md) | Haystack 2.x — stateless DAG pipeline; `BM25Retriever → PromptBuilder → OpenAIGenerator`; `pipeline.connect()` wiring vs LangGraph edges | ✅ +haystack-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/84-haystack-pipeline/haystack_pipeline_workbook.ipynb) |
+| 85 | [85-agno-agent](./examples/85-agno-agent/README.md) | Agno — `Agent(OpenAIChat(...), tools=[...])` with docstring-inferred schemas; `show_tool_calls=True`; minimal-boilerplate contrast to LangGraph | ✅ +agno | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/85-agno-agent/agno_agent_workbook.ipynb) |
 
 </details>
 
@@ -327,6 +424,18 @@ cp .env.example .env   # then fill in your keys
 | `+LangSmith` | `LANGCHAIN_API_KEY` + `LANGCHAIN_TRACING_V2=true` |
 | `+langfuse` | `pip install langfuse` + `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` |
 | `+FastAPI` | included in requirements.txt (`fastapi`, `uvicorn`) |
+| `+chromadb` | `pip install chromadb` |
+| `+google-adk` | `pip install google-adk` |
+| `+haystack-ai` | `pip install haystack-ai` |
+| `+agno` | `pip install agno` |
+| `+GOOGLE_API_KEY` | `GOOGLE_API_KEY` from Google AI Studio (for ADK / Gemini) |
+| `+e2b` | `pip install e2b-code-interpreter` |
+| `+E2B_API_KEY` | `E2B_API_KEY` from e2b.dev (free tier) |
+| `+zep-cloud` | `pip install zep-cloud` |
+| `+ZEP_API_KEY` | `ZEP_API_KEY` from getzep.com (free tier) |
+| `+playwright` | `pip install playwright && playwright install chromium` |
+| `+anthropic` | `pip install anthropic` |
+| `+ANTHROPIC_API_KEY` | `ANTHROPIC_API_KEY` from console.anthropic.com |
 
 Full key list in each folder's README.
 
@@ -355,6 +464,6 @@ examples/
       tools.py       # tool definitions
     README.md
 _queue/
-  ideas.json         # lesson plan (82 examples, all complete)
+  ideas.json         # lesson plan (105 entries queued, 94 complete)
 requirements.txt
 ```

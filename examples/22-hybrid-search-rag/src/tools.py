@@ -1,27 +1,31 @@
+import requests
+
 K = 3  # documents retrieved per retriever
 
-# Knowledge base — product catalog with specific model names and codes.
-# Demonstrates where BM25 outperforms pure vector search: exact keyword matches
-# on model numbers and product names that embeddings would score as semantically similar.
-DOCS = [
-    "The Apex-X200 is a high-performance SSD with 7,000 MB/s sequential read speed and NVMe Gen4 interface.",
-    "The Apex-X100 is an entry-level SSD with 3,500 MB/s sequential read speed and NVMe Gen3 interface.",
-    "The Apex-M50 is a mechanical hard drive with 7,200 RPM and 256 MB cache, designed for archival storage.",
-    "The Vertex-Pro GPU supports ray tracing, DLSS 3.0, and has 16 GB of GDDR6X memory.",
-    "The Vertex-Core GPU is an entry model with 8 GB GDDR6 memory, targeting 1080p gaming.",
-    "Our return policy allows returns within 30 days of purchase for all products in original packaging.",
-    "Warranty coverage: Apex-X200 and Apex-X100 carry a 5-year limited warranty. Apex-M50 carries 3 years.",
-    "The Apex-X200 is compatible with PCIe 4.0 and PCIe 5.0 motherboards via backward compatibility.",
-    "Vertex-Pro requires a 750W PSU minimum. Vertex-Core requires 550W minimum.",
-    "Technical support for Apex series products is available 24/7 via support.apextech.com.",
-]
 
-# Mix of queries that favour BM25 (exact model names), vector search (semantics),
-# and hybrid (both signals needed).
+def load_catalog() -> list[str]:
+    """Fetch the Fake Store product catalog — free, zero auth, 20 real products.
+
+    Each product becomes one document string: title + price + category + description.
+    Titles contain specific words (BM25 wins on exact match) while descriptions are
+    natural-language prose (vector search wins on semantic intent) — the same contrast
+    the hybrid retriever is designed to demonstrate, now on real data.
+    """
+    resp = requests.get("https://fakestoreapi.com/products", timeout=10)
+    return [
+        f"{p['title']} (${p['price']:.2f}, {p['category']}): {p['description'][:120]}"
+        for p in resp.json()
+    ]
+
+
+# Populated at import time — acceptable for a demo; in production, lazy-load instead.
+DOCS = load_catalog()
+
+# Queries chosen to demonstrate the three retrieval modes on the Fake Store catalog.
 SAMPLE_QUESTIONS = [
-    "What is the read speed of the Apex-X200?",  # BM25 wins: exact model code
-    "Which product is best for budget gaming?",  # Vector wins: semantic intent
-    "What warranty does the Apex-M50 come with?",  # BM25 wins: exact model code
-    "How much power does the Vertex-Pro need?",  # Hybrid: model name + concept
-    "Can I return a product if I change my mind?",  # Vector wins: paraphrase of policy
+    "Tell me about the Fjallraven Foldsack backpack.",  # BM25 wins: exact title words
+    "I need something warm for the outdoors.",          # Vector wins: semantic intent
+    "What jewelry is available?",                       # BM25 wins: exact category keyword
+    "Find me something to carry a laptop in.",          # Vector wins: semantic paraphrase
+    "What electronics do you sell?",                    # Hybrid: category + product type
 ]

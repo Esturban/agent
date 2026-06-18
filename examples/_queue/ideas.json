@@ -87,7 +87,8 @@
           34,
           43,
           44,
-          45
+          45,
+          86
         ]
       },
       {
@@ -95,7 +96,9 @@
         "name": "Memory and State",
         "examples": [
           36,
-          39
+          39,
+          87,
+          88
         ]
       },
       {
@@ -145,7 +148,10 @@
           64,
           65,
           66,
-          67
+          67,
+          83,
+          84,
+          85
         ]
       },
       {
@@ -153,7 +159,10 @@
         "name": "Reasoning Strategies",
         "examples": [
           68,
-          69
+          69,
+          89,
+          90,
+          91
         ]
       },
       {
@@ -161,7 +170,9 @@
         "name": "Production and Safety",
         "examples": [
           70,
-          72
+          72,
+          92,
+          93
         ]
       },
       {
@@ -178,6 +189,42 @@
           80,
           81,
           82
+        ]
+      },
+      {
+        "id": "M15",
+        "name": "Memory Deep Dive",
+        "examples": [
+          94,
+          95
+        ]
+      },
+      {
+        "id": "M16",
+        "name": "Advanced Reasoning",
+        "examples": [
+          96,
+          97,
+          98
+        ]
+      },
+      {
+        "id": "M17",
+        "name": "Agents in the Wild",
+        "examples": [
+          99,
+          100,
+          101,
+          102,
+          103
+        ]
+      },
+      {
+        "id": "M18",
+        "name": "Safety and Red-Teaming",
+        "examples": [
+          104,
+          105
         ]
       }
     ]
@@ -2111,7 +2158,7 @@
       ],
       "status": "done",
       "priority": "medium",
-      "notes": "Two-node graph (think→answer) with gpt-5-nano. FastAPI GET /stream?q=... endpoint uses StreamingResponse + async generator over graph.astream_events(version='v2'). Filters on_chat_model_stream events and yields SSE data frames. Test with curl. fastapi>=0.100.0 added to requirements.txt. Built 2026-06-13."
+      "notes": "Two-node graph (think\u2192answer) with gpt-5-nano. FastAPI GET /stream?q=... endpoint uses StreamingResponse + async generator over graph.astream_events(version='v2'). Filters on_chat_model_stream events and yields SSE data frames. Test with curl. fastapi>=0.100.0 added to requirements.txt. Built 2026-06-13."
     },
     {
       "id": 82,
@@ -2139,6 +2186,595 @@
       "status": "done",
       "priority": "medium",
       "notes": "USER_ID, REDIS_URL, SESSION_MESSAGES seeded into Redis list. load_history->respond->save_history nodes. 3 sessions show accumulated context. Built 2026-06-13."
+    },
+    {
+      "id": 83,
+      "slug": "83-google-adk-agent",
+      "module": "M11",
+      "video_title": "Google ADK: Build an Agent with Google's Native SDK",
+      "framework": "google-adk",
+      "topic": "Build a functional agent using Google Agent Development Kit (ADK) -- tool registration, session management, and streaming responses with the Gemini backend",
+      "pattern": "script",
+      "requires_deps": [
+        "google-adk"
+      ],
+      "prereqs": [
+        4,
+        64
+      ],
+      "concepts": [
+        "Agent",
+        "Runner",
+        "InMemorySessionService",
+        "tool registration",
+        "ADK streaming"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Google ADK (google-adk package) is Google's opinionated agent SDK released 2025. Mirrors LangGraph patterns but native to Gemini. Shows how to define tools with Python functions + docstrings, wire them to an Agent, run via Runner.run_async(). Contrasts with LangGraph's StateGraph approach. Framework comparison value is high -- same task, different paradigm."
+    },
+    {
+      "id": 84,
+      "slug": "84-haystack-pipeline",
+      "module": "M11",
+      "video_title": "Haystack Pipelines: Component-Based RAG Without LangChain",
+      "framework": "haystack",
+      "topic": "Build a RAG pipeline using Haystack 2.x component model -- InMemoryDocumentStore, BM25Retriever, PromptBuilder, OpenAIGenerator wired into a Pipeline",
+      "pattern": "script",
+      "requires_deps": [
+        "haystack-ai"
+      ],
+      "prereqs": [
+        1,
+        64
+      ],
+      "concepts": [
+        "Pipeline",
+        "component",
+        "InMemoryDocumentStore",
+        "BM25Retriever",
+        "PromptBuilder"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Haystack 2.x (deepset) uses a DAG of typed components connected by .connect(). Fundamentally different architecture from LangChain chains or LangGraph graphs. Shows pipeline.add_component(), pipeline.connect(), pipeline.run(). Good contrast: LangGraph = stateful graph, Haystack = stateless dataflow DAG. Ref: deepset.ai Haystack 2.0 migration guide."
+    },
+    {
+      "id": 85,
+      "slug": "85-agno-agent",
+      "module": "M11",
+      "video_title": "Agno: Minimal Multi-Modal Agent Framework",
+      "framework": "agno",
+      "topic": "Build a tool-using agent with Agno -- minimal boilerplate, built-in multi-modal support, and team/agent composition",
+      "pattern": "script",
+      "requires_deps": [
+        "agno"
+      ],
+      "prereqs": [
+        4,
+        64
+      ],
+      "concepts": [
+        "Agent",
+        "Team",
+        "tool functions",
+        "multi-modal",
+        "agent composition"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Agno (formerly Phidata) is a lightweight agent framework emphasizing minimal code and multi-modal first-class support. Agent(tools=[...], model=OpenAIChat()) pattern. Team class for multi-agent orchestration. Compare with LangGraph's verbosity for the same task. Good for showing the spectrum: high-level (Agno) vs. low-level (LangGraph)."
+    },
+    {
+      "id": 86,
+      "slug": "86-mixture-of-agents",
+      "module": "M6",
+      "video_title": "Mixture of Agents: Aggregate Multiple LLMs for Better Answers",
+      "framework": "langgraph",
+      "topic": "Mixture of Agents (MoA) -- fan out a query to N proposer agents running in parallel, then pass all responses to an aggregator LLM for a synthesized final answer",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        6,
+        43,
+        80
+      ],
+      "concepts": [
+        "MoA",
+        "proposer agents",
+        "aggregator LLM",
+        "parallel fan-out",
+        "response synthesis"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Wang et al. 2024 (TogetherAI) -- 'Mixture-of-Agents Enhances Large Language Model Capabilities'. MoA beats GPT-4 on AlpacaEval 2.0 by aggregating outputs of multiple LLMs. Pattern: 3 proposer nodes (can use different models or system prompts) run in parallel via Send(), outputs collected in state list, aggregator synthesizes. Ref: arxiv.org/abs/2406.04692"
+    },
+    {
+      "id": 87,
+      "slug": "87-vector-memory-agent",
+      "module": "M7",
+      "video_title": "Vector Memory: Semantic Search Over Agent History",
+      "framework": "langgraph",
+      "topic": "Agent memory backed by a vector store -- embed past interactions, retrieve semantically similar memories at query time instead of loading all history",
+      "pattern": "script",
+      "requires_deps": [
+        "chromadb"
+      ],
+      "prereqs": [
+        36,
+        39,
+        1
+      ],
+      "concepts": [
+        "vector memory",
+        "semantic retrieval",
+        "memory embedding",
+        "top-k recall",
+        "memory vs. context"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Contrast with list-based Redis memory (example 82). Instead of LRANGE all history, embed each turn and store in Chroma. At query time, embed the current query and retrieve top-k similar memories. Shows the tradeoff: full history = high recall, vector search = relevant recall at scale. Pattern widely used in production agents (MemGPT, Zep, mem0)."
+    },
+    {
+      "id": 88,
+      "slug": "88-memory-architecture",
+      "module": "M7",
+      "video_title": "Memory Architecture: Episodic, Semantic, and Procedural",
+      "framework": "langgraph",
+      "topic": "Three-tier agent memory -- episodic (conversation history), semantic (user facts/preferences), procedural (learned task patterns) -- each stored and retrieved differently",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        36,
+        39,
+        87
+      ],
+      "concepts": [
+        "episodic memory",
+        "semantic memory",
+        "procedural memory",
+        "memory routing",
+        "multi-store architecture"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Cognitive science taxonomy applied to LLM agents. Episodic = conversation turns (list/Redis). Semantic = extracted facts about the user (key-value store: 'user likes Python'). Procedural = successful tool-call patterns (few-shot examples prepended to system prompt). Agent uses a classify_memory node to route new information to the correct store. Ref: Tulving 1972 memory taxonomy; MemGPT (Packer et al. 2023, arxiv.org/abs/2310.08560)."
+    },
+    {
+      "id": 89,
+      "slug": "89-self-consistency",
+      "module": "M12",
+      "video_title": "Self-Consistency: Sample Multiple Reasoning Paths, Take the Majority Vote",
+      "framework": "langgraph",
+      "topic": "Self-consistency decoding -- generate N independent chain-of-thought answers for the same question, aggregate by majority vote to get a more reliable final answer",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        18,
+        68
+      ],
+      "concepts": [
+        "self-consistency",
+        "CoT sampling",
+        "majority vote",
+        "temperature > 0",
+        "answer aggregation"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Wang et al. 2022 -- 'Self-Consistency Improves Chain of Thought Reasoning in Language Models'. Sample N paths at temperature 0.7, extract final answers, return the most common. Significant accuracy gains on GSM8K/MATH without fine-tuning. Pattern: parallel Send() to N reasoning nodes, aggregation node counts answers. Ref: arxiv.org/abs/2203.11171"
+    },
+    {
+      "id": 90,
+      "slug": "90-least-to-most",
+      "module": "M12",
+      "video_title": "Least-to-Most Prompting: Decompose then Solve",
+      "framework": "langgraph",
+      "topic": "Least-to-most prompting -- first decompose a hard problem into subproblems ordered from easiest to hardest, then solve them sequentially using prior answers as context",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        18,
+        68,
+        35
+      ],
+      "concepts": [
+        "least-to-most",
+        "problem decomposition",
+        "sequential subproblem solving",
+        "context accumulation",
+        "compositional reasoning"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Zhou et al. 2022 -- 'Least-to-Most Prompting Enables Complex Reasoning in Large Language Models'. Two-stage prompt: (1) decompose into subproblems, (2) solve each subproblem with prior answers in context. Outperforms CoT on SCAN and DROP compositional tasks. LangGraph: decompose_node -> solve_node in a loop accumulating solved subproblems in state. Ref: arxiv.org/abs/2205.10625"
+    },
+    {
+      "id": 91,
+      "slug": "91-analogical-reasoning",
+      "module": "M12",
+      "video_title": "Analogical Reasoning: Solve by Generating Your Own Examples",
+      "framework": "langgraph",
+      "topic": "Analogical prompting -- instead of providing few-shot examples, ask the LLM to generate relevant analogous examples itself before solving the target problem",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        18,
+        68
+      ],
+      "concepts": [
+        "analogical reasoning",
+        "self-generated exemplars",
+        "few-shot vs. zero-shot",
+        "problem-solving by analogy",
+        "exemplar recall"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Webb et al. 2023 -- 'Emergent Analogical Reasoning in Large Language Models'. Key insight: asking the LLM to recall/generate its own analogous problems before solving outperforms human-curated few-shot examples on many benchmarks. Two-node graph: generate_analogies_node (produce 3 similar solved problems) -> solve_node (use those as context). Ref: nature.com/articles/s41562-023-01659-w"
+    },
+    {
+      "id": 92,
+      "slug": "92-agent-sandboxing-e2b",
+      "module": "M13",
+      "video_title": "Agent Sandboxing: Safe Code Execution with E2B",
+      "framework": "langgraph",
+      "topic": "Isolate agent code execution in a sandboxed cloud container using E2B -- prevent arbitrary code execution on the host, capture stdout/stderr, enforce timeouts",
+      "pattern": "script",
+      "requires_deps": [
+        "e2b-code-interpreter"
+      ],
+      "prereqs": [
+        70,
+        72,
+        37
+      ],
+      "concepts": [
+        "E2B",
+        "sandbox",
+        "code execution isolation",
+        "CodeInterpreter",
+        "execution timeout"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "E2B (e2b.dev) provides ephemeral cloud microVMs for safe code execution. Agent generates Python code, E2B Sandbox.run_code() executes it in isolation, result returned to agent. Critical for any agent with a code tool. Pattern: code_generation_node -> sandbox_execution_node -> interpret_result_node. Contrasts with raw exec() which is never safe in production."
+    },
+    {
+      "id": 93,
+      "slug": "93-llama-guard-guardrails",
+      "module": "M13",
+      "video_title": "LLM Guardrails: Classify and Block Unsafe Inputs with LlamaGuard",
+      "framework": "langgraph",
+      "topic": "Add a guardrail node to a LangGraph agent that classifies user input with Meta LlamaGuard -- block unsafe/policy-violating requests before they reach the reasoning node",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        70,
+        72
+      ],
+      "concepts": [
+        "LlamaGuard",
+        "input classification",
+        "safety policies",
+        "guardrail node",
+        "early exit"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Meta LlamaGuard (Inan et al. 2023 -- arxiv.org/abs/2312.06674) is a fine-tuned LLaMA model for classifying inputs/outputs against safety policies (S1-S6 hazard taxonomy). Pattern: guardrail_node runs before reasoning_node; if classification = UNSAFE, return early with policy refusal instead of routing to the agent. Also covers NeMo Guardrails (NVIDIA) as an alternative approach."
+    },
+    {
+      "id": 94,
+      "slug": "94-zep-memory-server",
+      "module": "M15",
+      "video_title": "Zep Memory Server: Persistent User Memory with Auto-Summarization",
+      "framework": "langgraph",
+      "topic": "Integrate Zep memory server for production agent memory -- automatic summarization, entity extraction, and temporal decay without manual Redis management",
+      "pattern": "script",
+      "requires_deps": [
+        "zep-python"
+      ],
+      "prereqs": [
+        82,
+        87,
+        88
+      ],
+      "concepts": [
+        "Zep",
+        "ZepClient",
+        "memory.add",
+        "memory.get",
+        "entity extraction"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Zep (getzep.com) is a production memory layer for LLM apps. Auto-summarizes conversation history, extracts named entities (people, places, facts), applies temporal decay scoring. ZepMemory LangChain integration or direct ZepClient. Contrast with DIY Redis: Zep handles compaction, retrieval ranking, and entity graphs automatically. Shows the ops tradeoff: control (Redis) vs. batteries-included (Zep)."
+    },
+    {
+      "id": 95,
+      "slug": "95-memory-compaction",
+      "module": "M15",
+      "video_title": "Memory Compaction: Multi-Tier Summarization for Long-Running Agents",
+      "framework": "langgraph",
+      "topic": "Multi-tier memory compaction strategy -- rolling summaries, importance scoring, and archival for agents that run thousands of turns without hitting context limits",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        82,
+        87,
+        94
+      ],
+      "concepts": [
+        "rolling summary",
+        "importance scoring",
+        "memory tiering",
+        "archival memory",
+        "context budget management"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Extends example 82 (Redis memory) with a 3-tier system: hot tier (last 10 turns, always loaded), warm tier (summarized older turns, loaded on relevance), cold tier (archived, never auto-loaded). Importance scoring: recency + explicit user statements ('remember that') boost score. Background compaction job moves hot\u2192warm\u2192cold. Based on MemGPT architecture (Packer et al. 2023, arxiv.org/abs/2310.08560)."
+    },
+    {
+      "id": 96,
+      "slug": "96-extended-thinking",
+      "module": "M16",
+      "video_title": "Extended Thinking: Claude's Native Scratchpad for Hard Problems",
+      "framework": "anthropic",
+      "topic": "Use Anthropic's extended thinking API to give Claude a private reasoning scratchpad -- observe thinking tokens, compare quality with and without extended thinking",
+      "pattern": "script",
+      "requires_deps": [
+        "anthropic"
+      ],
+      "prereqs": [
+        18,
+        89
+      ],
+      "concepts": [
+        "extended thinking",
+        "thinking tokens",
+        "budget tokens",
+        "thinking blocks",
+        "o1-style reasoning"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Anthropic extended thinking API (claude-3-7-sonnet) adds a private chain-of-thought scratchpad. Set thinking={'type':'enabled','budget_tokens':8000}. Response includes thinking ContentBlock (not shown to user) + text ContentBlock. Compare accuracy on MATH/logic puzzles with and without. Framework-agnostic -- uses anthropic SDK directly. Shows the o1/o3-style reasoning paradigm from a provider-native angle."
+    },
+    {
+      "id": 97,
+      "slug": "97-best-of-n-sampling",
+      "module": "M16",
+      "video_title": "Best-of-N with Process Reward: Score and Select the Best Reasoning Chain",
+      "framework": "langgraph",
+      "topic": "Generate N candidate solutions, score each with a reward model or LLM judge on intermediate reasoning steps (process reward), return the highest-scoring chain",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        89,
+        76
+      ],
+      "concepts": [
+        "best-of-N",
+        "process reward model",
+        "outcome reward model",
+        "reasoning chain scoring",
+        "inference scaling"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Cobbe et al. 2021 (OpenAI) -- 'Training Verifiers to Solve Math Word Problems' introduced process reward models (PRMs) for scoring reasoning chains step-by-step, not just final answers. Best-of-N: sample N solutions, score each with LLM-as-judge on reasoning quality, return best. Demonstrates inference-time scaling law -- more compute at inference -> better answers without fine-tuning. Ref: arxiv.org/abs/2110.14168"
+    },
+    {
+      "id": 98,
+      "slug": "98-skeleton-of-thought",
+      "module": "M16",
+      "video_title": "Skeleton-of-Thought: Parallel Decoding for Faster Long-Form Answers",
+      "framework": "langgraph",
+      "topic": "Skeleton-of-Thought (SoT) -- generate an outline/skeleton first, then expand each point in parallel to reduce wall-clock latency for long-form generation",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        18,
+        35,
+        68
+      ],
+      "concepts": [
+        "skeleton-of-thought",
+        "parallel expansion",
+        "outline-first generation",
+        "latency reduction",
+        "Send() parallelism"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Ning et al. 2023 -- 'Skeleton-of-Thought: Large Language Models Can Do Parallel Decoding'. Generate a skeleton (numbered points) in one LLM call, then expand each point in parallel. Reduces latency by 2x+ for long answers since expansions run concurrently. LangGraph: skeleton_node -> Send() to N expand_nodes -> concatenate_node. Ref: arxiv.org/abs/2307.15337"
+    },
+    {
+      "id": 99,
+      "slug": "99-browser-agent-playwright",
+      "module": "M17",
+      "video_title": "Browser Agent: Automate the Web with Playwright Tools",
+      "framework": "langgraph",
+      "topic": "LangGraph agent with Playwright browser tools -- navigate pages, click elements, extract text, fill forms as agent actions in a ReAct loop",
+      "pattern": "script",
+      "requires_deps": [
+        "playwright",
+        "langchain-community"
+      ],
+      "prereqs": [
+        5,
+        37,
+        46
+      ],
+      "concepts": [
+        "browser automation",
+        "Playwright",
+        "web navigation tool",
+        "ReAct loop",
+        "DOM interaction"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Browser agents are one of the highest-demand agentic use cases. LangChain PlaywrightBrowserToolkit provides navigate, click, extract_text, current_page tools. ReAct agent loops: observe page state -> decide action -> execute. Key challenges: flaky selectors, login walls, rate limits. Pattern is foundation for web research agents, RPA automation. Playwright must be installed: playwright install chromium."
+    },
+    {
+      "id": 100,
+      "slug": "100-computer-use-agent",
+      "module": "M17",
+      "video_title": "Computer Use: Anthropic's Screen-Control Agent API",
+      "framework": "anthropic",
+      "topic": "Anthropic computer use API -- agent observes screenshots, uses computer tools (mouse, keyboard, bash) to complete tasks on a virtual desktop",
+      "pattern": "script",
+      "requires_deps": [
+        "anthropic"
+      ],
+      "prereqs": [
+        5,
+        99,
+        96
+      ],
+      "concepts": [
+        "computer use",
+        "screenshot observation",
+        "ToolUseBlock",
+        "mouse and keyboard tools",
+        "action loop"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Anthropic computer use (beta, claude-3-5-sonnet-20241022). Agent sees screenshots, emits tool_use actions: computer(action='screenshot'), computer(action='left_click', coordinate=[x,y]), computer(action='type', text='...'). Requires a sandboxed environment (Docker + Xvfb). Shows the frontier of agentic capability. Framework: pure anthropic SDK, no LangChain. Anthropic computer use reference: docs.anthropic.com/en/docs/agents/computer-use."
+    },
+    {
+      "id": 101,
+      "slug": "101-swe-agent-code-editing",
+      "module": "M17",
+      "video_title": "SWE-Agent Pattern: Autonomous Code Editing with File System Tools",
+      "framework": "langgraph",
+      "topic": "SWE-agent style code editing -- agent with bash, file view, file edit, and test runner tools iterates on a failing test until it passes",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        5,
+        37,
+        92
+      ],
+      "concepts": [
+        "SWE-agent",
+        "code editing loop",
+        "file tools",
+        "test-driven agentic repair",
+        "ACI (agent-computer interface)"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Yang et al. 2024 -- 'SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering'. Key insight: a well-designed ACI (agent-computer interface) with bash, view, edit, search tools lets LLMs solve real GitHub issues. Pattern: given a failing test, agent reads file -> edits -> runs test -> iterates until green. Simplified version without full SWE-bench harness. Ref: arxiv.org/abs/2405.15793"
+    },
+    {
+      "id": 102,
+      "slug": "102-voice-pipeline",
+      "module": "M17",
+      "video_title": "Voice Pipeline: Whisper \u2192 LLM \u2192 TTS End-to-End",
+      "framework": "langgraph",
+      "topic": "End-to-end voice agent pipeline -- Whisper transcribes audio, LangGraph agent processes query, OpenAI TTS speaks the response",
+      "pattern": "script",
+      "requires_deps": [
+        "openai-whisper"
+      ],
+      "prereqs": [
+        5,
+        62
+      ],
+      "concepts": [
+        "Whisper STT",
+        "TTS synthesis",
+        "voice pipeline",
+        "audio streaming",
+        "latency optimization"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Multimodal agents are a key 2024-2025 trend. Pipeline: input audio file -> Whisper transcription -> LangGraph agent (tool-using) -> OpenAI TTS (tts-1) -> output audio. Key metric: TTFA (time to first audio). Latency trick: start TTS as soon as first sentence is generated rather than waiting for full response. Uses openai.audio.speech.create() for TTS. Good demo for voice assistants and real-time agents."
+    },
+    {
+      "id": 103,
+      "slug": "103-tool-synthesis-latm",
+      "module": "M17",
+      "video_title": "Tool Synthesis: LLMs as Tool Makers (LATM)",
+      "framework": "langgraph",
+      "topic": "LLMs as Tool Makers -- a dispatcher LLM requests new tools as needed, a tool-maker LLM generates Python tool code, tools are dynamically added to the agent's registry",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        5,
+        37,
+        92
+      ],
+      "concepts": [
+        "LATM",
+        "dynamic tool synthesis",
+        "tool generation",
+        "tool caching",
+        "meta-agent"
+      ],
+      "status": "complete",
+      "priority": "medium",
+      "notes": "Cai et al. 2023 -- 'Large Language Models as Tool Makers'. Two-model system: dispatcher identifies need for new tool, tool-maker generates Python code for it, tool is exec'd and added to registry for future use. Synthesized tools are cached -- amortizes generation cost across many calls. Pattern demonstrates meta-agent capability. Safety note: pair with E2B sandbox (example 92) for safe execution. Ref: arxiv.org/abs/2305.17126"
+    },
+    {
+      "id": 104,
+      "slug": "104-prompt-injection-defense",
+      "module": "M18",
+      "video_title": "Prompt Injection: Attack Patterns and Defense Strategies",
+      "framework": "langgraph",
+      "topic": "Demonstrate indirect prompt injection attacks against a web-browsing agent, then implement defenses -- input sanitization, instruction hierarchy, and spotlighting",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        70,
+        72,
+        93,
+        99
+      ],
+      "concepts": [
+        "prompt injection",
+        "indirect injection",
+        "instruction hierarchy",
+        "spotlighting",
+        "defense-in-depth"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Indirect prompt injection (Greshake et al. 2023 -- arxiv.org/abs/2302.12173): malicious instructions embedded in web content hijack an agent browsing the web. Three attack patterns: (1) role override in page text, (2) hidden instructions via HTML comments, (3) data exfiltration via tool call manipulation. Defenses: input sanitization, Anthropic-style instruction hierarchy (system > human > tool_result), spotlighting (tag external content clearly). Critical for production browser agents."
+    },
+    {
+      "id": 105,
+      "slug": "105-automated-red-teaming",
+      "module": "M18",
+      "video_title": "Automated Red-Teaming: LLM-Generates-LLM Attack Prompts",
+      "framework": "langgraph",
+      "topic": "Automated red-teaming pipeline -- attacker LLM generates adversarial prompts targeting a target LLM, judge evaluates whether the attack succeeded, results logged for analysis",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        70,
+        72,
+        76,
+        104
+      ],
+      "concepts": [
+        "red-teaming",
+        "attacker LLM",
+        "target LLM",
+        "judge LLM",
+        "attack success rate"
+      ],
+      "status": "complete",
+      "priority": "high",
+      "notes": "Perez et al. 2022 (DeepMind) -- 'Red Teaming Language Models with Language Models'. Use an attacker LLM to automatically generate test cases that elicit harmful outputs from a target LLM. Three-node LangGraph pipeline: attacker_node (generates N attack prompts) -> target_node (responds to each) -> judge_node (scores whether attack succeeded, 0/1). Compute attack success rate. Shows how to build safety evaluation infrastructure. Ref: arxiv.org/abs/2202.03286"
     }
   ]
 }
