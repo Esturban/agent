@@ -1,3 +1,23 @@
+"""
+Example 110 — PAIR: Prompt Automatic Iterative Refinement (Chao et al. 2023)
+
+What this shows:
+  The PAIR algorithm (arxiv:2310.08419) — an attacker LLM iteratively refines
+  jailbreak prompts based on feedback from a judge.  Three LLMs in a loop:
+    Attacker  — generates/refines attack prompts
+    Target    — the model being red-teamed
+    Judge     — scores how well the target fulfilled the objective (1-10)
+
+Why it matters:
+  PAIR achieves attack success in 20 queries on average vs. thousands for
+  token-level gradient methods (GCG).  Understanding it is essential for
+  anyone building AI safety systems or measuring model robustness.
+
+Key files:
+  src/tools.py    — ATTACKER_SYSTEM, TARGET_SYSTEM, JUDGE_SYSTEM prompts
+  src/workflow.py — cyclic LangGraph: attacker → target → judge → (loop|done)
+"""
+
 from dotenv import load_dotenv
 load_dotenv()
 

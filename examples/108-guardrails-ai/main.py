@@ -1,3 +1,21 @@
+"""
+Example 108 — Guardrails AI (Pydantic schema validation)
+
+What this shows:
+  Guardrails AI wraps the LLM call and validates the output against a
+  Pydantic schema.  If validation fails, it automatically reasks the model
+  (up to max_reasks times) with the validation errors appended.
+
+Why it matters:
+  Structured output is hard to guarantee with a plain LLM call.  The reask
+  mechanism gives you automatic retry-with-feedback without custom code —
+  and the Guard keeps an audit trail of every attempt.
+
+Key files:
+  src/tools.py    — StructuredResponse Pydantic model with field validators
+  src/workflow.py — SYSTEM_PROMPT + create_guard() + validate_response()
+"""
+
 from dotenv import load_dotenv
 load_dotenv()
 

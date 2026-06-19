@@ -1,3 +1,21 @@
+"""
+Example 106 — Jailbreak Detection
+
+What this shows:
+  An LLM-based classifier that recognises five jailbreak attack families
+  (DAN, ROLEPLAY, ENCODING, MANY_SHOT, OVERRIDE) and either blocks or
+  passes the input through to a responding agent.
+
+Why it matters:
+  Keyword filtering misses novel phrasings.  Using a prompted classifier
+  lets you describe attack patterns in natural language, which generalises
+  much better than regex or blocklists.
+
+Key files:
+  src/tools.py    — ATTACK_SAMPLES corpus + CLASSIFIER_SYSTEM prompt
+  src/workflow.py — classify_node → route → block_node or respond_node
+"""
+
 from dotenv import load_dotenv
 load_dotenv()
 

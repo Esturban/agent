@@ -2,6 +2,18 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from .tools import build_engines, redact
 
+# ── Prompts ──────────────────────────────────────────────────────────────────
+
+# Grounded instruction: the LLM only sees the pre-redacted document, so it
+# cannot leak original PII even if it tries to quote the source verbatim.
+REDACTION_SYSTEM = "You are a helpful assistant. Answer based only on the provided document."
+
+# Document wrapper keeps data clearly separated from the question,
+# reducing prompt-injection risk from malicious document content.
+REDACTION_USER = "Document:\n{document}\n\nQuestion: {question}"
+
+# ── Pipeline ──────────────────────────────────────────────────────────────────
+
 
 def run_pipeline(raw_document: str, question: str) -> dict:
     """
@@ -16,8 +28,8 @@ def run_pipeline(raw_document: str, question: str) -> dict:
 
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     messages = [
-        SystemMessage(content="You are a helpful assistant. Answer based only on the provided document."),
-        HumanMessage(content=f"Document:\n{clean_doc}\n\nQuestion: {question}"),
+        SystemMessage(content=REDACTION_SYSTEM),
+        HumanMessage(content=REDACTION_USER.format(document=clean_doc, question=question)),
     ]
     raw_response = llm.invoke(messages).content
 

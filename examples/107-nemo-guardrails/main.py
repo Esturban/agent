@@ -1,3 +1,23 @@
+"""
+Example 107 — NeMo Guardrails (Colang DSL)
+
+What this shows:
+  NVIDIA NeMo Guardrails intercept every request at the framework level
+  using a domain-specific language called Colang.  Rails are declared as
+  conversation flows, not Python code — making them auditable by
+  non-engineers.
+
+Why it matters:
+  LangGraph/LangChain guardrails live in Python and can be bypassed if a
+  developer forgets to wire them.  NeMo rails are injected at the LLM call
+  layer, so every interaction is covered automatically.
+
+Key files:
+  config/rails.co  — Colang DSL rail definitions (jailbreak, off-topic, toxicity)
+  config/config.yml — NeMo config (model, embeddings, colang path)
+  src/workflow.py  — load_rails() → query() wrappers
+"""
+
 from dotenv import load_dotenv
 load_dotenv()
 

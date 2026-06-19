@@ -1,3 +1,21 @@
+"""
+Example 109 — PII Redaction Pipeline (Microsoft Presidio)
+
+What this shows:
+  A two-stage redaction pipeline using Microsoft Presidio:
+  Stage 1 — pre-ingestion: scrub PII from documents before the LLM sees them.
+  Stage 2 — post-generation: scrub any PII the LLM still leaks in its reply.
+
+Why it matters:
+  LLMs memorise and recombine data.  Even a correctly-prompted model may
+  quote back a name, SSN, or credit card from its context window.  Dual-stage
+  redaction is the GDPR/HIPAA-compliant production pattern.
+
+Key files:
+  src/tools.py    — SAMPLE_DOCUMENTS with real PII + build_engines() + redact()
+  src/workflow.py — REDACTION_SYSTEM prompt + two-stage run_pipeline()
+"""
+
 from dotenv import load_dotenv
 load_dotenv()
 

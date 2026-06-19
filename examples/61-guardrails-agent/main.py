@@ -1,3 +1,20 @@
+"""
+Example 61 — Guardrails Agent
+
+What this shows:
+  A two-layer guardrail pipeline: an input validator runs BEFORE the LLM
+  sees the query, and an output validator runs AFTER. Harmful or off-topic
+  requests are blocked before they consume tokens or produce unsafe responses.
+
+Why it matters:
+  Single-point filtering (just input OR just output) misses half the attack
+  surface.  Layering both is the production pattern.
+
+Key files:
+  src/tools.py    — SAMPLE_INPUTS corpus with expected pass/block labels
+  src/workflow.py — LangGraph graph: validate_input → agent → validate_output
+"""
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -7,6 +24,9 @@ from src.workflow import GuardrailsState, create_workflow  # noqa: E402
 
 
 def main() -> None:
+    print("Guardrails Agent — dual-layer input + output filtering")
+    print("Input validator runs first (blocks before the LLM is called).")
+    print("Output validator runs second (catches unsafe or policy-violating replies).\n")
     app = create_workflow()
     for query, expected_pass in SAMPLE_INPUTS:
         print(f"\n{'=' * 60}")

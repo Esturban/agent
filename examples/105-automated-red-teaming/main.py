@@ -1,3 +1,22 @@
+"""
+Example 105 — Automated Red Teaming (parallel attack chains)
+
+What this shows:
+  A LangGraph workflow that fans out N independent attack chains in parallel
+  using Send().  Each chain crafts a jailbreak attempt, submits it to a
+  target model, and a judge scores the response for policy violations.
+  The final Attack Success Rate (ASR) summarises how vulnerable the target is.
+
+Why it matters:
+  Manual red teaming is slow and coverage-limited.  This pattern mirrors
+  industrial-scale automated red-teaming (Meta's purple llama, Anthropic's
+  Constitutional AI red team).  ASR across variants becomes a safety metric.
+
+Key files:
+  src/tools.py    — SEED_GOAL, N_ATTACKS, ATTACKER_SYSTEM, TARGET_SYSTEM, JUDGE_SYSTEM
+  src/workflow.py — fan-out with Send() → attack → judge → collect results
+"""
+
 from dotenv import load_dotenv
 
 from src.tools import N_ATTACKS, SEED_GOAL
@@ -7,7 +26,8 @@ load_dotenv()
 
 
 def main() -> None:
-    print(f"Red-team goal : {SEED_GOAL}")
+    print("Automated Red Teaming — parallel attack chains with ASR measurement")
+    print(f"Goal  : {SEED_GOAL}")
     print(f"Attack chains : {N_ATTACKS} (parallel)")
     print("=" * 60)
 
