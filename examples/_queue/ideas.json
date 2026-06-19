@@ -226,6 +226,48 @@
           104,
           105
         ]
+      },
+      {
+        "id": "M19",
+        "name": "Security Deep Dive",
+        "examples": [
+          106,
+          107,
+          108,
+          109,
+          110
+        ]
+      },
+      {
+        "id": "M20",
+        "name": "Fine-Tuning and Alignment",
+        "examples": [
+          111,
+          112,
+          113,
+          114
+        ]
+      },
+      {
+        "id": "M21",
+        "name": "Framework Showcase",
+        "examples": [
+          115,
+          116,
+          117,
+          118
+        ]
+      },
+      {
+        "id": "M22",
+        "name": "Production Hardening",
+        "examples": [
+          119,
+          120,
+          121,
+          122,
+          123
+        ]
       }
     ]
   },
@@ -2775,6 +2817,484 @@
       "status": "complete",
       "priority": "high",
       "notes": "Perez et al. 2022 (DeepMind) -- 'Red Teaming Language Models with Language Models'. Use an attacker LLM to automatically generate test cases that elicit harmful outputs from a target LLM. Three-node LangGraph pipeline: attacker_node (generates N attack prompts) -> target_node (responds to each) -> judge_node (scores whether attack succeeded, 0/1). Compute attack success rate. Shows how to build safety evaluation infrastructure. Ref: arxiv.org/abs/2202.03286"
+    },
+    {
+      "id": 106,
+      "slug": "106-jailbreak-detection",
+      "module": "M19",
+      "video_title": "Jailbreak Detection: Classify Attack Patterns Before They Reach the LLM",
+      "framework": "langgraph",
+      "topic": "Enumerate common jailbreak families (DAN, roleplay persona, encoding, many-shot, context override), train a zero-shot classifier node using LLM-as-judge, intercept and block before the target model responds",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        104,
+        105
+      ],
+      "concepts": [
+        "jailbreak classification",
+        "DAN patterns",
+        "roleplay exploits",
+        "instruction override",
+        "defense-first architecture"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Covers the taxonomy from Perez 2022 + Wei et al. 2023 'Jailbroken: How Does LLM Safety Training Fail?'. Pattern families: (1) DAN / do-anything-now persona swap, (2) fictional roleplay context, (3) encoding obfuscation (base64, pig latin), (4) many-shot context flooding, (5) system-prompt override injection. Classifier node: zero-shot LLM judge decides attack category and confidence; graph routes to BLOCK response if score > threshold. Demonstrates pre-LLM guardrail placement -- classification happens before the target LLM ever sees the input. Ref: arxiv.org/abs/2307.02483"
+    },
+    {
+      "id": 107,
+      "slug": "107-nemo-guardrails",
+      "module": "M19",
+      "video_title": "NeMo Guardrails: Dialog Policy Rails for LLM Safety",
+      "framework": "framework-agnostic",
+      "topic": "Define topical, jailbreak, and fact-check rails in NVIDIA's Colang syntax, wire them to an OpenAI LLM, show how rails intercept both input and output flows",
+      "pattern": "script",
+      "requires_deps": [
+        "nemoguardrails"
+      ],
+      "prereqs": [
+        61,
+        104
+      ],
+      "concepts": [
+        "Colang",
+        "dialog policy",
+        "topical rails",
+        "input/output rails",
+        "NeMo Guardrails"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "NVIDIA NeMo Guardrails (github.com/NVIDIA/NeMo-Guardrails): Colang is a flow-based DSL for defining what topics an LLM may and may not discuss, and how it should handle edge cases. Three rail types: (1) topical -- refuse off-topic requests, (2) jailbreak -- detect and block injection attempts, (3) fact-checking -- validate claims against a knowledge base. Show define, flow, and message blocks in .co files. Wire to OpenAI via LLMRails(config, llm=ChatOpenAI(...)). Framework-agnostic: can front any LLM. Compare to example 61 (Pydantic guardrails) to highlight the dialog-policy vs. schema-validation distinction."
+    },
+    {
+      "id": 108,
+      "slug": "108-guardrails-ai",
+      "module": "M19",
+      "video_title": "Guardrails AI: Programmatic Output Validation with Validators",
+      "framework": "framework-agnostic",
+      "topic": "Use the guardrails-ai library to define a Guard with validator pipeline -- ValidLength, RegexMatch, ToxicLanguage, OneLine -- wrap an LLM call, trigger automatic reask on violation",
+      "pattern": "script",
+      "requires_deps": [
+        "guardrails-ai",
+        "nltk"
+      ],
+      "prereqs": [
+        61,
+        13
+      ],
+      "concepts": [
+        "Guard",
+        "validator pipeline",
+        "reask",
+        "output fixing",
+        "programmatic safety"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "guardrails-ai (github.com/guardrails-ai/guardrails): Pydantic-like Rail spec that wraps any LLM call. Validators run on output; violations trigger automatic reask (prompt the LLM to fix its own output) or raise. Hub validators include: ValidLength, RegexMatch, ToxicLanguage, DetectPII, OneLine, ValidChoices, BugFreeSQL. Example shows a Guard that enforces: output must be JSON, must not contain PII, must not be toxic. On violation: reask with correction instruction. Framework-agnostic: wraps raw OpenAI calls, no LangChain needed. Contrasts with example 61 (Pydantic schema validation in LangGraph) by operating at the library level, not the graph level."
+    },
+    {
+      "id": 109,
+      "slug": "109-pii-redaction-pipeline",
+      "module": "M19",
+      "video_title": "PII Redaction Pipeline: Scrub Sensitive Data Before RAG and After Generation",
+      "framework": "framework-agnostic",
+      "topic": "Use Microsoft Presidio to detect and redact PII (names, emails, phone numbers, SSNs, credit cards) from documents before RAG ingestion and from LLM responses before delivery -- bi-directional sanitization",
+      "pattern": "script",
+      "requires_deps": [
+        "presidio-analyzer",
+        "presidio-anonymizer",
+        "spacy",
+        "en_core_web_lg"
+      ],
+      "prereqs": [
+        1,
+        61,
+        108
+      ],
+      "concepts": [
+        "PII detection",
+        "Presidio",
+        "anonymization",
+        "bi-directional sanitization",
+        "data privacy"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Microsoft Presidio (github.com/microsoft/presidio): production-grade PII detection and anonymization. AnalyzerEngine uses spaCy NER + regex recognizers for 20+ entity types (PERSON, EMAIL, PHONE, SSN, CREDIT_CARD, IP_ADDRESS, etc.). AnonymizerEngine replaces with <ENTITY_TYPE> tokens or fake values. Two-stage pipeline: (1) pre-ingestion -- scrub raw documents before embedding, so PII never enters the vector store; (2) post-generation -- scrub LLM response before returning to the user. Show a sample document with injected PII flowing through both stages. Framework-agnostic: Presidio wraps any text, no LLM or LangChain dependency required."
+    },
+    {
+      "id": 110,
+      "slug": "110-pair-iterative-attack",
+      "module": "M19",
+      "video_title": "PAIR: Iterative Jailbreak Refinement with Attacker-Judge Feedback Loop",
+      "framework": "langgraph",
+      "topic": "Implement the PAIR algorithm (Chao et al. 2023) -- attacker LLM refines its jailbreak prompt based on judge feedback across N iterations, unlike single-shot red-teaming; measure attack improvement over rounds",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        105,
+        106
+      ],
+      "concepts": [
+        "PAIR",
+        "iterative refinement",
+        "attacker-judge loop",
+        "jailbreak optimization",
+        "adversarial iteration"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "PAIR -- Prompt Automatic Iterative Refinement (Chao et al. 2023 arxiv.org/abs/2310.08419). Unlike example 105 (single-shot), PAIR uses judge feedback to iteratively improve the attack prompt. Loop: attacker generates prompt -> target responds -> judge scores (1-10) + explains failure -> attacker receives score + explanation and revises -> repeat up to MAX_ITER. Terminates when judge score >= THRESHOLD. LangGraph cycle: attacker_node -> target_node -> judge_node -> conditional edge (converged? -> END : back to attacker). Demonstrate improvement in attack quality across iterations with a score plot. Directly shows why single-shot red-teaming underestimates attack surface."
+    },
+    {
+      "id": 111,
+      "slug": "111-openai-finetuning",
+      "module": "M20",
+      "video_title": "OpenAI Fine-Tuning API: Prepare Data, Train, and Compare vs. Base Model",
+      "framework": "openai",
+      "topic": "Prepare a JSONL training dataset, upload to OpenAI, launch a fine-tuning job on gpt-4o-mini, poll until complete, then run the same evaluation set against both base and fine-tuned models and compare",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        29,
+        76,
+        78
+      ],
+      "concepts": [
+        "fine-tuning",
+        "JSONL dataset",
+        "training job",
+        "base vs. fine-tuned comparison",
+        "OpenAI fine-tuning API"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "OpenAI fine-tuning API (platform.openai.com/docs/guides/fine-tuning): upload JSONL file where each line is {messages: [{role, content}...]}. client.fine_tuning.jobs.create(training_file=file_id, model='gpt-4o-mini'). Poll client.fine_tuning.jobs.retrieve(job_id) until status == 'succeeded'. Use the fine_tuned_model string as drop-in replacement. Demo task: customer service tone classification (formal/informal/urgent). Training set: 50 synthetic examples. Eval: 10 held-out cases, score exact match. Shows the full loop -- data prep to deployment comparison -- without needing a GPU. Fine-tuning bill: ~$0.02-0.05 for a 50-example run."
+    },
+    {
+      "id": 112,
+      "slug": "112-synthetic-training-data",
+      "module": "M20",
+      "video_title": "Synthetic Training Data Generation: LLM-Authored Fine-Tuning Datasets",
+      "framework": "framework-agnostic",
+      "topic": "Use GPT-4o to generate diverse labeled training examples for a classification task, deduplicate with embedding similarity, validate with a second LLM judge, export clean JSONL ready for fine-tuning",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        29,
+        52,
+        111
+      ],
+      "concepts": [
+        "synthetic data generation",
+        "dataset curation",
+        "embedding deduplication",
+        "LLM-as-labeler",
+        "JSONL export"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Stanford Alpaca / WizardLM data generation strategy applied to fine-tuning. Three-stage pipeline: (1) Generator: prompt GPT-4o to produce N diverse examples per label class with chain-of-thought variation; (2) Deduplicator: embed all examples, compute cosine similarity matrix, drop any pair > 0.95 similarity to avoid memorization; (3) Judge: second LLM call validates each example is correctly labeled and clear. Export as JSONL {messages: [...]} ready for OpenAI fine-tuning (example 111) or Hugging Face datasets. Demonstrates data flywheel pattern: LLM generates data that trains a smaller, cheaper LLM."
+    },
+    {
+      "id": 113,
+      "slug": "113-dpo-alignment",
+      "module": "M20",
+      "video_title": "DPO: Direct Preference Optimization for LLM Alignment Without a Reward Model",
+      "framework": "huggingface",
+      "topic": "Build a chosen/rejected preference dataset, run DPOTrainer from Hugging Face TRL on a small model (SmolLM2-135M or similar), compare aligned vs. base responses",
+      "pattern": "script",
+      "requires_deps": [
+        "trl",
+        "peft",
+        "transformers",
+        "datasets",
+        "torch"
+      ],
+      "prereqs": [
+        111,
+        112
+      ],
+      "concepts": [
+        "DPO",
+        "preference dataset",
+        "DPOTrainer",
+        "RLHF alternative",
+        "alignment"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Direct Preference Optimization (Rafailov et al. 2023 arxiv.org/abs/2305.18290): eliminates the separate reward model training step in RLHF by directly optimizing on preference pairs. Dataset format: {prompt, chosen, rejected}. TRL DPOTrainer handles the KL-divergence loss implicitly. Use a tiny model (SmolLM2-135M or Qwen2.5-0.5B) so training runs on CPU in ~5 min with a 100-example dataset. Task: harmlessness preference -- chosen=safe refusal, rejected=compliant unsafe response. Show before/after response samples. Framework: Hugging Face TRL + PEFT LoRA adapters."
+    },
+    {
+      "id": 114,
+      "slug": "114-lora-finetuning",
+      "module": "M20",
+      "video_title": "LoRA Fine-Tuning: Attach Low-Rank Adapters, Train on Domain Data, Merge and Export",
+      "framework": "huggingface",
+      "topic": "Load a small open-source model (Qwen2.5-1.5B or SmolLM2-360M), attach LoRA adapters with PEFT, train on a domain dataset for 3 epochs, merge adapters, run before/after inference comparison",
+      "pattern": "script",
+      "requires_deps": [
+        "peft",
+        "transformers",
+        "datasets",
+        "torch",
+        "accelerate"
+      ],
+      "prereqs": [
+        113
+      ],
+      "concepts": [
+        "LoRA",
+        "PEFT",
+        "low-rank adaptation",
+        "parameter-efficient fine-tuning",
+        "adapter merging"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "LoRA -- Low-Rank Adaptation (Hu et al. 2021 arxiv.org/abs/2106.09685): inject trainable rank-decomposition matrices into attention layers, freeze base weights. PEFT LoraConfig: r=8, lora_alpha=16, target_modules=['q_proj','v_proj']. Training adds ~0.1% extra parameters vs. full fine-tune. Use a dataset from Hugging Face datasets hub (e.g., databricks/databricks-dolly-15k sampled to 500 rows). After training: merge_and_unload() collapses adapters into base weights -- single model file, no adapter overhead at inference. Run 5 before/after prompts to show domain shift. Trainable on CPU for small models in <10 min."
+    },
+    {
+      "id": 115,
+      "slug": "115-semantic-kernel",
+      "module": "M21",
+      "video_title": "Semantic Kernel: Microsoft's AI Orchestration SDK with Plugins and Planners",
+      "framework": "semantic-kernel",
+      "topic": "Define Python functions as SK plugins (AI-callable tools), register them on a Kernel, invoke the StepwisePlanner to auto-decompose a multi-step task, compare orchestration style vs. LangGraph",
+      "pattern": "script",
+      "requires_deps": [
+        "semantic-kernel"
+      ],
+      "prereqs": [
+        35,
+        43
+      ],
+      "concepts": [
+        "Semantic Kernel",
+        "plugins",
+        "StepwisePlanner",
+        "kernel functions",
+        "Microsoft SK"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Microsoft Semantic Kernel (github.com/microsoft/semantic-kernel): production AI orchestration SDK used inside Microsoft 365 Copilot. Core concepts: Kernel (orchestrator), Plugin (collection of KernelFunctions), KernelFunction (@kernel_function decorator on a Python method), Planner (auto-decomposes natural language goals into plugin call sequences). Use AzureChatCompletion or OpenAIChatCompletion as the LLM service. Example: a research assistant kernel with three plugins -- WebSearch, Summarizer, CachePlugin. The planner receives a natural language goal and autonomously sequences plugin calls. Highlights the plugin/function-calling model vs. LangGraph's graph model -- both achieve tool use but with different mental models."
+    },
+    {
+      "id": 116,
+      "slug": "116-llamaindex-agent",
+      "module": "M21",
+      "video_title": "LlamaIndex Agent: ReAct Agent with QueryEngine Tools over a Document Collection",
+      "framework": "llama-index",
+      "topic": "Index a multi-document collection with LlamaIndex, expose each as a QueryEngineTool, wire into a ReActAgent, compare retrieval quality and code verbosity vs. a LangGraph equivalent",
+      "pattern": "script",
+      "requires_deps": [
+        "llama-index",
+        "llama-index-llms-openai"
+      ],
+      "prereqs": [
+        1,
+        4,
+        30
+      ],
+      "concepts": [
+        "LlamaIndex",
+        "QueryEngineTool",
+        "ReActAgent",
+        "VectorStoreIndex",
+        "document agent"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "LlamaIndex (llamaindex.ai): data framework for LLM applications competing with LangChain RAG. Key LlamaIndex primitives: SimpleDirectoryReader, VectorStoreIndex, RetrieverQueryEngine, QueryEngineTool, ReActAgent. Pattern: build one VectorStoreIndex per document set -> wrap as QueryEngineTool with description -> pass list to ReActAgent(tools=[...], llm=...) -> agent.chat() runs the ReAct loop automatically. Show multi-document scenario: 3 tools for 3 domains (science, history, tech). LlamaIndex wraps the ReAct loop; LangGraph exposes it explicitly -- useful to compare what's hidden vs. explicit."
+    },
+    {
+      "id": 117,
+      "slug": "117-instructor-extraction",
+      "module": "M21",
+      "video_title": "Instructor: Type-Safe Structured Extraction with Automatic Retry on Validation Failure",
+      "framework": "framework-agnostic",
+      "topic": "Use the instructor library to extract typed Pydantic models from unstructured text -- emails, meeting transcripts, product reviews -- with automatic retry and validation feedback on LLM failures",
+      "pattern": "script",
+      "requires_deps": [
+        "instructor"
+      ],
+      "prereqs": [
+        13,
+        61
+      ],
+      "concepts": [
+        "instructor",
+        "structured extraction",
+        "Pydantic validation",
+        "automatic retry",
+        "function calling"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "instructor (github.com/jxnl/instructor): thin wrapper around OpenAI that adds Pydantic model validation + automatic reask on validation failure. Pattern: client = instructor.from_openai(OpenAI()); result = client.chat.completions.create(model=..., response_model=MyModel, messages=[...]). On ValidationError: instructor automatically re-prompts with the validation error message, up to max_retries. Framework-agnostic -- works with any provider supported by the OpenAI client interface (Anthropic, Mistral, Groq, Ollama). Three extraction demos: (1) MeetingNotes -- attendees, decisions, action items; (2) ProductReview -- sentiment, features, score; (3) UserAddress -- components with field validators. No LangGraph needed -- pure Python."
+    },
+    {
+      "id": 118,
+      "slug": "118-mirascope-typed-llm",
+      "module": "M21",
+      "video_title": "Mirascope: Pydantic-First LLM Calls with Type-Safe Prompts and Provider Switching",
+      "framework": "framework-agnostic",
+      "topic": "Build typed LLM calls with Mirascope's @prompt_template and @openai.call decorators, extract structured outputs, switch provider from OpenAI to Anthropic with a single decorator change",
+      "pattern": "script",
+      "requires_deps": [
+        "mirascope[openai,anthropic]"
+      ],
+      "prereqs": [
+        65,
+        117
+      ],
+      "concepts": [
+        "Mirascope",
+        "prompt_template",
+        "typed prompts",
+        "provider switching",
+        "Pydantic-first"
+      ],
+      "status": "pending",
+      "priority": "low",
+      "notes": "Mirascope (mirascope.io): Pydantic-first LLM toolkit. Key pattern: @openai.call(model='gpt-4o-mini') on a class method whose return type annotation is a Pydantic model -- Mirascope handles prompt formatting, API call, and parsing in one decorator. Provider switching: swap @openai.call for @anthropic.call with no other changes. Prompt templates: @prompt_template('Summarize: {text}') with typed parameters instead of f-strings. Streaming with @openai.call(model=..., stream=True). Compare to instructor (example 117) -- Mirascope is more opinionated, deeply Pydantic-integrated, and built for provider portability. Show the same task (meeting summary extraction) with both OpenAI and Anthropic backends."
+    },
+    {
+      "id": 119,
+      "slug": "119-mcp-server-builder",
+      "module": "M22",
+      "video_title": "Build a Custom MCP Server: Expose Domain Tools Over the Model Context Protocol",
+      "framework": "framework-agnostic",
+      "topic": "Implement a stdio MCP server using the mcp Python SDK that exposes 3 typed domain tools, test it with a LangGraph MCP client agent -- the complement to example 44 (MCP client)",
+      "pattern": "script",
+      "requires_deps": [
+        "mcp"
+      ],
+      "prereqs": [
+        44
+      ],
+      "concepts": [
+        "MCP server",
+        "stdio transport",
+        "tool schemas",
+        "mcp Python SDK",
+        "Model Context Protocol"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "Model Context Protocol (modelcontextprotocol.io): open standard for LLM tool interoperability. Example 44 was the client side -- this is the server side. MCP server with mcp Python SDK: @server.list_tools() returns tool schemas; @server.call_tool() dispatches to implementations. Three domain tools: (1) get_stock_price(symbol) -> wttr.in or a mock, (2) search_knowledge_base(query), (3) convert_currency(amount, from, to). Run as stdio subprocess. The same server can be consumed by Claude Desktop, Cursor, LangGraph MCP client (ex 44), or any compliant host. Demonstrates how to publish internal tools as first-class MCP primitives without framework lock-in."
+    },
+    {
+      "id": 120,
+      "slug": "120-long-context-agent",
+      "module": "M22",
+      "video_title": "Long-Context Agent: Full-Document Reasoning vs. Chunked RAG",
+      "framework": "framework-agnostic",
+      "topic": "Load a book-length document into a 128K context window in a single call, answer multi-hop questions, then run the same questions through chunked RAG (example 1 pattern) and compare faithfulness and latency",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        1,
+        54,
+        63
+      ],
+      "concepts": [
+        "long context",
+        "128K window",
+        "lost-in-the-middle",
+        "RAG vs. long context",
+        "faithfulness comparison"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "GPT-4o supports 128K tokens; Claude supports 200K. Long-context approach: load entire document as one message, no retrieval step needed. Benchmark against chunked RAG on faithfulness (exact answer, hallucination rate) and latency. Key phenomenon: 'lost-in-the-middle' (Liu et al. 2023 arxiv.org/abs/2307.03172) -- LLMs perform worse on questions whose answers appear in the middle of a long document. Demo with Project Gutenberg text (public domain). Show: (1) long-context single-call answers, (2) chunked RAG answers, (3) side-by-side scoring. When to use each: long-context for synthesis, RAG for targeted lookup + cost control."
+    },
+    {
+      "id": 121,
+      "slug": "121-structured-generation-outlines",
+      "module": "M22",
+      "video_title": "Outlines: Guaranteed JSON and Regex-Constrained Output from Any Open Model",
+      "framework": "framework-agnostic",
+      "topic": "Use the outlines library with a local model (via llama.cpp or transformers) to generate JSON that is guaranteed to match a Pydantic schema, and regex-constrained strings -- no post-hoc parsing or retry needed",
+      "pattern": "script",
+      "requires_deps": [
+        "outlines",
+        "transformers"
+      ],
+      "prereqs": [
+        13,
+        66,
+        117
+      ],
+      "concepts": [
+        "outlines",
+        "constrained decoding",
+        "structured generation",
+        "CFG sampling",
+        "guaranteed JSON"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "outlines (dottxt-ai/outlines): constrained text generation via structured sampling. Unlike instructor (example 117) which retries on failure, outlines makes failure impossible -- it modifies the token sampling process to only allow tokens that keep the output valid at each step. Works with any Hugging Face transformers model or llama.cpp. Three demos: (1) outlines.generate.json(model, Pydantic schema) -- produces valid JSON matching schema with zero retries; (2) outlines.generate.regex(model, regex_pattern) -- e.g. phone number, date, code; (3) outlines.generate.choice(model, choices) -- forced classification. Contrast with instructor: outlines = constrained decoding (100% guarantee), instructor = retry loop (probabilistic). Framework-agnostic -- no LangChain or LangGraph dependency."
+    },
+    {
+      "id": 122,
+      "slug": "122-eval-ci-pipeline",
+      "module": "M22",
+      "video_title": "Eval CI Pipeline: Run DeepEval Metrics as Pytest, Fail Build on Score Regression",
+      "framework": "langgraph",
+      "topic": "Wire DeepEval metrics (Faithfulness, AnswerRelevancy, HallucinationMetric) as pytest test cases against a golden QA dataset, show a passing run and a score-regression failure that blocks CI",
+      "pattern": "script",
+      "requires_deps": [
+        "deepeval"
+      ],
+      "prereqs": [
+        47,
+        48,
+        76
+      ],
+      "concepts": [
+        "evaluation CI",
+        "pytest integration",
+        "score regression",
+        "golden dataset",
+        "continuous evaluation"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "DeepEval (github.com/confident-ai/deepeval) provides pytest plugin: @pytest.mark.parametrize over golden dataset rows, assert_test(test_case, [metric]) raises AssertionError on failure. Pattern: (1) golden dataset as JSON file -- question, expected_output, context; (2) test file imports pipeline under test, generates actual_output; (3) DeepEval metrics as assertions; (4) CI config (GitHub Actions) runs pytest, fails on any metric below threshold. Demonstrate: passing run (pipeline scores 0.85+), then intentionally degrade the pipeline (remove context), show test failure + score report. This closes the loop with examples 47-52 (DeepEval metrics) by showing how to embed them in CI instead of running ad-hoc."
+    },
+    {
+      "id": 123,
+      "slug": "123-agent-cost-tracking",
+      "module": "M22",
+      "video_title": "Agent Cost Tracking: Per-Node Token Cost, Budget Enforcement, and Cost Report",
+      "framework": "langgraph",
+      "topic": "Instrument a multi-node LangGraph agent with tiktoken to count tokens per node, multiply by per-model pricing, enforce a per-run budget ceiling with early exit, emit a structured cost report at the end",
+      "pattern": "script",
+      "requires_deps": [
+        "tiktoken"
+      ],
+      "prereqs": [
+        40,
+        63,
+        73
+      ],
+      "concepts": [
+        "token counting",
+        "cost tracking",
+        "tiktoken",
+        "budget enforcement",
+        "per-node instrumentation"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "Complements example 63 (token budget manager, context window focus) with cost-in-dollars instrumentation. tiktoken.encoding_for_model() counts tokens; multiply by OpenAI pricing table (input/output $/1M token). LangGraph approach: wrap each node with a cost-tracking decorator that accumulates {node_name: {input_tokens, output_tokens, cost_usd}} in state. Budget enforcer: if cumulative_cost > MAX_BUDGET_USD, raise BudgetExceeded and route to summary node instead of continuing. Final node emits structured report: total cost, cost per node, most expensive node, tokens saved by short-circuits. Shows production cost governance pattern -- essential before deploying multi-step agents at scale."
     }
   ]
 }
