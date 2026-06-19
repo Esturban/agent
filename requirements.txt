@@ -24,6 +24,7 @@ cffi==2.0.0
 charset-normalizer==3.4.3
 chromadb==1.1.0
 click==8.3.0
+agentdojo>=0.1.35
 crewai>=0.76.0
 ragas>=0.1.0
 coloredlogs==15.0.1
