@@ -39,9 +39,11 @@ def build_rag_chain():
         ]
     )
 
-    def run(question: str) -> str:
+    def run(question: str) -> tuple[str, str]:
+        """Returns (answer, context) so the judge can verify faithfulness."""
         docs = retriever.invoke(question)
         ctx = "\n\n".join(d.page_content for d in docs)
-        return (prompt | llm | StrOutputParser()).invoke({"context": ctx, "question": question})
+        answer = (prompt | llm | StrOutputParser()).invoke({"context": ctx, "question": question})
+        return answer, ctx
 
     return run
