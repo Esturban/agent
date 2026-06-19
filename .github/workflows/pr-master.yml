@@ -21,30 +21,21 @@ jobs:
           PR_BODY="Automated PR: changes from \`dev\` ready for Esturban to review and merge to \`master\`."
 
           # Find any open PR from dev → master
-          EXISTING=$(gh pr list \
+          PR_NUMBER=$(gh pr list \
             --repo "${{ github.repository }}" \
             --head dev --base master \
             --state open \
-            --json number,author \
-            --jq '.[0] // empty')
+            --json number \
+            --jq '.[0].number // empty')
 
-          PR_NUMBER=$(echo "$EXISTING" | jq -r '.number // empty')
-          PR_AUTHOR=$(echo "$EXISTING" | jq -r '.author.login // empty')
-
-          if [ -n "$PR_NUMBER" ] && [ "$PR_AUTHOR" = "github-actions[bot]" ]; then
-            # Bot-authored PR already exists — update body only
-            echo "✓ Updating existing bot PR #${PR_NUMBER}"
+          if [ -n "$PR_NUMBER" ]; then
+            # PR already exists — just update it, never close it
+            echo "✓ Updating existing PR #${PR_NUMBER}"
             gh pr edit "$PR_NUMBER" \
               --title "dev → master" \
               --body "$PR_BODY"
           else
-            if [ -n "$PR_NUMBER" ]; then
-              # Human-authored PR exists — close it so bot can create correctly
-              echo "⚠ Closing human-authored PR #${PR_NUMBER} (author: ${PR_AUTHOR})"
-              gh pr close "$PR_NUMBER" \
-                --comment "Closing human-authored PR. CI will recreate as github-actions[bot] with Esturban as reviewer."
-            fi
-            echo "✓ Creating new bot PR with Esturban as reviewer"
+            echo "✓ Creating new PR with Esturban as reviewer"
             gh pr create \
               --title "dev → master" \
               --body "$PR_BODY" \
