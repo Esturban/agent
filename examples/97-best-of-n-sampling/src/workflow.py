@@ -52,7 +52,7 @@ def score_all(state: BonState) -> dict:
                 question=state["question"], reasoning=c["reasoning"]
             )}
         ]).content
-            s, e = raw.find("{"), raw.rfind("}") + 1
+        s, e = raw.find("{"), raw.rfind("}") + 1
         try:
             data = json.loads(raw[s:e])
             score, critique = int(data.get("score", 5)), data.get("critique", "")
