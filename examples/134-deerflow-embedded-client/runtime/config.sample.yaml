@@ -1,0 +1,18 @@
+# Minimal DeerFlow config for the embedded-client demo.
+# Copy to conf/config.yaml inside the deer-flow checkout and fill in your values.
+
+llm:
+  provider: openai            # or anthropic / google / azure_openai
+  model: gpt-4o-mini
+  api_key: "${OPENAI_API_KEY}"
+
+tools:
+  web_fetch:
+    enabled: true
+  web_search:
+    enabled: false            # set to true and add a SEARCH_API_KEY for live search
+
+memory:
+  enabled: false              # keep off for the demo to avoid setup friction
+
+skills: []                    # add custom SKILL.md paths here for example 135
