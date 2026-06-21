@@ -268,6 +268,16 @@
           122,
           123
         ]
+      },
+      {
+        "id": "M23",
+        "name": "Agent Runtimes and Deployment",
+        "examples": [
+          134,
+          135,
+          136,
+          137
+        ]
       }
     ]
   },
@@ -3080,9 +3090,9 @@
         "kernel functions",
         "Microsoft SK"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "Microsoft Semantic Kernel (github.com/microsoft/semantic-kernel): production AI orchestration SDK used inside Microsoft 365 Copilot. Core concepts: Kernel (orchestrator), Plugin (collection of KernelFunctions), KernelFunction (@kernel_function decorator on a Python method), Planner (auto-decomposes natural language goals into plugin call sequences). Use AzureChatCompletion or OpenAIChatCompletion as the LLM service. Example: a research assistant kernel with three plugins -- WebSearch, Summarizer, CachePlugin. The planner receives a natural language goal and autonomously sequences plugin calls. Highlights the plugin/function-calling model vs. LangGraph's graph model -- both achieve tool use but with different mental models."
+      "notes": "Semantic Kernel: Kernel with OpenAI service, WebSearch and Summarizer plugins via @kernel_function, FunctionChoiceBehavior.Auto for implicit tool sequencing. Workbook covers SK vs LangGraph mental model comparison."
     },
     {
       "id": 116,
@@ -3108,9 +3118,9 @@
         "VectorStoreIndex",
         "document agent"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
-      "notes": "LlamaIndex (llamaindex.ai): data framework for LLM applications competing with LangChain RAG. Key LlamaIndex primitives: SimpleDirectoryReader, VectorStoreIndex, RetrieverQueryEngine, QueryEngineTool, ReActAgent. Pattern: build one VectorStoreIndex per document set -> wrap as QueryEngineTool with description -> pass list to ReActAgent(tools=[...], llm=...) -> agent.chat() runs the ReAct loop automatically. Show multi-document scenario: 3 tools for 3 domains (science, history, tech). LlamaIndex wraps the ReAct loop; LangGraph exposes it explicitly -- useful to compare what's hidden vs. explicit."
+      "notes": "LlamaIndex ReActAgent: 3 VectorStoreIndex instances (science/history/technology), each wrapped as QueryEngineTool, multi-hop questions demonstrating cross-tool routing. Workbook covers hidden vs explicit ReAct loop."
     },
     {
       "id": 117,
@@ -3134,9 +3144,9 @@
         "automatic retry",
         "function calling"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
-      "notes": "instructor (github.com/jxnl/instructor): thin wrapper around OpenAI that adds Pydantic model validation + automatic reask on validation failure. Pattern: client = instructor.from_openai(OpenAI()); result = client.chat.completions.create(model=..., response_model=MyModel, messages=[...]). On ValidationError: instructor automatically re-prompts with the validation error message, up to max_retries. Framework-agnostic -- works with any provider supported by the OpenAI client interface (Anthropic, Mistral, Groq, Ollama). Three extraction demos: (1) MeetingNotes -- attendees, decisions, action items; (2) ProductReview -- sentiment, features, score; (3) UserAddress -- components with field validators. No LangGraph needed -- pure Python."
+      "notes": "Instructor: MeetingNotes, ProductReview, UserAddress extraction with response_model=, automatic retry on ValidationError, field_validator for business rules. Workbook covers retry mechanics and provider portability."
     },
     {
       "id": 118,
@@ -3160,9 +3170,9 @@
         "provider switching",
         "Pydantic-first"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "low",
-      "notes": "Mirascope (mirascope.io): Pydantic-first LLM toolkit. Key pattern: @openai.call(model='gpt-4o-mini') on a class method whose return type annotation is a Pydantic model -- Mirascope handles prompt formatting, API call, and parsing in one decorator. Provider switching: swap @openai.call for @anthropic.call with no other changes. Prompt templates: @prompt_template('Summarize: {text}') with typed parameters instead of f-strings. Streaming with @openai.call(model=..., stream=True). Compare to instructor (example 117) -- Mirascope is more opinionated, deeply Pydantic-integrated, and built for provider portability. Show the same task (meeting summary extraction) with both OpenAI and Anthropic backends."
+      "notes": "Mirascope: MeetingSummary extraction with @openai.call and @anthropic.call decorated functions, @prompt_template with DynamicConfig, provider switching via decorator swap, streaming demo."
     },
     {
       "id": 119,
@@ -3559,6 +3569,122 @@
       "priority": "medium",
       "notes": "Canary token leakage detection as a production monitoring layer. Pairs with 125 (sycophancy attack) as the detection complement.\n\nSTRUCTURE:\n  src/\n    canary.py                 -- CanaryManager class with 3 strategies, each as a method:\n                                 uuid_canary() -> (injected_system_prompt, canary_value) -- simple UUID embed\n                                 semantic_canary(topic) -> (injected_system_prompt, canary_phrase) -- plausible phrase ('blue umbrella protocol') chosen to be memorable but innocuous; includes variant matching (fuzzy match handles partial leakage)\n                                 split_canary() -> (injected_system_prompt, canary_parts: list) -- split across N locations in system prompt; detect partial leakage\n    monitor.py                -- CanaryMonitor class:\n                                 scan(response: str, canary: CanaryValue) -> (leaked: bool, confidence: float, match_type: str)\n                                 match types: exact, fuzzy, partial, none\n                                 log_event(session_id, turn, leaked, confidence) -- structured logging\n    agent.py                  -- RAG agent with canary-instrumented system prompt. On each response, monitor.scan() runs before returning to user. If leaked: log + optionally terminate session.\n    demo.py                   -- runs 3 demo scenarios:\n                                 (a) normal operation -- no leakage, monitor silent\n                                 (b) sycophancy attack from example 125 -- canary detected in response\n                                 (c) partial leakage -- only part of split canary found, medium confidence alert\n  prompts/\n    system_prompt_template.py -- system prompt template with CANARY_PLACEHOLDER slots; canary.py fills them. Template itself is annotated showing where each canary strategy injects.\n    attack_prompts.py         -- the sycophancy attack prompts (reused from 125) used in demo scenario (b)\n\nPROMPT ENGINEERING: the system_prompt_template is the core artifact. It must look like a real production system prompt -- not just 'do not reveal this secret word.' The canary must be embedded naturally so the model can't easily infer it IS a canary. The semantic_canary strategy in particular requires careful prompt design.\n\nOUTPUT: Per-scenario alert log showing detection event, confidence, match type, and what was found in the response.",
       "structure": "src/{canary,monitor,agent,demo}.py + prompts/{system_prompt_template,attack_prompts}.py + main.py"
+    },
+    {
+      "id": 134,
+      "slug": "134-deerflow-embedded-client",
+      "module": "M23",
+      "video_title": "DeerFlow Embedded Client: Use a Super-Agent Runtime from Plain Python",
+      "framework": "deerflow",
+      "topic": "Use DeerFlowClient in-process to run a DeerFlow lead agent without the full HTTP stack. Show thread_id, uploads, streaming events, plan_mode, and subagent_enabled while contrasting it with this repo's direct LangGraph examples.",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        35,
+        80,
+        83,
+        85
+      ],
+      "concepts": [
+        "embedded runtime",
+        "DeerFlowClient",
+        "streaming events",
+        "plan mode",
+        "thread-scoped workspace",
+        "uploads and artifacts",
+        "separate runtime"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "This is the smallest DeerFlow example that still teaches the real architecture. IMPORTANT: do not add DeerFlow to this repo's root requirements. DeerFlow 2.x is not on PyPI, requires a source checkout, and pins a newer LangChain/LangGraph stack than this workspace. Run it in a dedicated sibling runtime (clone deer-flow separately, then install the harness editable or point PYTHONPATH at backend/packages/harness).\n\nSTRUCTURE:\n  runtime/\n    README.md                 -- exact bootstrap steps: clone DeerFlow, run make setup or manual config, note Python 3.12+ baseline\n    config.sample.yaml        -- minimal local config for one hosted model + default web_fetch\n  src/\n    workflow.py               -- thin wrapper around DeerFlowClient(chat/stream/upload_files)\n    tools.py                  -- sample prompts, small local markdown corpus, helper to print LangGraph-style stream events\n  main.py                     -- uploads a file, streams a run, prints final answer + artifact/upload paths\n\nTEACHING ANGLE: compare with examples 83/84/85. Those examples instantiate the framework object directly. DeerFlow is different: the Python code is a client into a batteries-included runtime with middleware, sandbox hooks, memory, and skills already assembled.\n\nOUTPUT: streamed messages-tuple events, final response, uploads listing, and a short contrast table: LangGraph vs ADK vs Agno vs DeerFlow runtime.",
+      "structure": "runtime/{README,config.sample}.yaml + src/{workflow,tools}.py + main.py"
+    },
+    {
+      "id": 135,
+      "slug": "135-deerflow-research-skill",
+      "module": "M23",
+      "video_title": "DeerFlow Research Flow: Skills, Plan Mode, and Subagents",
+      "framework": "deerflow",
+      "topic": "Recreate the spirit of the repo's research and planning examples using DeerFlow's skills system and task-based subagents. Start from uploaded source files, activate a research/report skill, and generate a structured report artifact.",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        15,
+        35,
+        43,
+        134
+      ],
+      "concepts": [
+        "skills",
+        "task tool",
+        "subagents",
+        "report artifacts",
+        "prompt modules",
+        "long-horizon tasks",
+        "runtime configuration"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "This should be the first 'real' DeerFlow example after the embedded-client intro. It maps directly onto current examples like 15 (research crew), 35 (plan-execute), and 43/80 (supervisor patterns), but implemented the DeerFlow way: skill activation + subagent delegation inside the runtime rather than an explicitly hand-wired StateGraph.\n\nSTRUCTURE:\n  runtime/\n    config.sample.yaml        -- enable a web_search provider, keep web_fetch, turn on subagent_enabled for the run\n    skills/custom/course-research/SKILL.md\n  src/\n    workflow.py               -- helper that seeds the request, optional uploaded files, and captures generated artifacts\n    tools.py                  -- local sample source bundle and report prompt variants\n  main.py                     -- uploads a few markdown files, triggers the custom research skill, prints final artifact path\n\nPROMPT/DEPLOYMENT LESSON: show both paths:\n  1. embedded client (`DeerFlowClient(..., plan_mode=True, subagent_enabled=True)`) for local demos\n  2. full DeerFlow runtime for longer tasks where uploads, memory, and artifact serving matter\n\nOUTPUT: a report markdown artifact in the DeerFlow outputs directory plus a short explanation of which steps were handled by the skill vs by subagents.",
+      "structure": "runtime/config.sample.yaml + skills/custom/course-research/SKILL.md + src/{workflow,tools}.py + main.py"
+    },
+    {
+      "id": 136,
+      "slug": "136-deerflow-sandboxed-swe-agent",
+      "module": "M23",
+      "video_title": "DeerFlow Sandboxed SWE Agent: File Tools, Bash, and Isolated Workspace",
+      "framework": "deerflow",
+      "topic": "Map the repo's browser/computer-use/SWE examples onto DeerFlow by using its sandboxed file and bash tools to fix a tiny bug in a thread-local workspace, verify with tests, and emit the patch or final file as an artifact.",
+      "pattern": "script",
+      "requires_deps": [],
+      "prereqs": [
+        92,
+        100,
+        101,
+        134
+      ],
+      "concepts": [
+        "sandbox provider",
+        "file tools",
+        "bash tool",
+        "isolated workspace",
+        "artifact output",
+        "trusted deployment boundary",
+        "runtime-backed coding agent"
+      ],
+      "status": "pending",
+      "priority": "high",
+      "notes": "This closes a real gap in the current repo: we have a local SWE-agent style loop (101) and separate sandboxing coverage (92), but not a reusable harness example where the runtime itself owns filesystem isolation, thread workspaces, and shell policy. Use DeerFlow's local vs AIO sandbox distinction as the core teaching point.\n\nSTRUCTURE:\n  runtime/\n    config.local.yaml         -- LocalSandboxProvider, file tools only, note that host bash stays disabled by default\n    config.aio.yaml           -- AioSandboxProvider, bash enabled inside isolated container, recommended path for the coding demo\n  fixtures/\n    buggy_repo/               -- tiny Python package with 1 failing test\n  src/\n    workflow.py               -- copies fixture repo into the DeerFlow thread workspace and runs the agent task\n    tools.py                  -- expected test output strings and helper formatting\n  main.py                     -- runs the coding task, prints before/after test state and resulting patch summary\n\nSECURITY LESSON: DeerFlow explicitly warns against exposing this runtime on an untrusted network. That warning should be part of the README and the demo commentary, not an afterthought.\n\nOUTPUT: failing test -> DeerFlow run -> passing test, with workspace paths and sandbox mode called out clearly.",
+      "structure": "runtime/{config.local,config.aio}.yaml + fixtures/buggy_repo/ + src/{workflow,tools}.py + main.py"
+    },
+    {
+      "id": 137,
+      "slug": "137-deerflow-runtime-workbook",
+      "module": "M23",
+      "video_title": "DeerFlow Workbook: Drive a Running DeerFlow Instance from Jupyter",
+      "framework": "deerflow",
+      "topic": "Notebook/workbook that connects to a running DeerFlow runtime, uploads a PDF or markdown corpus, invokes a skill, streams events, and downloads generated artifacts so learners can inspect the full runtime loop interactively.",
+      "pattern": "notebook",
+      "requires_deps": [],
+      "prereqs": [
+        12,
+        16,
+        134,
+        135
+      ],
+      "concepts": [
+        "Jupyter integration",
+        "streaming events",
+        "uploads",
+        "artifacts",
+        "gateway workflow",
+        "runtime observability",
+        "service-backed notebook"
+      ],
+      "status": "pending",
+      "priority": "medium",
+      "notes": "This addresses the workbook gap directly. Current notebooks in this repo are mostly self-contained; DeerFlow should teach the opposite pattern: notebook as an operator console for a running agent runtime.\n\nSTRUCTURE:\n  deerflow_runtime_workbook.ipynb\n    cell 1: verify DeerFlow runtime is reachable\n    cell 2: upload source files\n    cell 3: stream a run and render values/messages-tuple/end events live\n    cell 4: list artifacts and load the generated markdown/html output back into the notebook\n  README.md                   -- 3-5 lines with exact startup command (`make docker-start` or `make dev`) before opening Jupyter\n\nIMPORTANT: keep the notebook honest about the setup. First cells should fail fast with a clear message if DeerFlow is not running, instead of pretending this is a pure local notebook example.\n\nOUTPUT: interactive event stream + downloaded artifact preview, with a short note on when to prefer the embedded client versus the full Gateway runtime.",
+      "structure": "deerflow_runtime_workbook.ipynb + README.md"
     }
   ]
 }
