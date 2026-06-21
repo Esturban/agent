@@ -9,17 +9,8 @@ import httpx
 
 @dataclass
 class DeerFlowClient:
-    """Thin HTTP client for a running DeerFlow service.
-
-    DeerFlow exposes a FastAPI backend. This client wraps the three
-    endpoints needed for the embedded-client pattern:
-      POST /api/files/upload  — attach a file to a thread workspace
-      POST /api/chat/stream   — SSE streaming run
-      POST /api/chat          — blocking run (non-streaming)
-
-    Contrast with direct LangGraph:
-      LangGraph  → you own the graph (nodes, edges, state, tool-call loop)
-      DeerFlow   → you own the *request*; the runtime owns everything else
+    """HTTP wrapper for a running DeerFlow FastAPI service.
+    DeerFlow owns skills, memory, and the LLM loop — you own only the request.
     """
 
     base_url: str
@@ -29,7 +20,7 @@ class DeerFlowClient:
     )
 
     def upload(self, filename: str, content: str) -> str:
-        """Upload text content as a file; returns the artifact_id."""
+        """Attach text to the thread workspace; returns artifact_id."""
         resp = self._http.post(
             f"{self.base_url}/api/files/upload",
             files={"file": (filename, content.encode(), "text/markdown")},
@@ -39,31 +30,21 @@ class DeerFlowClient:
         return resp.json().get("artifact_id", "unknown")
 
     def stream(
-        self,
-        message: str,
-        *,
-        plan_mode: bool = False,
-        subagent_enabled: bool = False,
+        self, message: str, *, plan_mode: bool = False, subagent_enabled: bool = False
     ) -> Iterator[tuple[str, dict]]:
-        """Yield (event_type, data) tuples from the SSE streaming endpoint.
-
-        DeerFlow emits Server-Sent Events with types:
-          message_chunk  — incremental LLM output
-          tool_call      — the agent is invoking a tool
-          tool_result    — tool returned
-          end            — run complete (data: [DONE])
-        """
-        payload = {
-            "message": message,
-            "thread_id": self.thread_id,
-            "plan_mode": plan_mode,
-            "subagent_enabled": subagent_enabled,
-        }
+        """Yield (event_type, data) tuples from the SSE endpoint."""
         with self._http.stream(
-            "POST", f"{self.base_url}/api/chat/stream", json=payload
-        ) as resp:
-            resp.raise_for_status()
-            for line in resp.iter_lines():
+            "POST",
+            f"{self.base_url}/api/chat/stream",
+            json={
+                "message": message,
+                "thread_id": self.thread_id,
+                "plan_mode": plan_mode,
+                "subagent_enabled": subagent_enabled,
+            },
+        ) as r:
+            r.raise_for_status()
+            for line in r.iter_lines():
                 if not line.startswith("data:"):
                     continue
                 raw = line.removeprefix("data:").strip()
@@ -71,18 +52,15 @@ class DeerFlowClient:
                     yield "end", {}
                     return
                 try:
-                    event = json.loads(raw)
-                    yield event.get("type", "unknown"), event
+                    ev = json.loads(raw)
+                    yield ev.get("type", "unknown"), ev
                 except json.JSONDecodeError:
                     pass
 
     def chat(self, message: str, *, plan_mode: bool = False) -> str:
-        """Blocking chat; collects streamed chunks and returns the final answer."""
-        chunks: list[str] = []
-        for event_type, data in self.stream(message, plan_mode=plan_mode):
-            if event_type == "message_chunk":
-                chunks.append(data.get("content", ""))
-        return "".join(chunks)
-
-    def close(self) -> None:
-        self._http.close()
+        """Blocking chat — joins message_chunk events into the final answer."""
+        return "".join(
+            d.get("content", "")
+            for et, d in self.stream(message, plan_mode=plan_mode)
+            if et == "message_chunk"
+        )
