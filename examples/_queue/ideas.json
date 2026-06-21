@@ -3594,7 +3594,7 @@
         "uploads and artifacts",
         "separate runtime"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "This is the smallest DeerFlow example that still teaches the real architecture. IMPORTANT: do not add DeerFlow to this repo's root requirements. DeerFlow 2.x is not on PyPI, requires a source checkout, and pins a newer LangChain/LangGraph stack than this workspace. Run it in a dedicated sibling runtime (clone deer-flow separately, then install the harness editable or point PYTHONPATH at backend/packages/harness).\n\nSTRUCTURE:\n  runtime/\n    README.md                 -- exact bootstrap steps: clone DeerFlow, run make setup or manual config, note Python 3.12+ baseline\n    config.sample.yaml        -- minimal local config for one hosted model + default web_fetch\n  src/\n    workflow.py               -- thin wrapper around DeerFlowClient(chat/stream/upload_files)\n    tools.py                  -- sample prompts, small local markdown corpus, helper to print LangGraph-style stream events\n  main.py                     -- uploads a file, streams a run, prints final answer + artifact/upload paths\n\nTEACHING ANGLE: compare with examples 83/84/85. Those examples instantiate the framework object directly. DeerFlow is different: the Python code is a client into a batteries-included runtime with middleware, sandbox hooks, memory, and skills already assembled.\n\nOUTPUT: streamed messages-tuple events, final response, uploads listing, and a short contrast table: LangGraph vs ADK vs Agno vs DeerFlow runtime.",
       "structure": "runtime/{README,config.sample}.yaml + src/{workflow,tools}.py + main.py"
@@ -3686,5 +3686,6 @@
       "notes": "This addresses the workbook gap directly. Current notebooks in this repo are mostly self-contained; DeerFlow should teach the opposite pattern: notebook as an operator console for a running agent runtime.\n\nSTRUCTURE:\n  deerflow_runtime_workbook.ipynb\n    cell 1: verify DeerFlow runtime is reachable\n    cell 2: upload source files\n    cell 3: stream a run and render values/messages-tuple/end events live\n    cell 4: list artifacts and load the generated markdown/html output back into the notebook\n  README.md                   -- 3-5 lines with exact startup command (`make docker-start` or `make dev`) before opening Jupyter\n\nIMPORTANT: keep the notebook honest about the setup. First cells should fail fast with a clear message if DeerFlow is not running, instead of pretending this is a pure local notebook example.\n\nOUTPUT: interactive event stream + downloaded artifact preview, with a short note on when to prefer the embedded client versus the full Gateway runtime.",
       "structure": "deerflow_runtime_workbook.ipynb + README.md"
     }
-  ]
+  ],
+  "next_target": "135-deerflow-research-skill"
 }
