@@ -23,7 +23,8 @@
 | **Evaluation** | RAGAS, DeepEval (7 metric types), LLM-as-judge, golden datasets, A/B testing, regression detection |
 | **Observability** | Callback handlers, token budgets, LangSmith tracing, Langfuse |
 | **Production & Async** | FastAPI SSE streaming, async pipelines, batch runners, semantic routing |
-| **Framework Survey** | CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno |
+| **Framework Survey** | CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno, Semantic Kernel, LlamaIndex, Instructor, Mirascope |
+| **Fine-Tuning & Alignment** | OpenAI fine-tuning API, synthetic data flywheel, DPO (Direct Preference Optimization), LoRA (Low-Rank Adaptation) |
 
 ---
 
@@ -273,7 +274,7 @@ Fully autonomous agents fail in production — not because the model is wrong, b
 </details>
 
 <details>
-<summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 8 examples</summary>
+<summary><strong>Structured Output & Safety</strong> &nbsp;·&nbsp; 9 examples</summary>
 
 Unstructured text is the enemy of reliable systems. `with_structured_output()` forces the model to return validated Pydantic models — no parsing, no KeyErrors. Beyond extraction, this section covers the defensive patterns that make agents production-safe: input/output guardrails, prompt injection defense, Chain-of-Verification to catch hallucinations, Constitutional AI for self-alignment, LlamaGuard's S1-S6 hazard taxonomy for pre-agent classification, and E2B microVM sandboxing so generated code never touches the host.
 
@@ -287,11 +288,12 @@ Unstructured text is the enemy of reliable systems. `with_structured_output()` f
 | 70 | [70-prompt-injection-defense](./examples/70-prompt-injection-defense/README.md) | Prompt injection defense — classify retrieved chunks for injection risk before passing to the LLM; filter high-risk passages | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/70-prompt-injection-defense/prompt_injection_workbook.ipynb) |
 | 92 | [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b/README.md) | E2B sandbox — generate Python code with LLM, execute in ephemeral cloud microVM; structured stdout/stderr/error capture; nothing runs on the host | ✅ +e2b +E2B_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb) |
 | 93 | [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails/README.md) | LlamaGuard pattern — classify every input against S1-S6 hazard taxonomy before routing to agent; unsafe inputs refused at the gate (Inan et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb) |
+| 121 | [121-structured-generation-outlines](./examples/121-structured-generation-outlines/README.md) | Outlines constrained decoding — `outlines.generate.json()` / `regex()` / `choice()` via CFG sampling; 100% schema-valid output without reask | ✅ +outlines | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/121-structured-generation-outlines/structured_generation_outlines_workbook.ipynb) |
 
 </details>
 
 <details>
-<summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 6 examples</summary>
+<summary><strong>Advanced Reasoning</strong> &nbsp;·&nbsp; 7 examples</summary>
 
 These techniques come from NLP research papers and produce measurable accuracy gains on hard reasoning tasks — no fine-tuning, no extra tools, just prompt strategy. Self-consistency samples N paths and takes a majority vote (Wang et al., +18 points on GSM8K). Least-to-most decomposes a problem into ordered sub-questions and solves each with the prior answers in context. Analogical prompting asks the model to recall its own analogous examples before solving. Extended thinking (example 96) goes further: it's a provider-native o1-style scratchpad built into the Anthropic API — the model reasons privately before answering.
 
@@ -303,6 +305,7 @@ These techniques come from NLP research papers and produce measurable accuracy g
 | 96 | [96-extended-thinking](./examples/96-extended-thinking/README.md) | Anthropic extended thinking — `thinking={'type':'enabled','budget_tokens':8000}` adds a private scratchpad; ThinkingBlock vs TextBlock; side-by-side comparison on CRT puzzles | ✅ +anthropic +ANTHROPIC_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/96-extended-thinking/extended_thinking_workbook.ipynb) |
 | 97 | [97-best-of-n-sampling](./examples/97-best-of-n-sampling/README.md) | Best-of-N with process reward — `Send()` fan-out, N chains at temp 0.8, LLM judge scores step clarity + rigor + correctness, highest-scoring chain wins (Cobbe et al. 2021) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/97-best-of-n-sampling/best_of_n_sampling_workbook.ipynb) |
 | 98 | [98-skeleton-of-thought](./examples/98-skeleton-of-thought/README.md) | Skeleton-of-Thought — serial outline call, then each point expanded concurrently; wall-clock ≈ 1 expand call not N; `idx` field restores order (Ning et al. 2023) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/98-skeleton-of-thought/skeleton_of_thought_workbook.ipynb) |
+| 120 | [120-long-context-agent](./examples/120-long-context-agent/README.md) | Long-context agent — 128K window vs chunked RAG comparison; lost-in-the-middle phenomenon; when full-document context beats retrieval | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/120-long-context-agent/long_context_agent_workbook.ipynb) |
 
 </details>
 
@@ -366,7 +369,7 @@ Every stateless agent has the same fatal flaw: it forgets everything after the c
 </details>
 
 <details>
-<summary><strong>Evaluation</strong> &nbsp;·&nbsp; 11 examples</summary>
+<summary><strong>Evaluation</strong> &nbsp;·&nbsp; 12 examples</summary>
 
 A demo that looks right is not the same as a system that _measures_ right. This section covers the full evaluation stack: RAGAS for retrieval quality, LLM-as-judge for open-ended grading, the complete DeepEval suite (faithfulness, hallucination, bias, G-Eval, agentic tool-use, conversational retention, dataset synthesis), agent golden datasets, and prompt A/B testing. These are the tools every production team needs before they can improve what they ship.
 
@@ -383,11 +386,12 @@ A demo that looks right is not the same as a system that _measures_ right. This 
 | 74 | [74-ragas-evaluation](./examples/74-ragas-evaluation/README.md) | RAGAS evaluation script — build a QA dataset, run `evaluate()` with faithfulness + answer_relevancy; CI-ready | ✅ +ragas | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/74-ragas-evaluation/ragas_evaluation_workbook.ipynb) |
 | 76 | [76-agent-evaluation](./examples/76-agent-evaluation/README.md) | Agent evaluation — golden QA dataset, exact match + embedding cosine similarity scoring, per-question PASS/FAIL summary | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/76-agent-evaluation/agent_evaluation_workbook.ipynb) |
 | 78 | [78-prompt-ab-testing](./examples/78-prompt-ab-testing/README.md) | Prompt A/B testing — run two prompt variants on 5 inputs, score by word count, declare winner with comparison table | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/78-prompt-ab-testing/prompt_ab_testing_workbook.ipynb) |
+| 122 | [122-eval-ci-pipeline](./examples/122-eval-ci-pipeline/README.md) | Eval CI pipeline — DeepEval as pytest; `assert_test()` enforces score thresholds; score regression blocks CI; `Faithfulness` + `AnswerRelevancy` | ✅ +deepeval | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/122-eval-ci-pipeline/eval_ci_pipeline_workbook.ipynb) |
 
 </details>
 
 <details>
-<summary><strong>Observability</strong> &nbsp;·&nbsp; 4 examples</summary>
+<summary><strong>Observability</strong> &nbsp;·&nbsp; 5 examples</summary>
 
 An agent that runs without observability is a black box — you know it costs money and produces outputs, but not why. These four examples instrument pipelines from the inside: a zero-dependency `BaseCallbackHandler` that captures every token count and latency, a `tiktoken`-based budget enforcer that short-circuits before a cost overrun, and both LangSmith and Langfuse for production trace visualization. After this section you can answer: which node is slowest, which prompt is most expensive, and where does the pipeline fail.
 
@@ -397,11 +401,12 @@ An agent that runs without observability is a black box — you know it costs mo
 | 63 | [63-token-budget-manager](./examples/63-token-budget-manager/README.md) | Token budget manager — track token usage per node with `tiktoken`, enforce a per-run budget, short-circuit gracefully when exceeded | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/63-token-budget-manager/token_budget_workbook.ipynb) |
 | 73 | [73-langsmith-tracing](./examples/73-langsmith-tracing/README.md) | LangSmith tracing — `@traceable` on each node + `LANGCHAIN_TRACING_V2=true`; inspect the full run tree in the LangSmith UI | ✅ +LangSmith | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/73-langsmith-tracing/langsmith_tracing_workbook.ipynb) |
 | 77 | [77-langfuse-observability](./examples/77-langfuse-observability/README.md) | Langfuse observability — self-hostable LLM tracing via `CallbackHandler`; open-source alternative to LangSmith | ✅ +langfuse | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/77-langfuse-observability/langfuse_observability_workbook.ipynb) |
+| 123 | [123-agent-cost-tracking](./examples/123-agent-cost-tracking/README.md) | Agent cost tracking — `tiktoken` per-node token counting, budget enforcement, structured cost report; short-circuit before overrun | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/123-agent-cost-tracking/agent_cost_tracking_workbook.ipynb) |
 
 </details>
 
 <details>
-<summary><strong>Production & Async</strong> &nbsp;·&nbsp; 6 examples</summary>
+<summary><strong>Production & Async</strong> &nbsp;·&nbsp; 7 examples</summary>
 
 Demo agents are synchronous, single-threaded, and crash on network errors. Production agents are not. This section closes the gap: embedding-based semantic routing that skips the LLM entirely for classification, `asyncio.gather` inside nodes for concurrent tool calls, batch runners that process thousands of inputs with tenacity exponential-backoff retries, and two FastAPI SSE servers that stream token-by-token over HTTP. These are the primitives behind every real deployment.
 
@@ -413,13 +418,14 @@ Demo agents are synchronous, single-threaded, and crash on network errors. Produ
 | 72 | [72-batch-agent-runner](./examples/72-batch-agent-runner/README.md) | Batch agent runner — process tasks in parallel batches with `asyncio.gather`, tenacity exponential backoff, tqdm progress tracking | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/72-batch-agent-runner/batch_agent_runner_workbook.ipynb) |
 | 75 | [75-fastapi-sse-streaming](./examples/75-fastapi-sse-streaming/README.md) | FastAPI SSE — `StreamingResponse` wraps `graph.astream_events()` and formats each token as an SSE `data:` line over HTTP | ✅ +FastAPI | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/75-fastapi-sse-streaming/fastapi_sse_streaming_workbook.ipynb) |
 | 81 | [81-streaming-sse-server](./examples/81-streaming-sse-server/README.md) | SSE server — FastAPI `GET /stream?q=` endpoint streams `graph.astream_events()` token-by-token as Server-Sent Events | ✅ +FastAPI | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/81-streaming-sse-server/streaming_sse_server_workbook.ipynb) |
+| 119 | [119-mcp-server-builder](./examples/119-mcp-server-builder/README.md) | MCP server builder — `mcp` Python SDK, stdio transport, 3 domain tools; connect to any MCP client (Claude Desktop, cline) | ✅ +mcp | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/119-mcp-server-builder/mcp_server_builder_workbook.ipynb) |
 
 </details>
 
 <details>
-<summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 11 examples</summary>
+<summary><strong>Framework Survey</strong> &nbsp;·&nbsp; 15 examples</summary>
 
-The agent framework space is fragmented on purpose — each library made a different set of tradeoffs. CrewAI optimizes for role-based team metaphors. AutoGen for multi-agent conversation loops. DSPy for prompt compilation over manual engineering. SmolAgents runs Python code as its reasoning trace. Haystack models everything as a stateless DAG. Google ADK wires into Gemini natively. Agno minimizes boilerplate. This section gives you one working example per framework so you can evaluate the tradeoffs yourself instead of trusting blog posts.
+The agent framework space is fragmented on purpose — each library made a different set of tradeoffs. CrewAI optimizes for role-based team metaphors. AutoGen for multi-agent conversation loops. DSPy for prompt compilation over manual engineering. SmolAgents runs Python code as its reasoning trace. Haystack models everything as a stateless DAG. Google ADK wires into Gemini natively. Agno minimizes boilerplate. Semantic Kernel uses plugin-based function registration. LlamaIndex builds on a document-centric query engine. Instructor makes structured output reliable. Mirascope lets you switch providers by swapping one decorator. This section gives you one working example per framework so you can evaluate the tradeoffs yourself instead of trusting blog posts.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -434,6 +440,24 @@ The agent framework space is fragmented on purpose — each library made a diffe
 | 83 | [83-google-adk-agent](./examples/83-google-adk-agent/README.md) | Google ADK — `LlmAgent` + `Runner` + `InMemorySessionService`; tool schemas inferred from docstrings; async Gemini event loop vs LangGraph `StateGraph` | ✅ +google-adk +GOOGLE_API_KEY | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/83-google-adk-agent/google_adk_agent_workbook.ipynb) |
 | 84 | [84-haystack-pipeline](./examples/84-haystack-pipeline/README.md) | Haystack 2.x — stateless DAG pipeline; `BM25Retriever → PromptBuilder → OpenAIGenerator`; `pipeline.connect()` wiring vs LangGraph edges | ✅ +haystack-ai | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/84-haystack-pipeline/haystack_pipeline_workbook.ipynb) |
 | 85 | [85-agno-agent](./examples/85-agno-agent/README.md) | Agno — `Agent(OpenAIChat(...), tools=[...])` with docstring-inferred schemas; `show_tool_calls=True`; minimal-boilerplate contrast to LangGraph | ✅ +agno | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/85-agno-agent/agno_agent_workbook.ipynb) |
+| 115 | [115-semantic-kernel](./examples/115-semantic-kernel/README.md) | Semantic Kernel — Microsoft SK plugins, `@kernel_function`, `FunctionChoiceBehavior.Auto`; contrast to LangGraph tool registration | ✅ +semantic-kernel | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/115-semantic-kernel/semantic_kernel_workbook.ipynb) |
+| 116 | [116-llamaindex-agent](./examples/116-llamaindex-agent/README.md) | LlamaIndex ReActAgent — `VectorStoreIndex` + `QueryEngineTool`; multi-doc routing; contrast to LangGraph `create_react_agent` | ✅ +llama-index | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/116-llamaindex-agent/llamaindex_agent_workbook.ipynb) |
+| 117 | [117-instructor-extraction](./examples/117-instructor-extraction/README.md) | Instructor structured extraction — `instructor.from_openai()` + Pydantic model; automatic `ValidationError` reask loop; zero prompt engineering | ✅ +instructor | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/117-instructor-extraction/instructor_extraction_workbook.ipynb) |
+| 118 | [118-mirascope-typed-llm](./examples/118-mirascope-typed-llm/README.md) | Mirascope typed prompts — `@openai.call` / `@anthropic.call` decorators; provider switching by swapping one import; contrast to LiteLLM | ✅ +mirascope | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/118-mirascope-typed-llm/mirascope_typed_llm_workbook.ipynb) |
+
+</details>
+
+<details>
+<summary><strong>Fine-Tuning &amp; Alignment</strong> &nbsp;·&nbsp; 4 examples</summary>
+
+Fine-tuning changes the model's weights, not just its prompt. This section covers the full spectrum: using the OpenAI fine-tuning API to specialize a model on domain data, generating that data synthetically with dedup and LLM-judge validation, and applying the two dominant open-source alignment techniques — DPO (Direct Preference Optimization, which eliminates the separate reward model step) and LoRA (Low-Rank Adaptation, which trains less than 0.1% of parameters while achieving full fine-tune quality). Together these examples give you the complete data-to-trained-model pipeline.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 111 | [111-openai-finetuning](./examples/111-openai-finetuning/README.md) | OpenAI fine-tuning pipeline — JSONL prep, file upload, job creation, polling, before/after accuracy comparison | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/111-openai-finetuning/openai_finetuning_workbook.ipynb) |
+| 112 | [112-synthetic-training-data](./examples/112-synthetic-training-data/README.md) | Synthetic training data flywheel — GPT-4o generates labeled examples, embedding dedup, LLM judge validation, JSONL export | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/112-synthetic-training-data/synthetic_training_data_workbook.ipynb) |
+| 113 | [113-dpo-alignment](./examples/113-dpo-alignment/README.md) | DPO alignment — HuggingFace TRL `DPOTrainer` on `{prompt, chosen, rejected}` pairs; eliminates reward model; SmolLM2-135M on CPU | ✅ +transformers +peft +trl | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/113-dpo-alignment/dpo_alignment_workbook.ipynb) |
+| 114 | [114-lora-finetuning](./examples/114-lora-finetuning/README.md) | LoRA fine-tuning — PEFT `LoraConfig(r=8)` adapter trains ~0.1% of params; `merge_and_unload()` exports a full model | ✅ +transformers +peft | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/114-lora-finetuning/lora_finetuning_workbook.ipynb) |
 
 </details>
 
