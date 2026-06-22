@@ -9,11 +9,7 @@ import httpx
 
 @dataclass
 class ResearchRun:
-    """Drive a DeerFlow runtime configured with a custom skill.
-
-    The runtime owns: skill activation, subagent delegation, artifact writing.
-    This client owns: uploading source files and collecting resulting events.
-    """
+    """HTTP client for a DeerFlow runtime configured with a custom skill."""
 
     base_url: str
     thread_id: str
@@ -24,7 +20,6 @@ class ResearchRun:
     )
 
     def upload(self, filename: str, content: str) -> str:
-        """Upload a text file into the thread workspace; returns artifact_id."""
         resp = self._http.post(
             f"{self.base_url}/api/files/upload",
             files={"file": (filename, content.encode(), "text/markdown")},
@@ -40,7 +35,6 @@ class ResearchRun:
         plan_mode: bool = True,
         subagent_enabled: bool = True,
     ) -> Iterator[tuple[str, dict]]:
-        """Yield (event_type, data) tuples from the SSE endpoint."""
         with self._http.stream(
             "POST",
             f"{self.base_url}/api/chat/stream",
@@ -66,7 +60,6 @@ class ResearchRun:
                     pass
 
     def artifact_path(self, events: list[tuple[str, dict]]) -> str | None:
-        """Extract artifact path from tool_result events, if present."""
         for et, data in events:
             if et == "tool_result":
                 content = str(data.get("content", ""))
