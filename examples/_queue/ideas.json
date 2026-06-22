@@ -3687,5 +3687,6 @@
       "structure": "deerflow_runtime_workbook.ipynb + README.md"
     }
   ],
-  "next_target": "137-deerflow-runtime-workbook"
+  "next_target": null,
+  "_note": "Queue complete \u2014 all 137 examples built as of 2026-06-22"
 }
