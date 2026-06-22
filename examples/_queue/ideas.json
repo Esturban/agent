@@ -3623,7 +3623,7 @@
         "long-horizon tasks",
         "runtime configuration"
       ],
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "notes": "This should be the first 'real' DeerFlow example after the embedded-client intro. It maps directly onto current examples like 15 (research crew), 35 (plan-execute), and 43/80 (supervisor patterns), but implemented the DeerFlow way: skill activation + subagent delegation inside the runtime rather than an explicitly hand-wired StateGraph.\n\nSTRUCTURE:\n  runtime/\n    config.sample.yaml        -- enable a web_search provider, keep web_fetch, turn on subagent_enabled for the run\n    skills/custom/course-research/SKILL.md\n  src/\n    workflow.py               -- helper that seeds the request, optional uploaded files, and captures generated artifacts\n    tools.py                  -- local sample source bundle and report prompt variants\n  main.py                     -- uploads a few markdown files, triggers the custom research skill, prints final artifact path\n\nPROMPT/DEPLOYMENT LESSON: show both paths:\n  1. embedded client (`DeerFlowClient(..., plan_mode=True, subagent_enabled=True)`) for local demos\n  2. full DeerFlow runtime for longer tasks where uploads, memory, and artifact serving matter\n\nOUTPUT: a report markdown artifact in the DeerFlow outputs directory plus a short explanation of which steps were handled by the skill vs by subagents.",
       "structure": "runtime/config.sample.yaml + skills/custom/course-research/SKILL.md + src/{workflow,tools}.py + main.py"
@@ -3687,5 +3687,5 @@
       "structure": "deerflow_runtime_workbook.ipynb + README.md"
     }
   ],
-  "next_target": "135-deerflow-research-skill"
+  "next_target": "106-jailbreak-detection"
 }
