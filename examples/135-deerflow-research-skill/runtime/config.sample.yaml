@@ -1,1 +1,25 @@
-# placeholder
+# DeerFlow config for the research-skill demo (example 135).
+# Copy to conf/config.yaml inside the deer-flow checkout.
+# See runtime/README.md for setup steps.
+
+llm:
+  provider: openai            # or anthropic / google / azure_openai
+  model: gpt-4o-mini
+  api_key: "${OPENAI_API_KEY}"
+
+tools:
+  web_fetch:
+    enabled: true
+  web_search:
+    enabled: false            # set true + add SEARCH_API_KEY for live search
+
+memory:
+  enabled: false
+
+subagent:
+  enabled: true               # required: skill delegates sections to subagents
+
+skills:
+  custom:
+    - path: "skills/custom/course-research"   # relative to deer-flow root
+      name: "course-research"
