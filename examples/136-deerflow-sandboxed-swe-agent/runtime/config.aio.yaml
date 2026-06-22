@@ -1,0 +1,24 @@
+# DeerFlow config for the sandboxed SWE demo — AIO sandbox mode (recommended).
+# AioSandboxProvider: bash commands run inside an isolated async container.
+# DeerFlow creates a thread-local workspace per request — host filesystem is safe.
+#
+# WARNING: Do NOT expose DeerFlow's sandbox endpoint on an untrusted network.
+# Copy this file to conf/config.yaml inside your deer-flow checkout.
+
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  api_key: "${OPENAI_API_KEY}"
+
+sandbox:
+  provider: aio            # AioSandboxProvider — containerised async runner
+  allow_bash: true         # bash runs inside the container, not the host
+
+tools:
+  web_fetch:
+    enabled: false
+  web_search:
+    enabled: false
+
+memory:
+  enabled: false

@@ -1,0 +1,24 @@
+# DeerFlow config for the sandboxed SWE demo — LOCAL sandbox mode.
+# LocalSandboxProvider: file read/write tools only; no shell execution.
+# Safe for development on a trusted machine.
+#
+# WARNING: Do NOT expose DeerFlow's sandbox endpoint on an untrusted network.
+# Copy this file to conf/config.yaml inside your deer-flow checkout.
+
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  api_key: "${OPENAI_API_KEY}"
+
+sandbox:
+  provider: local          # LocalSandboxProvider — host process, no isolation
+  allow_bash: false        # shell stays disabled; file tools only
+
+tools:
+  web_fetch:
+    enabled: false
+  web_search:
+    enabled: false
+
+memory:
+  enabled: false
