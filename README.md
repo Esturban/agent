@@ -1,6 +1,6 @@
 # Agentic AI Examples
 
-**133 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
+A growing library of self-contained examples that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
 
 > The frameworks are the vehicle. The patterns are the point.
 
@@ -44,7 +44,7 @@
 ## All Examples
 
 <details>
-<summary>Complete list — all 133 examples</summary>
+<summary>Complete list</summary>
 
 | Folder | What it demonstrates | Keys | Workbook |
 |--------|----------------------|:------:|:-------:|
