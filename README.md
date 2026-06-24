@@ -1,12 +1,66 @@
-# Agentic AI Examples
+# Agentic AI — Pattern Library
 
-**133 self-contained examples** that teach the core patterns behind production LLM agents — not just how to use a framework, but *why* the architecture works the way it does. Every example is a focused, runnable concept demonstration with teaching comments, a Colab workbook, and a phased git history you can follow commit-by-commit.
+> **The frameworks are the vehicle. The patterns are the point.**
 
-> The frameworks are the vehicle. The patterns are the point.
+Most AI agent tutorials teach you what buttons to press. This repo teaches you *why* the architecture works the way it does — so you can build, debug, and extend agents confidently, not just copy-paste them.
+
+Every example is:
+
+- **Runnable** — `python main.py` works out of the box; Colab workbooks open in one click
+- **Focused** — one concept per example, no noise
+- **Explained** — teaching comments address the *why*, not just the syntax
+- **Traceable** — phased git commits let you follow the build step-by-step, commit by commit
 
 ---
 
-### What you'll learn
+## How to use this repo
+
+**Option A — Follow a learning path** (recommended for structured learning)
+Pick the path below that matches where you are. Each path is ordered to build on itself.
+
+**Option B — Jump to a concept**
+Browse the "What you'll learn" table or the full example index at the bottom. Every example has its own `README.md` with a one-line description.
+
+**Option C — Open any workbook in Colab**
+Every example with a Colab badge is fully self-contained. Click the badge, run the cells top-to-bottom, no setup required.
+
+---
+
+## Learning paths
+
+### Starting from zero
+[1-basic-local-rag](./examples/1-basic-local-rag) → [4-basic-react-agent](./examples/4-basic-react-agent) → [11-hitl-approval](./examples/11-hitl-approval) → [18-self-reflecting-agent](./examples/18-self-reflecting-agent)
+
+> Build the mental model: retrieve → reason → act → reflect. These four examples cover the full stack.
+
+### Know RAG, learning agents
+[18-self-reflecting-agent](./examples/18-self-reflecting-agent) → [26-agent-supervisor](./examples/26-agent-supervisor) → [36-long-term-memory](./examples/36-long-term-memory) → [86-mixture-of-agents](./examples/86-mixture-of-agents)
+
+> Jump straight to the ReAct → supervisor → memory → multi-agent progression.
+
+### Building multi-agent systems
+[26-agent-supervisor](./examples/26-agent-supervisor) → [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor) → [86-mixture-of-agents](./examples/86-mixture-of-agents) → [131-multi-agent-trust-propagation](./examples/131-multi-agent-trust-propagation)
+
+> Routing, parallelism, trust boundaries, and how agents fail each other.
+
+### Memory deep dive
+[36-long-term-memory](./examples/36-long-term-memory) → [82-redis-memory](./examples/82-redis-memory) → [87-vector-memory-agent](./examples/87-vector-memory-agent) → [88-memory-architecture](./examples/88-memory-architecture) → [94-zep-memory-server](./examples/94-zep-memory-server)
+
+> Five flavors of persistence: in-process, Redis TTL, vector, tiered, and cloud-managed.
+
+### Safety & red-teaming
+[70-prompt-injection-defense](./examples/70-prompt-injection-defense) → [124-crescendo-multiturn-attack](./examples/124-crescendo-multiturn-attack) → [127-spotlighting-ipi-defense](./examples/127-spotlighting-ipi-defense) → [130-agentdojo-harness](./examples/130-agentdojo-harness)
+
+> Understand attacks before defenses. This path runs offense then defense back-to-back.
+
+### DeerFlow runtime series
+[134-deerflow-embedded-client](./examples/134-deerflow-embedded-client) → [135-deerflow-research-skill](./examples/135-deerflow-research-skill) → [136-deerflow-sandboxed-swe-agent](./examples/136-deerflow-sandboxed-swe-agent) → [137-deerflow-runtime-workbook](./examples/137-deerflow-runtime-workbook)
+
+> DeerFlow is an open-source agent runtime — it owns the tool loop, memory, and skill system so you don't have to. This path shows how to drive it as an embedded client, extend it with custom skills, run sandboxed code tasks in it, and operate it from a Jupyter notebook.
+
+---
+
+## What you'll learn
 
 | Area | Topics |
 |------|--------|
@@ -28,23 +82,14 @@
 
 ---
 
-### Where to start
-
-- **New to agents?** → Start at [1-basic-local-rag](./examples/1-basic-local-rag) and work sequentially through the RAG section.
-- **Know RAG, learning agents?** → Jump to [18-react-agent](./examples/18-react-agent) for the core ReAct loop.
-- **Building multi-agent systems?** → [26-agent-supervisor](./examples/26-agent-supervisor) → [80-multi-agent-supervisor](./examples/80-multi-agent-supervisor) → [86-mixture-of-agents](./examples/86-mixture-of-agents).
-- **Adding memory?** → [36-long-term-memory](./examples/36-long-term-memory) → [82-redis-memory](./examples/82-redis-memory) → [87-vector-memory-agent](./examples/87-vector-memory-agent) → [88-memory-architecture](./examples/88-memory-architecture) → [94-zep-memory-server](./examples/94-zep-memory-server).
-- **Improving reasoning?** → [68-chain-of-verification](./examples/68-chain-of-verification) → [89-self-consistency](./examples/89-self-consistency) → [90-least-to-most](./examples/90-least-to-most) → [91-analogical-reasoning](./examples/91-analogical-reasoning).
-- **Safety-first?** → [70-prompt-injection-defense](./examples/70-prompt-injection-defense) → [93-llama-guard-guardrails](./examples/93-llama-guard-guardrails) → [92-agent-sandboxing-e2b](./examples/92-agent-sandboxing-e2b).
-
-> **Workbook column:** Colab badges open the `.ipynb` directly in Google Colab. `—` = requires a local service (Redis, SearXNG, FastAPI) that Colab can't reach.
+> **Workbook column:** Colab badges open the `.ipynb` directly in Google Colab — run without any local setup. `—` means the example requires a local service (Redis, SearXNG, DeerFlow, FastAPI) that Colab can't reach.
 
 ---
 
 ## All Examples
 
 <details>
-<summary>Complete list — all 133 examples</summary>
+<summary>Complete list</summary>
 
 | Folder | What it demonstrates | Keys | Workbook |
 |--------|----------------------|:------:|:-------:|
