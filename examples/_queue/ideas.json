@@ -278,6 +278,34 @@
           136,
           137
         ]
+      },
+      {
+        "id": "M24",
+        "name": "Multimodal Agents",
+        "examples": [
+          138,
+          139,
+          140
+        ]
+      },
+      {
+        "id": "M25",
+        "name": "Caching and Compression",
+        "examples": [
+          141,
+          142,
+          143
+        ]
+      },
+      {
+        "id": "M26",
+        "name": "Advanced Fine-Tuning",
+        "examples": [
+          144,
+          145,
+          146,
+          147
+        ]
       }
     ]
   },
@@ -3685,6 +3713,187 @@
       "priority": "medium",
       "notes": "This addresses the workbook gap directly. Current notebooks in this repo are mostly self-contained; DeerFlow should teach the opposite pattern: notebook as an operator console for a running agent runtime.\n\nSTRUCTURE:\n  deerflow_runtime_workbook.ipynb\n    cell 1: verify DeerFlow runtime is reachable\n    cell 2: upload source files\n    cell 3: stream a run and render values/messages-tuple/end events live\n    cell 4: list artifacts and load the generated markdown/html output back into the notebook\n  README.md                   -- 3-5 lines with exact startup command (`make docker-start` or `make dev`) before opening Jupyter\n\nIMPORTANT: keep the notebook honest about the setup. First cells should fail fast with a clear message if DeerFlow is not running, instead of pretending this is a pure local notebook example.\n\nOUTPUT: interactive event stream + downloaded artifact preview, with a short note on when to prefer the embedded client versus the full Gateway runtime.",
       "structure": "deerflow_runtime_workbook.ipynb + README.md"
+    },
+    {
+      "id": 138,
+      "slug": "138-vision-qa-agent",
+      "status": "pending",
+      "module": "M24",
+      "video_title": "Vision Agents: Let Your LLM See",
+      "prereqs": [
+        "4-basic-react-agent",
+        "13-structured-output"
+      ],
+      "concepts": [
+        "base64 image encoding",
+        "multimodal message format (content blocks)",
+        "vision routing \u2014 text vs image tool dispatch",
+        "GPT-4o vs Claude vision API differences"
+      ],
+      "notes": "USE CASE: agents that process screenshots, diagrams, UI mockups, or photos alongside text. QA agents that inspect UI screenshots, e-commerce agents that analyze product images, support agents that read error screenshots.\n\nArc: Problem (text-only agent is blind \u2014 user pastes screenshot, agent sees nothing) \u2192 Concept (vision models accept image+text via content blocks) \u2192 Demo (ReAct agent with describe_image and answer_question tools; feed it a chart/diagram, ask it to extract data) \u2192 Exercise (swap to Claude vision, compare outputs, discuss tradeoffs).\n\nCOLAB: CPU only. API calls to GPT-4o or claude-3-5-sonnet. PIL/Pillow already in requirements for base64 encoding."
+    },
+    {
+      "id": 139,
+      "slug": "139-doc-vision-agent",
+      "status": "pending",
+      "module": "M24",
+      "video_title": "Document Vision: Extracting Structure from PDFs with Eyes",
+      "prereqs": [
+        "138-vision-qa-agent",
+        "13-structured-output",
+        "41-pdf-extraction-agent"
+      ],
+      "concepts": [
+        "page-as-image pattern (render PDF page to PNG, send to vision model)",
+        "multi-page iteration with state accumulation",
+        "Pydantic extraction schema via vision",
+        "vision vs pypdf tradeoffs for tables and scanned docs"
+      ],
+      "notes": "USE CASE: invoices, contracts, forms, scanned documents, tables \u2014 anything where pypdf loses formatting. Vision over documents is the practical upgrade from text extraction.\n\nArc: Problem (pypdf garbles table layout, loses column alignment, can't read scanned pages) \u2192 Concept (render each PDF page as image, send to vision model with extraction schema) \u2192 Demo (invoice PDF \u2192 extract line items, totals, vendor name as Pydantic model; show raw pypdf output vs vision output side by side) \u2192 Exercise (multi-page contract \u2192 extract all dates, parties, clauses into structured JSON).\n\nCOLAB: CPU only. pypdfium2 already in requirements for rendering. Deliberately use a messy tabular PDF to show the contrast."
+    },
+    {
+      "id": 140,
+      "slug": "140-audio-agent",
+      "status": "pending",
+      "module": "M24",
+      "video_title": "Audio Agents: From Speech to Structured Action",
+      "prereqs": [
+        "4-basic-react-agent",
+        "13-structured-output"
+      ],
+      "concepts": [
+        "Whisper API transcription (openai.audio.transcriptions)",
+        "transcript to intent classification to routing",
+        "entity extraction from spoken language",
+        "STT to LLM to action pipeline vs 102 which adds TTS back"
+      ],
+      "notes": "USE CASE: meeting recording processing, voicemail triage, call center routing, voice-first agent interfaces. Different from 102 (voice pipeline) \u2014 this is about what you DO with the transcript downstream, not the round-trip speech interface.\n\nArc: Problem (meeting recordings sit unprocessed, voicemails need manual triage) \u2192 Concept (transcribe \u2192 classify intent \u2192 extract entities \u2192 route to correct handler) \u2192 Demo (fake support call audio: transcribe with Whisper API, extract urgency + product_mentioned + action_required + customer_sentiment as Pydantic model, route to correct queue) \u2192 Exercise (meeting notes agent: transcribe \u2192 extract action items + owners + deadlines).\n\nCOLAB: CPU. Uses openai.audio.transcriptions API \u2014 no local model needed. Can optionally show tiny whisper model locally."
+    },
+    {
+      "id": 141,
+      "slug": "141-prompt-caching",
+      "status": "pending",
+      "module": "M25",
+      "video_title": "Prompt Caching: Cut Your LLM Bill Without Changing Your Code",
+      "prereqs": [
+        "1-basic-local-rag",
+        "123-agent-cost-tracking"
+      ],
+      "concepts": [
+        "Claude cache_control blocks (ephemeral, persistent)",
+        "OpenAI automatic prefix caching (>1024 tokens, same prefix)",
+        "cache tokens vs input tokens pricing \u2014 10% of normal cost on hits",
+        "cache-aware message design \u2014 what belongs in system vs user turn"
+      ],
+      "notes": "USE CASE: any agent that sends the same large context repeatedly \u2014 RAG system prompt + retrieved docs, long tool definitions, multi-turn agents with big system prompts. One of the highest-ROI optimizations with zero architecture change.\n\nArc: Problem (10k token system prompt x 1000 users/day = enormous bill, all paying full price every call) \u2192 Concept (provider caches KV state of your prefix; cache hit = 10% of input token cost) \u2192 Demo (RAG agent with 5k token knowledge base as system context; run 10 questions without caching vs with cache_control; print usage.cache_read_input_tokens and compute dollar delta) \u2192 Exercise (redesign a multi-turn agent's message structure to maximize cache prefix length).\n\nCOLAB: CPU only. anthropic + openai already installed. Show both providers side by side \u2014 they implement this differently but same concept."
+    },
+    {
+      "id": 142,
+      "slug": "142-semantic-caching",
+      "status": "pending",
+      "module": "M25",
+      "video_title": "Semantic Caching: Stop Paying for the Same Question Twice",
+      "prereqs": [
+        "1-basic-local-rag",
+        "141-prompt-caching"
+      ],
+      "concepts": [
+        "cosine similarity threshold as cache gate",
+        "embedding query before LLM call",
+        "cache key = embedding vector, cache value = LLM response",
+        "hit rate vs quality tradeoff \u2014 tuning the threshold"
+      ],
+      "notes": "USE CASE: FAQ chatbots, customer support bots, any RAG system with repeat visitors. Users phrase the same question 50 different ways \u2014 semantic cache catches all variants.\n\nArc: Problem (chatbot gets 'what is your return policy?' phrased 200 different ways per day, pays for 200 LLM calls) \u2192 Concept (embed the incoming query, check cosine similarity against cache, if >0.92 return cached response, else call LLM and cache result) \u2192 Demo (FAQ agent, pre-seed cache with 10 canonical Q&As, fire 30 paraphrased variants, show hit rate and latency: cached ~5ms vs LLM ~800ms) \u2192 Exercise (tune threshold from 0.85 to 0.98, plot precision/recall of cache hits).\n\nCOLAB: CPU. In-memory dict cache \u2014 no Redis needed for demo. OpenAI embeddings or any embedding model. LangChain GPTCache integration shown as extension."
+    },
+    {
+      "id": 143,
+      "slug": "143-context-compression",
+      "status": "pending",
+      "module": "M25",
+      "video_title": "Context Compression: Fit More Meaning Into Fewer Tokens",
+      "prereqs": [
+        "53-chunking-strategies",
+        "56-contextual-compression",
+        "120-long-context-agent"
+      ],
+      "concepts": [
+        "LLMLingua selective token compression",
+        "extractive vs abstractive compression tradeoffs",
+        "token budget \u2014 compress to N tokens, preserve answer fidelity",
+        "compression ratio vs QA accuracy curve"
+      ],
+      "notes": "USE CASE: RAG with long retrieved chunks, agents hitting context limits, reducing cost on repeated large-context calls. Insight: chunks retrieved from docs are verbose \u2014 filler sentences don't affect the answer but cost tokens.\n\nArc: Problem (5 retrieved chunks = 3000 tokens, but only 600 tokens are actually relevant \u2014 paying 5x more than needed) \u2192 Concept (LLMLingua uses a small LM to score token importance, drops low-score tokens while preserving grammatical structure; 4:1 compression typical) \u2192 Demo (RAG pipeline: retrieve 5 chunks, show raw token count vs compressed, run QA on both, show answer quality delta and cost delta) \u2192 Exercise (find compression ratio where accuracy drops \u2014 your minimum viable context).\n\nCOLAB: CPU. pip install llmlingua. Or implement simple extractive version with sentence scoring to keep deps light. Good companion to 56-contextual-compression which uses LangChain built-in."
+    },
+    {
+      "id": 144,
+      "slug": "144-qlora-finetuning",
+      "status": "pending",
+      "module": "M26",
+      "video_title": "QLoRA: Fine-Tune a 1B Model on a Free GPU",
+      "prereqs": [
+        "114-lora-finetuning"
+      ],
+      "concepts": [
+        "4-bit NF4 quantization via bitsandbytes (BitsAndBytesConfig)",
+        "frozen quantized base + full-precision LoRA adapters",
+        "VRAM budget comparison: LoRA vs QLoRA on same model size",
+        "double quantization \u2014 quantizing the quantization constants"
+      ],
+      "notes": "USE CASE: fine-tuning models larger than your VRAM allows. QLoRA is what made fine-tuning Llama-7B accessible to anyone with a T4. This is the technique behind 90% of open-source fine-tuned models on HuggingFace.\n\nArc: Problem (LoRA on 1B model still needs ~4GB VRAM for frozen weights in float16; free Colab T4 has 15GB but a 7B model needs 14GB in float16) \u2192 Concept (quantize the frozen base to 4-bit NF4 \u2014 1B model now ~800MB; LoRA adapters remain float16; only adapters get gradient updates) \u2192 Demo (QLoRA on SmolLM2-360M: show BitsAndBytesConfig setup, nvidia-smi before/after quantization, train 50 examples, merge and run inference; side-by-side VRAM usage: plain LoRA 2.1GB vs QLoRA 0.6GB) \u2192 Exercise (scale to Qwen2.5-1.5B \u2014 show it still fits on T4 with QLoRA).\n\nCOLAB: T4 GPU required (free tier works). pip install bitsandbytes \u2014 not in requirements.txt yet. peft + transformers already installed."
+    },
+    {
+      "id": 145,
+      "slug": "145-lora-architecture-ablation",
+      "status": "pending",
+      "module": "M26",
+      "video_title": "LoRA Architecture: What Actually Matters (Rank, Targets, Alpha)",
+      "prereqs": [
+        "114-lora-finetuning",
+        "144-qlora-finetuning"
+      ],
+      "concepts": [
+        "rank r: low-rank matrix dimensions, effect on trainable param count",
+        "target_modules: attention-only vs attention+MLP vs all-linear layers",
+        "lora_alpha: scaling factor (alpha/r = effective LR scaling)",
+        "lora_dropout: regularization effect on small datasets"
+      ],
+      "notes": "USE CASE: when your fine-tuned model underperforms \u2014 usually because you copied default r=8 without understanding what it controls. The 'understand your hyperparams' workshop.\n\nArc: Problem (everyone copies r=8, target=['q_proj','v_proj'] from tutorials without knowing why; different tasks need different configs) \u2192 Concept (r controls rank of update matrix \u2014 r=4 trains 0.05% of params, r=64 trains 0.8%; target modules determine WHICH weights get updated) \u2192 Demo (grid: 3 rank values x 2 target configs = 6 training runs on same tiny dataset; plot trainable param % vs final train loss vs inference quality; show attention-only often matches all-linear for instruction following but all-linear wins for coding tasks) \u2192 Exercise (pick the smallest r that achieves target loss on your dataset \u2014 this is your production config).\n\nCOLAB: T4 GPU. Same SmolLM2 base as 114 and 144 for clean comparison. matplotlib for loss curves. Each run ~2 min on T4."
+    },
+    {
+      "id": 146,
+      "slug": "146-orpo-alignment",
+      "status": "pending",
+      "module": "M26",
+      "video_title": "ORPO: Align Your Model in One Pass (No Reference Model Needed)",
+      "prereqs": [
+        "113-dpo-alignment",
+        "114-lora-finetuning"
+      ],
+      "concepts": [
+        "ORPO loss: SFT loss + odds ratio penalty in single forward pass",
+        "no reference model required (unlike DPO)",
+        "preference data format: prompt + chosen + rejected pairs",
+        "TRL ORPOTrainer and ORPOConfig"
+      ],
+      "notes": "USE CASE: you want DPO-style alignment (model prefers good outputs over bad) without the complexity of DPO's two-model setup. ORPO (Hong et al. 2024) is rapidly replacing DPO as the default alignment method for small-scale fine-tuning.\n\nArc: Problem (DPO requires a separate reference model forward pass = 2x memory, two-phase pipeline, harder to implement correctly) \u2192 Concept (ORPO adds an odds ratio term directly to standard SFT loss; chosen response gets lower loss, rejected gets penalized; one model, one pass) \u2192 Demo (tiny preference dataset: 20 pairs of good/bad answers to coding questions; train with TRL ORPOTrainer on SmolLM2; compare preferred response rate before/after; show ORPOConfig vs DPOConfig complexity side by side) \u2192 Exercise (collect 10 preference pairs from your own domain, train ORPO adapter, verify it steers toward preferred responses).\n\nCOLAB: T4 GPU. pip install trl \u2014 not in requirements.txt yet. Same tiny model as 144. Best done right after 113-dpo-alignment so the DPO contrast is fresh."
+    },
+    {
+      "id": 147,
+      "slug": "147-model-merging",
+      "status": "pending",
+      "module": "M26",
+      "video_title": "Model Merging: Two Fine-Tunes, One Model (No Retraining)",
+      "prereqs": [
+        "114-lora-finetuning",
+        "144-qlora-finetuning"
+      ],
+      "concepts": [
+        "SLERP: spherical linear interpolation of model weight tensors",
+        "DARE-TIES: sparsify weight deltas, resolve sign conflicts, then merge",
+        "merge coefficient lambda: 0.0 = model A, 1.0 = model B, 0.5 = blend",
+        "merging requires no GPU \u2014 pure weight arithmetic on CPU"
+      ],
+      "notes": "USE CASE: you fine-tuned two specialized adapters (e.g., SQL generation + safety refusals) and want one model with both capabilities. Also: merge community checkpoints without retraining. This is how most merged models on HuggingFace are built.\n\nArc: Problem (adapter_A = coding expert, adapter_B = polite/safe; deploying both means two models or a routing layer) \u2192 Concept (SLERP interpolates between weight tensors on the unit sphere, preserving direction of each fine-tune; DARE-TIES additionally handles sign conflicts between adapters via sparsification) \u2192 Demo (train two LoRA adapters on different small datasets; merge with SLERP; test merged model on both tasks; sweep lambda 0.2 to 0.8 and show performance tradeoff curve; find Pareto-optimal merge point) \u2192 Exercise (download two community LoRA adapters from HuggingFace, merge them with SLERP, push merged model to Hub).\n\nCOLAB: CPU only \u2014 merging is just tensor math, no GPU needed! Uses mergekit (pip install mergekit) or implement SLERP manually in ~20 lines of torch. Demonstrates that powerful techniques can be surprisingly simple."
     }
   ],
   "next_target": null,
