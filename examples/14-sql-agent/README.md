@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 14-sql-agent
 
 ## Prerequisites

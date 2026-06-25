@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 23-crewai-notebook
 
 ## Prerequisites

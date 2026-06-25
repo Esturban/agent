@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 66-smol-agents
 
 ## Prerequisites

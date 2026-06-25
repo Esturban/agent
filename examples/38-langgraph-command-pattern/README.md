@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 38-langgraph-command-pattern
 
 ## Prerequisites

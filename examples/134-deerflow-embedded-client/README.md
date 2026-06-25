@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 134 — DeerFlow Embedded Client
 
 Drive a running DeerFlow service from plain Python: upload a file into a thread workspace, stream a plan-mode run watching SSE events live, then make a blocking chat call — all through a thin `DeerFlowClient` HTTP wrapper.

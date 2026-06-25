@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 111 - OpenAI Fine-Tuning API
 
 Prepare a JSONL training dataset, upload to OpenAI, launch a fine-tuning job on `gpt-4o-mini`, poll until complete, then compare base vs. fine-tuned model accuracy on a held-out eval set. Task: customer service tone classification (formal / informal / urgent).

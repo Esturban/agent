@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 30-agentic-rag
 
 ## Prerequisites

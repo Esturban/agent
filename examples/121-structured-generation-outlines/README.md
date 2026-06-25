@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 121 — Structured Generation with Outlines
 
 Guarantee JSON and regex-constrained output from any open model using the `outlines` library, and compare to the `instructor` retry approach.

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 35-plan-execute-agent
 
 ## Prerequisites

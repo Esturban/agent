@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 69-constitutional-ai
 
 ## Prerequisites

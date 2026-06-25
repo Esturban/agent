@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 78-prompt-ab-testing
 
 ## Prerequisites

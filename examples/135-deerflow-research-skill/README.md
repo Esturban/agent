@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 135 — DeerFlow Research Skill
 
 Upload course notes into a DeerFlow thread, activate a custom `@course-research` skill, and watch subagents produce a structured report artifact.

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 100 · Computer Use Agent
 
 Uses Anthropic's computer-use beta to run a headless bash + file-editor action loop. The model requests tool calls, the agent executes them locally, feeds results back, and loops until `end_turn`.

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 60-web-scraper-agent
 
 ## Prerequisites

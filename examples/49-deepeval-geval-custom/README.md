@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 49-deepeval-geval-custom
 
 ## Prerequisites

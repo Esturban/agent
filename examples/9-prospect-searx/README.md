@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 9-prospect-searx
 
 ## Prerequisites

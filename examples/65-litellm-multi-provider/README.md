@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 65-litellm-multi-provider
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 47-deepeval-rag-metrics
 
 ## Prerequisites

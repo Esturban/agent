@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 94 · Zep Memory Server
 
 Integrates Zep Cloud for production agent memory. Seeds a past conversation, then runs follow-up queries — Zep auto-summarizes history and injects a compressed `context` string into the system prompt. Contrasts with DIY Redis (example 82): same three-node graph structure, managed compaction instead of manual. Requires: `pip install zep-cloud`.

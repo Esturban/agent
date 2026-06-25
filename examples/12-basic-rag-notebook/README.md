@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 12-basic-rag-notebook
 
 ## Prerequisites

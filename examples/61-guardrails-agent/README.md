@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 61-guardrails-agent
 
 ## Prerequisites

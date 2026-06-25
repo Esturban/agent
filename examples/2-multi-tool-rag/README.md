@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 2-multi-tool-rag
 
 ## Prerequisites

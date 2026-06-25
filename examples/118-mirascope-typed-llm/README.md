@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 118-mirascope-typed-llm
 
 ## Prerequisites

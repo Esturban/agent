@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 85-agno-agent
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 70-prompt-injection-defense
 
 ## Prerequisites

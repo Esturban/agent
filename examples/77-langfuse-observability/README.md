@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 77-langfuse-observability
 
 ## Prerequisites

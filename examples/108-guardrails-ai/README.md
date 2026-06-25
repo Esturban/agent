@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 108 - Guardrails AI
 
 Wraps a raw OpenAI call with a `Guard` that enforces a Pydantic output schema: max-200-char summary, exactly 3 bullet points, no URLs. When the LLM violates any validator, the Guard automatically reasks with a correction instruction — no LangChain or LangGraph required.

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 15-crewai-research-crew
 
 ## Prerequisites

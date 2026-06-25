@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 129 — Tool Output Injection
 
 The attack surface is the environment, not the user. Poisoned tool returns inject instructions into the LLM's context window. (arxiv:2503.15547, 2504.11703)

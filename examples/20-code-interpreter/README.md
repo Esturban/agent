@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 20-code-interpreter
 
 ## Prerequisites

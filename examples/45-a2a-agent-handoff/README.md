@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 45-a2a-agent-handoff
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 53-chunking-strategies
 
 ## Prerequisites

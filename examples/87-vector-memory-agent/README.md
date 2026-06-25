@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 87-vector-memory-agent
 
 ## Prerequisites

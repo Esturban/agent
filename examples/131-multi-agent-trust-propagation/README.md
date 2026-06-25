@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 131 — Multi-Agent Trust Propagation
 
 Shows how trust degrades across delegation hops in a multi-agent pipeline: TTL hop-count blocks unbounded delegation, a verifier layer catches privilege escalation attempts, and injected instructions claiming SYSTEM-level authority are rejected by policy rather than model judgment.

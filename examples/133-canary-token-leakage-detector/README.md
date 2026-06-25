@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 133 — Canary Token Prompt Leakage Detector
 
 Embeds unique canary tokens in system prompts, then runs 6 attack families (direct extraction, sycophancy flattery, roleplay bypass, indirect inference, completion trap, benign control) and reports which attacks successfully extracted the canary — giving you empirical leakage measurement.

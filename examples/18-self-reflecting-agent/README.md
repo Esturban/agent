@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 18-self-reflecting-agent
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/18-self-reflecting-agent/reflexion_workbook.ipynb)

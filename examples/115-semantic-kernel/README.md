@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 115-semantic-kernel
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 5-react-agent-lg
 
 ## Prerequisites

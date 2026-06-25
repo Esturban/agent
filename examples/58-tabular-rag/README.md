@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 58-tabular-rag
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 50-deepeval-agentic-eval
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 68-chain-of-verification
 
 ## Prerequisites

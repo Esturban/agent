@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 75-fastapi-sse-streaming
 
 ## Prerequisites

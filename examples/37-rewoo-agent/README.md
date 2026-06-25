@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 37-rewoo-agent
 
 ## Prerequisites

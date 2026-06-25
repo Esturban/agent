@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 26-rag-fusion
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/26-rag-fusion/rag_fusion_workbook.ipynb)

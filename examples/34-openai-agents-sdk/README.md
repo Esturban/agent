@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 34-openai-agents-sdk
 
 ## Prerequisites

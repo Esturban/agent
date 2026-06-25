@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 71-parent-document-retriever
 
 ## Prerequisites

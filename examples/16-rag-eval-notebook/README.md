@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 16-rag-eval-notebook
 
 ## Prerequisites

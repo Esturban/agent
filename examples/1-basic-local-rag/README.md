@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 1-basic-local-rag
 
 ## Prerequisites

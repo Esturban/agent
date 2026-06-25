@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 84-haystack-pipeline
 
 ## Prerequisites

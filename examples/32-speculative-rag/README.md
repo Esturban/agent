@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 32-speculative-rag
 
 ## Prerequisites

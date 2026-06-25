@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 99 — Browser Agent (Playwright)
 
 A ReAct agent that controls a real browser via Playwright to navigate pages, read content, and summarise — no scraping hacks needed.

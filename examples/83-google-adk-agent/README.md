@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 83-google-adk-agent
 
 ## Prerequisites

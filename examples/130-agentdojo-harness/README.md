@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 130 — AgentDojo Harness
 
 Runs a real agent against AgentDojo (ICLR 2025, arxiv:2406.13352) and measures **utility rate** and **ASR** independently on the v1 banking and travel task suites — the two metrics every agent safety paper must report.

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 88-memory-architecture
 
 ## Prerequisites

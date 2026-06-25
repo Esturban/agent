@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 48-deepeval-hallucination-bias
 
 ## Prerequisites

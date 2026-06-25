@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 52-deepeval-synthesizer
 
 ## Prerequisites

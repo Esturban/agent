@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 19-multi-agent-notebook
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/19-multi-agent-notebook/multi_agent_workbook.ipynb)

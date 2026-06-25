@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 33-dspy-rag
 
 ## Prerequisites

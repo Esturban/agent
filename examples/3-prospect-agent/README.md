@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 3-prospect-agent
 
 ## Prerequisites

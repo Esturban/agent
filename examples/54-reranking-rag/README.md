@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 54-reranking-rag
 
 ## Prerequisites

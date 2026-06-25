@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 59-semantic-router
 
 ## Prerequisites

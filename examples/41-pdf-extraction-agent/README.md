@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 41-pdf-extraction-agent
 
 ## Prerequisites

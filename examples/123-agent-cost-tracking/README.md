@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 123 — Agent Cost Tracking
 
 Per-node token cost accounting, budget enforcement, and cost reporting in a 3-node LangGraph agent using tiktoken.

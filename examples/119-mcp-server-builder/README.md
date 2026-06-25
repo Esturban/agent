@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 119 — MCP Server Builder
 
 Implements a stdio MCP server using the `mcp` Python SDK that exposes 3 typed domain tools: weather lookup, knowledge base search, and unit conversion.

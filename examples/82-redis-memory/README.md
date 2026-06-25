@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 82-redis-memory
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 128 — Instruction Hierarchy Enforcer
 
 Explicit privilege enforcement: SYSTEM > OPERATOR > USER > TOOL. Blocks lower-trust overrides. OpenAI 2024 (arxiv:2404.13208).

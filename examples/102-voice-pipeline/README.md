@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 102 · Voice Pipeline
 
 End-to-end voice agent: OpenAI TTS synthesises a user question → Whisper transcribes it back → a LangGraph agent answers → TTS speaks the response. No local model downloads — everything runs through `OPENAI_API_KEY`.

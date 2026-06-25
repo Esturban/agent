@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 13-structured-output
 
 ## Prerequisites

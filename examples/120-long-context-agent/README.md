@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 120 — Long-Context Agent
 
 Compare full-document reasoning vs. chunked RAG on a 3,000-word synthetic report across 5 multi-hop questions.

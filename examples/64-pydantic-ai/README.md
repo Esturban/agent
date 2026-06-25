@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 64-pydantic-ai
 
 ## Prerequisites

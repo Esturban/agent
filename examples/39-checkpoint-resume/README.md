@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 39-checkpoint-resume
 
 ## Prerequisites
