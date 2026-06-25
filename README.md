@@ -78,7 +78,10 @@ Every example with a Colab badge is fully self-contained. Click the badge, run t
 | **Observability** | Callback handlers, token budgets, LangSmith tracing, Langfuse |
 | **Production & Async** | FastAPI SSE streaming, async pipelines, batch runners, semantic routing |
 | **Framework Survey** | CrewAI, AutoGen, OpenAI Agents SDK, DSPy, Pydantic AI, LiteLLM, SmolAgents, Google ADK, Haystack 2.x, Agno, Semantic Kernel, LlamaIndex, Instructor, Mirascope |
-| **Fine-Tuning & Alignment** | OpenAI fine-tuning API, synthetic data flywheel, DPO (Direct Preference Optimization), LoRA (Low-Rank Adaptation) |
+| **Multimodal Agents** | Vision Q&A (GPT-4o-mini vision API, base64 encoding), document vision (PDF page rendering + structured JSON extraction), audio triage (Whisper STT + intent classification + queue routing) |
+| **Token Efficiency & Caching** | Anthropic prompt caching with `cache_control` ephemeral blocks, semantic caching with cosine similarity gate, relevance-based context compression |
+| **Fine-Tuning & Alignment** | OpenAI fine-tuning API, synthetic data flywheel, DPO, LoRA, QLoRA 4-bit NF4 quantization, LoRA architecture ablation (rank × target module sweep), ORPO single-pass alignment, SLERP model merging |
+| **DeerFlow Runtime** | Embedded HTTP client, custom skill modules, sandboxed SWE agent, notebook-as-operator-console |
 
 ---
 
@@ -226,6 +229,20 @@ Every example with a Colab badge is fully self-contained. Click the badge, run t
 | [131-multi-agent-trust-propagation](./examples/131-multi-agent-trust-propagation/README.md) | Multi-agent trust propagation — `TrustContext` with TTL hop-count blocks unbounded delegation; verifier at every boundary catches privilege escalation; injections claiming SYSTEM-level authority rejected by policy (arxiv:2404.13208, 2502.10236) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/131-multi-agent-trust-propagation/multi_agent_trust_propagation_workbook.ipynb) |
 | [132-indirect-injection-full-cycle](./examples/132-indirect-injection-full-cycle/README.md) | Indirect injection full cycle — HTML comment + CSS-invisible div + compliance-disguised email; undefended agent executes all; defended pipeline applies spotlighting, privilege separation, and pre-model output scan (arxiv:2503.15547, 2403.14720) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/132-indirect-injection-full-cycle/indirect_injection_full_cycle_workbook.ipynb) |
 | [133-canary-token-leakage-detector](./examples/133-canary-token-leakage-detector/README.md) | Canary token leakage detector — unique tokens embedded in system prompts; 6 attack families tested (direct extraction, flattery, roleplay bypass, indirect inference, completion trap, benign control); empirical leakage measurement, not a defense (arxiv:2404.16251) | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/133-canary-token-leakage-detector/canary_token_leakage_detector_workbook.ipynb) |
+| [134-deerflow-embedded-client](./examples/134-deerflow-embedded-client/README.md) | DeerFlow embedded client — `DeerFlowClient` HTTP wrapper; upload files to a thread workspace, stream plan-mode SSE events, blocking chat call; contrast table vs LangGraph/ADK/Agno/DeerFlow runtimes | ✅ | — |
+| [135-deerflow-research-skill](./examples/135-deerflow-research-skill/README.md) | DeerFlow research skill — custom `@course-research` prompt module triggers subagents to produce a structured report artifact; skill vs subagent split: skill owns report structure, subagents draft sections | ✅ | — |
+| [136-deerflow-sandboxed-swe-agent](./examples/136-deerflow-sandboxed-swe-agent/README.md) | DeerFlow sandboxed SWE agent — upload a buggy Python repo, stream a fix task, verify the patch; `LocalSandboxProvider` vs `AioSandboxProvider` security boundary; thread-local workspace isolation | ✅ | — |
+| [137-deerflow-runtime-workbook](./examples/137-deerflow-runtime-workbook/README.md) | DeerFlow runtime workbook — fail-fast setup cell, markdown corpus upload, live SSE event streaming, gateway pattern via plain `httpx`; notebook-as-operator-console | ✅ | — |
+| [138-vision-qa-agent](./examples/138-vision-qa-agent/README.md) | Vision Q&A agent — base64-encode image (URL or local path), build multipart vision content block, call GPT-4o-mini vision API; `ask_vision()` wrapper with MIME detection | ✅ | — |
+| [139-doc-vision-agent](./examples/139-doc-vision-agent/README.md) | Document vision agent — `pypdfium2` renders each PDF page to PNG, sends to vision LLM, extracts structured JSON; LangGraph routes across pages and merges results | ✅ +pypdfium2 | — |
+| [140-audio-agent](./examples/140-audio-agent/README.md) | Audio agent — Whisper STT transcribes audio, chat LLM classifies intent + extracts entities with JSON schema, routing map dispatches to the correct support queue | ✅ | — |
+| [141-prompt-caching](./examples/141-prompt-caching/README.md) | Anthropic prompt caching — sends same large system prompt twice (without/with `cache_control` ephemeral blocks); measures `cache_read_input_tokens`, latency delta, and cost savings percentage | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| [142-semantic-caching](./examples/142-semantic-caching/README.md) | Semantic caching — embed query, cosine similarity check against cache; return cached response when similarity ≥ 0.92; tracks hit/miss ratio; near-duplicate queries skip the LLM entirely | ✅ | — |
+| [143-context-compression](./examples/143-context-compression/README.md) | Context compression — LLM scores each sentence 0–1 for query relevance, keeps top 40%, sends compressed context to generation LLM; prints token count before/after | ✅ | — |
+| [144-qlora-finetuning](./examples/144-qlora-finetuning/README.md) | QLoRA fine-tuning — 4-bit NF4 quantization with `bitsandbytes`; PEFT LoRA adapter trains ~0.1% of params; tracks VRAM before/after; runs on free Colab T4 GPU | ✅ +bitsandbytes | — |
+| [145-lora-architecture-ablation](./examples/145-lora-architecture-ablation/README.md) | LoRA architecture ablation — sweep 4 configs (rank 4/8/16/32 × target module sets: q_proj → qv_proj → qvo_proj), compare trainable parameter % vs training loss in a side-by-side table | ✅ +bitsandbytes | — |
+| [146-orpo-alignment](./examples/146-orpo-alignment/README.md) | ORPO alignment — TRL `ORPOTrainer` single-pass SFT + odds ratio preference penalty; no reference model needed; measures preference rate before/after; `beta=0.1` contrast with DPO (113) | ✅ +trl | — |
+| [147-model-merging](./examples/147-model-merging/README.md) | Model merging — SLERP spherical linear interpolation blends two model weight tensors at t=0.5; compares outputs from model A, model B, and merged model side by side; CPU-only, no GPU required | ✅ | — |
 
 </details>
 
@@ -493,9 +510,9 @@ The agent framework space is fragmented on purpose — each library made a diffe
 </details>
 
 <details>
-<summary><strong>Fine-Tuning &amp; Alignment</strong> &nbsp;·&nbsp; 4 examples</summary>
+<summary><strong>Fine-Tuning &amp; Alignment</strong> &nbsp;·&nbsp; 8 examples</summary>
 
-Fine-tuning changes the model's weights, not just its prompt. This section covers the full spectrum: using the OpenAI fine-tuning API to specialize a model on domain data, generating that data synthetically with dedup and LLM-judge validation, and applying the two dominant open-source alignment techniques — DPO (Direct Preference Optimization, which eliminates the separate reward model step) and LoRA (Low-Rank Adaptation, which trains less than 0.1% of parameters while achieving full fine-tune quality). Together these examples give you the complete data-to-trained-model pipeline.
+Fine-tuning changes the model's weights, not just its prompt. This section covers the full spectrum: using the OpenAI fine-tuning API to specialize a model on domain data, generating that data synthetically with dedup and LLM-judge validation, and applying the dominant open-source alignment techniques — DPO, LoRA, QLoRA 4-bit quantization for GPU-constrained training, LoRA architecture ablation to understand rank vs parameter tradeoffs, ORPO single-pass alignment that eliminates the reference model entirely, and SLERP model merging that blends two models without any training at all. Together these examples give you the complete data-to-trained-to-merged model pipeline.
 
 | # | Folder | What it demonstrates | Keys | Workbook |
 |---|--------|----------------------|:------:|:-------:|
@@ -503,6 +520,50 @@ Fine-tuning changes the model's weights, not just its prompt. This section cover
 | 112 | [112-synthetic-training-data](./examples/112-synthetic-training-data/README.md) | Synthetic training data flywheel — GPT-4o generates labeled examples, embedding dedup, LLM judge validation, JSONL export | ✅ | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/112-synthetic-training-data/synthetic_training_data_workbook.ipynb) |
 | 113 | [113-dpo-alignment](./examples/113-dpo-alignment/README.md) | DPO alignment — HuggingFace TRL `DPOTrainer` on `{prompt, chosen, rejected}` pairs; eliminates reward model; SmolLM2-135M on CPU | ✅ +transformers +peft +trl | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/113-dpo-alignment/dpo_alignment_workbook.ipynb) |
 | 114 | [114-lora-finetuning](./examples/114-lora-finetuning/README.md) | LoRA fine-tuning — PEFT `LoraConfig(r=8)` adapter trains ~0.1% of params; `merge_and_unload()` exports a full model | ✅ +transformers +peft | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/114-lora-finetuning/lora_finetuning_workbook.ipynb) |
+| 144 | [144-qlora-finetuning](./examples/144-qlora-finetuning/README.md) | QLoRA fine-tuning — `BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4")` + LoRA adapter; ~75% VRAM reduction; tracks trainable param % and VRAM before/after; runs on free T4 GPU | ✅ +bitsandbytes | — |
+| 145 | [145-lora-architecture-ablation](./examples/145-lora-architecture-ablation/README.md) | LoRA architecture ablation — sweep r=4/8/16/32 × target_modules (q_proj → qv_proj → qvo_proj); compare trainable parameter % vs training loss; shows how rank and scope trade off | ✅ +bitsandbytes | — |
+| 146 | [146-orpo-alignment](./examples/146-orpo-alignment/README.md) | ORPO alignment — TRL `ORPOTrainer` combines SFT loss + odds ratio preference penalty in a single pass; no reference model; measures preference rate before/after; `beta=0.1` | ✅ +trl | — |
+| 147 | [147-model-merging](./examples/147-model-merging/README.md) | SLERP model merging — spherical linear interpolation blends two model weight tensors at t=0.5; `merge_state_dicts()` handles shape mismatches; compares outputs from A, B, and merged; CPU-only | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Multimodal Agents</strong> &nbsp;·&nbsp; 3 examples</summary>
+
+Text is only one modality. These examples wire vision and audio inputs into the agent pipeline: base64-encoded images sent to GPT-4o-mini's vision API, PDF pages rendered to PNG with `pypdfium2` and analyzed page-by-page, and audio files transcribed with Whisper before intent classification routes the call to the right queue. The building block in all three is the same — convert the raw media into a format the model accepts, then compose it with the agent's existing text reasoning.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 138 | [138-vision-qa-agent](./examples/138-vision-qa-agent/README.md) | Vision Q&A agent — base64-encode image (URL or local path) with MIME detection, build multipart vision content block, call GPT-4o-mini vision API; `ask_vision()` wrapper | ✅ | — |
+| 139 | [139-doc-vision-agent](./examples/139-doc-vision-agent/README.md) | Document vision agent — `pypdfium2` renders each PDF page to PNG at 2× scale, sends page image to vision LLM, extracts structured JSON per page; LangGraph state routes across pages | ✅ +pypdfium2 | — |
+| 140 | [140-audio-agent](./examples/140-audio-agent/README.md) | Audio triage agent — Whisper STT transcribes the audio file, chat LLM classifies intent + extracts entities via JSON schema tool call, routing map dispatches to billing/technical/general queues | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>Token Efficiency &amp; Caching</strong> &nbsp;·&nbsp; 3 examples</summary>
+
+Every token costs money and adds latency. This section covers three independent techniques for cutting that cost: Anthropic's server-side prompt caching that reuses a compiled KV cache across requests, semantic caching that skips the LLM entirely for near-duplicate queries, and relevance-based context compression that trims documents to the sentences that actually answer the question before sending them to generation. Each example benchmarks savings directly so you can decide whether the technique is worth the added complexity.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 141 | [141-prompt-caching](./examples/141-prompt-caching/README.md) | Anthropic prompt caching — `cache_control: {type: "ephemeral"}` on large system prompt; side-by-side comparison of `cache_read_input_tokens`, latency, and cost delta across two identical requests | ✅ +anthropic +ANTHROPIC_API_KEY | — |
+| 142 | [142-semantic-caching](./examples/142-semantic-caching/README.md) | Semantic caching — `SemanticCache` dataclass with cosine similarity lookup; return cached response when similarity ≥ 0.92; tracks hit/miss ratio; near-duplicate queries never reach the LLM | ✅ | — |
+| 143 | [143-context-compression](./examples/143-context-compression/README.md) | Context compression — LLM scores each sentence 0–1 for relevance to the query; `compress()` keeps top 40%; prints token count before/after to quantify savings; LangGraph retrieve → compress → generate | ✅ | — |
+
+</details>
+
+<details>
+<summary><strong>DeerFlow Runtime Series</strong> &nbsp;·&nbsp; 4 examples</summary>
+
+DeerFlow is an open-source agent runtime that owns the tool loop, memory, and skill system so you don't have to build them. Instead of wiring a LangGraph graph, you drive DeerFlow as an HTTP service. This series shows the four levels of integration: the thin embedded client that uploads files and streams SSE events, a custom `@course-research` skill that delegates section drafting to subagents, a sandboxed SWE task where the agent fixes a failing test suite in an isolated container, and a Jupyter notebook that works as a live operator console. All four require a running DeerFlow server — see the learning path above for setup instructions.
+
+| # | Folder | What it demonstrates | Keys | Workbook |
+|---|--------|----------------------|:------:|:-------:|
+| 134 | [134-deerflow-embedded-client](./examples/134-deerflow-embedded-client/README.md) | DeerFlow embedded client — `DeerFlowClient` wraps file upload, SSE streaming, and blocking chat over FastAPI HTTP; `plan_mode=True` exposes planning events; runtime contrast table vs LangGraph/ADK/Agno | ✅ | — |
+| 135 | [135-deerflow-research-skill](./examples/135-deerflow-research-skill/README.md) | DeerFlow research skill — custom `@course-research` prompt module in `runtime/skills/`; `plan_mode=True` + `subagent_enabled=True`; skill owns report structure, subagents draft individual sections | ✅ | — |
+| 136 | [136-deerflow-sandboxed-swe-agent](./examples/136-deerflow-sandboxed-swe-agent/README.md) | DeerFlow sandboxed SWE agent — uploads buggy Python repo via thread workspace, streams the fix task, verifies patch with substring check; `LocalSandboxProvider` vs `AioSandboxProvider` security modes | ✅ | — |
+| 137 | [137-deerflow-runtime-workbook](./examples/137-deerflow-runtime-workbook/README.md) | DeerFlow runtime workbook — fail-fast connection check in cell 2, markdown corpus upload, live SSE event iteration, gateway pattern via plain `httpx`; use as a production monitoring console | ✅ | — |
 
 </details>
 
@@ -548,6 +609,8 @@ cp .env.example .env   # then fill in your keys
 | `+playwright` | `pip install playwright && playwright install chromium` |
 | `+anthropic` | `pip install anthropic` |
 | `+ANTHROPIC_API_KEY` | `ANTHROPIC_API_KEY` from console.anthropic.com |
+| `+pypdfium2` | `pip install pypdfium2` |
+| `+bitsandbytes` | `pip install bitsandbytes` (CUDA GPU required) |
 
 Full key list in each folder's README.
 
