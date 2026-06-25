@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 44-mcp-client-agent
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 21-autogen-debate
 
 ## Prerequisites

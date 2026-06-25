@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 55-hyde-rag
 
 ## Prerequisites

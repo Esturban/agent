@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 103 · Tool Synthesis (LATM)
 
 LLMs as Tool Makers (Cai et al. 2023): a dispatcher LLM picks an existing tool or requests synthesis; a tool-maker LLM generates Python code on demand; synthesized tools are cached and reused across subsequent calls.

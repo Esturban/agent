@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 80-multi-agent-supervisor
 
 ## Prerequisites

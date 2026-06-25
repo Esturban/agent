@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 42-multimodal-rag
 
 ## Prerequisites

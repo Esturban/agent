@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 10-streaming-rag
 
 ## Prerequisites

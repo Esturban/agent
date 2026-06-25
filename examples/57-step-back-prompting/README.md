@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 57-step-back-prompting
 
 ## Prerequisites

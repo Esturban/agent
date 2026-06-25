@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 86-mixture-of-agents
 
 ## Prerequisites

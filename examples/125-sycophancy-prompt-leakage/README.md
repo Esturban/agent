@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 125 — Sycophancy-Based Prompt Leakage
 
 Flattery raises system prompt extraction ASR from 17.7% to 86.2%. Salesforce, EMNLP 2024 (arxiv:2404.16251).

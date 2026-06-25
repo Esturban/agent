@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 4-basic-react-agent
 
 ## Prerequisites

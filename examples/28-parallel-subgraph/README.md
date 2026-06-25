@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 28-parallel-subgraph
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/28-parallel-subgraph/parallel_subgraph_workbook.ipynb)

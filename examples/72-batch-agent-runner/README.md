@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 72-batch-agent-runner
 
 ## Prerequisites

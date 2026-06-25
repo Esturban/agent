@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 22-hybrid-search-rag
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Esturban/agent/blob/master/examples/22-hybrid-search-rag/hybrid_search_rag_workbook.ipynb)

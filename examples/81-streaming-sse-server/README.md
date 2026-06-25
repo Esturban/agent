@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 81-streaming-sse-server
 
 ## Prerequisites

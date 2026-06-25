@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 56-contextual-compression
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 73-langsmith-tracing
 
 ## Prerequisites

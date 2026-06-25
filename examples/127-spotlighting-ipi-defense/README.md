@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 127 — Spotlighting: Indirect Prompt Injection Defense
 
 Three data-isolation techniques that reduce indirect injection ASR from ~80% to near-zero — plus the adaptive attack that breaks encoding. Microsoft Research 2024 (arxiv:2403.14720).

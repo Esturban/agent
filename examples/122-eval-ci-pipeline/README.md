@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 122 — Eval CI Pipeline
 
 Wire LLM evaluation metrics as pytest tests that automatically fail the CI build when answer quality regresses.

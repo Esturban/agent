@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 105 · Automated Red-Teaming
 
 LLMs as adversaries: an attacker LLM generates N adversarial prompts in parallel, a target LLM responds, and a judge scores each exchange. Computes the attack success rate (ASR) — based on Perez et al. 2022 (DeepMind).

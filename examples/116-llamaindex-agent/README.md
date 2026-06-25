@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 116-llamaindex-agent
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 67-mem0-memory
 
 ## Prerequisites

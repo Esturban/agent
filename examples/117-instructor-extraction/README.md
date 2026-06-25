@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 117-instructor-extraction
 
 ## Prerequisites

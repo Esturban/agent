@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 137 — DeerFlow Runtime Workbook
 
 Notebook-as-operator-console: connect to a running DeerFlow instance, upload a markdown corpus, stream an agent run with live event rendering, and inspect the output — all from Jupyter cells.

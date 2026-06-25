@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 74-ragas-evaluation
 
 ## Prerequisites

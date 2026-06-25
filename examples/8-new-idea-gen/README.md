@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 8-new-idea-gen
 
 ## Prerequisites

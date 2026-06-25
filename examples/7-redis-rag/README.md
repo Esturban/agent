@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 7-redis-rag
 
 RAG backed by Redis vector store. A grader node scores each retrieved document for relevance — if any are irrelevant, the query is rewritten and retrieval runs again until the answer is satisfactory.

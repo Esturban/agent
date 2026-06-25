@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 43-supervisor-worker
 
 ## Prerequisites

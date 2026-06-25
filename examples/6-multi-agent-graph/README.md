@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 6-multi-agent-graph
 
 ## Prerequisites

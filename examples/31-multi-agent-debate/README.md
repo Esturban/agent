@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 31-multi-agent-debate
 
 ## Prerequisites

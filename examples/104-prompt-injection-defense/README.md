@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 104 · Prompt Injection Defense
 
 Demonstrates indirect prompt injection (Greshake et al. 2023) and two defenses side-by-side: an undefended browsing agent gets hijacked by malicious page content; a defended agent resists via instruction hierarchy + spotlighting.

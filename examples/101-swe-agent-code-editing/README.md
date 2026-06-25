@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 101 · SWE-Agent Code Editing
 
 SWE-agent style code repair: the agent gets a buggy Python file and a failing test suite, then uses `view_file`, `edit_file`, and `run_tests` tools to iterate until all tests pass — no human involvement (Yang et al. 2024).

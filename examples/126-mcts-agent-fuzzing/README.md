@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 126 — MCTS Agent Fuzzing
 
 Monte Carlo Tree Search applied to prompt injection — 71% vs 38% baseline ASR. AgentVigil, Berkeley 2025 (arxiv:2505.05849).

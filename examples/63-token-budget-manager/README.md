@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 63-token-budget-manager
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 76-agent-evaluation
 
 ## Prerequisites

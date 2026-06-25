@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 36-long-term-memory
 
 ## Prerequisites

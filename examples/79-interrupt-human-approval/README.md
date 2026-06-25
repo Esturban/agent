@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 79-interrupt-human-approval
 
 ## Prerequisites

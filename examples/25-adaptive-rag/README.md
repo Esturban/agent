@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 25-adaptive-rag
 
 ## Prerequisites

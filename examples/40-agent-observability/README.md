@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 40-agent-observability
 
 ## Prerequisites

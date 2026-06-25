@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 136 — DeerFlow Sandboxed SWE Agent
 
 Upload a tiny Python package with a failing test into a DeerFlow thread and let the sandboxed SWE agent fix it.

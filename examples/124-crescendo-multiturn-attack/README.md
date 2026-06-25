@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 124 — Crescendo Multi-Turn Attack
 
 Multi-turn escalation attack that builds shared context across 5 levels before making the full request. Achieves 98% binary ASR on GPT-4 (Mark et al., USENIX Security 2025, arxiv:2404.01833).

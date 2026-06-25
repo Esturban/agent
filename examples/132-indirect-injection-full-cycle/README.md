@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 132 — Indirect Injection Full Cycle
 
 The richest attack/defense example: shows the complete lifecycle of an indirect prompt injection. The attacker poisons a web page and an email with hidden instructions. The undefended agent executes them. The defended pipeline applies spotlighting (XML delimiters), privilege separation (no exfiltration tools in the research context), and pre-model injection scanning.

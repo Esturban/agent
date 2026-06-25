@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 51-deepeval-conversational
 
 ## Prerequisites

@@ -1,3 +1,6 @@
+---
+teaching_ready: true
+---
 # 46-tree-of-thoughts
 
 ## Prerequisites
