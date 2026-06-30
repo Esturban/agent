@@ -1,0 +1,70 @@
+name: auto-pr
+
+# EV's hard rule: a PR is ALWAYS opened by this GitHub Action, never by a human or
+# agent running `gh pr create`. The Action (github-actions[bot]) authors the PR, which
+# is what lets EV be requested as a reviewer on his own repo. Push a branch -> PR opens
+# -> EV reviews. Agents push branches only.
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Open or update PR into dev with EV as reviewer
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWER: Esturban
+        run: |
+          set -euo pipefail
+          BR="${GITHUB_REF_NAME}"
+          DEFAULT="${{ github.event.repository.default_branch }}"
+
+          # Review cadence: feature branches PR into `dev`. `dev` itself is the
+          # integration branch -- it does NOT auto-PR to master (that release is EV's).
+          if git ls-remote --exit-code --heads origin dev >/dev/null 2>&1; then
+            BASE="dev"
+          else
+            BASE="$DEFAULT"
+          fi
+
+          # Never auto-PR a base/integration branch into anything.
+          case "$BR" in
+            dev|master|main|"$BASE"|"$DEFAULT")
+              echo "Branch '$BR' is a base/integration branch -- no auto-PR."; exit 0 ;;
+          esac
+
+          # Already open? Just ensure EV is the reviewer.
+          if gh pr view "$BR" --json number >/dev/null 2>&1; then
+            echo "PR already open for $BR -- (re)requesting reviewer $REVIEWER"
+            gh pr edit "$BR" --add-reviewer "$REVIEWER" 2>/dev/null \
+              || gh pr edit "$BR" --add-assignee "$REVIEWER" 2>/dev/null || true
+            exit 0
+          fi
+
+          # No commits ahead of base yet -> nothing to PR (fires again on next push).
+          if [ -z "$(git rev-list "origin/$BASE..HEAD" 2>/dev/null || true)" ]; then
+            echo "No commits ahead of $BASE yet -- skipping."; exit 0
+          fi
+
+          gh pr create \
+            --base "$BASE" --head "$BR" \
+            --title "$BR" \
+            --body "Auto-opened by the \`auto-pr\` action on push to \`$BR\` (base: \`$BASE\`). EV requested as reviewer." \
+            --reviewer "$REVIEWER" \
+            || gh pr create --base "$BASE" --head "$BR" \
+                 --title "$BR" \
+                 --body "Auto-opened by the \`auto-pr\` action on push to \`$BR\` (base: \`$BASE\`)." \
+                 --assignee "$REVIEWER"
