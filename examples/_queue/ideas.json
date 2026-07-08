@@ -3717,7 +3717,7 @@
     {
       "id": 138,
       "slug": "138-vision-qa-agent",
-      "status": "pending",
+      "status": "done",
       "module": "M24",
       "video_title": "Vision Agents: Let Your LLM See",
       "prereqs": [
@@ -3735,7 +3735,7 @@
     {
       "id": 139,
       "slug": "139-doc-vision-agent",
-      "status": "pending",
+      "status": "done",
       "module": "M24",
       "video_title": "Document Vision: Extracting Structure from PDFs with Eyes",
       "prereqs": [
@@ -3754,7 +3754,7 @@
     {
       "id": 140,
       "slug": "140-audio-agent",
-      "status": "pending",
+      "status": "done",
       "module": "M24",
       "video_title": "Audio Agents: From Speech to Structured Action",
       "prereqs": [
@@ -3772,7 +3772,7 @@
     {
       "id": 141,
       "slug": "141-prompt-caching",
-      "status": "pending",
+      "status": "done",
       "module": "M25",
       "video_title": "Prompt Caching: Cut Your LLM Bill Without Changing Your Code",
       "prereqs": [
@@ -3790,7 +3790,7 @@
     {
       "id": 142,
       "slug": "142-semantic-caching",
-      "status": "pending",
+      "status": "done",
       "module": "M25",
       "video_title": "Semantic Caching: Stop Paying for the Same Question Twice",
       "prereqs": [
@@ -3808,7 +3808,7 @@
     {
       "id": 143,
       "slug": "143-context-compression",
-      "status": "pending",
+      "status": "done",
       "module": "M25",
       "video_title": "Context Compression: Fit More Meaning Into Fewer Tokens",
       "prereqs": [
@@ -3827,7 +3827,7 @@
     {
       "id": 144,
       "slug": "144-qlora-finetuning",
-      "status": "pending",
+      "status": "done",
       "module": "M26",
       "video_title": "QLoRA: Fine-Tune a 1B Model on a Free GPU",
       "prereqs": [
@@ -3844,7 +3844,7 @@
     {
       "id": 145,
       "slug": "145-lora-architecture-ablation",
-      "status": "pending",
+      "status": "done",
       "module": "M26",
       "video_title": "LoRA Architecture: What Actually Matters (Rank, Targets, Alpha)",
       "prereqs": [
@@ -3862,7 +3862,7 @@
     {
       "id": 146,
       "slug": "146-orpo-alignment",
-      "status": "pending",
+      "status": "done",
       "module": "M26",
       "video_title": "ORPO: Align Your Model in One Pass (No Reference Model Needed)",
       "prereqs": [
@@ -3880,7 +3880,7 @@
     {
       "id": 147,
       "slug": "147-model-merging",
-      "status": "pending",
+      "status": "done",
       "module": "M26",
       "video_title": "Model Merging: Two Fine-Tunes, One Model (No Retraining)",
       "prereqs": [
@@ -3897,5 +3897,5 @@
     }
   ],
   "next_target": null,
-  "_note": "Queue complete \u2014 all 137 examples built as of 2026-06-22"
+  "_note": "Queue complete -- all 147 examples built as of 2026-07-07 (M1-M26 done). No further modules planned; awaiting new curriculum direction."
 }
