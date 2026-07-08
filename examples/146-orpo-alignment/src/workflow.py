@@ -27,7 +27,7 @@ def run_orpo(state: ORPOState) -> ORPOState:
 
     orpo_cfg = get_orpo_config("/tmp/orpo", state.get("max_steps", 30))
     trainer = ORPOTrainer(model=model, args=orpo_cfg,
-                          train_dataset=dataset, tokenizer=tokenizer)
+                          train_dataset=dataset, processing_class=tokenizer)
     result = trainer.train()
     rate_after = eval_preference_rate(model, tokenizer, dataset)
 
