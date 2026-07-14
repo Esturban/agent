@@ -16,8 +16,13 @@ Key files:
   src/workflow.py — classify_node → route → block_node or respond_node
 """
 
+import os
+
 from dotenv import load_dotenv
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY must be set before running this live example.")
 
 from src.tools import ATTACK_SAMPLES
 from src.workflow import create_workflow

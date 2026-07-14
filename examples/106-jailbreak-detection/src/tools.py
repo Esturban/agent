@@ -1,5 +1,8 @@
+import json
+import re
+
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage
 
 ATTACK_SAMPLES = [
     # DAN / persona swap
@@ -36,16 +39,29 @@ Respond with a JSON object:
 }"""
 
 
-def classify_input(user_input: str, model: str = "gpt-4o-mini") -> dict:
+ALLOWED_CATEGORIES = {"DAN", "ROLEPLAY", "ENCODING", "MANY_SHOT", "OVERRIDE", "BENIGN"}
+
+
+def classify_input(user_input: str, model: str = "gpt-5.4-nano") -> dict:
     llm = ChatOpenAI(model=model, temperature=0)
     messages = [
         SystemMessage(content=CLASSIFIER_SYSTEM),
         HumanMessage(content=f"Classify this input:\n\n{user_input}"),
     ]
     response = llm.invoke(messages)
-    import json, re
     raw = response.content.strip()
     match = re.search(r"\{.*\}", raw, re.DOTALL)
-    if match:
-        return json.loads(match.group())
-    return {"category": "BENIGN", "confidence": 0.0, "reasoning": "parse error"}
+    try:
+        result = json.loads(match.group()) if match else {}
+        category = result["category"]
+        confidence = float(result["confidence"])
+        reasoning = result["reasoning"].strip()
+        if category not in ALLOWED_CATEGORIES or not 0.0 <= confidence <= 1.0 or not reasoning:
+            raise ValueError("invalid classifier schema")
+        return {"category": category, "confidence": confidence, "reasoning": reasoning}
+    except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+        return {
+            "category": "OVERRIDE",
+            "confidence": 1.0,
+            "reasoning": "Classifier returned an invalid verdict; blocked fail-closed.",
+        }
