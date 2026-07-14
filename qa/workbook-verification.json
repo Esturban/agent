@@ -540,6 +540,30 @@
           "enable the typed-output adapter for gpt-5.4-nano"
         ]
       }
+    },
+    "52-deepeval-synthesizer": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": [
+          "synthetic golden generation",
+          "baseline RAG evaluation",
+          "persisted test-case save and reload",
+          "k=3 to k=1 regression comparison",
+          "hand-written versus synthesized comparison",
+          "all exercise answer keys"
+        ],
+        "final_checkpoint": "cell-35",
+        "runtime_fixes": [
+          "use current synthesizer and dataset APIs",
+          "use current evaluate AsyncConfig API",
+          "enable typed gpt-5.4-nano outputs",
+          "bound redundant live samples to the five-minute smoke budget"
+        ]
+      }
     }
   }
 }
