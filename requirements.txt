@@ -173,7 +173,7 @@ pypdf==6.1.0
 pypdfium2==4.30.0
 PyPika==0.48.9
 pyproject_hooks==1.2.0
-pyautogen>=0.2.0
+pyautogen==0.4.1
 networkx>=3.0
 rank-bm25>=0.2.0
 python-dateutil==2.9.0.post0
