@@ -19,7 +19,7 @@ class BudgetState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     system = SystemMessage(content=f"You are a researcher summarizing: {RESEARCH_TOPIC}")
 
     def research_step(state: BudgetState) -> dict:
