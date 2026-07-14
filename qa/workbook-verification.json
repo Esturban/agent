@@ -1361,6 +1361,17 @@
         "final_checkpoint": "code-exercises",
         "analogical_reasoning_contract": "All eight notebook code cells ran in a disposable copy without errors. Live analogy-augmented solutions produced 30 hours for the factory rate problem, 1458 for the geometric sequence, 8 days for the snail, and 5 days for the alternate snail workflow. The companion script completed the snail, fly, and water-jug problems with nonempty self-generated analogies and final answers."
       }
+    },
+    "92-agent-sandboxing-e2b": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "dependency_profile": "unprovisioned-e2b-code-interpreter",
+        "prerequisite_failure": "E2B_API_KEY is not present in the process environment or local .env; OPENAI_API_KEY is present.",
+        "execution_not_attempted": "The workbook's live cells create cloud E2B sandboxes. Running without the required service credential cannot verify the teaching workflow.",
+        "outstanding_remediation": "Provision E2B_API_KEY, install a dedicated e2b-code-interpreter profile, migrate legacy Sandbox() context-manager calls to the current Sandbox.create() lifecycle with explicit execution/request timeouts, then run the full notebook and companion script."
+      }
     }
   }
 }
