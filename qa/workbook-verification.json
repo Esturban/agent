@@ -1157,6 +1157,27 @@
         "final_checkpoint": "code-ans4",
         "streaming_contract": "The tool-call stream invoked calculator (15*23=345) and word_count (3) before its final answer; the checkpointed conversation correctly carried 56 into 112 and recalled both calculations; the live /stream endpoint returned text/event-stream with 18 data frames and a terminal [DONE] frame."
       }
+    },
+    "82-redis-memory": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "redis-memory-v1",
+        "source_sha256": "97e05c375942748cf712030959a342f996f510351c736b0e30d2e32c879f7284",
+        "paths_verified": [
+          "Redis connection and read/write round trip",
+          "three persistent-history recall queries",
+          "independent user session",
+          "history flush and TTL",
+          "history summarization",
+          "multi-user leaderboard answer key",
+          "companion main.py live Redis sweep"
+        ],
+        "final_checkpoint": "code-ans5",
+        "redis_contract": "A real disposable Redis server accepted reads and writes. The seeded user recalled Alex, Neovim, and LangGraph plus Redis memory patterns; a new user had no prior history; summary compaction reduced eight turns to five; and the repaired flush answer key completed. The companion script separately recalled Alice, hiking and Python, Neovim, and LangGraph across three sessions."
+      }
     }
   }
 }
