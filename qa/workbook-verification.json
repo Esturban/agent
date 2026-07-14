@@ -1241,6 +1241,26 @@
         "final_checkpoint": "cell-14",
         "agno_contract": "The live agent searched the knowledge base, stored and retrieved the Redis fact, exposed tool messages in its response, coordinated a two-member LangGraph summary, and calculated 105, 37, and 1024. The companion script completed its four-task knowledge workflow including the Redis write and listing five topics."
       }
+    },
+    "86-mixture-of-agents": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "09ef1d02af9abff6a1cf85834914bd2c0ee9b90cc60a01ba3974d6daa91e5fba",
+        "paths_verified": [
+          "three-persona parallel fan-out",
+          "operator.add proposal reducer",
+          "aggregated supervised-learning answer",
+          "three-persona LangGraph synthesis",
+          "four-persona Devil's Advocate exercise",
+          "companion main.py three-question sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "mixture_contract": "The live graph preserved three labeled proposer responses before synthesizing the final answer, then successfully expanded to four proposals including Devil's Advocate. The companion script completed all three questions with three individual proposals and one nonempty synthesis each."
+      }
     }
   }
 }
