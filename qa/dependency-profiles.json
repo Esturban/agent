@@ -29,6 +29,13 @@
         "langgraph==0.6.7"
       ]
     },
+    "google-adk-v1": {
+      "imports": ["google.adk", "google.genai"],
+      "constraints": [
+        "google-adk==2.4.0",
+        "python-dotenv==1.1.1"
+      ]
+    },
     "fastapi-sse-v1": {
       "imports": [
         "fastapi",
