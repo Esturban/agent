@@ -159,6 +159,22 @@
         "final_checkpoint": "cell-0023",
         "runtime_fix": "declare rank-bm25 required by LangChain BM25Retriever"
       }
+    },
+    "23-crewai-notebook": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": [
+          "sequential two-agent crew",
+          "hierarchical crew",
+          "tool-using research crew",
+          "structured-output comparison",
+          "fact-checking answer key"
+        ],
+        "final_checkpoint": "cell-29-answer1"
+      }
     }
   }
 }
