@@ -57,6 +57,14 @@
       ],
       "incompatible_with": ["core-openai-v1"]
     },
+    "openai-agents-v2": {
+      "imports": ["agents"],
+      "constraints": [
+        "openai-agents==0.18.2",
+        "openai==2.45.0"
+      ],
+      "incompatible_with": ["core-openai-v1"]
+    },
     "training": {
       "imports": ["torch", "transformers", "peft", "trl"],
       "constraints": ["torch>=2.0.0"]

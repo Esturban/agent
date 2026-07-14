@@ -6,10 +6,11 @@
   "profile_usage": {
     "agentdojo": 1,
     "autogen-0.4": 1,
-    "core-openai-v1": 134,
+    "core-openai-v1": 133,
     "crewai-1": 2,
     "dspy-2": 1,
     "litellm-openai-v2": 1,
+    "openai-agents-v2": 1,
     "ragas-0.2": 2,
     "training": 6
   },
@@ -21,6 +22,10 @@
     [
       "core-openai-v1",
       "litellm-openai-v2"
+    ],
+    [
+      "core-openai-v1",
+      "openai-agents-v2"
     ],
     [
       "crewai-1",
@@ -1253,7 +1258,7 @@
     },
     {
       "path": "examples/34-openai-agents-sdk/openai_agents_workbook.ipynb",
-      "profile": "core-openai-v1",
+      "profile": "openai-agents-v2",
       "imports": [
         "agents",
         "dataclasses",
