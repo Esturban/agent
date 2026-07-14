@@ -127,6 +127,16 @@
       ],
       "incompatible_with": ["litellm-openai-v2", "core-openai-v1"]
     },
+    "mem0-langgraph-v1": {
+      "imports": ["mem0", "langgraph"],
+      "constraints": [
+        "mem0ai==0.1.108",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33",
+        "langgraph==0.6.7"
+      ],
+      "incompatible_with": ["litellm-openai-v2"]
+    },
     "training": {
       "imports": ["torch", "transformers", "peft", "trl"],
       "constraints": ["torch>=2.0.0"]
