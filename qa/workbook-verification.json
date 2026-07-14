@@ -273,6 +273,16 @@
         "paths_verified": ["moderated debate graph", "live debate execution", "turn controls", "runnable answer keys"],
         "final_checkpoint": "cell-code-ans4"
       }
+    },
+    "32-speculative-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": ["draft generation", "parallel retrieval validation", "speculative acceptance", "runnable answer keys"],
+        "final_checkpoint": "srag-0034"
+      }
     }
   }
 }
