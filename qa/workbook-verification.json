@@ -491,6 +491,18 @@
         "final_checkpoint": "cell-16-ex4-starter",
         "safety_contract": "hallucinated, biased, and toxic examples were scored above their blocking thresholds"
       }
+    },
+    "49-deepeval-geval-custom": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": ["conciseness GEval", "code-quality GEval", "medical-safety GEval", "customer-service-tone GEval", "threshold stress test", "deterministic JSON schema metric", "mixed GEval and AnswerRelevancy evaluation", "answer keys"],
+        "final_checkpoint": "cell-24",
+        "runtime_fix": "replace removed evaluate(run_async=...) with AsyncConfig(run_async=False)"
+      }
     }
   }
 }
