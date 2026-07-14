@@ -28,6 +28,7 @@ agentdojo>=0.1.35
 crewai==1.0.0
 ragas==0.2.15
 datasets==4.2.0
+rank-bm25==0.2.2
 coloredlogs==15.0.1
 comm==0.2.3
 cryptography==46.0.2
