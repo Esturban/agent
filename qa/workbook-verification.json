@@ -233,6 +233,16 @@
         "paths_verified": ["retrieval grading", "generation grading", "self-correction loop", "runnable answer keys"],
         "final_checkpoint": "c1a2b3d4e5f60033"
       }
+    },
+    "28-parallel-subgraph": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": ["parallel subgraph execution", "fan-out/fan-in aggregation", "state isolation", "runnable answer keys"],
+        "final_checkpoint": "cell-code-020"
+      }
     }
   }
 }
