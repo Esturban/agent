@@ -841,6 +841,26 @@
         "final_checkpoint": "code-ex",
         "sandbox_contract": "The restricted executor rejected import os, the allowed math path returned 12.0, and the intentionally unsafe agent listed only fixture.txt in a disposable workspace directory."
       }
+    },
+    "67-mem0-memory": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "mem0-langgraph-v1",
+        "source_sha256": "57452edc2eab725a3425fd4964fba0fd6e43b9a0360aceb29d53203a299a23e0",
+        "paths_verified": [
+          "fact extraction and local storage",
+          "semantic recall",
+          "LangGraph recall-response-store pipeline",
+          "store-only graph invocation",
+          "Rust memory persistence",
+          "multi-user isolation exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "memory_contract": "The pipeline answered Alice's language, name, and style questions, then stored Rust without embedding an empty query; the exercise kept Alice's Python preference isolated from Bob's Java preference."
+      }
     }
   }
 }
