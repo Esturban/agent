@@ -1281,6 +1281,26 @@
         "final_checkpoint": "cell-14",
         "vector_memory_contract": "The live notebook retrieved Jordan, Python plus SQL, and LangGraph from eight embedded turns; generated personalized answers after three-turn retrieval; returned PyTorch while ignoring 20 noisy turns; and isolated Jordan from Casey. The companion script recalled Alex's role and speech project, Python/PyTorch/Mamba preferences, and the Mamba paper."
       }
+    },
+    "88-memory-architecture": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "91f4b47bd09eb300352197b45e48700e792f814a6e855157dcbe67058af2031e",
+        "paths_verified": [
+          "semantic-procedural-episodic classifier",
+          "three-tier LangGraph state flow",
+          "multi-turn memory carry-forward",
+          "external-store load/save pattern",
+          "semantic forget-fact exercise",
+          "companion main.py memory sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "memory_contract": "The live classifier stored a semantic name, procedural bullet-point instruction, and episodic LangGraph event; the graph preserved all tiers across five turns; the forget exercise removed location then user_name while retaining favorite_db=PostgreSQL; and the companion script answered four prompts from its Jordan product-manager memory."
+      }
     }
   }
 }
