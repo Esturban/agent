@@ -243,6 +243,16 @@
         "paths_verified": ["parallel subgraph execution", "fan-out/fan-in aggregation", "state isolation", "runnable answer keys"],
         "final_checkpoint": "cell-code-020"
       }
+    },
+    "29-llm-judge-harness": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": ["single-answer scoring", "pairwise judging", "calibration analysis", "runnable answer keys"],
+        "final_checkpoint": "a1b2c3d4e5f60035"
+      }
     }
   }
 }
