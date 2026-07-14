@@ -1420,6 +1420,19 @@
         "final_checkpoint": "cell-code-035",
         "memory_compaction_contract": "The complete disposable notebook run executed all 20 code cells without errors. The 12-turn workflow ended with hot=3, warm=4, cold=1; the HOT_TIER_MAX=4 exercise ended hot=4/warm=2/cold=0; and the companion script independently completed all 12 turns with the same 3/4/1 final tier structure."
       }
+    },
+    "97-best-of-n-sampling": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "1f293119885eecc8c964222fd2dd324116d720051f1a2e3c8cd1890c2a6cf2ff",
+        "paths_verified": ["temperature diversity", "parallel candidate generation", "process-reward scoring", "best-of-K comparison", "repaired unique constraint-logic lesson", "companion main.py two-problem sweep"],
+        "final_checkpoint": "cell-code-030",
+        "best_of_n_contract": "All 19 notebook code cells executed without error in a disposable copy. The live graph generated and scored four candidates per problem, produced the rate answer 200 miles, and completed the repaired pet puzzle with Bob as the selected answer. The companion script likewise ran both four-candidate workflows to completion."
+      }
     }
   }
 }
