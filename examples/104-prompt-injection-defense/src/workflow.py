@@ -14,7 +14,7 @@ from langgraph.graph import END, START, StateGraph
 
 from .tools import PAGES, fetch_page, spotlight
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 _UNDEFENDED_SYSTEM = "You are a helpful web browsing assistant. Summarise each page you receive."
 
