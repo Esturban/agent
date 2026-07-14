@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 import tempfile
 from langchain_core.tools import tool
 
@@ -69,7 +70,7 @@ def edit_file(path: str, old_str: str, new_str: str) -> str:
 def run_tests(workspace: str) -> str:
     """Run test_buggy.py in workspace and return stdout + stderr."""
     r = subprocess.run(
-        ["python", "test_buggy.py"], cwd=workspace,
+        [sys.executable, "test_buggy.py"], cwd=workspace,
         capture_output=True, text=True, timeout=15,
     )
     return (r.stdout + r.stderr).strip() or "(no output)"

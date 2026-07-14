@@ -23,7 +23,7 @@ SYSTEM = (
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     # create_react_agent compiles a ReAct loop: LLM → tool call → result → LLM → …
     # It stops when the model emits a response with no tool calls (tests pass).
-    return create_react_agent(llm, SWE_TOOLS, state_modifier=SYSTEM)
+    return create_react_agent(llm, SWE_TOOLS, prompt=SYSTEM)
