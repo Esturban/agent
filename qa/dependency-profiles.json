@@ -35,6 +35,15 @@
         "langchain-openai==0.3.33"
       ]
     },
+    "scraper-v1": {
+      "imports": ["bs4"],
+      "constraints": [
+        "beautifulsoup4==4.14.0",
+        "requests==2.32.5",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33"
+      ]
+    },
     "deepeval-v1": {
       "imports": ["deepeval", "langchain_chroma"],
       "constraints": [
