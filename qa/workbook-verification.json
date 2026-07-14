@@ -1396,6 +1396,17 @@
         "execution_not_attempted": "The workbook's teaching flow persists and retrieves memory from the external Zep Cloud service, so an end-to-end run without its credential would only produce an authentication failure.",
         "outstanding_remediation": "Provision ZEP_API_KEY, install and pin a dedicated current zep-cloud profile, migrate the legacy Zep V2 calls to the current thread/memory API, then execute the complete notebook and companion script."
       }
+    },
+    "96-extended-thinking": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "dependency_profile": "unprovisioned-anthropic-thinking",
+        "prerequisite_failure": "ANTHROPIC_API_KEY is not present in the process environment or local .env.",
+        "execution_not_attempted": "The lesson's full end-to-end flow invokes Anthropic extended-thinking calls; without its credential, execution cannot establish the required answer and reasoning contracts.",
+        "outstanding_remediation": "Provision ANTHROPIC_API_KEY; create an isolated pinned Anthropic profile; migrate retired claude-3-7-sonnet-20250219 references to a supported Claude Sonnet 4 model; bound or gate the current 29-call budget sweep so it meets the five-minute smoke threshold; then execute the full notebook and companion script."
+      }
     }
   }
 }
