@@ -294,6 +294,34 @@
         "final_checkpoint": "cell-0035",
         "runtime_fix": "use DSPy 2.x ChainOfThought internal predictor for compiled demos"
       }
+    },
+    "34-openai-agents-sdk": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "openai-agents-v2",
+        "paths_verified": [
+          "single-agent calls",
+          "function-tool execution",
+          "dispatcher handoffs",
+          "five-case triage routing table",
+          "guardrail path",
+          "exercise answer keys and run trace"
+        ],
+        "checkpoints": {
+          "triage_routing_matches": 5,
+          "final_trace_agent": "Researcher",
+          "final_trace_steps": 5
+        },
+        "final_checkpoint": "cell-31-answer-ex4",
+        "runtime_fixes": [
+          "use await Runner.run in Jupyter instead of run_sync",
+          "use the Agents SDK 0.18 function_tool decorator",
+          "use gpt-4o-mini for stable live handoff behavior"
+        ]
+      }
     }
   }
 }
