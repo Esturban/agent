@@ -31,5 +31,5 @@ class RAGState(TypedDict):
     answer: str
 
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0.2)
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
