@@ -466,6 +466,19 @@
         "paths_verified": ["BFS/DFS/beam comparison", "diverse thought generation", "LLM scoring", "parallel Send fan-out", "best-thought synthesis", "beam selection", "diversity diagnostics", "exercise answers"],
         "final_checkpoint": "cell-38-ex3-code"
       }
+    },
+    "47-deepeval-rag-metrics": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": ["Chroma-backed RAG pipeline", "DeepEval test-case assembly", "five grounded RAG metrics", "per-case score reporting", "hallucinated-answer evaluation", "grounded versus hallucinated comparison", "exercise answers"],
+        "final_checkpoint": "cell-27",
+        "metric_contract": "all five comparison rows emitted numeric grounded and hallucinated scores",
+        "runtime_fixes": ["select the profile-specific Jupyter kernel", "throttle judge concurrency", "use current evaluation result metadata", "normalize metric names in the comparison table"]
+      }
     }
   }
 }
