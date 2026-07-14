@@ -942,6 +942,28 @@
         "final_checkpoint": "cell-code-038",
         "retrieval_contract": "The index stored 24 linked child chunks; graph answers retrieved 4 child chunks and expanded them into parent contexts, and the grounding exercise identified multi-head attention."
       }
+    },
+    "72-batch-agent-runner": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "cd67cc1b737267e15b3d73e61aa51d8f33884723f48d88301dfe129daefbb261",
+        "paths_verified": [
+          "async baseline",
+          "batched task runner",
+          "sequential-versus-async timing",
+          "batch-size comparison",
+          "retry and exponential backoff",
+          "translations and serialization",
+          "dependent pipeline",
+          "all answer-key exercises"
+        ],
+        "final_checkpoint": "cell-code-039",
+        "concurrency_contract": "All nine live tasks completed; batch execution measured 1.3x faster than sequential, and the simulated two-task failure run recovered to 9/9 after the retry-only pass."
+      }
     }
   }
 }
