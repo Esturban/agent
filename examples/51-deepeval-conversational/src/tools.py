@@ -31,4 +31,4 @@ class ChatState(TypedDict):
     history: list[dict]  # stores (role, content) pairs for evaluation
 
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.2)
