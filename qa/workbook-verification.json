@@ -740,6 +740,27 @@
         "final_checkpoint": "code-ex",
         "guard_contract": "the live graph returned an answer for a safe query and blocked a credit-card-bearing query"
       }
+    },
+    "62-async-langgraph": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "b38375506efef53bef3e6fcd27b221e13fb55313ea2e32dbe107475a8c6a0689",
+        "paths_verified": [
+          "sync graph baseline",
+          "async graph invocation",
+          "concurrent tool gathering",
+          "node and token streaming",
+          "event inspection",
+          "concurrent translation answer",
+          "four-tool error-handling answer"
+        ],
+        "final_checkpoint": "0485f95d",
+        "concurrency_contract": "the translation answer showed a 2.8x async speedup and the four-tool answer handled one failing tool"
+      }
     }
   }
 }
