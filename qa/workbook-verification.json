@@ -1178,6 +1178,28 @@
         "final_checkpoint": "code-ans5",
         "redis_contract": "A real disposable Redis server accepted reads and writes. The seeded user recalled Alex, Neovim, and LangGraph plus Redis memory patterns; a new user had no prior history; summary compaction reduced eight turns to five; and the repaired flush answer key completed. The companion script separately recalled Alice, hiking and Python, Neovim, and LangGraph across three sessions."
       }
+    },
+    "83-google-adk-agent": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 2,
+        "cell_errors": 1,
+        "dependency_profile": "google-adk-v1",
+        "source_sha256": "08cc3ab2f691d559ca0641f2bc177f378eabc5ee02be20b8879b4063b795e9c0",
+        "prerequisite_failures": [
+          "GOOGLE_API_KEY is not present in the process environment or local .env",
+          "No Gemini or Vertex AI credential variables are available"
+        ],
+        "local_checks": [
+          "google-adk==2.4.0 and google-genai==2.11.0 import cleanly",
+          "source create_agent() constructs knowledge_agent",
+          "workbook agent name now satisfies ADK validation",
+          "workbook uses top-level await rather than asyncio.run in Jupyter"
+        ],
+        "blocked_cell": "cell-2",
+        "remediation": "Set GOOGLE_API_KEY in the local .env or process environment, then rerun the full workbook and companion main.py."
+      }
     }
   }
 }
