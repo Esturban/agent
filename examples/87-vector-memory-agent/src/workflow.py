@@ -13,7 +13,7 @@ from src.tools import USER_ID, retrieve_relevant, store_turn
 # At 10 turns the difference is negligible.
 # At 10,000 turns: Redis loads 10,000 messages; Chroma loads 3.
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class VectorMemoryState(TypedDict):
