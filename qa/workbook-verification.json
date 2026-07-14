@@ -644,6 +644,25 @@
         "final_checkpoint": "code-ans2",
         "compression_contract": "all workshop queries emitted raw and compressed retrieval counts plus a live answer"
       }
+    },
+    "57-step-back-prompting": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "query abstraction",
+          "direct versus abstract retrieval",
+          "direct versus step-back RAG answers",
+          "full step-back pipeline",
+          "alternative abstraction exercise",
+          "dual-path retrieval exercise"
+        ],
+        "final_checkpoint": "code-ans2",
+        "retrieval_contract": "each workshop query produced original, abstracted, and dual-path retrieval results"
+      }
     }
   }
 }
