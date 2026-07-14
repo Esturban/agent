@@ -861,6 +861,26 @@
         "final_checkpoint": "code-ex",
         "memory_contract": "The pipeline answered Alice's language, name, and style questions, then stored Rust without embedding an empty query; the exercise kept Alice's Python preference isolated from Bob's Java preference."
       }
+    },
+    "68-chain-of-verification": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "87040582bbf56bc5e41b60dfc0ea2813e176d71ccddabea53a30da3f968deb9e",
+        "paths_verified": [
+          "initial answer generation",
+          "structured claim extraction",
+          "per-claim verification",
+          "targeted answer revision",
+          "LangGraph CoVe pipeline",
+          "deliberate-wrong-answer correction exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "revision_contract": "The supplied wrong answer claiming Einstein was born in 1889 in France was preserved through the graph and revised to his 1879 birth in the German Empire."
+      }
     }
   }
 }
