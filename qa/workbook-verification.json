@@ -1115,6 +1115,27 @@
         "final_checkpoint": "code-ans3",
         "approval_contract": "The base interrupt resumed to execution; low-risk actions auto-executed, the medium-risk password reset executed only after approval, and both high-risk actions auto-rejected without execution. The edited-action, comment, timeout, and standalone CLI approval flows all completed without errors."
       }
+    },
+    "80-multi-agent-supervisor": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "43f7447fc3f5916b30776836d9567f32a21f063d3994145c22f5a55a5b64ed4c",
+        "paths_verified": [
+          "math-history-science supervisor routing",
+          "confidence fallback",
+          "expanded code specialist",
+          "parallel specialist fan-out",
+          "creative specialist answer key",
+          "route-tracing answer key",
+          "companion main.py sweep"
+        ],
+        "final_checkpoint": "code-ans3",
+        "supervisor_contract": "The live supervisor routed factual questions to the expected math, history, and science specialists; the low-confidence haiku request used the fallback; multi-specialist arbitration completed; and the route-tracing answer key identified math, history, and science for all three trace questions."
+      }
     }
   }
 }
