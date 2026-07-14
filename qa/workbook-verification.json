@@ -1517,6 +1517,18 @@
         "final_checkpoint": "cell-code-039",
         "prompt_injection_contract": "All 20 notebook code cells completed without errors in a disposable copy. The workflow produced five summaries per defended mode, spotlighting retained external content as data, sanitization replaced the HTML injection comment, and the blocklist exercise blocked malicious.com, exfil.net, and roleswap.io. The companion script completed both sweeps successfully."
       }
+    },
+    "105-automated-red-teaming": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["parallel Send fan-out", "single attack and judge verdict", "mock ASR calculation", "compiled StateGraph", "live four-chain red-team run", "second-goal comparison", "companion main.py"],
+        "final_checkpoint": "cell-code-029",
+        "red_teaming_contract": "All 17 notebook code cells executed without errors in a disposable copy. The live workflow fanned out four attack chains, returned a typed blocked verdict and nonempty reason for every chain, and measured an ASR of 0/4 for the harmful-activities goal and 0/4 for the private-information goal. The companion script independently completed the four-chain run with 0/4 blocked verdicts."
+      }
     }
   }
 }
