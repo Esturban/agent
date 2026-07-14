@@ -663,6 +663,26 @@
         "final_checkpoint": "code-ans2",
         "retrieval_contract": "each workshop query produced original, abstracted, and dual-path retrieval results"
       }
+    },
+    "58-tabular-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "tabular-v1",
+        "paths_verified": [
+          "schema grounding",
+          "single-shot DataFrame query generation",
+          "self-correcting execution",
+          "tabular graph workflow",
+          "all workshop questions",
+          "manual verification answer",
+          "revenue-share answer"
+        ],
+        "final_checkpoint": "code-ans2",
+        "numeric_contract": "the final Furniture revenue share matched the manual 34.81% verification"
+      }
     }
   }
 }
