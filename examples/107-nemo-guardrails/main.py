@@ -18,8 +18,13 @@ Key files:
   src/workflow.py  — load_rails() → query() wrappers
 """
 
+import os
+
 from dotenv import load_dotenv
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY must be set before running this live example.")
 
 from src.tools import TEST_INPUTS
 from src.workflow import load_rails, query
