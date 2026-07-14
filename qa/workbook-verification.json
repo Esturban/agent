@@ -820,6 +820,27 @@
         "final_checkpoint": "cell-ans3-code",
         "runtime_contract": "The bad-key primary routed to the working gpt-5.4-nano fallback; the provider comparison produced a real Nano response while unavailable provider branches were explicitly skipped."
       }
+    },
+    "66-smol-agents": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "smolagents-openai-v1",
+        "source_sha256": "5b5e6a41012637c1d0abea32796720929f4175304c73a3fe7382501aa08ff11b",
+        "paths_verified": [
+          "typed tool registration",
+          "direct tool calls",
+          "restricted import sandbox",
+          "allowed math import",
+          "three live CodeAgent tasks",
+          "digit-count exercise",
+          "controlled unsafe-agent filesystem demonstration"
+        ],
+        "final_checkpoint": "code-ex",
+        "sandbox_contract": "The restricted executor rejected import os, the allowed math path returned 12.0, and the intentionally unsafe agent listed only fixture.txt in a disposable workspace directory."
+      }
     }
   }
 }
