@@ -1321,6 +1321,26 @@
         "final_checkpoint": "code-exercises",
         "self_consistency_contract": "The live notebook produced three independent train solutions (150 miles), voted across 1/3/5 paths on the red-ball probability, and ran the corrected temperature=0 exercise with a 5/5 identical-answer distribution. The companion workflow produced five reasoning paths per question and majority answers of 60 mph, 12% increase, and 75."
       }
+    },
+    "90-least-to-most": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "e56f2e2f0404e9c36b67401cc8134f91f7c3b89733d6d4c7d95f918172b920c9",
+        "paths_verified": [
+          "local decomposition and sequential-context demonstration",
+          "live numbered sub-problem decomposition",
+          "LangGraph conditional solve loop",
+          "prior-solution context accumulation",
+          "full train-meeting least-to-most workflow",
+          "companion main.py three-problem sweep"
+        ],
+        "final_checkpoint": "code-exercises",
+        "least_to_most_contract": "All eight code cells executed in a disposable repository copy with no errors. The live workflow decomposed the train-meeting problem into six ordered steps and solved each sequentially with growing prior context. The companion script completed three independent problems and returned $162, 39%, and 48 mph respectively."
+      }
     }
   }
 }
