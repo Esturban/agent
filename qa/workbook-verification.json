@@ -1385,6 +1385,17 @@
         "final_checkpoint": "code-exercises",
         "guardrail_contract": "The disposable notebook run completed all eight code cells without errors. Classifier checks matched safe, S2, S6, and S1 expectations; the graph answered safe questions and refused blocked ones. The companion script completed six queries, including safe responses and S6 refusals."
       }
+    },
+    "94-zep-memory-server": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "dependency_profile": "unprovisioned-zep-cloud",
+        "prerequisite_failure": "ZEP_API_KEY is not present in the process environment or local .env; OPENAI_API_KEY is present.",
+        "execution_not_attempted": "The workbook's teaching flow persists and retrieves memory from the external Zep Cloud service, so an end-to-end run without its credential would only produce an authentication failure.",
+        "outstanding_remediation": "Provision ZEP_API_KEY, install and pin a dedicated current zep-cloud profile, migrate the legacy Zep V2 calls to the current thread/memory API, then execute the complete notebook and companion script."
+      }
     }
   }
 }
