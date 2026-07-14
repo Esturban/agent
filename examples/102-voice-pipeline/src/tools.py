@@ -8,7 +8,7 @@ Both are covered by OPENAI_API_KEY; no extra keys needed.
 
 from openai import OpenAI
 
-MODEL_LLM = "gpt-4o-mini"
+MODEL_LLM = "gpt-5.4-nano"
 MODEL_STT = "whisper-1"   # OpenAI Whisper cloud endpoint
 MODEL_TTS = "tts-1"       # OpenAI TTS endpoint
 TTS_VOICE = "nova"

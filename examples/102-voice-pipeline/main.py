@@ -7,6 +7,9 @@ from src.workflow import create_workflow
 
 load_dotenv()
 
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY is required for the voice pipeline.")
+
 
 def main() -> None:
     # Generate synthetic input audio so the demo is fully self-contained.
