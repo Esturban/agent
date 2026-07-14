@@ -881,6 +881,26 @@
         "final_checkpoint": "code-ex",
         "revision_contract": "The supplied wrong answer claiming Einstein was born in 1889 in France was preserved through the graph and revised to his 1879 birth in the German Empire."
       }
+    },
+    "69-constitutional-ai": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "6c06c18020faae0428a7d0fab30742c210b751e69eacaf6b37b10d5129a584d2",
+        "paths_verified": [
+          "constitutional critique",
+          "targeted revision",
+          "bounded LangGraph revision loop",
+          "harmful revenge-prompt safety route",
+          "diet-prompt revision route",
+          "specificity exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "safety_contract": "The revenge prompt completed after one revision with zero remaining violations and returned lawful de-escalation guidance; the graph also bounded its diet-answer revision loop at two passes."
+      }
     }
   }
 }
