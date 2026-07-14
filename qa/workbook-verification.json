@@ -1261,6 +1261,26 @@
         "final_checkpoint": "cell-14",
         "mixture_contract": "The live graph preserved three labeled proposer responses before synthesizing the final answer, then successfully expanded to four proposals including Devil's Advocate. The companion script completed all three questions with three individual proposals and one nonempty synthesis each."
       }
+    },
+    "87-vector-memory-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "vector-memory-v1",
+        "source_sha256": "3f25b074857491be923f3af1511e5ac81a050c69b943963ef25ae5af3da65642",
+        "paths_verified": [
+          "in-memory Chroma collection",
+          "semantic retrieval of seeded facts",
+          "LangGraph retrieval-response-save loop",
+          "noisy-memory filtering",
+          "per-user Chroma isolation",
+          "companion main.py vector-memory sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "vector_memory_contract": "The live notebook retrieved Jordan, Python plus SQL, and LangGraph from eight embedded turns; generated personalized answers after three-turn retrieval; returned PyTorch while ignoring 20 noisy turns; and isolated Jordan from Casey. The companion script recalled Alex's role and speech project, Python/PyTorch/Mamba preferences, and the Mamba paper."
+      }
     }
   }
 }
