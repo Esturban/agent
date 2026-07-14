@@ -1301,6 +1301,26 @@
         "final_checkpoint": "cell-14",
         "memory_contract": "The live classifier stored a semantic name, procedural bullet-point instruction, and episodic LangGraph event; the graph preserved all tiers across five turns; the forget exercise removed location then user_name while retaining favorite_db=PostgreSQL; and the companion script answered four prompts from its Jordan product-manager memory."
       }
+    },
+    "89-self-consistency": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "8ff19de19d91b7d2e177ea2dc19b68b4974eb0da675ebe5d34880fcaba1acce5",
+        "paths_verified": [
+          "majority-vote concept demonstration",
+          "three train-problem reasoning paths",
+          "LangGraph fan-out and reducer",
+          "N=1, N=3, and N=5 self-consistency votes",
+          "temperature-zero exercise",
+          "companion main.py three-problem sweep"
+        ],
+        "final_checkpoint": "code-exercises",
+        "self_consistency_contract": "The live notebook produced three independent train solutions (150 miles), voted across 1/3/5 paths on the red-ball probability, and ran the corrected temperature=0 exercise with a 5/5 identical-answer distribution. The companion workflow produced five reasoning paths per question and majority answers of 60 mph, 12% increase, and 75."
+      }
     }
   }
 }
