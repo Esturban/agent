@@ -702,6 +702,25 @@
         "final_checkpoint": "code-ans2",
         "routing_contract": "all sample queries produced route scores and a specialist or fallback response"
       }
+    },
+    "60-web-scraper-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "scraper-v1",
+        "paths_verified": [
+          "live page fetch",
+          "HTML-to-text parsing",
+          "chunking and vector indexing",
+          "retrieval-backed answers",
+          "LangGraph scrape-retrieve-answer pipeline",
+          "chunk-size exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "live_contract": "the notebook fetched and indexed a live RAG Wikipedia page before generating grounded answers"
+      }
     }
   }
 }
