@@ -964,6 +964,28 @@
         "final_checkpoint": "cell-code-039",
         "concurrency_contract": "All nine live tasks completed; batch execution measured 1.3x faster than sequential, and the simulated two-task failure run recovered to 9/9 after the retry-only pass."
       }
+    },
+    "73-langsmith-tracing": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "1eefcef8e3ab3cccf65f533d05cd5cd1e85e7ee770711e858b4359b21a059f8a",
+        "paths_verified": [
+          "optional tracing setup",
+          "LangGraph traceable pipeline",
+          "nested RAG spans",
+          "traced golden-set evaluation",
+          "tagged graph exercise",
+          "nested-span answer key",
+          "score metadata answer key",
+          "Nano model comparison"
+        ],
+        "final_checkpoint": "code-ans4",
+        "evaluation_contract": "The live traced evaluation returned Paris, 4, and Shakespeare with a 1.0 average score and 100% pass rate; the Nano comparison produced an average embedding cosine of 0.875."
+      }
     }
   }
 }
