@@ -22,7 +22,7 @@ HYPOTHESIS_PROMPT = (
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     vs = build_vectorstore()
 
