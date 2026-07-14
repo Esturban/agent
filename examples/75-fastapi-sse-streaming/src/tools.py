@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-MODEL = "gpt-5-nano"
+MODEL = "gpt-5.4-nano"
 
 
 class AgentState(TypedDict):
