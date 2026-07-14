@@ -9,6 +9,26 @@
         "instructor==1.12.0"
       ]
     },
+    "checkpoint-v1": {
+      "imports": ["langgraph.checkpoint.sqlite"],
+      "constraints": [
+        "openai==1.109.1",
+        "langchain-openai==0.3.33",
+        "langgraph==0.6.7",
+        "langgraph-checkpoint==2.1.2",
+        "langgraph-checkpoint-sqlite==2.0.11"
+      ]
+    },
+    "deepeval-v1": {
+      "imports": ["deepeval", "langchain_chroma"],
+      "constraints": [
+        "deepeval==3.8.3",
+        "huggingface-hub==0.36.0",
+        "posthog==5.4.0",
+        "chromadb==1.1.0",
+        "openai==1.109.1"
+      ]
+    },
     "crewai-1": {
       "imports": ["crewai"],
       "constraints": [
