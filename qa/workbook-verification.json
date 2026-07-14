@@ -584,6 +584,26 @@
         "final_checkpoint": "cell-32",
         "comparison_contract": "all four strategies emitted retrieval context and an answer for the same RAG question"
       }
+    },
+    "54-reranking-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "reranking-v1",
+        "paths_verified": [
+          "bi-encoder retrieval",
+          "FlashRank cross-encoder reranking",
+          "rank movement comparison",
+          "score-distribution diagnostics",
+          "two-stage RAG generation",
+          "candidate-count exercise",
+          "new-document exercise"
+        ],
+        "final_checkpoint": "code-ans2",
+        "rank_contract": "all three queries produced a reranked top-four list and a live answer"
+      }
     }
   }
 }
