@@ -232,6 +232,7 @@
       "constraints": [
         "nemoguardrails==0.17.0",
         "openai==1.109.1",
+        "langchain-openai==0.3.33",
         "python-dotenv==1.1.1",
         "nbclient==0.10.2",
         "nbformat==5.10.4",
