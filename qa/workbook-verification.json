@@ -1007,6 +1007,28 @@
         "final_checkpoint": "code-ans4",
         "evaluation_contract": "A live 20-task RAGAS evaluation produced aggregate and per-question scores; the k=1/k=3 comparison completed, the deliberately hallucinated answer scored 0.000 faithfulness, and the custom LLM judge reported all five comparisons."
       }
+    },
+    "75-fastapi-sse-streaming": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 10,
+        "cell_errors": 0,
+        "dependency_profile": "fastapi-sse-v1",
+        "source_sha256": "924225fbdb4f4c4e997c7798e50fe7bc3c059723254b3764239f076e393012a8",
+        "paths_verified": [
+          "single-node stream event inspection",
+          "two-node token streaming",
+          "batch versus stream latency comparison",
+          "FastAPI SSE reference",
+          "per-node token-count exercise",
+          "full streamed-answer exercise",
+          "progress-indicator answer key",
+          "POST /ask live SSE endpoint"
+        ],
+        "final_checkpoint": "code-ans3",
+        "streaming_contract": "The two-node graph emitted labeled tokens for think_node and answer_node; the exercise counted 38 and 41 tokens respectively, the answer key collected a nonempty 349-character answer, and the live FastAPI route returned text/event-stream with four token frames and a terminal [DONE] frame."
+      }
     }
   }
 }
