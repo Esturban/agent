@@ -175,6 +175,23 @@
         ],
         "final_checkpoint": "cell-29-answer1"
       }
+    },
+    "24-graph-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 23,
+        "cell_errors": 0,
+        "paths_verified": [
+          "NetworkX graph visualization",
+          "LLM triple extraction and graph construction",
+          "one- and two-hop graph traversal",
+          "graph-RAG workflow queries",
+          "vector-baseline comparison and answer key"
+        ],
+        "final_checkpoint": "gr36-ans1",
+        "runtime_fix": "iterate NetworkX out_edges as node pairs when edge attributes are not requested"
+      }
     }
   }
 }
