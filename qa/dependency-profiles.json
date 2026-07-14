@@ -19,6 +19,14 @@
         "langgraph-checkpoint-sqlite==2.0.11"
       ]
     },
+    "reranking-v1": {
+      "imports": ["flashrank", "langchain_chroma"],
+      "constraints": [
+        "flashrank==0.2.10",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33"
+      ]
+    },
     "deepeval-v1": {
       "imports": ["deepeval", "langchain_chroma"],
       "constraints": [
