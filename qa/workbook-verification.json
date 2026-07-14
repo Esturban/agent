@@ -1094,6 +1094,27 @@
         "final_checkpoint": "code-ans4",
         "ab_testing_contract": "Each stored three-variant response was scored from the same single model call; word-count scoring selected B 5/5, semantic scoring selected A with 0.7683 versus 0.5887 average similarity, SciPy reported B versus A significant (p=0.0000), and bootstrap confidence intervals completed for all variants."
       }
+    },
+    "79-interrupt-human-approval": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "f16f3674487ad919e22d2e9118a50551dcfb811fa153092b76b748833d076a87",
+        "paths_verified": [
+          "interrupt and resume",
+          "risk-based conditional routing",
+          "edited human approval",
+          "approval audit record",
+          "approval comments answer key",
+          "timeout answer key",
+          "companion main.py approvals"
+        ],
+        "final_checkpoint": "code-ans3",
+        "approval_contract": "The base interrupt resumed to execution; low-risk actions auto-executed, the medium-risk password reset executed only after approval, and both high-risk actions auto-rejected without execution. The edited-action, comment, timeout, and standalone CLI approval flows all completed without errors."
+      }
     }
   }
 }
