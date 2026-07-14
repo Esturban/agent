@@ -55,6 +55,27 @@
         ],
         "final_checkpoint": "cell-ans4"
       }
+    },
+    "18-self-reflecting-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": [
+          "easy-question self-reflection run",
+          "hard-question iteration-cap branch",
+          "iteration-limit answer key",
+          "score-history analysis",
+          "MemorySaver checkpoint history"
+        ],
+        "checkpoints": {
+          "hard_question_hit_cap": true,
+          "checkpoint_history_entries": 4,
+          "iteration_cap_answer_key_completed": true
+        },
+        "final_checkpoint": "cell-34-ex1-solution"
+      }
     }
   }
 }
