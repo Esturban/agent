@@ -1407,6 +1407,19 @@
         "execution_not_attempted": "The lesson's full end-to-end flow invokes Anthropic extended-thinking calls; without its credential, execution cannot establish the required answer and reasoning contracts.",
         "outstanding_remediation": "Provision ANTHROPIC_API_KEY; create an isolated pinned Anthropic profile; migrate retired claude-3-7-sonnet-20250219 references to a supported Claude Sonnet 4 model; bound or gate the current 29-call budget sweep so it meets the five-minute smoke threshold; then execute the full notebook and companion script."
       }
+    },
+    "95-memory-compaction": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "acdeff1a308de7b8600e280666c15f05ba9eea3a2689baa3e7980657eb217ff9",
+        "paths_verified": ["tier initialization and importance scoring", "current LangGraph compilation API", "12-turn live compaction", "cold-archive rollover", "hot-tier-size exercise", "cue-importance exercise", "token-budget exercise", "companion main.py sweep"],
+        "final_checkpoint": "cell-code-035",
+        "memory_compaction_contract": "The complete disposable notebook run executed all 20 code cells without errors. The 12-turn workflow ended with hot=3, warm=4, cold=1; the HOT_TIER_MAX=4 exercise ended hot=4/warm=2/cold=0; and the companion script independently completed all 12 turns with the same 3/4/1 final tier structure."
+      }
     }
   }
 }
