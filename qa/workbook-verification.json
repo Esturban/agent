@@ -799,6 +799,27 @@
         "final_checkpoint": "code-ex",
         "runtime_contract": "Pydantic AI and LangGraph both returned validated research results using gpt-5.4-nano; all three confidence-filter results met the 0.7 threshold."
       }
+    },
+    "65-litellm-multi-provider": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 22,
+        "cell_errors": 0,
+        "dependency_profile": "litellm-openai-v2",
+        "source_sha256": "423ca72c48416065725d4f6a93ed8b646ddd9adc0fb287ceaacf8f59d6634893",
+        "paths_verified": [
+          "direct LiteLLM OpenAI call and cost accounting",
+          "conditional provider availability",
+          "primary and forced-fallback router paths",
+          "batch cost tracking and load balancing",
+          "ChatLiteLLM and LCEL chains",
+          "LiteLLM and LangChain streaming",
+          "all three exercise answer keys"
+        ],
+        "final_checkpoint": "cell-ans3-code",
+        "runtime_contract": "The bad-key primary routed to the working gpt-5.4-nano fallback; the provider comparison produced a real Nano response while unavailable provider branches were explicitly skipped."
+      }
     }
   }
 }
