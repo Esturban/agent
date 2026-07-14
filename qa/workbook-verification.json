@@ -1200,6 +1200,26 @@
         "blocked_cell": "cell-2",
         "remediation": "Set GOOGLE_API_KEY in the local .env or process environment, then rerun the full workbook and companion main.py."
       }
+    },
+    "84-haystack-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "haystack-v1",
+        "source_sha256": "b661f6ad290cc4e659602142eeaf9f29af0402ed7abe82d1d568d16a6ced938c",
+        "paths_verified": [
+          "in-memory document store",
+          "BM25 retrieval to prompt-builder to generation pipeline",
+          "RAG result structure",
+          "stateless repeated runs",
+          "expanded-document exercise",
+          "companion main.py live sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "haystack_contract": "The live BM25 pipeline answered the Haystack, RAG, LangGraph, ChromaDB, Redis, FastAPI, and Docker questions from supplied documents. Two Redis runs completed independently, and the companion script answered all four lesson questions through the same retrieval-to-generation pipeline."
+      }
     }
   }
 }
