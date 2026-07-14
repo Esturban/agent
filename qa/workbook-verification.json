@@ -1072,6 +1072,28 @@
         "final_checkpoint": "code-ans3",
         "observability_contract": "The local handler recorded start/end observations with input and output token counts; multi-node traces captured four events each, session totals grouped two traces per user session, score attachment wrote cosine_similarity=0.8414, and main.py traced all three sample tasks."
       }
+    },
+    "78-prompt-ab-testing": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "prompt-ab-v1",
+        "source_sha256": "da87939dac85a0a6d73a4377c23d91b1baa9b3559ca4be7cf621c7f34d2ead3e",
+        "paths_verified": [
+          "prompt A/B baseline",
+          "LangGraph A/B pipeline",
+          "embedding similarity comparison",
+          "three-variant graph",
+          "paired t-tests",
+          "few-shot answer key",
+          "bootstrap confidence intervals",
+          "companion main.py sweep"
+        ],
+        "final_checkpoint": "code-ans4",
+        "ab_testing_contract": "Each stored three-variant response was scored from the same single model call; word-count scoring selected B 5/5, semantic scoring selected A with 0.7683 versus 0.5887 average similarity, SciPy reported B versus A significant (p=0.0000), and bootstrap confidence intervals completed for all variants."
+      }
     }
   }
 }
