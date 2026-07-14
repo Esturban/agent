@@ -37,4 +37,4 @@ def create_workflow():
     graph.add_edge("propose_action", "await_approval")
     graph.add_edge("await_approval", END)
     checkpointer = MemorySaver()
-    return graph.compile(checkpointer=checkpointer, interrupt_before=["await_approval"])
+    return graph.compile(checkpointer=checkpointer)
