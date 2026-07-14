@@ -7,7 +7,7 @@ from langgraph.graph import END, START, StateGraph
 
 from src.tools import get_redis_client
 
-_llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class RedisState(TypedDict):
