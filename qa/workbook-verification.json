@@ -1433,6 +1433,19 @@
         "final_checkpoint": "cell-code-030",
         "best_of_n_contract": "All 19 notebook code cells executed without error in a disposable copy. The live graph generated and scored four candidates per problem, produced the rate answer 200 miles, and completed the repaired pet puzzle with Bob as the selected answer. The companion script likewise ran both four-candidate workflows to completion."
       }
+    },
+    "98-skeleton-of-thought": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "83c86e51413351278f1a2957b040f4377f1229823d26643311ca87f5d12d32ad",
+        "paths_verified": ["skeleton creation", "parallel Send expansion", "parallel-versus-sequential timing", "trace ordering", "critique wave", "selective expansion", "companion main.py sweep"],
+        "final_checkpoint": "cell-code-032",
+        "skeleton_of_thought_contract": "All 17 notebook code cells completed without errors in a disposable copy. The measured five-point comparison completed with a 2.33x parallel speedup, trace output restored deterministic order, critique and selective-expansion paths completed, and the companion script completed its live questions with nonempty skeletons and expansions."
+      }
     }
   }
 }
