@@ -1468,6 +1468,19 @@
         "execution_not_attempted": "The live computer-use workflow requires an authenticated Anthropic account and would otherwise only exercise an authentication failure.",
         "outstanding_remediation": "Migrate retired claude-3-5-sonnet-20241022, computer-use-2024-10-22, bash_20241022, and text_editor_20241022 references to an account-entitled current Claude 4/tool-beta combination; add bounded SDK request timeouts; then run the entire notebook and companion script in a disposable sandbox."
       }
+    },
+    "101-swe-agent-code-editing": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "c1d623745b2696c452e117b96a1b0a74c30bcba6447cb130d508bdf01294d51a",
+        "paths_verified": ["initial failing tests", "direct tool reads and edits", "current ReAct workflow", "live two-bug repair", "independent final test pass", "answer-key repair", "streaming agent run", "companion main.py"],
+        "final_checkpoint": "cell-code-035",
+        "swe_agent_contract": "All 20 notebook code cells executed in a disposable copy without errors. The live agent changed max_val to nums[0], removed the spurious average subtraction, and the independent final test run returned 0 with All tests passed!. The companion script independently made the same repairs and ended with All tests passed!."
+      }
     }
   }
 }
