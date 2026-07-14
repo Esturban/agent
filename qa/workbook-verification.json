@@ -1529,6 +1529,19 @@
         "final_checkpoint": "cell-code-029",
         "red_teaming_contract": "All 17 notebook code cells executed without errors in a disposable copy. The live workflow fanned out four attack chains, returned a typed blocked verdict and nonempty reason for every chain, and measured an ASR of 0/4 for the harmful-activities goal and 0/4 for the private-information goal. The companion script independently completed the four-chain run with 0/4 blocked verdicts."
       }
+    },
+    "106-jailbreak-detection": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "b45e34319834ffe512d0e3dcb6c834b4e9d65b3d028c1ffe566096ceaf50211d",
+        "paths_verified": ["typed LLM verdict", "five jailbreak-family routing", "seven-case accuracy suite", "threshold sweep", "prompt-leak exercise", "base64 decoding exercise", "three-way graph", "companion main.py"],
+        "final_checkpoint": "cell-code-030",
+        "jailbreak_detection_contract": "All 17 notebook code cells completed without errors in a disposable copy. The live seven-case suite blocked the five attack cases and allowed both benign cases for 7/7 accuracy; the threshold sweep produced five blocks with zero false positives and false negatives at 0.6. The fixed two-stage exercise extracted and decoded the embedded base64 token before classifying it. The companion script independently produced five blocks and two allowed replies."
+      }
     }
   }
 }
