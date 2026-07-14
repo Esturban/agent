@@ -32,7 +32,6 @@ def create_agent() -> Agent:
         ],
         # Agno infers tool schemas from type hints + docstrings — no decorators needed.
         tools=[search_knowledge, add_knowledge, list_topics],
-        show_tool_calls=True,  # prints tool calls to stdout for teaching visibility
     )
 
 
