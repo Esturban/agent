@@ -1493,6 +1493,18 @@
         "final_checkpoint": "cell-code-033",
         "voice_pipeline_contract": "All 18 code cells completed without errors in a disposable copy. The run generated nonempty MP3 inputs and outputs, transcribed the synthetic LangGraph question, compiled and ran the transcribe/respond/speak graph, and confirmed exactly one STT, one LLM, and one TTS call in the accounting exercise. The companion script independently completed a full round-trip and produced a 1910 KB output MP3."
       }
+    },
+    "103-tool-synthesis-latm": {
+      "status": "FAIL",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_code_cells_executed": 22,
+        "notebook_cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "companion_main_exit": 0,
+        "failure": "The companion workflow synthesized separate tools for Tokyo weather and the number 7 after already creating Paris-weather and number-42 tools, contradicting its stated and intended cache-reuse lesson contract.",
+        "remediation": "Make dispatch select cached tools by capability/category rather than literal generated function-name similarity; require the main and notebook cache-reuse cases to assert stable registry size before marking this workbook verified."
+      }
     }
   }
 }
