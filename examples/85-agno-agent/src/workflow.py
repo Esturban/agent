@@ -22,7 +22,7 @@ FRAMEWORK_CONTRAST = """
 def create_agent() -> Agent:
     """Create an Agno agent with three knowledge-base tools."""
     return Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5.4-nano"),
         description="You are a helpful assistant with a technology knowledge base.",
         instructions=[
             "Use search_knowledge to look up topics before answering.",
