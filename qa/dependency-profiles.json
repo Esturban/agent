@@ -210,6 +210,19 @@
       ],
       "incompatible_with": ["litellm-openai-v2"]
     },
+    "browser-agent-v1": {
+      "imports": ["playwright", "lxml", "langchain_community"],
+      "constraints": [
+        "openai==1.109.1",
+        "langchain-openai==0.3.33",
+        "langchain-community==0.3.31",
+        "langgraph==0.6.7",
+        "playwright==1.51.0",
+        "beautifulsoup4==4.14.0",
+        "lxml==6.0.2",
+        "python-dotenv==1.1.1"
+      ]
+    },
     "training": {
       "imports": ["torch", "transformers", "peft", "trl"],
       "constraints": ["torch>=2.0.0"]
