@@ -1220,6 +1220,27 @@
         "final_checkpoint": "cell-14",
         "haystack_contract": "The live BM25 pipeline answered the Haystack, RAG, LangGraph, ChromaDB, Redis, FastAPI, and Docker questions from supplied documents. Two Redis runs completed independently, and the companion script answered all four lesson questions through the same retrieval-to-generation pipeline."
       }
+    },
+    "85-agno-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "agno-v1",
+        "source_sha256": "8a50e3f55ef5592ce73453b1101ab3001d156fb8d245f42ddec0332492b22e0d",
+        "paths_verified": [
+          "single-agent knowledge tools",
+          "stored Redis fact retrieval",
+          "response message history",
+          "coordinated researcher-writer team",
+          "Agno-versus-LangGraph comparison",
+          "calculator exercise",
+          "companion main.py task sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "agno_contract": "The live agent searched the knowledge base, stored and retrieved the Redis fact, exposed tool messages in its response, coordinated a two-member LangGraph summary, and calculated 105, 37, and 1024. The companion script completed its four-task knowledge workflow including the Redis write and listing five topics."
+      }
     }
   }
 }
