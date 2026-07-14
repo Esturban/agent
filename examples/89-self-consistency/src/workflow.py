@@ -22,10 +22,10 @@ from src.tools import N_PATHS
 # receive IDENTICAL input. Difference from MoA: we count answers, not synthesise.
 
 # temperature=0.7 ensures different reasoning traces even with identical prompts.
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0.7)
 
 # Aggregator uses temp=0 for deterministic majority-vote extraction.
-_aggregator = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_aggregator = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class SCState(TypedDict):
