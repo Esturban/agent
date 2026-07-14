@@ -1446,6 +1446,18 @@
         "final_checkpoint": "cell-code-032",
         "skeleton_of_thought_contract": "All 17 notebook code cells completed without errors in a disposable copy. The measured five-point comparison completed with a 2.33x parallel speedup, trace output restored deterministic order, critique and selective-expansion paths completed, and the companion script completed its live questions with nonempty skeletons and expansions."
       }
+    },
+    "99-browser-agent-playwright": {
+      "status": "FAIL",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "dependency_profile": "browser-agent-v1",
+        "failed_cell_id": "cell-code-008",
+        "failed_cell_source": "create_sync_playwright_browser()",
+        "failure": "Playwright Sync API cannot run inside the notebook kernel asyncio loop.",
+        "runtime_preconditions_verified": ["isolated Playwright profile", "Chromium installed", "current toolkit import", "current LangGraph agent API"],
+        "remediation": "Migrate every executable browser cell to create_async_playwright_browser(), AsyncPlaywrightBrowserToolkit, and await graph.ainvoke()/tool.ainvoke(); then rerun the full notebook and companion script."
+      }
     }
   }
 }
