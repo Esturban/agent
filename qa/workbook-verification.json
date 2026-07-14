@@ -986,6 +986,27 @@
         "final_checkpoint": "code-ans4",
         "evaluation_contract": "The live traced evaluation returned Paris, 4, and Shakespeare with a 1.0 average score and 100% pass rate; the Nano comparison produced an average embedding cosine of 0.875."
       }
+    },
+    "74-ragas-evaluation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "ragas-0.2",
+        "source_sha256": "c63c585d26902e5a42de1ecf2c069ce7fe4c7e296d366205e7ece48b2e5b7963",
+        "paths_verified": [
+          "RAGAS metric setup",
+          "live RAG evaluation",
+          "per-question threshold reporting",
+          "custom length scorer",
+          "retrieval-depth exercise",
+          "hallucination faithfulness exercise",
+          "custom LLM judge answer key"
+        ],
+        "final_checkpoint": "code-ans4",
+        "evaluation_contract": "A live 20-task RAGAS evaluation produced aggregate and per-question scores; the k=1/k=3 comparison completed, the deliberately hallucinated answer scored 0.000 faithfulness, and the custom LLM judge reported all five comparisons."
+      }
     }
   }
 }
