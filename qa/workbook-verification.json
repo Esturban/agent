@@ -1458,6 +1458,16 @@
         "runtime_preconditions_verified": ["isolated Playwright profile", "Chromium installed", "current toolkit import", "current LangGraph agent API"],
         "remediation": "Migrate every executable browser cell to create_async_playwright_browser(), AsyncPlaywrightBrowserToolkit, and await graph.ainvoke()/tool.ainvoke(); then rerun the full notebook and companion script."
       }
+    },
+    "100-computer-use-agent": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "prerequisite_failure": "ANTHROPIC_API_KEY is not present in the process environment or local .env.",
+        "execution_not_attempted": "The live computer-use workflow requires an authenticated Anthropic account and would otherwise only exercise an authentication failure.",
+        "outstanding_remediation": "Migrate retired claude-3-5-sonnet-20241022, computer-use-2024-10-22, bash_20241022, and text_editor_20241022 references to an account-entitled current Claude 4/tool-beta combination; add bounded SDK request timeouts; then run the entire notebook and companion script in a disposable sandbox."
+      }
     }
   }
 }
