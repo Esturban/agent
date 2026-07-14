@@ -1,3 +1,4 @@
+import re
 from typing import TypedDict
 
 from langchain_core.messages import HumanMessage
@@ -20,7 +21,7 @@ from langgraph.graph import END, START, StateGraph
 # LangGraph loop: decompose → [solve_next → check_done] → finalize
 # The state carries `solutions` and `current_idx` to implement the loop.
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class LtMState(TypedDict):
@@ -44,12 +45,13 @@ def decompose(state: LtMState) -> dict:
         "Return a numbered list of sub-problems only. No solutions yet."
     )
     result = _llm.invoke([HumanMessage(content=prompt)]).content
-    # Parse "1. sub-problem text" lines into a clean list.
     subproblems = [
-        line.split(". ", 1)[1].strip()
-        for line in result.strip().split("\n")
-        if line.strip() and ". " in line
+        match.group(1).strip()
+        for line in result.splitlines()
+        if (match := re.match(r"^\s*\d+[.)]\s*(.+)$", line))
     ]
+    if not subproblems:
+        raise ValueError("decomposition returned no numbered sub-problems")
     return {"subproblems": subproblems, "solutions": [], "current_idx": 0}
 
 
