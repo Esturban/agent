@@ -10,7 +10,7 @@ class ThinkAnswerState(TypedDict):
 
 
 def think_node(state: ThinkAnswerState) -> dict:
-    llm = ChatOpenAI(model="gpt-5-nano")
+    llm = ChatOpenAI(model="gpt-5.4-nano")
     messages = [
         SystemMessage(content="Think briefly about the question."),
         HumanMessage(content=state["question"]),
@@ -20,7 +20,7 @@ def think_node(state: ThinkAnswerState) -> dict:
 
 
 def answer_node(state: ThinkAnswerState) -> dict:
-    llm = ChatOpenAI(model="gpt-5-nano")
+    llm = ChatOpenAI(model="gpt-5.4-nano")
     messages = [
         SystemMessage(content="Give a final concise answer."),
         HumanMessage(content=state["question"]),
