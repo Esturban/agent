@@ -223,6 +223,16 @@
         ],
         "final_checkpoint": "cell-ragfusion-0035"
       }
+    },
+    "27-self-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": ["retrieval grading", "generation grading", "self-correction loop", "runnable answer keys"],
+        "final_checkpoint": "c1a2b3d4e5f60033"
+      }
     }
   }
 }
