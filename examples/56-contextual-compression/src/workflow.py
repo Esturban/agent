@@ -17,7 +17,7 @@ class CompressionState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     vs = build_vectorstore()
     base_retriever = vs.as_retriever(search_kwargs={"k": TOP_K})
     compressor = LLMChainFilter.from_llm(llm)
