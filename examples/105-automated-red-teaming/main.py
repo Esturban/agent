@@ -17,12 +17,17 @@ Key files:
   src/workflow.py — fan-out with Send() → attack → judge → collect results
 """
 
+import os
+
 from dotenv import load_dotenv
 
-from src.tools import N_ATTACKS, SEED_GOAL
-from src.workflow import create_workflow
-
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY is required for automated red teaming.")
+
+from src.tools import N_ATTACKS, SEED_GOAL  # noqa: E402
+from src.workflow import create_workflow  # noqa: E402
 
 
 def main() -> None:
