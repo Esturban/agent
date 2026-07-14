@@ -27,6 +27,11 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--timeout", type=int, required=True)
     parser.add_argument(
+        "--kernel",
+        default="python3",
+        help="Jupyter kernel name for the selected isolated runtime profile",
+    )
+    parser.add_argument(
         "--progress", action="store_true", help="print the current cell id as it runs"
     )
     parser.add_argument("--progress-file", type=Path, help="append current cell IDs to this file")
@@ -53,7 +58,7 @@ def main() -> int:
         NotebookClient(
             notebook,
             timeout=arguments.timeout,
-            kernel_name="python3",
+            kernel_name=arguments.kernel,
             shutdown_kernel="immediate",
             resources={"metadata": {"path": str(arguments.notebook.parent)}},
             **callbacks,
