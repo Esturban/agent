@@ -44,6 +44,15 @@
         "langchain-openai==0.3.33"
       ]
     },
+    "pydantic-ai-v1": {
+      "imports": ["pydantic_ai"],
+      "constraints": [
+        "pydantic-ai==0.0.14",
+        "griffe==1.7.3",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33"
+      ]
+    },
     "deepeval-v1": {
       "imports": ["deepeval", "langchain_chroma"],
       "constraints": [
