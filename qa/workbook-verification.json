@@ -1505,6 +1505,18 @@
         "failure": "The companion workflow synthesized separate tools for Tokyo weather and the number 7 after already creating Paris-weather and number-42 tools, contradicting its stated and intended cache-reuse lesson contract.",
         "remediation": "Make dispatch select cached tools by capability/category rather than literal generated function-name similarity; require the main and notebook cache-reuse cases to assert stable registry size before marking this workbook verified."
       }
+    },
+    "104-prompt-injection-defense": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["page corpus and injection labels", "undefended and defended live summaries", "side-by-side comparison", "spotlighting delimiters", "HTML comment sanitization", "blocklist exercise", "companion defended/undefended sweep"],
+        "final_checkpoint": "cell-code-039",
+        "prompt_injection_contract": "All 20 notebook code cells completed without errors in a disposable copy. The workflow produced five summaries per defended mode, spotlighting retained external content as data, sanitization replaced the HTML injection comment, and the blocklist exercise blocked malicious.com, exfil.net, and roleswap.io. The companion script completed both sweeps successfully."
+      }
     }
   }
 }
