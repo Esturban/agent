@@ -208,6 +208,21 @@
         "final_checkpoint": "ad01-0030",
         "runtime_fix": "map the simple strategy to the direct_answer graph node"
       }
+    },
+    "26-rag-fusion": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": [
+          "multi-query generation",
+          "parallel retrieval",
+          "reciprocal-rank fusion",
+          "RAG fusion workflow and answer keys"
+        ],
+        "final_checkpoint": "cell-ragfusion-0035"
+      }
     }
   }
 }
