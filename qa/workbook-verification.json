@@ -431,6 +431,19 @@
         "final_checkpoint": "cell-32",
         "runtime_fix": "inspect compiled nodes via get_graph() rather than removed CompiledStateGraph.graph"
       }
+    },
+    "44-mcp-client-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["mock MCP tool registration", "LLM tool discovery", "tool invocation and synthesis", "multi-server namespacing", "resilient no-tool/error paths", "exercise answers"],
+        "final_checkpoint": "cell-36-ex2-solution",
+        "secret_scan": "executed artifact contains no OPENAI_API_KEY value",
+        "runtime_fix": "replace partial API-key echo with a non-sensitive readiness message"
+      }
     }
   }
 }
