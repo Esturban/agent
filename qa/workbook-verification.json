@@ -283,6 +283,17 @@
         "paths_verified": ["draft generation", "parallel retrieval validation", "speculative acceptance", "runnable answer keys"],
         "final_checkpoint": "srag-0034"
       }
+    },
+    "33-dspy-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "paths_verified": ["DSPy RAG baseline", "BootstrapFewShot compilation", "demo inspection", "metric strictness experiments", "answer keys"],
+        "final_checkpoint": "cell-0035",
+        "runtime_fix": "use DSPy 2.x ChainOfThought internal predictor for compiled demos"
+      }
     }
   }
 }
