@@ -901,6 +901,26 @@
         "final_checkpoint": "code-ex",
         "safety_contract": "The revenge prompt completed after one revision with zero remaining violations and returned lawful de-escalation guidance; the graph also bounded its diet-answer revision loop at two passes."
       }
+    },
+    "70-prompt-injection-defense": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "reranking-v1",
+        "source_sha256": "621a0cba10b7de1426d0e5e8060468d1802e3608c3c944e5d05e51342466fbc8",
+        "paths_verified": [
+          "vector retrieval",
+          "structured injection classification",
+          "raw versus filtered generation",
+          "LangGraph retrieve-classify-filter-generate pipeline",
+          "new-injection exercise",
+          "legitimate-document false-positive check"
+        ],
+        "final_checkpoint": "code-ex",
+        "defense_contract": "A seeded override instruction and the new French-only instruction were both classified high-risk; the graph consistently reduced seven retrieved chunks to one blocked and six safe chunks before answering."
+      }
     }
   }
 }
