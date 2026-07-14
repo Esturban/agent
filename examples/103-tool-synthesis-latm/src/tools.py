@@ -8,7 +8,7 @@ Synthesized tools are cached — amortizing generation cost across future calls.
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 
 # Tasks designed to trigger synthesis on the first occurrence, then reuse on repeats.
 # The tool-maker is instructed to call zero-auth public APIs (wttr.in, numbersapi.com).
