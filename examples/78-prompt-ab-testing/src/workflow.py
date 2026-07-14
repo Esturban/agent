@@ -16,7 +16,7 @@ class ABState(TypedDict):
 
 
 def run_variant_a(state: ABState) -> ABState:
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     prompt = VARIANT_A_PROMPT.format(question=state["question"])
     response = llm.invoke([HumanMessage(content=prompt)])
     text = response.content.strip()
@@ -24,7 +24,7 @@ def run_variant_a(state: ABState) -> ABState:
 
 
 def run_variant_b(state: ABState) -> ABState:
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     prompt = VARIANT_B_PROMPT.format(question=state["question"])
     response = llm.invoke([HumanMessage(content=prompt)])
     text = response.content.strip()
