@@ -1481,6 +1481,18 @@
         "final_checkpoint": "cell-code-035",
         "swe_agent_contract": "All 20 notebook code cells executed in a disposable copy without errors. The live agent changed max_val to nums[0], removed the spurious average subtraction, and the independent final test run returned 0 with All tests passed!. The companion script independently made the same repairs and ended with All tests passed!."
       }
+    },
+    "102-voice-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 18,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["OpenAI TTS creation", "Whisper transcription", "STT-response-TTS graph", "timed pipeline", "streaming speech", "voice comparison", "three-call accounting", "companion main.py round-trip"],
+        "final_checkpoint": "cell-code-033",
+        "voice_pipeline_contract": "All 18 code cells completed without errors in a disposable copy. The run generated nonempty MP3 inputs and outputs, transcribed the synthetic LangGraph question, compiled and ran the transcribe/respond/speak graph, and confirmed exactly one STT, one LLM, and one TTS call in the accounting exercise. The companion script independently completed a full round-trip and produced a 1910 KB output MP3."
+      }
     }
   }
 }
