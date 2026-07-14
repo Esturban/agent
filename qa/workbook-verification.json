@@ -263,6 +263,16 @@
         "paths_verified": ["knowledge-base tools", "mixed query routing", "multihop retrieval", "streaming and memory", "runnable answer keys"],
         "final_checkpoint": "cell-33-ans3-code"
       }
+    },
+    "31-multi-agent-debate": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 27,
+        "cell_errors": 0,
+        "paths_verified": ["moderated debate graph", "live debate execution", "turn controls", "runnable answer keys"],
+        "final_checkpoint": "cell-code-ans4"
+      }
     }
   }
 }
