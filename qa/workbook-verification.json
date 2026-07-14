@@ -76,6 +76,29 @@
         },
         "final_checkpoint": "cell-34-ex1-solution"
       }
+    },
+    "19-multi-agent-notebook": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 22,
+        "cell_errors": 0,
+        "paths_verified": [
+          "supervisor routing unit scenarios",
+          "live researcher-to-writer streaming graph",
+          "safe turn-counter graph",
+          "checkpointed two-turn conversation",
+          "runnable guarded-graph answer key"
+        ],
+        "checkpoints": {
+          "supervisor_order": ["researcher", "writer", "FINISH"],
+          "checkpoint_messages_after_turn_1": 3,
+          "checkpoint_messages_after_turn_2": 6,
+          "checkpoint_turn_2_has_writer_answer": true
+        },
+        "final_checkpoint": "cell-ans2",
+        "runtime_fix": "enforce fixed worker ordering within the latest human turn so prior checkpointed turns cannot terminate a follow-up"
+      }
     }
   }
 }
