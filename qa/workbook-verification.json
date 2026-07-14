@@ -1136,6 +1136,27 @@
         "final_checkpoint": "code-ans3",
         "supervisor_contract": "The live supervisor routed factual questions to the expected math, history, and science specialists; the low-confidence haiku request used the fallback; multi-specialist arbitration completed; and the route-tracing answer key identified math, history, and science for all three trace questions."
       }
+    },
+    "81-streaming-sse-server": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "fastapi-sse-v1",
+        "source_sha256": "b1ff49e435a0f406a29da3a4636081414da50d42f621af3f8bf10b2f2fffe5ee",
+        "paths_verified": [
+          "tool-call event stream",
+          "checkpointed three-turn conversation",
+          "FastAPI SSE reference",
+          "HTML SSE client",
+          "tool-result answer key",
+          "streaming stats answer key",
+          "live FastAPI /stream endpoint"
+        ],
+        "final_checkpoint": "code-ans4",
+        "streaming_contract": "The tool-call stream invoked calculator (15*23=345) and word_count (3) before its final answer; the checkpointed conversation correctly carried 56 into 112 and recalled both calculations; the live /stream endpoint returned text/event-stream with 18 data frames and a terminal [DONE] frame."
+      }
     }
   }
 }
