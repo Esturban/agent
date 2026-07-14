@@ -1341,6 +1341,26 @@
         "final_checkpoint": "code-exercises",
         "least_to_most_contract": "All eight code cells executed in a disposable repository copy with no errors. The live workflow decomposed the train-meeting problem into six ordered steps and solved each sequentially with growing prior context. The companion script completed three independent problems and returned $162, 39%, and 48 mph respectively."
       }
+    },
+    "91-analogical-reasoning": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "54fb3edae981e069a6ae13f02210d4f57b51fce14d47a5cb042b59582333d6d8",
+        "paths_verified": [
+          "analogical versus few-shot prompt construction",
+          "live analogy recall and solution generation",
+          "zero-shot versus analogy-augmented comparison",
+          "two-node LangGraph analogy workflow",
+          "domain-constrained exercise starters",
+          "companion main.py three-problem sweep"
+        ],
+        "final_checkpoint": "code-exercises",
+        "analogical_reasoning_contract": "All eight notebook code cells ran in a disposable copy without errors. Live analogy-augmented solutions produced 30 hours for the factory rate problem, 1458 for the geometric sequence, 8 days for the snail, and 5 days for the alternate snail workflow. The companion script completed the snail, fly, and water-jug problems with nonempty self-generated analogies and final answers."
+      }
     }
   }
 }
