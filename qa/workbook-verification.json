@@ -1372,6 +1372,19 @@
         "execution_not_attempted": "The workbook's live cells create cloud E2B sandboxes. Running without the required service credential cannot verify the teaching workflow.",
         "outstanding_remediation": "Provision E2B_API_KEY, install a dedicated e2b-code-interpreter profile, migrate legacy Sandbox() context-manager calls to the current Sandbox.create() lifecycle with explicit execution/request timeouts, then run the full notebook and companion script."
       }
+    },
+    "93-llama-guard-guardrails": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "e4fe8cae52cefffe71947a440b945499073c40dd4cb3d54d446419c0200e0886",
+        "paths_verified": ["live S1-S6 classifier checks", "safe versus blocked routing", "LangGraph guard branch", "exercise setup", "companion main.py six-query sweep"],
+        "final_checkpoint": "code-exercises",
+        "guardrail_contract": "The disposable notebook run completed all eight code cells without errors. Classifier checks matched safe, S2, S6, and S1 expectations; the graph answered safe questions and refused blocked ones. The companion script completed six queries, including safe responses and S6 refusals."
+      }
     }
   }
 }
