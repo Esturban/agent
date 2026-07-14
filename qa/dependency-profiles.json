@@ -33,6 +33,20 @@
         "langgraph==0.6.7"
       ]
     },
+    "prompt-ab-v1": {
+      "imports": [
+        "numpy",
+        "scipy",
+        "langgraph"
+      ],
+      "constraints": [
+        "numpy==2.5.1",
+        "scipy==1.17.1",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33",
+        "langgraph==0.6.7"
+      ]
+    },
     "reranking-v1": {
       "imports": ["flashrank", "langchain_chroma"],
       "constraints": [
