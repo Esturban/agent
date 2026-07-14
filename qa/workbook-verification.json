@@ -1029,6 +1029,28 @@
         "final_checkpoint": "code-ans3",
         "streaming_contract": "The two-node graph emitted labeled tokens for think_node and answer_node; the exercise counted 38 and 41 tokens respectively, the answer key collected a nonempty 349-character answer, and the live FastAPI route returned text/event-stream with four token frames and a terminal [DONE] frame."
       }
+    },
+    "76-agent-evaluation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 9,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "96d82aa8d64a83676c682b2cd2ec7c2f9e4a6ac6f5c1cd13a85e188708d9234c",
+        "paths_verified": [
+          "golden QA baseline",
+          "exact and embedding scoring",
+          "0-2 LLM judge",
+          "LangGraph evaluation pipeline",
+          "threshold sensitivity exercise",
+          "5-point judge answer key",
+          "two-run regression detection",
+          "companion main.py evaluation"
+        ],
+        "final_checkpoint": "code-ans4",
+        "evaluation_contract": "All five live golden-set answers passed; the 0-2 judge returned 2/2 for every row, the LangGraph pipeline reported 1.000 average embedding score and 2.00/2 average judge score, the two-run comparison found no regressions, and main.py separately completed 5/5 with a 100% pass rate."
+      }
     }
   }
 }
