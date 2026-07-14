@@ -119,6 +119,14 @@
       ],
       "incompatible_with": ["core-openai-v1"]
     },
+    "smolagents-openai-v1": {
+      "imports": ["smolagents"],
+      "constraints": [
+        "smolagents==1.14.0",
+        "openai==1.109.1"
+      ],
+      "incompatible_with": ["litellm-openai-v2", "core-openai-v1"]
+    },
     "training": {
       "imports": ["torch", "transformers", "peft", "trl"],
       "constraints": ["torch>=2.0.0"]
