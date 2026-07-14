@@ -17,6 +17,30 @@
         "runtime_fix": "guard task context inspection against CrewAI's _NotSpecified sentinel"
       }
     },
+    "16-rag-eval-notebook": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": [
+          "baseline RAGAS evaluation",
+          "k=1 retrieval comparison",
+          "loose-prompt faithfulness experiment",
+          "all three runnable exercise answer keys"
+        ],
+        "checkpoints": {
+          "baseline_mean_scores": {
+            "faithfulness": 1.0,
+            "answer_relevancy": 0.758,
+            "context_recall": 1.0
+          },
+          "loose_prompt_faithfulness": 0.464
+        },
+        "final_checkpoint": "cell-33-ans3-code",
+        "runtime_fix": "use gpt-4o-mini for RAGAS's temperature-controlled evaluator while retaining gpt-5-nano for the RAG chain"
+      }
+    },
     "17-corrective-rag": {
       "status": "pass",
       "verified_at": "2026-07-14",
