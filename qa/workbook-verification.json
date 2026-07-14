@@ -143,6 +143,22 @@
         "final_checkpoint": "cell-code-039",
         "runtime_fix": "pin the legacy ConversableAgent-compatible pyautogen release for Python 3.13"
       }
+    },
+    "22-hybrid-search-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": [
+          "BM25 exact-match retrieval",
+          "dense vector retrieval",
+          "hybrid reciprocal-rank fusion",
+          "runnable exercise answer keys"
+        ],
+        "final_checkpoint": "cell-0023",
+        "runtime_fix": "declare rank-bm25 required by LangChain BM25Retriever"
+      }
     }
   }
 }
