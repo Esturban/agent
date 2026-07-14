@@ -516,6 +516,30 @@
         "trajectory_contract": "all three primary tasks emitted exactly their declared tool sequences",
         "runtime_fixes": ["bound ReAct tool loops", "use current DeepEval ToolCall expected-tools API", "avoid partial API-key output"]
       }
+    },
+    "51-deepeval-conversational": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": [
+          "stateful and stateless chatbots",
+          "KnowledgeRetentionMetric",
+          "ConversationCompletenessMetric",
+          "adversarial forgetting check",
+          "off-topic answer comparison",
+          "memory-critical task comparison",
+          "threshold-sensitivity answer key"
+        ],
+        "final_checkpoint": "cell-32-ex4-code",
+        "metric_contract": "stateful retention scored 1.00 versus 0.60 stateless; the adversarial and tampered conversations failed their intended quality gates",
+        "runtime_fixes": [
+          "use current DeepEval conversational metric and Turn APIs",
+          "enable the typed-output adapter for gpt-5.4-nano"
+        ]
+      }
     }
   }
 }
