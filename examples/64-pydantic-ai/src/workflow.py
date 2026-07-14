@@ -3,7 +3,7 @@ from pydantic_ai import Agent
 from src.tools import ResearchResult
 
 _agent = Agent(
-    "openai:gpt-5-nano",
+    "openai:gpt-5.4-nano",
     result_type=ResearchResult,
     system_prompt=(
         "You are an expert researcher. Given a topic, produce a factual summary, "
