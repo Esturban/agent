@@ -1051,6 +1051,27 @@
         "final_checkpoint": "code-ans4",
         "evaluation_contract": "All five live golden-set answers passed; the 0-2 judge returned 2/2 for every row, the LangGraph pipeline reported 1.000 average embedding score and 2.00/2 average judge score, the two-run comparison found no regressions, and main.py separately completed 5/5 with a 100% pass rate."
       }
+    },
+    "77-langfuse-observability": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "5bc1165c627af68f1caad39edc17d71e263a3ad627bf27f3c29495f3e9fbe79d",
+        "paths_verified": [
+          "callback start/end tracing",
+          "two-node cost capture",
+          "session grouping",
+          "structured trace report",
+          "per-observation cost answer key",
+          "cosine-score attachment",
+          "companion main.py tracing"
+        ],
+        "final_checkpoint": "code-ans3",
+        "observability_contract": "The local handler recorded start/end observations with input and output token counts; multi-node traces captured four events each, session totals grouped two traces per user session, score attachment wrote cosine_similarity=0.8414, and main.py traced all three sample tasks."
+      }
     }
   }
 }
