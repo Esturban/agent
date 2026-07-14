@@ -19,6 +19,15 @@
         "langgraph-checkpoint-sqlite==2.0.11"
       ]
     },
+    "redis-memory-v1": {
+      "imports": ["redis", "langgraph"],
+      "constraints": [
+        "redis==6.4.0",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33",
+        "langgraph==0.6.7"
+      ]
+    },
     "fastapi-sse-v1": {
       "imports": [
         "fastapi",
