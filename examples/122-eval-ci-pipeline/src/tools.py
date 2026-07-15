@@ -7,7 +7,7 @@ import os
 
 from openai import OpenAI
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 
 GOLDEN_DATASET = [
     {
@@ -70,6 +70,8 @@ def load_golden_dataset() -> list[dict]:
 
 def run_pipeline(question: str, context: str) -> str:
     """The pipeline under test: answers using the provided context (good pipeline)."""
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise RuntimeError("OPENAI_API_KEY is required to run the live evaluation pipeline.")
     client = OpenAI()
     response = client.chat.completions.create(
         model=MODEL,
