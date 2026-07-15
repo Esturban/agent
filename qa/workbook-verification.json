@@ -1557,6 +1557,20 @@
         "final_checkpoint": "cell-code-035",
         "nemo_guardrails_contract": "All 19 notebook code cells completed without errors or traceback output in a disposable copy. The live Colang 2 input rail blocked all four primary attack cases and allowed both benign cases for 6/6 accuracy; it also blocked all three novel unsafe probes, three PII probes, and the self-harm probe before handing accepted inputs to the application model. The companion script independently completed the same four-block/two-allowed sweep."
       }
+    },
+    "108-guardrails-ai": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "guardrails-ai-v1",
+        "runtime_python": "3.14",
+        "source_sha256": "008b6d750d40cf2e181e804e6fde11b64061860bb9a0cbbb344e262285caff07",
+        "paths_verified": ["Pydantic schema validators", "four live structured-output calls", "Guard history inspection", "zero-reask failure", "batch statistics", "extended response schema", "exercise answer keys", "companion main.py"],
+        "final_checkpoint": "cell-code-030",
+        "guardrails_ai_contract": "All 16 notebook code cells completed without errors in a disposable copy. The schema validator accepted valid content and rejected overlong summaries, URLs, and incorrect point counts. The live four-prompt run returned structured outputs, history logged all four calls, the zero-reask demonstration failed with zero retries, batch statistics reconciled all four prompts, and the extended schema returned a category and confidence. The companion script independently completed all four live calls."
+      }
     }
   }
 }
