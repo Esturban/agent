@@ -8,7 +8,7 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 
 # ~3000 word synthetic technical report about AI systems
 LONG_DOCUMENT = """
