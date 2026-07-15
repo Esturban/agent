@@ -1542,6 +1542,21 @@
         "final_checkpoint": "cell-code-030",
         "jailbreak_detection_contract": "All 17 notebook code cells completed without errors in a disposable copy. The live seven-case suite blocked the five attack cases and allowed both benign cases for 7/7 accuracy; the threshold sweep produced five blocks with zero false positives and false negatives at 0.6. The fixed two-stage exercise extracted and decoded the embedded base64 token before classifying it. The companion script independently produced five blocks and two allowed replies."
       }
+    },
+    "107-nemo-guardrails": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "traceback_outputs": 0,
+        "dependency_profile": "nemo-guardrails-v1",
+        "runtime_python": "3.12",
+        "source_sha256": "c084d1a7565e68df03405e192c5df76d715f8072fe03613353d403c6ea8742b7",
+        "paths_verified": ["Colang 2 input classifier", "four primary attack blocks", "two benign model handoffs", "six-case 100% accuracy check", "novel jailbreak/off-topic probes", "PII and self-harm probes", "latency comparison", "embedding comparison", "companion main.py"],
+        "final_checkpoint": "cell-code-035",
+        "nemo_guardrails_contract": "All 19 notebook code cells completed without errors or traceback output in a disposable copy. The live Colang 2 input rail blocked all four primary attack cases and allowed both benign cases for 6/6 accuracy; it also blocked all three novel unsafe probes, three PII probes, and the self-harm probe before handing accepted inputs to the application model. The companion script independently completed the same four-block/two-allowed sweep."
+      }
     }
   }
 }
