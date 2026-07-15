@@ -1710,6 +1710,19 @@
         "final_checkpoint": "cell-code-031",
         "sycophancy_contract": "A disposable-copy companion run completed successfully. The complete 32-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Its baseline two-turn attack retained the benign opener and assistant response in turn two, the 36-case matrix completed, the monitor classified the supplied attack variants, and the guarded exercise blocked the combined attack without leaking a canary. Matrix outcomes are recorded as live-model observations, not a fixed reproduction of the paper's reported attack-success rate."
       }
+    },
+    "126-mcts-agent-fuzzing": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "initial root-branch expansion", "UCB1 selection", "mutation operators", "LangGraph target agent", "LLM judge", "tree visualisation", "two-seed answer-key comparison"],
+        "final_checkpoint": "cell-code-030",
+        "mcts_contract": "A disposable-copy companion run completed successfully. The complete 33-cell notebook executed all 21 code cells without errors within the five-minute cap using gpt-5.4-nano. The live primary run created two distinct root children before its confirmed early stop, rendered the mutation tree and best path, and the answer-key comparison completed both seed runs. Initial expansion now makes breadth possible before UCB1 selection instead of deterministically extending one chain. Scores are live defensive-evaluation observations, not fixed security claims."
+      }
     }
   }
 }
