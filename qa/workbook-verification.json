@@ -1571,6 +1571,20 @@
         "final_checkpoint": "cell-code-030",
         "guardrails_ai_contract": "All 16 notebook code cells completed without errors in a disposable copy. The schema validator accepted valid content and rejected overlong summaries, URLs, and incorrect point counts. The live four-prompt run returned structured outputs, history logged all four calls, the zero-reask demonstration failed with zero retries, batch statistics reconciled all four prompts, and the extended schema returned a category and confidence. The companion script independently completed all four live calls."
       }
+    },
+    "109-pii-redaction-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "presidio-pii-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "76aaf6721fc0eb8af8b80b5709a453134116d4d602bd3af95801eac760dd82ad",
+        "paths_verified": ["stock entity detection", "custom SSN recognizer", "custom employee-ID recognizer", "pre-ingestion redaction", "live two-stage pipeline", "post-generation leak cleanup", "threshold comparison", "engine reuse timing", "GDPR-safe audit log", "companion main.py"],
+        "final_checkpoint": "cell-code-035",
+        "pii_redaction_contract": "All 19 notebook code cells completed without errors in a disposable copy. The live two-stage runs processed both sample documents; delivered-response checkpoints contained neither the sample SSN nor employee ID. The source-level custom-recognizer check also proved those values are removed before model ingestion, while the exercise and audit-log checks completed successfully. The companion script independently completed both live documents."
+      }
     }
   }
 }
