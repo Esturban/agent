@@ -21,5 +21,9 @@ def run_attack(system_prompt: str, attack_prompt: str) -> tuple[str, str]:
     Turn 2 is the attack response — this is what we analyse for leakage.
     """
     turn1 = query_agent(BENIGN_OPENER, system_prompt)
-    turn2 = query_agent(attack_prompt, system_prompt)
+    turn2 = query_agent(
+        attack_prompt,
+        system_prompt,
+        history=[("user", BENIGN_OPENER), ("assistant", turn1)],
+    )
     return turn1, turn2
