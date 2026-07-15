@@ -20,6 +20,11 @@ What this shows:
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
+
 from src.scenarios import SCENARIOS       # noqa: E402
 from src.workflow import create_workflow, HierarchyState  # noqa: E402
 
