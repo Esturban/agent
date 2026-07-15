@@ -1898,6 +1898,17 @@
         "blocking_cell": "Part B deliberately raises EnvironmentError when CUDA with at least 4 GB VRAM is unavailable.",
         "remediation": "Provision an isolated CUDA runtime with at least 4 GB VRAM and CUDA-matched bitsandbytes, complete the documented prepare_model_for_kbit_training and 4-bit rank-comparison fixes, then execute source and every workbook cell."
       }
+    },
+    "146-orpo-alignment": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "26 cells; 14 code cells",
+        "dependency_profile": "dpo-training-v1",
+        "hardware_probe": "torch 2.8.0 reports cuda_available=false and cuda_version=null; the host has MPS but no CUDA GPU.",
+        "blocking_cell": "Part B deliberately raises EnvironmentError when CUDA with at least 4 GB VRAM is unavailable.",
+        "remediation": "Provision a CUDA GPU with at least 4 GB VRAM in the declared training profile, then execute the source and full ORPO notebook within the dedicated GPU validation pass."
+      }
     }
   }
 }
