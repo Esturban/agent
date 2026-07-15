@@ -11,7 +11,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from corpus.seed_injections import JUDGE_SYSTEM
 
-_judge = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_judge = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 def score_response(injection_prompt: str, agent_response: str) -> tuple[float, bool, str]:
@@ -22,9 +22,14 @@ def score_response(injection_prompt: str, agent_response: str) -> tuple[float, b
     ]).content
     m = re.search(r"\{.*\}", raw, re.DOTALL)
     if m:
-        data = json.loads(m.group())
+        try:
+            data = json.loads(m.group())
+        except json.JSONDecodeError:
+            data = None
+        if not isinstance(data, dict):
+            return 0.0, False, "unparseable judge response"
         score = float(data.get("score", 0.0))
         success = bool(data.get("success", False))
         reasoning = data.get("reasoning", "")
         return score, success, reasoning
-    return 0.0, False, "parse error"
+    return 0.0, False, "unparseable judge response"
