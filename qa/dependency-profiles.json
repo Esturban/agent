@@ -253,6 +253,22 @@
       ],
       "incompatible_with": ["core-openai-v1"]
     },
+    "presidio-pii-v1": {
+      "imports": ["presidio_analyzer", "presidio_anonymizer", "spacy"],
+      "python": "3.13",
+      "constraints": [
+        "presidio-analyzer==2.2.360",
+        "presidio-anonymizer==2.2.360",
+        "spacy==3.8.7",
+        "click==8.1.8",
+        "openai==1.109.1",
+        "langchain-openai==0.3.33",
+        "python-dotenv==1.1.1",
+        "nbclient==0.10.2",
+        "nbformat==5.10.4",
+        "ipykernel==6.29.5"
+      ]
+    },
     "training": {
       "imports": ["torch", "transformers", "peft", "trl"],
       "constraints": ["torch>=2.0.0"]
