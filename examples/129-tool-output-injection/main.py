@@ -28,6 +28,11 @@ Run:
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
+
 from tools.poisoned import calculator, web_search, weather_api, memory_read  # noqa: E402
 from src.workflow import run_undefended, run_defended                          # noqa: E402
 
