@@ -1996,6 +1996,17 @@
         "final_checkpoint": "cell-ans4",
         "prospect_contract": "A disposable-copy source run processed the committed public Jensen Huang fixture and wrote an outreach CSV. The full 38-cell workbook executed all 25 code cells without errors within the five-minute smoke cap, including live research, drafting, streaming, batch processing, and answer keys."
       }
+    },
+    "141-prompt-caching": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "30 cells; 16 code cells",
+        "dependency_profile": "anthropic-prompt-cache-v1",
+        "dependency_probe": "The Anthropic SDK and notebook runtime are installed, but ANTHROPIC_API_KEY is not declared in the local environment.",
+        "provider_requirement": "The source and live workbook cells use Anthropic's cache_control request shape and cache_read_input_tokens usage field; an OpenAI credential cannot validate this provider-specific lesson.",
+        "remediation": "Provide an authorized Anthropic key, then execute main.py and all workbook cells with a cacheable prefix large enough to produce measurable cache-read usage."
+      }
     }
   }
 }
