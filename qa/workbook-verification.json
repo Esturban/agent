@@ -1599,6 +1599,20 @@
         "final_checkpoint": "cell-code-032",
         "pair_contract": "All 19 notebook code cells completed without errors in a disposable copy. The live attacker, target, and judge calls returned the expected structures; the compiled graph completed a bounded cycle with a final judge score in the 1-10 range. History, convergence reporting, and the exercise definitions completed successfully. The companion script independently completed the live graph."
       }
+    },
+    "113-dpo-alignment": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 11,
+        "cell_errors": 0,
+        "dependency_profile": "dpo-training-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "ed2fcaa731319e359bdbc8ad0d3e3391739859c0c33d68d96dafd86451c91622",
+        "paths_verified": ["conversational preference dataset", "chat-template generation", "LoRA adapter attachment", "10-epoch DPO training", "before/after refusal comparison", "exercise answer-key cells", "companion main.py"],
+        "final_checkpoint": "cell-code-018",
+        "dpo_contract": "A disposable-copy source run completed in 122 seconds: finite training loss and refusal rate improved from 0% to 60% across five adversarial prompts. The complete 28-cell notebook then completed all 11 code cells without errors within the five-minute cap; its 10-category preference dataset trained successfully with finite loss and the final answer-key comparison improved from 0% to 33% across three prompts."
+      }
     }
   }
 }
