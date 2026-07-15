@@ -1859,6 +1859,19 @@
         "final_checkpoint": "cost-estimate",
         "vision_contract": "A disposable-copy source run answered all three questions about the Python logo. The complete 31-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. The live flow validates remote image responses, uses max_completion_tokens as required by the selected model, and checks model availability without printing credentials."
       }
+    },
+    "142-semantic-caching": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "live text-embedding-3-small vectors", "best qualifying cache-match selection", "calibrated paraphrase cache hits", "cache misses and gpt-5.4-nano completions", "two exercise answer keys", "warm-cache comparison", "compiled LangGraph workflow"],
+        "final_checkpoint": "cell-27-partb-run",
+        "semantic_cache_contract": "A disposable-copy source run completed seven queries with four cache hits and three misses after calibration to the observed embedding similarities. The complete 30-cell workbook executed all 16 code cells without errors within the five-minute cap. Its live five-query run demonstrated two semantic hits at the calibrated 0.70 threshold; the cache selects the highest-similarity qualifying entry rather than the first insertion, and the notebook never writes any key fragment to output."
+      }
     }
   }
 }
