@@ -1931,6 +1931,20 @@
         "fallback_behavior": "The source catches missing outlines and returns deterministic mock values, which exercises a fallback but does not validate CFG-constrained generation.",
         "remediation": "Provision a dedicated outlines runtime and a fully cached compatible local model, update the hosted comparison to gpt-5.4-nano, then execute source and complete notebook without using the mock fallback."
       }
+    },
+    "140-audio-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "30 cells; 16 code cells",
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "Whisper transcription of a local spoken WAV", "validated gpt-5.4-nano JSON classification", "LangGraph transcribe-analyze-route pipeline", "billing queue contract", "five-intent production classifier and router batch", "two exercise answer keys"],
+        "final_checkpoint": "part-b-pipeline",
+        "audio_routing_contract": "A disposable-copy source run and complete notebook execution transcribed a locally generated spoken billing request, classified it as billing, and routed it to billing-queue. The notebook's 16 code cells finished without errors within the five-minute cap; its five mock-transcript classifications each produced the expected production route."
+      }
     }
   }
 }
