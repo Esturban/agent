@@ -15,7 +15,7 @@ Every example is:
 
 ## Workbook verification (ongoing)
 
-As of 2026-07-15, the end-to-end verification ledger has **128 terminal entries out of 147 workbooks**: **110 PASS**, **10 BLOCKED**, and **8 FAIL**. A PASS means the source entry point and complete notebook were executed top-to-bottom in a disposable copy, within the smoke limit, with the recorded lesson checks passing. Missing credentials or external services are reported as BLOCKED rather than treated as a pass.
+As of 2026-07-15, the ledger covers **all 147 workbooks**: **110 execution PASS**, **11 USER_VERIFIED**, **18 BLOCKED**, and **8 FAIL**. An execution PASS means the source entry point and complete notebook ran top-to-bottom in a disposable copy within the smoke limit and passed the recorded lesson checks. USER_VERIFIED records are the #4–#14 workbooks the maintainer explicitly confirmed and excluded from this agent pass. Missing credentials, unavailable services, and unreconciled user-owned notebook changes are BLOCKED rather than treated as a pass.
 
 See the versioned [verification ledger](./qa/workbook-verification.json) and [dependency profiles](./qa/dependency-profiles.json) for per-workbook evidence and runtime isolation. The remaining catalog is being repaired and executed iteratively; its status is intentionally separate from static formatting or lint findings.
 
