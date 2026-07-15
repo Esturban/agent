@@ -14,7 +14,7 @@ import random
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 
-_mutator = ChatOpenAI(model="gpt-4o-mini", temperature=0.9)
+_mutator = ChatOpenAI(model="gpt-5.4-nano", temperature=0.9)
 
 # Operator names for display and logging
 OPERATOR_NAMES = ["paraphrase", "encode", "roleframe", "authority", "split", "combine"]
