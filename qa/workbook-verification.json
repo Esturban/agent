@@ -1835,6 +1835,17 @@
         "api_compatibility": "The source and workbook use obsolete /api/files/upload, /api/chat/stream, and /api/health routes rather than DeerFlow's current /health and thread-scoped upload/run API.",
         "remediation": "Expand the workbook to the teaching standard, migrate client/workbook routes, make external-service absence fail fast, configure a sandboxed DeerFlow runtime, then execute the fixture repair source flow and complete notebook."
       }
+    },
+    "137-deerflow-runtime-workbook": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "7 cells; 6 code cells, with no companion main.py and below the workshop minimum.",
+        "dependency_profile": "external-deerflow-service",
+        "notebook_execution": "A disposable-copy notebook execution failed at the config cell with the intended RuntimeError because localhost:8000 refused connections.",
+        "api_compatibility": "The connection preflight uses obsolete /api/health, and subsequent cells use obsolete /api/files/upload and /api/chat/stream routes rather than DeerFlow's current /health and thread-scoped API.",
+        "remediation": "Add the companion entry point and complete teaching sequence, migrate all routes to the current DeerFlow API, provision the declared service, then execute the full source/notebook path."
+      }
     }
   }
 }
