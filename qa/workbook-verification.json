@@ -1723,6 +1723,19 @@
         "final_checkpoint": "cell-code-030",
         "mcts_contract": "A disposable-copy companion run completed successfully. The complete 33-cell notebook executed all 21 code cells without errors within the five-minute cap using gpt-5.4-nano. The live primary run created two distinct root children before its confirmed early stop, rendered the mutation tree and best path, and the answer-key comparison completed both seed runs. Initial expansion now makes breadth possible before UCB1 selection instead of deterministically extending one chain. Scores are live defensive-evaluation observations, not fixed security claims."
       }
+    },
+    "128-instruction-hierarchy-enforcer": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "six trust-hierarchy scenarios", "fast escalation-keyword block", "semantic conflict judgement", "allowed execution branch", "blocked response branch", "exercise answer keys"],
+        "final_checkpoint": "cell-code-029",
+        "instruction_hierarchy_contract": "A disposable-copy companion run completed all six live hierarchy scenarios correctly: explicit user escalation and indirect tool-output attacks were blocked, while legitimate user and benign tool content were allowed. The complete 30-cell notebook executed all 16 code cells without errors within the five-minute cap using gpt-5.4-nano. The enforcer now defaults to block if its judge response is invalid JSON."
+      }
     }
   }
 }
