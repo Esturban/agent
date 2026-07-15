@@ -31,6 +31,11 @@ Output:
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
+
 from src.comparison import build_matrix  # noqa: E402
 from prompts.attack_variants import ATTACKS  # noqa: E402
 from prompts.defenses import DEFENSES  # noqa: E402
@@ -74,7 +79,7 @@ def print_matrix(results: list[dict]) -> None:
 def main() -> None:
     print("Sycophancy Prompt Leakage (Salesforce, EMNLP 2024 / arxiv:2404.16251)")
     print("Running 4 attacks × 3 defenses × 3 system prompts...")
-    print("(36 LLM calls total)\n")
+    print("(72 target-model calls total)\n")
 
     results = build_matrix()
     print_matrix(results)
