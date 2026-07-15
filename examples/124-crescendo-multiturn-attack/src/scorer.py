@@ -10,7 +10,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from prompts.judge_prompt import JUDGE_SYSTEM, JUDGE_USER
 
-_judge = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_judge = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 def _format_conversation(history: list[dict]) -> str:

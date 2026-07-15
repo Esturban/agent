@@ -20,7 +20,7 @@ from prompts.escalation_templates import (
     PLANNER_SYSTEM, LEVEL_GOALS,
 )
 
-_planner = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+_planner = ChatOpenAI(model="gpt-5.4-nano", temperature=0.7)
 
 
 def _format_conversation(history: list[dict]) -> str:
