@@ -1762,6 +1762,19 @@
         "final_checkpoint": "cell-code-030",
         "agentdojo_contract": "A disposable-copy source run completed the real AgentDojo banking subset for both registered attacks. The complete 33-cell workbook executed all 17 code cells without errors within the five-minute cap in an isolated AgentDojo 0.1.35 kernel. The harness constructs attacks with the required suite and pipeline, supplies an OutputLogger-compatible temporary log directory, and registers the gpt-5.4-nano model name required by the benchmark's important-instructions attack."
       }
+    },
+    "131-multi-agent-trust-propagation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "TTL-decremented delegation", "allowlist/denylist propagation", "legitimate delegation", "injected tool-output escalation", "TTL exhaustion", "independent verifier boundary", "exercise answer keys"],
+        "final_checkpoint": "cell-code-038",
+        "trust_propagation_contract": "A disposable-copy source run completed all five scenarios correctly. Injected admin/system privilege claims are now deterministically recorded as trust-boundary violations even when the subagent also refuses them; the verifier fails closed on invalid JSON. The complete 39-cell workbook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano."
+      }
     }
   }
 }
