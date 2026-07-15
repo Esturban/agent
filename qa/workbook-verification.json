@@ -1655,6 +1655,20 @@
         "final_checkpoint": "cell-code-009",
         "mcp_contract": "A disposable-copy native MCP client started the companion stdio server, initialized the protocol, discovered exactly three tools, called get_weather for Tokyo (28C), and called convert_units for 100 km (62.1371 miles). The complete 30-cell notebook then executed all 14 code cells without errors within the five-minute cap, including the same real subprocess server and protocol round trip."
       }
+    },
+    "122-eval-ci-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "1427f5a88bdc091f1c4cd8f688c841dba76f2acc28779c7bc33712ddcaf4a6a0",
+        "paths_verified": ["portable credential setup", "ten live gpt-5.4-nano golden-dataset calls", "good-pipeline score gate", "degraded-pipeline regression gate", "threshold comparison", "extended-dataset exercise", "live pytest CI assertion", "companion main.py"],
+        "final_checkpoint": "cell-code-024",
+        "eval_ci_contract": "A disposable-copy source run completed ten live gpt-5.4-nano evaluations: the context-grounded pipeline passed with combined score 0.741 while the intentionally degraded pipeline failed at 0.058. The complete 25-cell notebook executed all 13 code cells without errors, including portable .env/Colab credential setup and the threshold/extended-dataset checkpoints. The added live pytest regression gate also passed in a fresh copy (1 passed in 11.12s)."
+      }
     }
   }
 }
