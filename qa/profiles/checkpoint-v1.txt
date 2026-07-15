@@ -1,0 +1,9 @@
+# Generated from qa/dependency-profiles.json: checkpoint-v1
+# Top-level requirements only; resolve a full platform lock separately.
+langchain-openai==0.3.33
+langgraph-checkpoint-sqlite==2.0.11
+langgraph-checkpoint==2.1.2
+langgraph==0.6.7
+openai==1.109.1
+python-dotenv==1.1.1
+

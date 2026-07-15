@@ -39,7 +39,7 @@ from src.workflow import create_workflow, CrescendoState                        
 from src.transcript import print_summary, print_baseline_comparison              # noqa: E402
 from src.scorer import score_response                                            # noqa: E402
 
-MAX_TURNS = 8
+MAX_TURNS = 5
 THRESHOLD = 7
 
 
@@ -49,7 +49,7 @@ def run_baseline(objective: str, domain: str) -> int:
     from langchain_core.messages import SystemMessage, HumanMessage
     from src.workflow import TARGET_SYSTEM
 
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     response = llm.invoke([
         SystemMessage(content=TARGET_SYSTEM),
         HumanMessage(content=objective),

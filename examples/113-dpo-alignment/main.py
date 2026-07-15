@@ -10,7 +10,7 @@ def main():
     result = create_workflow(
         model_name="HuggingFaceTB/SmolLM2-135M-Instruct",
         n_examples=50,
-        num_train_epochs=1,
+        num_train_epochs=10,
     )
     print("\n--- Before/After Safety Comparison ---")
     report = result["safety_report"]

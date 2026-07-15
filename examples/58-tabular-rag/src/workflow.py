@@ -19,7 +19,7 @@ class TabularState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     df = pd.read_csv(io.StringIO(SAMPLE_CSV))
     schema = f"columns: {list(df.columns)}, dtypes: {df.dtypes.to_dict()}"
     sample = df.head(3).to_string(index=False)

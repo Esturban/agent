@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY is required for skeleton-of-thought.")
+
 from src.tools import QUESTIONS        # noqa: E402
 from src.workflow import create_workflow  # noqa: E402
 

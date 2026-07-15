@@ -51,7 +51,7 @@ def memory_store(action: str, key: str, value: str = "") -> str:
     return f"Retrieved '{key}': [no value stored in demo mode]"
 
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 _agent = create_react_agent(_llm, [calculator, web_search, memory_store])
 
 

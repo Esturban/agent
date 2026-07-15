@@ -1,4 +1,4 @@
-from agents import tool
+from agents import function_tool
 
 DOCS = [
     "OpenAI Agents SDK was released by OpenAI in early 2025.",
@@ -20,7 +20,7 @@ SAMPLE_QUESTIONS = [
 ]
 
 
-@tool
+@function_tool
 def keyword_search(query: str) -> str:
     """Search the knowledge base for relevant facts about the OpenAI Agents SDK."""
     words = set(query.lower().split())

@@ -14,7 +14,7 @@ from src.tools import MemoryStore
 #   Semantic   → key-value facts; retrieve by key lookup
 #   Procedural → always-on rules; prepend ALL to system prompt every turn
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 _CLASSIFIER_PROMPT = """Classify the following user input into ONE memory tier.
 Reply with exactly one word: episodic, semantic, or procedural.

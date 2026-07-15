@@ -72,7 +72,7 @@ class CanaryManager:
         Returns:
             (modified_system_prompt, token)
         """
-        token = _generate_token(prompt_id)
+        token = _generate_token()
         pid = prompt_id or f"prompt_{len(self._registry):04d}"
         canary_line = f"\n\n{CANARY_PREFIX}:{token}{CANARY_SUFFIX}"
         modified = system_prompt + canary_line + CANARY_INSTRUCTION

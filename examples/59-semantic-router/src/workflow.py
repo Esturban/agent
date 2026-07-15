@@ -22,7 +22,7 @@ class SemanticRouterState(TypedDict):
 
 def create_workflow():
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     route_vecs = build_route_embeddings(embeddings)
 
     def route_query(state: SemanticRouterState) -> dict:

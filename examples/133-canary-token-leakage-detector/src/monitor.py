@@ -75,7 +75,7 @@ def run_attack(
     attack_message: str,
 ) -> str:
     """Run one attack turn and return the model response."""
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     messages = [
         SystemMessage(content=system_prompt_with_canary),
         HumanMessage(content=attack_message),

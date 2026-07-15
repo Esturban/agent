@@ -1,0 +1,9 @@
+# Generated from qa/dependency-profiles.json: agentdojo
+# Top-level requirements only; resolve a full platform lock separately.
+agentdojo==0.1.35
+ipykernel==6.29.5
+nbclient==0.10.2
+nbformat==5.10.4
+openai==1.109.1
+python-dotenv==1.1.1
+

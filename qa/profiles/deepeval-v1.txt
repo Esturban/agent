@@ -1,0 +1,8 @@
+# Generated from qa/dependency-profiles.json: deepeval-v1
+# Top-level requirements only; resolve a full platform lock separately.
+chromadb==1.1.0
+deepeval==3.8.3
+huggingface-hub==0.36.0
+openai==1.109.1
+posthog==5.4.0
+

@@ -28,9 +28,13 @@ Run:
 """
 
 import sys
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
 
 from corpus.seed_injections import SEEDS  # noqa: E402
 from src.fuzzer import run_mcts            # noqa: E402

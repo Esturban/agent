@@ -7,6 +7,7 @@ def load_image_b64(source: str) -> tuple[str, str]:
     if source.startswith("http"):
         import httpx
         resp = httpx.get(source, timeout=10)
+        resp.raise_for_status()
         mime = resp.headers.get("content-type", "image/jpeg").split(";")[0]
         return base64.b64encode(resp.content).decode(), mime
     path = Path(source)
@@ -23,10 +24,10 @@ def vision_content(source: str, text: str) -> list:
     ]
 
 
-def ask_vision(source: str, question: str, client, model: str = "gpt-4o-mini") -> str:
+def ask_vision(source: str, question: str, client, model: str = "gpt-5.4-nano") -> str:
     resp = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": vision_content(source, question)}],
-        max_tokens=512,
+        max_completion_tokens=512,
     )
     return resp.choices[0].message.content

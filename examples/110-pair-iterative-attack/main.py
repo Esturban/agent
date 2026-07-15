@@ -18,8 +18,13 @@ Key files:
   src/workflow.py — cyclic LangGraph: attacker → target → judge → (loop|done)
 """
 
+import os
+
 from dotenv import load_dotenv
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required to run this live example.")
 
 from src.tools import OBJECTIVE, MAX_ITER, THRESHOLD
 from src.workflow import create_workflow, PAIRState

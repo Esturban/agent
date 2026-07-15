@@ -48,7 +48,7 @@ def verify_subagent_output(
     """
     Returns {"clean": bool, "violation_type": str, "explanation": str}.
     """
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
     check_prompt = (
         f"Trust context: level={trust_ctx.level.name}, "
@@ -67,12 +67,11 @@ def verify_subagent_output(
     import json
     try:
         result = json.loads(response.content)
-    except Exception:
-        text = response.content.lower()
+    except (TypeError, ValueError, json.JSONDecodeError):
         result = {
-            "clean": "true" in text and "false" not in text,
-            "violation_type": "none" if "none" in text else "unknown",
-            "explanation": response.content[:120],
+            "clean": False,
+            "violation_type": "unparseable_verifier_output",
+            "explanation": "Verifier output was not valid JSON; blocked by default.",
         }
 
     return result

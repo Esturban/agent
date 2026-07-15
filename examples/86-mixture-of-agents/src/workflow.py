@@ -15,8 +15,8 @@ from src.tools import PERSONAS
 # Annotated[list[str], operator.add] is the key: each parallel branch *appends*
 # to the list instead of overwriting it, so no branch's output is lost.
 
-_proposer_llm   = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)  # diversity via temp
-_aggregator_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)    # deterministic synthesis
+_proposer_llm   = ChatOpenAI(model="gpt-5.4-nano", temperature=0.7)  # diversity via temp
+_aggregator_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)    # deterministic synthesis
 
 
 class MoAState(TypedDict):

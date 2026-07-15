@@ -1,0 +1,10 @@
+# Generated from qa/dependency-profiles.json: synthetic-data-v1
+# Top-level requirements only; resolve a full platform lock separately.
+ipykernel==6.29.5
+langchain-openai==0.3.33
+nbclient==0.10.2
+nbformat==5.10.4
+numpy==2.5.1
+openai==1.109.1
+python-dotenv==1.1.1
+

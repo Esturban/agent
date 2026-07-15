@@ -9,7 +9,7 @@ intercepts and sanitizes tool output before it reaches the LLM.
 """
 
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain_core.tools import BaseTool
 from .validator import validate_tool_output
 
@@ -18,7 +18,7 @@ You are a helpful assistant. You have access to calculator, web_search, weather_
 Use the tools to answer the user's question. Report your findings clearly.\
 """
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 def _run_with_tools(query: str, tools: list, validate: bool) -> dict:
@@ -30,7 +30,7 @@ def _run_with_tools(query: str, tools: list, validate: bool) -> dict:
     tool_map = {t.name: t for t in tools}
 
     # Decide which tool to call based on query keywords
-    if "calculat" in query.lower() or "math" in query.lower():
+    if any(word in query.lower() for word in ("calculat", "math", "times", "plus")):
         tool_name, tool_input = "calculator", "2 + 2"
     elif "weather" in query.lower():
         tool_name, tool_input = "weather_api", "London"
@@ -54,6 +54,7 @@ def _run_with_tools(query: str, tools: list, validate: bool) -> dict:
     messages = [
         SystemMessage(content=AGENT_SYSTEM),
         HumanMessage(content=query),
+        AIMessage(content="", tool_calls=[{"name": tool_name, "args": {"input": tool_input}, "id": "demo-call-1", "type": "tool_call"}]),
         ToolMessage(content=sanitized_output, tool_call_id="demo-call-1"),
     ]
     response = _llm.invoke(messages).content

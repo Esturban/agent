@@ -29,7 +29,7 @@ class SimpleTraceHandler(BaseCallbackHandler):
 
 
 def create_workflow(handler: SimpleTraceHandler):
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0, callbacks=[handler])
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0, callbacks=[handler])
 
     def ask_question(state: TraceState) -> TraceState:
         response = llm.invoke([HumanMessage(content=state["task"])])

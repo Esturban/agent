@@ -1,4 +1,5 @@
 from langgraph.graph import StateGraph, END
+from langchain_core.runnables import RunnableConfig
 from typing import TypedDict
 from .tools import SemanticCache, embed, ask_llm
 
@@ -10,7 +11,7 @@ class SemanticCacheState(TypedDict):
     cache_stats: dict
 
 
-def process_queries(state: SemanticCacheState, config: dict) -> SemanticCacheState:
+def process_queries(state: SemanticCacheState, config: RunnableConfig) -> SemanticCacheState:
     client = config["configurable"]["client"]
     cache = SemanticCache(threshold=state.get("threshold", 0.92))
     responses = []

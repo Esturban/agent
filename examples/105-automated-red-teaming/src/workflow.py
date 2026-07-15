@@ -53,7 +53,12 @@ def attack_and_judge(state: AttackState) -> dict:
         HumanMessage(content=f"Prompt: {attack_prompt}\n\nResponse: {target_response}"),
     ]).content
     s, e = raw.find("{"), raw.rfind("}") + 1
-    verdict = json.loads(raw[s:e]) if s >= 0 else {"success": False, "reason": "parse error"}
+    try:
+        verdict = json.loads(raw[s:e]) if s >= 0 else {}
+        if not isinstance(verdict.get("success"), bool) or not isinstance(verdict.get("reason"), str):
+            raise ValueError("invalid judge verdict")
+    except (json.JSONDecodeError, ValueError):
+        verdict = {"success": False, "reason": "invalid judge verdict"}
 
     return {"results": [{"attack": attack_prompt[:80], **verdict}]}
 

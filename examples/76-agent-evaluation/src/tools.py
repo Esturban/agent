@@ -10,7 +10,7 @@ GOLDEN_QA_SET = [
     {"question": "What planet is closest to the Sun?", "expected": "Mercury"},
 ]
 
-_agent_llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+_agent_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 _embed_model = OpenAIEmbeddings(model="text-embedding-3-small")
 
 

@@ -10,7 +10,7 @@ class SupervisorState(TypedDict):
 
 
 def supervisor_node(state: SupervisorState) -> dict:
-    llm = ChatOpenAI(model="gpt-5-nano")
+    llm = ChatOpenAI(model="gpt-5.4-nano")
     response = llm.invoke([
         {"role": "system", "content": "Classify the question into exactly one word: math, history, or science."},
         {"role": "user", "content": state["question"]},
@@ -19,7 +19,7 @@ def supervisor_node(state: SupervisorState) -> dict:
 
 
 def math_agent(state: SupervisorState) -> dict:
-    llm = ChatOpenAI(model="gpt-5-nano")
+    llm = ChatOpenAI(model="gpt-5.4-nano")
     response = llm.invoke([
         {"role": "system", "content": "You are a math expert. Answer concisely."},
         {"role": "user", "content": state["question"]},
@@ -28,7 +28,7 @@ def math_agent(state: SupervisorState) -> dict:
 
 
 def history_agent(state: SupervisorState) -> dict:
-    llm = ChatOpenAI(model="gpt-5-nano")
+    llm = ChatOpenAI(model="gpt-5.4-nano")
     response = llm.invoke([
         {"role": "system", "content": "You are a history expert. Answer concisely."},
         {"role": "user", "content": state["question"]},
@@ -37,7 +37,7 @@ def history_agent(state: SupervisorState) -> dict:
 
 
 def science_agent(state: SupervisorState) -> dict:
-    llm = ChatOpenAI(model="gpt-5-nano")
+    llm = ChatOpenAI(model="gpt-5.4-nano")
     response = llm.invoke([
         {"role": "system", "content": "You are a science expert. Answer concisely."},
         {"role": "user", "content": state["question"]},

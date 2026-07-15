@@ -105,11 +105,13 @@ def generate_response(model, tokenizer, prompt: str, max_new_tokens: int = 150) 
     """Run single inference and return generated text (prompt stripped)."""
     import torch
     full_prompt = f"### Instruction:\n{prompt}\n\n### Response:\n"
-    inputs = tokenizer(full_prompt, return_tensors="pt")
+    device = next(model.parameters()).device
+    inputs = {name: value.to(device) for name, value in tokenizer(full_prompt, return_tensors="pt").items()}
     input_ids = inputs["input_ids"]
+    model.eval()
     with torch.no_grad():
         outputs = model.generate(
-            input_ids,
+            **inputs,
             max_new_tokens=max_new_tokens,
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id,

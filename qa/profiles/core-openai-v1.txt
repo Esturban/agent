@@ -1,0 +1,13 @@
+# Generated from qa/dependency-profiles.json: core-openai-v1
+# Top-level requirements only; resolve a full platform lock separately.
+httpx==0.28.1
+instructor==1.12.0
+ipykernel==6.30.1
+langchain-openai==0.3.33
+langgraph==0.6.7
+nbclient==0.10.2
+nbformat==5.10.4
+openai==1.109.1
+pytest==8.3.5
+python-dotenv==1.1.1
+

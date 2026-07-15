@@ -5,7 +5,7 @@ from .tools import generate_preference_dataset, save_as_hf_dataset, generate_res
 def create_workflow(
     model_name: str = "HuggingFaceTB/SmolLM2-135M-Instruct",
     n_examples: int = 50,
-    num_train_epochs: int = 1,
+    num_train_epochs: int = 10,
 ) -> dict:
     """
     Full DPO alignment pipeline:
@@ -17,10 +17,12 @@ def create_workflow(
 
     Returns results dict with training info and before/after comparisons.
     """
+    import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import LoraConfig, get_peft_model, TaskType
     from trl import DPOTrainer, DPOConfig
 
+    torch.manual_seed(42)
     print("Step 1: Generating preference dataset...")
     examples = generate_preference_dataset(n=n_examples)
     dataset = save_as_hf_dataset(examples)

@@ -17,13 +17,16 @@ QUERIES = [
 ]
 
 if __name__ == "__main__":
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
+    client = OpenAI(api_key=api_key)
     workflow = create_workflow()
     config = {"configurable": {"client": client}}
 
     result = workflow.invoke({
         "queries": QUERIES,
-        "threshold": 0.92,
+        "threshold": 0.70,
         "responses": [],
         "cache_stats": {},
     }, config=config)

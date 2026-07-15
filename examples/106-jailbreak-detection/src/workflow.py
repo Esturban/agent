@@ -39,7 +39,7 @@ def block_node(state: DetectionState) -> DetectionState:
 
 
 def respond_node(state: DetectionState) -> DetectionState:
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     messages = [
         SystemMessage(content="You are a helpful assistant."),
         HumanMessage(content=state["user_input"]),

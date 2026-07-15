@@ -1,5 +1,9 @@
 import json
-from pathlib import Path
+
+
+INTENTS = {"billing", "technical", "general", "complaint", "cancellation"}
+URGENCY_LEVELS = {"low", "medium", "high"}
+SENTIMENTS = {"positive", "neutral", "negative"}
 
 
 def transcribe(audio_path: str, client) -> str:
@@ -8,7 +12,16 @@ def transcribe(audio_path: str, client) -> str:
     return result.text
 
 
-def classify_and_extract(transcript: str, client, model: str = "gpt-4o-mini") -> dict:
+def classify_and_extract(transcript: str, client, model: str = "gpt-5.4-nano") -> dict:
+    if not transcript.strip():
+        return {
+            "intent": "general",
+            "urgency": "low",
+            "product_mentioned": None,
+            "action_required": "No speech detected",
+            "sentiment": "neutral",
+        }
+
     prompt = f"""Analyze this support call transcript and respond with JSON only:
 {{
   "intent": "billing|technical|general|complaint|cancellation",
@@ -22,13 +35,24 @@ Transcript: {transcript}"""
     resp = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=256,
+        response_format={"type": "json_object"},
+        max_completion_tokens=256,
     )
-    text = resp.choices[0].message.content.strip().strip("```json").strip("```")
+    text = resp.choices[0].message.content or ""
     try:
-        return json.loads(text)
+        analysis = json.loads(text)
     except json.JSONDecodeError:
-        return {"raw": text}
+        raise ValueError("The classifier returned invalid JSON") from None
+
+    if analysis.get("intent") not in INTENTS:
+        raise ValueError(f"The classifier returned an unsupported intent: {analysis.get('intent')!r}")
+    if analysis.get("urgency") not in URGENCY_LEVELS:
+        raise ValueError(f"The classifier returned an unsupported urgency: {analysis.get('urgency')!r}")
+    if analysis.get("sentiment") not in SENTIMENTS:
+        raise ValueError(f"The classifier returned an unsupported sentiment: {analysis.get('sentiment')!r}")
+    if not isinstance(analysis.get("action_required"), str):
+        raise ValueError("The classifier response is missing a text action_required field")
+    return analysis
 
 
 ROUTING_MAP = {

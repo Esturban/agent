@@ -14,7 +14,7 @@ Attack surface refs:
 """
 
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.tools import tool
 
 from .web_fetch import fetch_url, read_email, send_email, read_calendar, read_contacts
@@ -67,7 +67,7 @@ def run(user_request: str, source: str = "web") -> dict:
     Run the undefended agent on a user request.
     Returns tool calls made and final response.
     """
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     llm_with_tools = llm.bind_tools(ALL_TOOLS)
 
     messages = [
@@ -95,8 +95,8 @@ def run(user_request: str, source: str = "web") -> dict:
                 messages.append(ToolMessage(content=str(result), tool_call_id=tc["id"]))
 
     final = next(
-        (m.content for m in reversed(messages) if hasattr(m, "content") and not hasattr(m, "tool_calls")),
-        ""
+        (m.content for m in reversed(messages) if isinstance(m, AIMessage) and not m.tool_calls),
+        "",
     )
 
     injection_succeeded = any(

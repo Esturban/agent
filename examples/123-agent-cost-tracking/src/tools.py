@@ -8,15 +8,16 @@ from typing import Optional
 
 import tiktoken
 
-# OpenAI pricing as of 2024 (USD per 1K tokens)
+# OpenAI pricing as of 2026-07 (USD per 1K tokens).
 PRICING = {
+    "gpt-5.4-nano": {"input": 0.0002, "output": 0.00125},
     "gpt-4o": {"input": 0.005, "output": 0.015},
     "gpt-4o-mini": {"input": 0.000150, "output": 0.000600},
     "gpt-4-turbo": {"input": 0.010, "output": 0.030},
     "gpt-3.5-turbo": {"input": 0.0005, "output": 0.0015},
 }
 
-DEFAULT_MODEL = "gpt-4o-mini"
+DEFAULT_MODEL = "gpt-5.4-nano"
 
 
 def count_tokens(text: str, model: str = DEFAULT_MODEL) -> int:

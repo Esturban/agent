@@ -19,12 +19,17 @@ Key files:
   src/workflow.py — fetch_pages → summarize nodes; defended/undefended variants
 """
 
+import os
+
 from dotenv import load_dotenv
 
-from src.tools import PAGES
-from src.workflow import create_workflow
-
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY is required for prompt-injection defense.")
+
+from src.tools import PAGES  # noqa: E402
+from src.workflow import create_workflow  # noqa: E402
 
 URLS = list(PAGES.keys())
 

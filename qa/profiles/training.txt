@@ -1,0 +1,4 @@
+# Generated from qa/dependency-profiles.json: training
+# Top-level requirements only; resolve a full platform lock separately.
+torch==2.8.0
+

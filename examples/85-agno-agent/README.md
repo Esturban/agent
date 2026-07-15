@@ -18,7 +18,7 @@ Agno (formerly Phidata) — minimal agent framework: `Agent(model, tools, instru
 ### Flow
 
 ```
-Agent(OpenAIChat("gpt-4o-mini"), tools=[search_knowledge, add_knowledge, list_topics])
+Agent(OpenAIChat("gpt-5.4-nano"), tools=[search_knowledge, add_knowledge, list_topics])
   ↓ agent.run(task) — internal tool-call loop
   ↓ response.content → text answer
 ```
@@ -27,4 +27,3 @@ Agent(OpenAIChat("gpt-4o-mini"), tools=[search_knowledge, add_knowledge, list_to
 - `Agent(model, tools, instructions)` — single-call agent definition
 - Tool schemas auto-generated from function signatures + docstrings
 - `response.content` — final text output
-- `show_tool_calls=True` — prints tool invocations for teaching visibility

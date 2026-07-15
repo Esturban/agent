@@ -6,7 +6,7 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.constants import Send
 from .tools import SKELETON_PROMPT, EXPAND_PROMPT
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class SoTState(TypedDict):

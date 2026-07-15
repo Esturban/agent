@@ -16,8 +16,13 @@ Key files:
   src/workflow.py — REDACTION_SYSTEM prompt + two-stage run_pipeline()
 """
 
+import os
+
 from dotenv import load_dotenv
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required to run this live example.")
 
 from src.tools import SAMPLE_DOCUMENTS
 from src.workflow import run_pipeline

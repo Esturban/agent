@@ -25,8 +25,8 @@ from src.tools import HAZARD_CATEGORIES
 # Two separate LLM instances for clarity:
 # guard uses a system prompt focused on classification only.
 # agent answers questions — it never sees unsafe inputs.
-_guard_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-_agent_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_guard_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
+_agent_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 _GUARD_SYSTEM = """You are a content safety classifier. Classify the user message as safe or unsafe.
 
@@ -64,7 +64,9 @@ def classify(state: GuardrailState) -> dict:
         parts = result.split()
         category = parts[1].upper() if len(parts) > 1 else "S0"
         return {"classification": "UNSAFE", "hazard_category": category}
-    return {"classification": "SAFE", "hazard_category": ""}
+    if result == "safe":
+        return {"classification": "SAFE", "hazard_category": ""}
+    return {"classification": "UNSAFE", "hazard_category": "S0"}
 
 
 def route_after_guard(state: GuardrailState) -> str:

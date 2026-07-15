@@ -27,6 +27,8 @@ to tell the model how to interpret the formatted output.
 """
 
 import openai
+from pathlib import Path
+import tempfile
 from agentdojo.agent_pipeline.agent_pipeline import AgentPipeline
 from agentdojo.agent_pipeline.basic_elements import InitQuery, SystemMessage
 from agentdojo.agent_pipeline.tool_execution import ToolsExecutionLoop, ToolsExecutor
@@ -37,6 +39,8 @@ from agentdojo.benchmark import (
     SuiteResults,
 )
 from agentdojo.task_suite.load_suites import get_suite
+from agentdojo.logging import OutputLogger
+from agentdojo.attacks.base_attacks import MODEL_NAMES
 
 BASE_SYSTEM_PROMPT = (
     "You are a helpful assistant. You will be given a task to complete. "
@@ -48,6 +52,12 @@ BASE_SYSTEM_PROMPT = (
 # Small subset to keep the demo fast. Set to None to run all tasks.
 DEFAULT_USER_TASKS = ["user_task_0", "user_task_1", "user_task_2"]
 DEFAULT_INJECTION_TASKS = ["injection_task_0", "injection_task_1"]
+MODEL_NAMES.setdefault("gpt-5.4-nano", "GPT-5.4 nano")
+
+
+def _run_logdir() -> Path:
+    """Give AgentDojo a disposable log directory; NullLogger is not usable here."""
+    return Path(tempfile.mkdtemp(prefix="agentdojo-"))
 
 
 def build_pipeline(
@@ -63,7 +73,7 @@ def build_pipeline(
                    (spotlighting adds a note about << >> delimiters).
     """
     client = openai.OpenAI()
-    llm = OpenAILLM(client=client, model="gpt-4o-mini")
+    llm = OpenAILLM(client=client, model="gpt-5.4-nano")
     system_prompt = BASE_SYSTEM_PROMPT + system_suffix
 
     tools_loop = ToolsExecutionLoop([
@@ -71,12 +81,14 @@ def build_pipeline(
         llm,
     ])
 
-    return AgentPipeline([
+    pipeline = AgentPipeline([
         SystemMessage(system_prompt),
         InitQuery(),
         llm,
         tools_loop,
     ])
+    pipeline.name = "gpt-5.4-nano"
+    return pipeline
 
 
 def run_clean(
@@ -86,35 +98,37 @@ def run_clean(
 ) -> SuiteResults:
     """Run without any injection — measures baseline utility."""
     suite = get_suite("v1", suite_name)
-    return benchmark_suite_without_injections(
-        agent_pipeline=pipeline,
-        suite=suite,
-        logdir=None,
-        force_rerun=True,
-        user_tasks=user_tasks or DEFAULT_USER_TASKS,
-        verbose=False,
-    )
+    with OutputLogger(str(_run_logdir())):
+        return benchmark_suite_without_injections(
+            agent_pipeline=pipeline,
+            suite=suite,
+            logdir=_run_logdir(),
+            force_rerun=True,
+            user_tasks=user_tasks or DEFAULT_USER_TASKS,
+        )
 
 
 def run_attacked(
     suite_name: str,
     pipeline: AgentPipeline,
-    attack,
+    attack_factory,
     user_tasks: list[str] | None = None,
     injection_tasks: list[str] | None = None,
 ) -> SuiteResults:
     """Run with injections — measures utility under attack and ASR."""
     suite = get_suite("v1", suite_name)
-    return benchmark_suite_with_injections(
-        agent_pipeline=pipeline,
-        suite=suite,
-        attack=attack,
-        logdir=None,
-        force_rerun=True,
-        user_tasks=user_tasks or DEFAULT_USER_TASKS,
-        injection_tasks=injection_tasks or DEFAULT_INJECTION_TASKS,
-        verbose=False,
-    )
+    attack = attack_factory(suite, pipeline)
+    with OutputLogger(str(_run_logdir())):
+        return benchmark_suite_with_injections(
+            agent_pipeline=pipeline,
+            suite=suite,
+            attack=attack,
+            logdir=_run_logdir(),
+            force_rerun=True,
+            user_tasks=user_tasks or DEFAULT_USER_TASKS,
+            injection_tasks=injection_tasks or DEFAULT_INJECTION_TASKS,
+            verbose=False,
+        )
 
 
 def utility_rate(results: SuiteResults) -> float:

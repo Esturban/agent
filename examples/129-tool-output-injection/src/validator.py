@@ -50,7 +50,7 @@ INJECTION_KEYWORDS = [
     "injection_succeeded",
 ]
 
-_validator = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_validator = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 def _extract_strings(tool_output: str) -> list[str]:
@@ -100,7 +100,13 @@ def validate_tool_output(tool_output: str) -> tuple[bool, str, list[str]]:
             ]).content
             m = re.search(r"\{.*\}", raw, re.DOTALL)
             if m:
-                result = json.loads(m.group())
+                try:
+                    result = json.loads(m.group())
+                except json.JSONDecodeError:
+                    result = None
+                if not isinstance(result, dict):
+                    flagged.append(s[:100])
+                    continue
                 if result.get("is_injection") and result.get("confidence", 0) > 0.7:
                     flagged.append(s[:100])
 

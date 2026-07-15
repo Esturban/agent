@@ -21,7 +21,7 @@ from langgraph.graph import END, START, StateGraph
 # The analogies are passed as context to the solve node — no in-context examples
 # needed from the human at all.
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class ARState(TypedDict):

@@ -39,10 +39,13 @@ def store_turn(text: str, user_id: str = USER_ID) -> None:
 
 def retrieve_relevant(query: str, user_id: str = USER_ID, k: int = 3) -> list[str]:
     """Return the k most semantically relevant stored turns for the query."""
+    user_turns = COLLECTION.get(where={"user_id": user_id}, include=[])["ids"]
+    if not user_turns:
+        return []
     query_embedding = _embedder.embed_query(query)
     results = COLLECTION.query(
         query_embeddings=[query_embedding],
-        n_results=k,
+        n_results=min(k, len(user_turns)),
         where={"user_id": user_id},
     )
     # results["documents"] is a list-of-lists (one per query)

@@ -21,3 +21,16 @@ docs/*
 arabic-pdf.py
 dump.rdb
 .wolf/improvement-backlog.md
+
+# AI scaffolding / IDE (never public)
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.wolf/
+.cursorrules
+.clinerules
+.windsurfrules
+.roo*
+memory-bank/
+.github/copilot-instructions.md
+*.code-workspace

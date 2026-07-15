@@ -3,7 +3,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
 from .tools import HOT_TIER_MAX, WARM_TIER_MAX, importance_score, build_context
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class MemState(TypedDict):

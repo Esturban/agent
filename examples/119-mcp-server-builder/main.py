@@ -57,8 +57,16 @@ def main():
             result = {"error": f"Unknown tool: {name}"}
         return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
+    async def serve():
+        async with stdio_server() as (read_stream, write_stream):
+            await app.run(
+                read_stream,
+                write_stream,
+                app.create_initialization_options(),
+            )
+
     print("[MCP] domain-tools server starting on stdio...", file=sys.stderr)
-    asyncio.run(stdio_server(app))
+    asyncio.run(serve())
 
 
 if __name__ == "__main__":

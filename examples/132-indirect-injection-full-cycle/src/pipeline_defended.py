@@ -19,7 +19,7 @@ Based on: arxiv:2403.14720 (spotlighting), arxiv:2404.13208 (privilege sep)
 import base64
 import re
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain_core.tools import tool
 
 from .web_fetch import fetch_url, read_email
@@ -76,7 +76,7 @@ def run(user_request: str) -> dict:
     """
     Run the defended agent. Returns tool calls, alerts, and final response.
     """
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     llm_with_tools = llm.bind_tools(SAFE_TOOLS)
 
     messages = [
@@ -125,8 +125,8 @@ def run(user_request: str) -> dict:
                 )
 
     final = next(
-        (m.content for m in reversed(messages) if hasattr(m, "content") and isinstance(m.content, str)),
-        ""
+        (m.content for m in reversed(messages) if isinstance(m, AIMessage) and not m.tool_calls),
+        "",
     )
 
     injection_succeeded = (

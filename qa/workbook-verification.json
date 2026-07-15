@@ -1,0 +1,2031 @@
+{
+  "version": 1,
+  "workbooks": {
+    "15-crewai-research-crew": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "paths_verified": [
+          "live web-search tool invocation",
+          "researcher-to-writer sequential task context",
+          "two-agent CrewAI kickoff",
+          "exercise answer-key definition"
+        ],
+        "final_checkpoint": "cell-35-answer-ex2-code",
+        "runtime_fix": "guard task context inspection against CrewAI's _NotSpecified sentinel"
+      }
+    },
+    "16-rag-eval-notebook": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": [
+          "baseline RAGAS evaluation",
+          "k=1 retrieval comparison",
+          "loose-prompt faithfulness experiment",
+          "all three runnable exercise answer keys"
+        ],
+        "checkpoints": {
+          "baseline_mean_scores": {
+            "faithfulness": 1.0,
+            "answer_relevancy": 0.758,
+            "context_recall": 1.0
+          },
+          "loose_prompt_faithfulness": 0.464
+        },
+        "final_checkpoint": "cell-33-ans3-code",
+        "runtime_fix": "use gpt-4o-mini for RAGAS's temperature-controlled evaluator while retaining gpt-5-nano for the RAG chain"
+      }
+    },
+    "17-corrective-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 26,
+        "cell_errors": 0,
+        "paths_verified": [
+          "in-corpus retrieval and generation",
+          "out-of-corpus DuckDuckGo fallback",
+          "streaming local and web branches",
+          "persistent MemorySaver checkpoint answer key"
+        ],
+        "final_checkpoint": "cell-ans4"
+      }
+    },
+    "18-self-reflecting-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": [
+          "easy-question self-reflection run",
+          "hard-question iteration-cap branch",
+          "iteration-limit answer key",
+          "score-history analysis",
+          "MemorySaver checkpoint history"
+        ],
+        "checkpoints": {
+          "hard_question_hit_cap": true,
+          "checkpoint_history_entries": 4,
+          "iteration_cap_answer_key_completed": true
+        },
+        "final_checkpoint": "cell-34-ex1-solution"
+      }
+    },
+    "19-multi-agent-notebook": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 22,
+        "cell_errors": 0,
+        "paths_verified": [
+          "supervisor routing unit scenarios",
+          "live researcher-to-writer streaming graph",
+          "safe turn-counter graph",
+          "checkpointed two-turn conversation",
+          "runnable guarded-graph answer key"
+        ],
+        "checkpoints": {
+          "supervisor_order": ["researcher", "writer", "FINISH"],
+          "checkpoint_messages_after_turn_1": 3,
+          "checkpoint_messages_after_turn_2": 6,
+          "checkpoint_turn_2_has_writer_answer": true
+        },
+        "final_checkpoint": "cell-ans2",
+        "runtime_fix": "enforce fixed worker ordering within the latest human turn so prior checkpointed turns cannot terminate a follow-up"
+      }
+    },
+    "20-code-interpreter": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 28,
+        "cell_errors": 0,
+        "paths_verified": [
+          "subprocess success and failure sandbox checks",
+          "LLM code-generation graph",
+          "streamed code-interpreter execution",
+          "production workflow compilation",
+          "timeout and bounded-retry answer key"
+        ],
+        "checkpoints": {
+          "streamed_prime_sum": 328,
+          "timeout_answer_key_iterations": 3,
+          "timeout_answer_key_status": "FAILED"
+        },
+        "final_checkpoint": "cell-code-026",
+        "runtime_fix": "consume current LangGraph stream dictionaries instead of unpacking them as tuples"
+      }
+    },
+    "21-autogen-debate": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": [
+          "basic two-agent AutoGen debate",
+          "turn-count comparison",
+          "structured debate helper",
+          "word-count analysis answer key",
+          "termination-aware answer key"
+        ],
+        "checkpoints": {
+          "basic_debate_messages": 8,
+          "structured_debate_turns": 8,
+          "termination_aware_turns": 12
+        },
+        "final_checkpoint": "cell-code-039",
+        "runtime_fix": "pin the legacy ConversableAgent-compatible pyautogen release for Python 3.13"
+      }
+    },
+    "22-hybrid-search-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": [
+          "BM25 exact-match retrieval",
+          "dense vector retrieval",
+          "hybrid reciprocal-rank fusion",
+          "runnable exercise answer keys"
+        ],
+        "final_checkpoint": "cell-0023",
+        "runtime_fix": "declare rank-bm25 required by LangChain BM25Retriever"
+      }
+    },
+    "23-crewai-notebook": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": [
+          "sequential two-agent crew",
+          "hierarchical crew",
+          "tool-using research crew",
+          "structured-output comparison",
+          "fact-checking answer key"
+        ],
+        "final_checkpoint": "cell-29-answer1"
+      }
+    },
+    "24-graph-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 23,
+        "cell_errors": 0,
+        "paths_verified": [
+          "NetworkX graph visualization",
+          "LLM triple extraction and graph construction",
+          "one- and two-hop graph traversal",
+          "graph-RAG workflow queries",
+          "vector-baseline comparison and answer key"
+        ],
+        "final_checkpoint": "gr36-ans1",
+        "runtime_fix": "iterate NetworkX out_edges as node pairs when edge attributes are not requested"
+      }
+    },
+    "25-adaptive-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "paths_verified": [
+          "three-way simple/vectorstore/web routing",
+          "routing-reasoning capture",
+          "four-strategy database extension",
+          "runnable answer keys"
+        ],
+        "final_checkpoint": "ad01-0030",
+        "runtime_fix": "map the simple strategy to the direct_answer graph node"
+      }
+    },
+    "26-rag-fusion": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": [
+          "multi-query generation",
+          "parallel retrieval",
+          "reciprocal-rank fusion",
+          "RAG fusion workflow and answer keys"
+        ],
+        "final_checkpoint": "cell-ragfusion-0035"
+      }
+    },
+    "27-self-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": ["retrieval grading", "generation grading", "self-correction loop", "runnable answer keys"],
+        "final_checkpoint": "c1a2b3d4e5f60033"
+      }
+    },
+    "28-parallel-subgraph": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": ["parallel subgraph execution", "fan-out/fan-in aggregation", "state isolation", "runnable answer keys"],
+        "final_checkpoint": "cell-code-020"
+      }
+    },
+    "29-llm-judge-harness": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "paths_verified": ["single-answer scoring", "pairwise judging", "calibration analysis", "runnable answer keys"],
+        "final_checkpoint": "a1b2c3d4e5f60035"
+      }
+    },
+    "30-agentic-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "paths_verified": ["knowledge-base tools", "mixed query routing", "multihop retrieval", "streaming and memory", "runnable answer keys"],
+        "final_checkpoint": "cell-33-ans3-code"
+      }
+    },
+    "31-multi-agent-debate": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 27,
+        "cell_errors": 0,
+        "paths_verified": ["moderated debate graph", "live debate execution", "turn controls", "runnable answer keys"],
+        "final_checkpoint": "cell-code-ans4"
+      }
+    },
+    "32-speculative-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "paths_verified": ["draft generation", "parallel retrieval validation", "speculative acceptance", "runnable answer keys"],
+        "final_checkpoint": "srag-0034"
+      }
+    },
+    "33-dspy-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "paths_verified": ["DSPy RAG baseline", "BootstrapFewShot compilation", "demo inspection", "metric strictness experiments", "answer keys"],
+        "final_checkpoint": "cell-0035",
+        "runtime_fix": "use DSPy 2.x ChainOfThought internal predictor for compiled demos"
+      }
+    },
+    "34-openai-agents-sdk": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "openai-agents-v2",
+        "paths_verified": [
+          "single-agent calls",
+          "function-tool execution",
+          "dispatcher handoffs",
+          "five-case triage routing table",
+          "guardrail path",
+          "exercise answer keys and run trace"
+        ],
+        "checkpoints": {
+          "triage_routing_matches": 5,
+          "final_trace_agent": "Researcher",
+          "final_trace_steps": 5
+        },
+        "final_checkpoint": "cell-31-answer-ex4",
+        "runtime_fixes": [
+          "use await Runner.run in Jupyter instead of run_sync",
+          "use the Agents SDK 0.18 function_tool decorator",
+          "use gpt-4o-mini for stable live handoff behavior"
+        ]
+      }
+    },
+    "35-plan-execute-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": [
+          "structured planning",
+          "plan-execute LangGraph workflow",
+          "multi-task execution",
+          "diagnostic and critic sections",
+          "exercise answer key"
+        ],
+        "final_checkpoint": "pe-cell-034"
+      }
+    },
+    "36-long-term-memory": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 24,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["InMemoryStore operations", "cross-thread recall", "memory extraction", "deduplication", "decay", "exercise answer key"],
+        "final_checkpoint": "ltm-0039"
+      }
+    },
+    "37-rewoo-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["ReWOO planning", "variable resolution", "DDGS search execution", "sequential and parallel execution", "answer keys"],
+        "final_checkpoint": "rw00000000000034"
+      }
+    },
+    "38-langgraph-command-pattern": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 24,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["Command routing", "Send fan-out", "current graph-entry validation", "multi-hop graph", "exercise answers"],
+        "final_checkpoint": "cell-ans3",
+        "runtime_fix": "derive the entry node from the __start__ edge instead of removed StateGraph.entry_point"
+      }
+    },
+    "39-checkpoint-resume": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 27,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["MemorySaver", "SQLite persistence", "thread isolation", "time travel", "interrupt and resume", "exercise answers"],
+        "final_checkpoint": "cell-ans3",
+        "runtime_fix": "keep SqliteSaver context managers open for the notebook session"
+      }
+    },
+    "40-agent-observability": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["callback traces", "token and cost estimates", "two-node workflow", "JSONL trace analysis", "LangSmith configuration", "exercise starters"],
+        "final_checkpoint": "cell-ex3"
+      }
+    },
+    "41-pdf-extraction-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 25,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["arXiv PDF download", "page and table extraction", "structured extraction", "retry graph", "nested schema extraction", "answer key"],
+        "final_checkpoint": "cell-code-040"
+      }
+    },
+    "42-multimodal-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["offline image-caption fallback", "Chroma image-caption index", "multimodal retrieval", "LangGraph describe-store-answer workflow", "answer keys"],
+        "final_checkpoint": "cell-mm-rag-34",
+        "external_fallback": "Wikimedia image URLs returned HTTP 403; the notebook completed with its documented fallback captions"
+      }
+    },
+    "43-supervisor-worker": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["structured supervisor routing", "researcher/summarizer/analyst workers", "routing distribution audit", "parallel Send fan-out", "exercise answers"],
+        "final_checkpoint": "cell-32",
+        "runtime_fix": "inspect compiled nodes via get_graph() rather than removed CompiledStateGraph.graph"
+      }
+    },
+    "44-mcp-client-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["mock MCP tool registration", "LLM tool discovery", "tool invocation and synthesis", "multi-server namespacing", "resilient no-tool/error paths", "exercise answers"],
+        "final_checkpoint": "cell-36-ex2-solution",
+        "secret_scan": "executed artifact contains no OPENAI_API_KEY value",
+        "runtime_fix": "replace partial API-key echo with a non-sensitive readiness message"
+      }
+    },
+    "45-a2a-agent-handoff": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 22,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["Pydantic handoff contracts", "Agent Card capability checks", "structured planner output", "executor and synthesis", "LangGraph handoff pipeline", "retry lifecycle", "concurrent execution", "answer keys"],
+        "final_checkpoint": "cell-37-answer-2"
+      }
+    },
+    "46-tree-of-thoughts": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": ["BFS/DFS/beam comparison", "diverse thought generation", "LLM scoring", "parallel Send fan-out", "best-thought synthesis", "beam selection", "diversity diagnostics", "exercise answers"],
+        "final_checkpoint": "cell-38-ex3-code"
+      }
+    },
+    "47-deepeval-rag-metrics": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": ["Chroma-backed RAG pipeline", "DeepEval test-case assembly", "five grounded RAG metrics", "per-case score reporting", "hallucinated-answer evaluation", "grounded versus hallucinated comparison", "exercise answers"],
+        "final_checkpoint": "cell-27",
+        "metric_contract": "all five comparison rows emitted numeric grounded and hallucinated scores",
+        "runtime_fixes": ["select the profile-specific Jupyter kernel", "throttle judge concurrency", "use current evaluation result metadata", "normalize metric names in the comparison table"]
+      }
+    },
+    "48-deepeval-hallucination-bias": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": ["hallucination detection", "bias detection", "toxicity detection", "combined safety gate", "exercise starter"],
+        "final_checkpoint": "cell-16-ex4-starter",
+        "safety_contract": "hallucinated, biased, and toxic examples were scored above their blocking thresholds"
+      }
+    },
+    "49-deepeval-geval-custom": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": ["conciseness GEval", "code-quality GEval", "medical-safety GEval", "customer-service-tone GEval", "threshold stress test", "deterministic JSON schema metric", "mixed GEval and AnswerRelevancy evaluation", "answer keys"],
+        "final_checkpoint": "cell-24",
+        "runtime_fix": "replace removed evaluate(run_async=...) with AsyncConfig(run_async=False)"
+      }
+    },
+    "50-deepeval-agentic-eval": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 18,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": ["ReAct agent trajectories", "tool-call extraction", "ToolCorrectnessMetric", "misleading-task check", "TaskCompletionMetric", "metric comparison", "exercise answers"],
+        "final_checkpoint": "cell-34",
+        "trajectory_contract": "all three primary tasks emitted exactly their declared tool sequences",
+        "runtime_fixes": ["bound ReAct tool loops", "use current DeepEval ToolCall expected-tools API", "avoid partial API-key output"]
+      }
+    },
+    "51-deepeval-conversational": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": [
+          "stateful and stateless chatbots",
+          "KnowledgeRetentionMetric",
+          "ConversationCompletenessMetric",
+          "adversarial forgetting check",
+          "off-topic answer comparison",
+          "memory-critical task comparison",
+          "threshold-sensitivity answer key"
+        ],
+        "final_checkpoint": "cell-32-ex4-code",
+        "metric_contract": "stateful retention scored 1.00 versus 0.60 stateless; the adversarial and tampered conversations failed their intended quality gates",
+        "runtime_fixes": [
+          "use current DeepEval conversational metric and Turn APIs",
+          "enable the typed-output adapter for gpt-5.4-nano"
+        ]
+      }
+    },
+    "52-deepeval-synthesizer": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "deepeval-v1",
+        "paths_verified": [
+          "synthetic golden generation",
+          "baseline RAG evaluation",
+          "persisted test-case save and reload",
+          "k=3 to k=1 regression comparison",
+          "hand-written versus synthesized comparison",
+          "all exercise answer keys"
+        ],
+        "final_checkpoint": "cell-35",
+        "runtime_fixes": [
+          "use current synthesizer and dataset APIs",
+          "use current evaluate AsyncConfig API",
+          "enable typed gpt-5.4-nano outputs",
+          "bound redundant live samples to the five-minute smoke budget"
+        ]
+      }
+    },
+    "53-chunking-strategies": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "fixed-size chunking",
+          "recursive chunking",
+          "sentence-window chunking",
+          "semantic chunking",
+          "chunk-size diagnostics",
+          "four-strategy RAG retrieval and answer comparison",
+          "exercise answers"
+        ],
+        "final_checkpoint": "cell-32",
+        "comparison_contract": "all four strategies emitted retrieval context and an answer for the same RAG question"
+      }
+    },
+    "54-reranking-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "reranking-v1",
+        "paths_verified": [
+          "bi-encoder retrieval",
+          "FlashRank cross-encoder reranking",
+          "rank movement comparison",
+          "score-distribution diagnostics",
+          "two-stage RAG generation",
+          "candidate-count exercise",
+          "new-document exercise"
+        ],
+        "final_checkpoint": "code-ans2",
+        "rank_contract": "all three queries produced a reranked top-four list and a live answer"
+      }
+    },
+    "55-hyde-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "hypothetical-answer generation",
+          "query versus hypothesis embeddings",
+          "similarity comparison",
+          "standard RAG versus HyDE retrieval",
+          "full HyDE pipeline answers",
+          "retrieval-score exercise",
+          "prompt-variation exercise"
+        ],
+        "final_checkpoint": "code-ans2",
+        "retrieval_contract": "each workshop query emitted both standard-RAG and HyDE top-three retrieval lists"
+      }
+    },
+    "56-contextual-compression": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 15,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "baseline retrieval",
+          "LLMChainFilter compression",
+          "raw versus compressed chunk counts",
+          "baseline versus compressed answers",
+          "full compression pipeline",
+          "embedding-filter comparison",
+          "out-of-domain answer behavior"
+        ],
+        "final_checkpoint": "code-ans2",
+        "compression_contract": "all workshop queries emitted raw and compressed retrieval counts plus a live answer"
+      }
+    },
+    "57-step-back-prompting": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "query abstraction",
+          "direct versus abstract retrieval",
+          "direct versus step-back RAG answers",
+          "full step-back pipeline",
+          "alternative abstraction exercise",
+          "dual-path retrieval exercise"
+        ],
+        "final_checkpoint": "code-ans2",
+        "retrieval_contract": "each workshop query produced original, abstracted, and dual-path retrieval results"
+      }
+    },
+    "58-tabular-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "tabular-v1",
+        "paths_verified": [
+          "schema grounding",
+          "single-shot DataFrame query generation",
+          "self-correcting execution",
+          "tabular graph workflow",
+          "all workshop questions",
+          "manual verification answer",
+          "revenue-share answer"
+        ],
+        "final_checkpoint": "code-ans2",
+        "numeric_contract": "the final Furniture revenue share matched the manual 34.81% verification"
+      }
+    },
+    "59-semantic-router": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "route-example embeddings",
+          "cosine route scoring",
+          "threshold fallback",
+          "LangGraph specialist routing",
+          "technical-route exercise",
+          "threshold-tuning answer"
+        ],
+        "final_checkpoint": "code-ans2",
+        "routing_contract": "all sample queries produced route scores and a specialist or fallback response"
+      }
+    },
+    "60-web-scraper-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "scraper-v1",
+        "paths_verified": [
+          "live page fetch",
+          "HTML-to-text parsing",
+          "chunking and vector indexing",
+          "retrieval-backed answers",
+          "LangGraph scrape-retrieve-answer pipeline",
+          "chunk-size exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "live_contract": "the notebook fetched and indexed a live RAG Wikipedia page before generating grounded answers"
+      }
+    },
+    "61-guardrails-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "regex and structured PII detection",
+          "input topic guard",
+          "output quality guard",
+          "passed and blocked LangGraph routes",
+          "phone-number PII exercise",
+          "output truncation exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "guard_contract": "the live graph returned an answer for a safe query and blocked a credit-card-bearing query"
+      }
+    },
+    "62-async-langgraph": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "b38375506efef53bef3e6fcd27b221e13fb55313ea2e32dbe107475a8c6a0689",
+        "paths_verified": [
+          "sync graph baseline",
+          "async graph invocation",
+          "concurrent tool gathering",
+          "node and token streaming",
+          "event inspection",
+          "concurrent translation answer",
+          "four-tool error-handling answer"
+        ],
+        "final_checkpoint": "0485f95d",
+        "concurrency_contract": "the translation answer showed a 2.8x async speedup and the four-tool answer handled one failing tool"
+      }
+    },
+    "63-token-budget-manager": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "paths_verified": [
+          "prompt and completion token counting",
+          "budget tracking",
+          "budget route decisions",
+          "early-exit LangGraph pipeline",
+          "tight-budget exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "budget_contract": "the graph stopped after two of four steps once 855 tokens exceeded the 800-token budget"
+      }
+    },
+    "64-pydantic-ai": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "pydantic-ai-v1",
+        "source_sha256": "733a8ed9e6a60fd6eefa9e360dccbbbfa7e7b83a47a49298546f753f2b45ca5a",
+        "paths_verified": [
+          "typed ResearchResult model",
+          "live Pydantic AI research agent",
+          "typed result inspection",
+          "LangGraph structured-output comparison",
+          "extended result-model exercise",
+          "confidence-filter exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "runtime_contract": "Pydantic AI and LangGraph both returned validated research results using gpt-5.4-nano; all three confidence-filter results met the 0.7 threshold."
+      }
+    },
+    "65-litellm-multi-provider": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 22,
+        "cell_errors": 0,
+        "dependency_profile": "litellm-openai-v2",
+        "source_sha256": "423ca72c48416065725d4f6a93ed8b646ddd9adc0fb287ceaacf8f59d6634893",
+        "paths_verified": [
+          "direct LiteLLM OpenAI call and cost accounting",
+          "conditional provider availability",
+          "primary and forced-fallback router paths",
+          "batch cost tracking and load balancing",
+          "ChatLiteLLM and LCEL chains",
+          "LiteLLM and LangChain streaming",
+          "all three exercise answer keys"
+        ],
+        "final_checkpoint": "cell-ans3-code",
+        "runtime_contract": "The bad-key primary routed to the working gpt-5.4-nano fallback; the provider comparison produced a real Nano response while unavailable provider branches were explicitly skipped."
+      }
+    },
+    "66-smol-agents": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "smolagents-openai-v1",
+        "source_sha256": "5b5e6a41012637c1d0abea32796720929f4175304c73a3fe7382501aa08ff11b",
+        "paths_verified": [
+          "typed tool registration",
+          "direct tool calls",
+          "restricted import sandbox",
+          "allowed math import",
+          "three live CodeAgent tasks",
+          "digit-count exercise",
+          "controlled unsafe-agent filesystem demonstration"
+        ],
+        "final_checkpoint": "code-ex",
+        "sandbox_contract": "The restricted executor rejected import os, the allowed math path returned 12.0, and the intentionally unsafe agent listed only fixture.txt in a disposable workspace directory."
+      }
+    },
+    "67-mem0-memory": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "mem0-langgraph-v1",
+        "source_sha256": "57452edc2eab725a3425fd4964fba0fd6e43b9a0360aceb29d53203a299a23e0",
+        "paths_verified": [
+          "fact extraction and local storage",
+          "semantic recall",
+          "LangGraph recall-response-store pipeline",
+          "store-only graph invocation",
+          "Rust memory persistence",
+          "multi-user isolation exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "memory_contract": "The pipeline answered Alice's language, name, and style questions, then stored Rust without embedding an empty query; the exercise kept Alice's Python preference isolated from Bob's Java preference."
+      }
+    },
+    "68-chain-of-verification": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "87040582bbf56bc5e41b60dfc0ea2813e176d71ccddabea53a30da3f968deb9e",
+        "paths_verified": [
+          "initial answer generation",
+          "structured claim extraction",
+          "per-claim verification",
+          "targeted answer revision",
+          "LangGraph CoVe pipeline",
+          "deliberate-wrong-answer correction exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "revision_contract": "The supplied wrong answer claiming Einstein was born in 1889 in France was preserved through the graph and revised to his 1879 birth in the German Empire."
+      }
+    },
+    "69-constitutional-ai": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "6c06c18020faae0428a7d0fab30742c210b751e69eacaf6b37b10d5129a584d2",
+        "paths_verified": [
+          "constitutional critique",
+          "targeted revision",
+          "bounded LangGraph revision loop",
+          "harmful revenge-prompt safety route",
+          "diet-prompt revision route",
+          "specificity exercise"
+        ],
+        "final_checkpoint": "code-ex",
+        "safety_contract": "The revenge prompt completed after one revision with zero remaining violations and returned lawful de-escalation guidance; the graph also bounded its diet-answer revision loop at two passes."
+      }
+    },
+    "70-prompt-injection-defense": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "reranking-v1",
+        "source_sha256": "621a0cba10b7de1426d0e5e8060468d1802e3608c3c944e5d05e51342466fbc8",
+        "paths_verified": [
+          "vector retrieval",
+          "structured injection classification",
+          "raw versus filtered generation",
+          "LangGraph retrieve-classify-filter-generate pipeline",
+          "new-injection exercise",
+          "legitimate-document false-positive check"
+        ],
+        "final_checkpoint": "code-ex",
+        "defense_contract": "A seeded override instruction and the new French-only instruction were both classified high-risk; the graph consistently reduced seven retrieved chunks to one blocked and six safe chunks before answering."
+      }
+    },
+    "71-parent-document-retriever": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "reranking-v1",
+        "source_sha256": "254f265a2268a6a4a1fffe73f4886b9f0ea82333233878cdbbffcdf8e6d9d292",
+        "paths_verified": [
+          "child and parent splitting",
+          "child-vector and parent-doc indexing",
+          "child-versus-parent retrieval comparison",
+          "LangGraph parent-context answer pipeline",
+          "fine-tuning and LoRA exercise",
+          "parent-size ablation",
+          "grounding check"
+        ],
+        "final_checkpoint": "cell-code-038",
+        "retrieval_contract": "The index stored 24 linked child chunks; graph answers retrieved 4 child chunks and expanded them into parent contexts, and the grounding exercise identified multi-head attention."
+      }
+    },
+    "72-batch-agent-runner": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "cd67cc1b737267e15b3d73e61aa51d8f33884723f48d88301dfe129daefbb261",
+        "paths_verified": [
+          "async baseline",
+          "batched task runner",
+          "sequential-versus-async timing",
+          "batch-size comparison",
+          "retry and exponential backoff",
+          "translations and serialization",
+          "dependent pipeline",
+          "all answer-key exercises"
+        ],
+        "final_checkpoint": "cell-code-039",
+        "concurrency_contract": "All nine live tasks completed; batch execution measured 1.3x faster than sequential, and the simulated two-task failure run recovered to 9/9 after the retry-only pass."
+      }
+    },
+    "73-langsmith-tracing": {
+      "status": "pass",
+      "verified_at": "2026-07-14",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "1eefcef8e3ab3cccf65f533d05cd5cd1e85e7ee770711e858b4359b21a059f8a",
+        "paths_verified": [
+          "optional tracing setup",
+          "LangGraph traceable pipeline",
+          "nested RAG spans",
+          "traced golden-set evaluation",
+          "tagged graph exercise",
+          "nested-span answer key",
+          "score metadata answer key",
+          "Nano model comparison"
+        ],
+        "final_checkpoint": "code-ans4",
+        "evaluation_contract": "The live traced evaluation returned Paris, 4, and Shakespeare with a 1.0 average score and 100% pass rate; the Nano comparison produced an average embedding cosine of 0.875."
+      }
+    },
+    "74-ragas-evaluation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "ragas-0.2",
+        "source_sha256": "c63c585d26902e5a42de1ecf2c069ce7fe4c7e296d366205e7ece48b2e5b7963",
+        "paths_verified": [
+          "RAGAS metric setup",
+          "live RAG evaluation",
+          "per-question threshold reporting",
+          "custom length scorer",
+          "retrieval-depth exercise",
+          "hallucination faithfulness exercise",
+          "custom LLM judge answer key"
+        ],
+        "final_checkpoint": "code-ans4",
+        "evaluation_contract": "A live 20-task RAGAS evaluation produced aggregate and per-question scores; the k=1/k=3 comparison completed, the deliberately hallucinated answer scored 0.000 faithfulness, and the custom LLM judge reported all five comparisons."
+      }
+    },
+    "75-fastapi-sse-streaming": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 10,
+        "cell_errors": 0,
+        "dependency_profile": "fastapi-sse-v1",
+        "source_sha256": "924225fbdb4f4c4e997c7798e50fe7bc3c059723254b3764239f076e393012a8",
+        "paths_verified": [
+          "single-node stream event inspection",
+          "two-node token streaming",
+          "batch versus stream latency comparison",
+          "FastAPI SSE reference",
+          "per-node token-count exercise",
+          "full streamed-answer exercise",
+          "progress-indicator answer key",
+          "POST /ask live SSE endpoint"
+        ],
+        "final_checkpoint": "code-ans3",
+        "streaming_contract": "The two-node graph emitted labeled tokens for think_node and answer_node; the exercise counted 38 and 41 tokens respectively, the answer key collected a nonempty 349-character answer, and the live FastAPI route returned text/event-stream with four token frames and a terminal [DONE] frame."
+      }
+    },
+    "76-agent-evaluation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 9,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "96d82aa8d64a83676c682b2cd2ec7c2f9e4a6ac6f5c1cd13a85e188708d9234c",
+        "paths_verified": [
+          "golden QA baseline",
+          "exact and embedding scoring",
+          "0-2 LLM judge",
+          "LangGraph evaluation pipeline",
+          "threshold sensitivity exercise",
+          "5-point judge answer key",
+          "two-run regression detection",
+          "companion main.py evaluation"
+        ],
+        "final_checkpoint": "code-ans4",
+        "evaluation_contract": "All five live golden-set answers passed; the 0-2 judge returned 2/2 for every row, the LangGraph pipeline reported 1.000 average embedding score and 2.00/2 average judge score, the two-run comparison found no regressions, and main.py separately completed 5/5 with a 100% pass rate."
+      }
+    },
+    "77-langfuse-observability": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "5bc1165c627af68f1caad39edc17d71e263a3ad627bf27f3c29495f3e9fbe79d",
+        "paths_verified": [
+          "callback start/end tracing",
+          "two-node cost capture",
+          "session grouping",
+          "structured trace report",
+          "per-observation cost answer key",
+          "cosine-score attachment",
+          "companion main.py tracing"
+        ],
+        "final_checkpoint": "code-ans3",
+        "observability_contract": "The local handler recorded start/end observations with input and output token counts; multi-node traces captured four events each, session totals grouped two traces per user session, score attachment wrote cosine_similarity=0.8414, and main.py traced all three sample tasks."
+      }
+    },
+    "78-prompt-ab-testing": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "prompt-ab-v1",
+        "source_sha256": "da87939dac85a0a6d73a4377c23d91b1baa9b3559ca4be7cf621c7f34d2ead3e",
+        "paths_verified": [
+          "prompt A/B baseline",
+          "LangGraph A/B pipeline",
+          "embedding similarity comparison",
+          "three-variant graph",
+          "paired t-tests",
+          "few-shot answer key",
+          "bootstrap confidence intervals",
+          "companion main.py sweep"
+        ],
+        "final_checkpoint": "code-ans4",
+        "ab_testing_contract": "Each stored three-variant response was scored from the same single model call; word-count scoring selected B 5/5, semantic scoring selected A with 0.7683 versus 0.5887 average similarity, SciPy reported B versus A significant (p=0.0000), and bootstrap confidence intervals completed for all variants."
+      }
+    },
+    "79-interrupt-human-approval": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "f16f3674487ad919e22d2e9118a50551dcfb811fa153092b76b748833d076a87",
+        "paths_verified": [
+          "interrupt and resume",
+          "risk-based conditional routing",
+          "edited human approval",
+          "approval audit record",
+          "approval comments answer key",
+          "timeout answer key",
+          "companion main.py approvals"
+        ],
+        "final_checkpoint": "code-ans3",
+        "approval_contract": "The base interrupt resumed to execution; low-risk actions auto-executed, the medium-risk password reset executed only after approval, and both high-risk actions auto-rejected without execution. The edited-action, comment, timeout, and standalone CLI approval flows all completed without errors."
+      }
+    },
+    "80-multi-agent-supervisor": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "43f7447fc3f5916b30776836d9567f32a21f063d3994145c22f5a55a5b64ed4c",
+        "paths_verified": [
+          "math-history-science supervisor routing",
+          "confidence fallback",
+          "expanded code specialist",
+          "parallel specialist fan-out",
+          "creative specialist answer key",
+          "route-tracing answer key",
+          "companion main.py sweep"
+        ],
+        "final_checkpoint": "code-ans3",
+        "supervisor_contract": "The live supervisor routed factual questions to the expected math, history, and science specialists; the low-confidence haiku request used the fallback; multi-specialist arbitration completed; and the route-tracing answer key identified math, history, and science for all three trace questions."
+      }
+    },
+    "81-streaming-sse-server": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "fastapi-sse-v1",
+        "source_sha256": "b1ff49e435a0f406a29da3a4636081414da50d42f621af3f8bf10b2f2fffe5ee",
+        "paths_verified": [
+          "tool-call event stream",
+          "checkpointed three-turn conversation",
+          "FastAPI SSE reference",
+          "HTML SSE client",
+          "tool-result answer key",
+          "streaming stats answer key",
+          "live FastAPI /stream endpoint"
+        ],
+        "final_checkpoint": "code-ans4",
+        "streaming_contract": "The tool-call stream invoked calculator (15*23=345) and word_count (3) before its final answer; the checkpointed conversation correctly carried 56 into 112 and recalled both calculations; the live /stream endpoint returned text/event-stream with 18 data frames and a terminal [DONE] frame."
+      }
+    },
+    "82-redis-memory": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 12,
+        "cell_errors": 0,
+        "dependency_profile": "redis-memory-v1",
+        "source_sha256": "97e05c375942748cf712030959a342f996f510351c736b0e30d2e32c879f7284",
+        "paths_verified": [
+          "Redis connection and read/write round trip",
+          "three persistent-history recall queries",
+          "independent user session",
+          "history flush and TTL",
+          "history summarization",
+          "multi-user leaderboard answer key",
+          "companion main.py live Redis sweep"
+        ],
+        "final_checkpoint": "code-ans5",
+        "redis_contract": "A real disposable Redis server accepted reads and writes. The seeded user recalled Alex, Neovim, and LangGraph plus Redis memory patterns; a new user had no prior history; summary compaction reduced eight turns to five; and the repaired flush answer key completed. The companion script separately recalled Alice, hiking and Python, Neovim, and LangGraph across three sessions."
+      }
+    },
+    "83-google-adk-agent": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 2,
+        "cell_errors": 1,
+        "dependency_profile": "google-adk-v1",
+        "source_sha256": "08cc3ab2f691d559ca0641f2bc177f378eabc5ee02be20b8879b4063b795e9c0",
+        "prerequisite_failures": [
+          "GOOGLE_API_KEY is not present in the process environment or local .env",
+          "No Gemini or Vertex AI credential variables are available"
+        ],
+        "local_checks": [
+          "google-adk==2.4.0 and google-genai==2.11.0 import cleanly",
+          "source create_agent() constructs knowledge_agent",
+          "workbook agent name now satisfies ADK validation",
+          "workbook uses top-level await rather than asyncio.run in Jupyter"
+        ],
+        "blocked_cell": "cell-2",
+        "remediation": "Set GOOGLE_API_KEY in the local .env or process environment, then rerun the full workbook and companion main.py."
+      }
+    },
+    "84-haystack-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "haystack-v1",
+        "source_sha256": "b661f6ad290cc4e659602142eeaf9f29af0402ed7abe82d1d568d16a6ced938c",
+        "paths_verified": [
+          "in-memory document store",
+          "BM25 retrieval to prompt-builder to generation pipeline",
+          "RAG result structure",
+          "stateless repeated runs",
+          "expanded-document exercise",
+          "companion main.py live sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "haystack_contract": "The live BM25 pipeline answered the Haystack, RAG, LangGraph, ChromaDB, Redis, FastAPI, and Docker questions from supplied documents. Two Redis runs completed independently, and the companion script answered all four lesson questions through the same retrieval-to-generation pipeline."
+      }
+    },
+    "85-agno-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "agno-v1",
+        "source_sha256": "8a50e3f55ef5592ce73453b1101ab3001d156fb8d245f42ddec0332492b22e0d",
+        "paths_verified": [
+          "single-agent knowledge tools",
+          "stored Redis fact retrieval",
+          "response message history",
+          "coordinated researcher-writer team",
+          "Agno-versus-LangGraph comparison",
+          "calculator exercise",
+          "companion main.py task sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "agno_contract": "The live agent searched the knowledge base, stored and retrieved the Redis fact, exposed tool messages in its response, coordinated a two-member LangGraph summary, and calculated 105, 37, and 1024. The companion script completed its four-task knowledge workflow including the Redis write and listing five topics."
+      }
+    },
+    "86-mixture-of-agents": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "09ef1d02af9abff6a1cf85834914bd2c0ee9b90cc60a01ba3974d6daa91e5fba",
+        "paths_verified": [
+          "three-persona parallel fan-out",
+          "operator.add proposal reducer",
+          "aggregated supervised-learning answer",
+          "three-persona LangGraph synthesis",
+          "four-persona Devil's Advocate exercise",
+          "companion main.py three-question sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "mixture_contract": "The live graph preserved three labeled proposer responses before synthesizing the final answer, then successfully expanded to four proposals including Devil's Advocate. The companion script completed all three questions with three individual proposals and one nonempty synthesis each."
+      }
+    },
+    "87-vector-memory-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "vector-memory-v1",
+        "source_sha256": "3f25b074857491be923f3af1511e5ac81a050c69b943963ef25ae5af3da65642",
+        "paths_verified": [
+          "in-memory Chroma collection",
+          "semantic retrieval of seeded facts",
+          "LangGraph retrieval-response-save loop",
+          "noisy-memory filtering",
+          "per-user Chroma isolation",
+          "companion main.py vector-memory sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "vector_memory_contract": "The live notebook retrieved Jordan, Python plus SQL, and LangGraph from eight embedded turns; generated personalized answers after three-turn retrieval; returned PyTorch while ignoring 20 noisy turns; and isolated Jordan from Casey. The companion script recalled Alex's role and speech project, Python/PyTorch/Mamba preferences, and the Mamba paper."
+      }
+    },
+    "88-memory-architecture": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "91f4b47bd09eb300352197b45e48700e792f814a6e855157dcbe67058af2031e",
+        "paths_verified": [
+          "semantic-procedural-episodic classifier",
+          "three-tier LangGraph state flow",
+          "multi-turn memory carry-forward",
+          "external-store load/save pattern",
+          "semantic forget-fact exercise",
+          "companion main.py memory sweep"
+        ],
+        "final_checkpoint": "cell-14",
+        "memory_contract": "The live classifier stored a semantic name, procedural bullet-point instruction, and episodic LangGraph event; the graph preserved all tiers across five turns; the forget exercise removed location then user_name while retaining favorite_db=PostgreSQL; and the companion script answered four prompts from its Jordan product-manager memory."
+      }
+    },
+    "89-self-consistency": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "8ff19de19d91b7d2e177ea2dc19b68b4974eb0da675ebe5d34880fcaba1acce5",
+        "paths_verified": [
+          "majority-vote concept demonstration",
+          "three train-problem reasoning paths",
+          "LangGraph fan-out and reducer",
+          "N=1, N=3, and N=5 self-consistency votes",
+          "temperature-zero exercise",
+          "companion main.py three-problem sweep"
+        ],
+        "final_checkpoint": "code-exercises",
+        "self_consistency_contract": "The live notebook produced three independent train solutions (150 miles), voted across 1/3/5 paths on the red-ball probability, and ran the corrected temperature=0 exercise with a 5/5 identical-answer distribution. The companion workflow produced five reasoning paths per question and majority answers of 60 mph, 12% increase, and 75."
+      }
+    },
+    "90-least-to-most": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "e56f2e2f0404e9c36b67401cc8134f91f7c3b89733d6d4c7d95f918172b920c9",
+        "paths_verified": [
+          "local decomposition and sequential-context demonstration",
+          "live numbered sub-problem decomposition",
+          "LangGraph conditional solve loop",
+          "prior-solution context accumulation",
+          "full train-meeting least-to-most workflow",
+          "companion main.py three-problem sweep"
+        ],
+        "final_checkpoint": "code-exercises",
+        "least_to_most_contract": "All eight code cells executed in a disposable repository copy with no errors. The live workflow decomposed the train-meeting problem into six ordered steps and solved each sequentially with growing prior context. The companion script completed three independent problems and returned $162, 39%, and 48 mph respectively."
+      }
+    },
+    "91-analogical-reasoning": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "54fb3edae981e069a6ae13f02210d4f57b51fce14d47a5cb042b59582333d6d8",
+        "paths_verified": [
+          "analogical versus few-shot prompt construction",
+          "live analogy recall and solution generation",
+          "zero-shot versus analogy-augmented comparison",
+          "two-node LangGraph analogy workflow",
+          "domain-constrained exercise starters",
+          "companion main.py three-problem sweep"
+        ],
+        "final_checkpoint": "code-exercises",
+        "analogical_reasoning_contract": "All eight notebook code cells ran in a disposable copy without errors. Live analogy-augmented solutions produced 30 hours for the factory rate problem, 1458 for the geometric sequence, 8 days for the snail, and 5 days for the alternate snail workflow. The companion script completed the snail, fly, and water-jug problems with nonempty self-generated analogies and final answers."
+      }
+    },
+    "92-agent-sandboxing-e2b": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "dependency_profile": "unprovisioned-e2b-code-interpreter",
+        "prerequisite_failure": "E2B_API_KEY is not present in the process environment or local .env; OPENAI_API_KEY is present.",
+        "execution_not_attempted": "The workbook's live cells create cloud E2B sandboxes. Running without the required service credential cannot verify the teaching workflow.",
+        "outstanding_remediation": "Provision E2B_API_KEY, install a dedicated e2b-code-interpreter profile, migrate legacy Sandbox() context-manager calls to the current Sandbox.create() lifecycle with explicit execution/request timeouts, then run the full notebook and companion script."
+      }
+    },
+    "93-llama-guard-guardrails": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 8,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "e4fe8cae52cefffe71947a440b945499073c40dd4cb3d54d446419c0200e0886",
+        "paths_verified": ["live S1-S6 classifier checks", "safe versus blocked routing", "LangGraph guard branch", "exercise setup", "companion main.py six-query sweep"],
+        "final_checkpoint": "code-exercises",
+        "guardrail_contract": "The disposable notebook run completed all eight code cells without errors. Classifier checks matched safe, S2, S6, and S1 expectations; the graph answered safe questions and refused blocked ones. The companion script completed six queries, including safe responses and S6 refusals."
+      }
+    },
+    "94-zep-memory-server": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "dependency_profile": "unprovisioned-zep-cloud",
+        "prerequisite_failure": "ZEP_API_KEY is not present in the process environment or local .env; OPENAI_API_KEY is present.",
+        "execution_not_attempted": "The workbook's teaching flow persists and retrieves memory from the external Zep Cloud service, so an end-to-end run without its credential would only produce an authentication failure.",
+        "outstanding_remediation": "Provision ZEP_API_KEY, install and pin a dedicated current zep-cloud profile, migrate the legacy Zep V2 calls to the current thread/memory API, then execute the complete notebook and companion script."
+      }
+    },
+    "96-extended-thinking": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "dependency_profile": "unprovisioned-anthropic-thinking",
+        "prerequisite_failure": "ANTHROPIC_API_KEY is not present in the process environment or local .env.",
+        "execution_not_attempted": "The lesson's full end-to-end flow invokes Anthropic extended-thinking calls; without its credential, execution cannot establish the required answer and reasoning contracts.",
+        "outstanding_remediation": "Provision ANTHROPIC_API_KEY; create an isolated pinned Anthropic profile; migrate retired claude-3-7-sonnet-20250219 references to a supported Claude Sonnet 4 model; bound or gate the current 29-call budget sweep so it meets the five-minute smoke threshold; then execute the full notebook and companion script."
+      }
+    },
+    "95-memory-compaction": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "acdeff1a308de7b8600e280666c15f05ba9eea3a2689baa3e7980657eb217ff9",
+        "paths_verified": ["tier initialization and importance scoring", "current LangGraph compilation API", "12-turn live compaction", "cold-archive rollover", "hot-tier-size exercise", "cue-importance exercise", "token-budget exercise", "companion main.py sweep"],
+        "final_checkpoint": "cell-code-035",
+        "memory_compaction_contract": "The complete disposable notebook run executed all 20 code cells without errors. The 12-turn workflow ended with hot=3, warm=4, cold=1; the HOT_TIER_MAX=4 exercise ended hot=4/warm=2/cold=0; and the companion script independently completed all 12 turns with the same 3/4/1 final tier structure."
+      }
+    },
+    "97-best-of-n-sampling": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "source_sha256": "1f293119885eecc8c964222fd2dd324116d720051f1a2e3c8cd1890c2a6cf2ff",
+        "paths_verified": ["temperature diversity", "parallel candidate generation", "process-reward scoring", "best-of-K comparison", "repaired unique constraint-logic lesson", "companion main.py two-problem sweep"],
+        "final_checkpoint": "cell-code-030",
+        "best_of_n_contract": "All 19 notebook code cells executed without error in a disposable copy. The live graph generated and scored four candidates per problem, produced the rate answer 200 miles, and completed the repaired pet puzzle with Bob as the selected answer. The companion script likewise ran both four-candidate workflows to completion."
+      }
+    },
+    "98-skeleton-of-thought": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "83c86e51413351278f1a2957b040f4377f1229823d26643311ca87f5d12d32ad",
+        "paths_verified": ["skeleton creation", "parallel Send expansion", "parallel-versus-sequential timing", "trace ordering", "critique wave", "selective expansion", "companion main.py sweep"],
+        "final_checkpoint": "cell-code-032",
+        "skeleton_of_thought_contract": "All 17 notebook code cells completed without errors in a disposable copy. The measured five-point comparison completed with a 2.33x parallel speedup, trace output restored deterministic order, critique and selective-expansion paths completed, and the companion script completed its live questions with nonempty skeletons and expansions."
+      }
+    },
+    "99-browser-agent-playwright": {
+      "status": "FAIL",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "dependency_profile": "browser-agent-v1",
+        "failed_cell_id": "cell-code-008",
+        "failed_cell_source": "create_sync_playwright_browser()",
+        "failure": "Playwright Sync API cannot run inside the notebook kernel asyncio loop.",
+        "runtime_preconditions_verified": ["isolated Playwright profile", "Chromium installed", "current toolkit import", "current LangGraph agent API"],
+        "remediation": "Migrate every executable browser cell to create_async_playwright_browser(), AsyncPlaywrightBrowserToolkit, and await graph.ainvoke()/tool.ainvoke(); then rerun the full notebook and companion script."
+      }
+    },
+    "100-computer-use-agent": {
+      "status": "BLOCKED",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_json_valid": true,
+        "prerequisite_failure": "ANTHROPIC_API_KEY is not present in the process environment or local .env.",
+        "execution_not_attempted": "The live computer-use workflow requires an authenticated Anthropic account and would otherwise only exercise an authentication failure.",
+        "outstanding_remediation": "Migrate retired claude-3-5-sonnet-20241022, computer-use-2024-10-22, bash_20241022, and text_editor_20241022 references to an account-entitled current Claude 4/tool-beta combination; add bounded SDK request timeouts; then run the entire notebook and companion script in a disposable sandbox."
+      }
+    },
+    "101-swe-agent-code-editing": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "c1d623745b2696c452e117b96a1b0a74c30bcba6447cb130d508bdf01294d51a",
+        "paths_verified": ["initial failing tests", "direct tool reads and edits", "current ReAct workflow", "live two-bug repair", "independent final test pass", "answer-key repair", "streaming agent run", "companion main.py"],
+        "final_checkpoint": "cell-code-035",
+        "swe_agent_contract": "All 20 notebook code cells executed in a disposable copy without errors. The live agent changed max_val to nums[0], removed the spurious average subtraction, and the independent final test run returned 0 with All tests passed!. The companion script independently made the same repairs and ended with All tests passed!."
+      }
+    },
+    "102-voice-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 18,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["OpenAI TTS creation", "Whisper transcription", "STT-response-TTS graph", "timed pipeline", "streaming speech", "voice comparison", "three-call accounting", "companion main.py round-trip"],
+        "final_checkpoint": "cell-code-033",
+        "voice_pipeline_contract": "All 18 code cells completed without errors in a disposable copy. The run generated nonempty MP3 inputs and outputs, transcribed the synthetic LangGraph question, compiled and ran the transcribe/respond/speak graph, and confirmed exactly one STT, one LLM, and one TTS call in the accounting exercise. The companion script independently completed a full round-trip and produced a 1910 KB output MP3."
+      }
+    },
+    "103-tool-synthesis-latm": {
+      "status": "FAIL",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_code_cells_executed": 22,
+        "notebook_cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "companion_main_exit": 0,
+        "failure": "The companion workflow synthesized separate tools for Tokyo weather and the number 7 after already creating Paris-weather and number-42 tools, contradicting its stated and intended cache-reuse lesson contract.",
+        "remediation": "Make dispatch select cached tools by capability/category rather than literal generated function-name similarity; require the main and notebook cache-reuse cases to assert stable registry size before marking this workbook verified."
+      }
+    },
+    "104-prompt-injection-defense": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 20,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["page corpus and injection labels", "undefended and defended live summaries", "side-by-side comparison", "spotlighting delimiters", "HTML comment sanitization", "blocklist exercise", "companion defended/undefended sweep"],
+        "final_checkpoint": "cell-code-039",
+        "prompt_injection_contract": "All 20 notebook code cells completed without errors in a disposable copy. The workflow produced five summaries per defended mode, spotlighting retained external content as data, sanitization replaced the HTML injection comment, and the blocklist exercise blocked malicious.com, exfil.net, and roleswap.io. The companion script completed both sweeps successfully."
+      }
+    },
+    "105-automated-red-teaming": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "paths_verified": ["parallel Send fan-out", "single attack and judge verdict", "mock ASR calculation", "compiled StateGraph", "live four-chain red-team run", "second-goal comparison", "companion main.py"],
+        "final_checkpoint": "cell-code-029",
+        "red_teaming_contract": "All 17 notebook code cells executed without errors in a disposable copy. The live workflow fanned out four attack chains, returned a typed blocked verdict and nonempty reason for every chain, and measured an ASR of 0/4 for the harmful-activities goal and 0/4 for the private-information goal. The companion script independently completed the four-chain run with 0/4 blocked verdicts."
+      }
+    },
+    "106-jailbreak-detection": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "source_sha256": "b45e34319834ffe512d0e3dcb6c834b4e9d65b3d028c1ffe566096ceaf50211d",
+        "paths_verified": ["typed LLM verdict", "five jailbreak-family routing", "seven-case accuracy suite", "threshold sweep", "prompt-leak exercise", "base64 decoding exercise", "three-way graph", "companion main.py"],
+        "final_checkpoint": "cell-code-030",
+        "jailbreak_detection_contract": "All 17 notebook code cells completed without errors in a disposable copy. The live seven-case suite blocked the five attack cases and allowed both benign cases for 7/7 accuracy; the threshold sweep produced five blocks with zero false positives and false negatives at 0.6. The fixed two-stage exercise extracted and decoded the embedded base64 token before classifying it. The companion script independently produced five blocks and two allowed replies."
+      }
+    },
+    "107-nemo-guardrails": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "traceback_outputs": 0,
+        "dependency_profile": "nemo-guardrails-v1",
+        "runtime_python": "3.12",
+        "source_sha256": "c084d1a7565e68df03405e192c5df76d715f8072fe03613353d403c6ea8742b7",
+        "paths_verified": ["Colang 2 input classifier", "four primary attack blocks", "two benign model handoffs", "six-case 100% accuracy check", "novel jailbreak/off-topic probes", "PII and self-harm probes", "latency comparison", "embedding comparison", "companion main.py"],
+        "final_checkpoint": "cell-code-035",
+        "nemo_guardrails_contract": "All 19 notebook code cells completed without errors or traceback output in a disposable copy. The live Colang 2 input rail blocked all four primary attack cases and allowed both benign cases for 6/6 accuracy; it also blocked all three novel unsafe probes, three PII probes, and the self-harm probe before handing accepted inputs to the application model. The companion script independently completed the same four-block/two-allowed sweep."
+      }
+    },
+    "108-guardrails-ai": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "guardrails-ai-v1",
+        "runtime_python": "3.14",
+        "source_sha256": "008b6d750d40cf2e181e804e6fde11b64061860bb9a0cbbb344e262285caff07",
+        "paths_verified": ["Pydantic schema validators", "four live structured-output calls", "Guard history inspection", "zero-reask failure", "batch statistics", "extended response schema", "exercise answer keys", "companion main.py"],
+        "final_checkpoint": "cell-code-030",
+        "guardrails_ai_contract": "All 16 notebook code cells completed without errors in a disposable copy. The schema validator accepted valid content and rejected overlong summaries, URLs, and incorrect point counts. The live four-prompt run returned structured outputs, history logged all four calls, the zero-reask demonstration failed with zero retries, batch statistics reconciled all four prompts, and the extended schema returned a category and confidence. The companion script independently completed all four live calls."
+      }
+    },
+    "109-pii-redaction-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "presidio-pii-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "76aaf6721fc0eb8af8b80b5709a453134116d4d602bd3af95801eac760dd82ad",
+        "paths_verified": ["stock entity detection", "custom SSN recognizer", "custom employee-ID recognizer", "pre-ingestion redaction", "live two-stage pipeline", "post-generation leak cleanup", "threshold comparison", "engine reuse timing", "GDPR-safe audit log", "companion main.py"],
+        "final_checkpoint": "cell-code-035",
+        "pii_redaction_contract": "All 19 notebook code cells completed without errors in a disposable copy. The live two-stage runs processed both sample documents; delivered-response checkpoints contained neither the sample SSN nor employee ID. The source-level custom-recognizer check also proved those values are removed before model ingestion, while the exercise and audit-log checks completed successfully. The companion script independently completed both live documents."
+      }
+    },
+    "110-pair-iterative-attack": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "d7b69390908b1b6453974c323265673c06d46331f960130218249bd28c4385e5",
+        "paths_verified": ["attacker JSON call", "target call", "judge JSON score", "compiled cyclic graph", "bounded live PAIR loop", "score progression", "attack-history feedback", "strategy statistics", "hardened-target exercise", "verbose-node exercise", "companion main.py"],
+        "final_checkpoint": "cell-code-032",
+        "pair_contract": "All 19 notebook code cells completed without errors in a disposable copy. The live attacker, target, and judge calls returned the expected structures; the compiled graph completed a bounded cycle with a final judge score in the 1-10 range. History, convergence reporting, and the exercise definitions completed successfully. The companion script independently completed the live graph."
+      }
+    },
+    "113-dpo-alignment": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 11,
+        "cell_errors": 0,
+        "dependency_profile": "dpo-training-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "ed2fcaa731319e359bdbc8ad0d3e3391739859c0c33d68d96dafd86451c91622",
+        "paths_verified": ["conversational preference dataset", "chat-template generation", "LoRA adapter attachment", "10-epoch DPO training", "before/after refusal comparison", "exercise answer-key cells", "companion main.py"],
+        "final_checkpoint": "cell-code-018",
+        "dpo_contract": "A disposable-copy source run completed in 122 seconds: finite training loss and refusal rate improved from 0% to 60% across five adversarial prompts. The complete 28-cell notebook then completed all 11 code cells without errors within the five-minute cap; its 10-category preference dataset trained successfully with finite loss and the final answer-key comparison improved from 0% to 33% across three prompts."
+      }
+    },
+    "114-lora-finetuning": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "dpo-training-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "ae66fd4da50a82c3db8eb32f50b7afe765595a41d691b69cbd81464f798a3ac4",
+        "paths_verified": ["base-model parameter count", "LoRA adapter attachment", "tokenized Python Q&A dataset", "one-epoch PEFT training", "adapter merge and unload", "before/after answer comparison", "exercise answer-key cells", "companion main.py"],
+        "final_checkpoint": "cell-code-023",
+        "lora_contract": "A disposable-copy companion-script run completed its local SmolLM LoRA workflow with finite training loss (2.2502), merged adapters, and five non-empty before/after answers. The complete 27-cell notebook then executed all 13 code cells without errors within the five-minute cap: it reported 460,800 trainable LoRA parameters (0.341% of 134,975,808), finite training loss (2.4188), a merged standard CausalLM, and three rendered before/after comparisons."
+      }
+    },
+    "120-long-context-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "72bcad31156ec4d1684dc95a43a5e7678c9e43a36ce9fd76a511c37cc95598b7",
+        "paths_verified": ["live gpt-5.4-nano full-context calls", "keyword-overlap chunk retrieval", "live RAG calls", "five-question comparison", "latency measurement", "chunk-size exercise path", "companion main.py"],
+        "final_checkpoint": "cell-code-020",
+        "long_context_contract": "A disposable-copy source run completed ten live gpt-5.4-nano calls (five full-context and five RAG) and rendered finite scores and latencies. The complete 29-cell notebook then executed all 14 code cells without errors within the five-minute cap, including both live answer strategies, the five-question score table, latency summary, and chunk-size exercise path. Scores are asserted as bounded diagnostics rather than a fixed strategy winner."
+      }
+    },
+    "119-mcp-server-builder": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "mcp-stdio-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "543e23604755b98782c46825e99206c5d31884eaf28dcf1ed5e41f0b40ae8909",
+        "paths_verified": ["MCP stdio server lifecycle", "initialize handshake", "tool discovery", "get_weather RPC", "convert_units RPC", "direct tool demonstrations", "transport round-trip workbook checkpoint"],
+        "final_checkpoint": "cell-code-009",
+        "mcp_contract": "A disposable-copy native MCP client started the companion stdio server, initialized the protocol, discovered exactly three tools, called get_weather for Tokyo (28C), and called convert_units for 100 km (62.1371 miles). The complete 30-cell notebook then executed all 14 code cells without errors within the five-minute cap, including the same real subprocess server and protocol round trip."
+      }
+    },
+    "122-eval-ci-pipeline": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "1427f5a88bdc091f1c4cd8f688c841dba76f2acc28779c7bc33712ddcaf4a6a0",
+        "paths_verified": ["portable credential setup", "ten live gpt-5.4-nano golden-dataset calls", "good-pipeline score gate", "degraded-pipeline regression gate", "threshold comparison", "extended-dataset exercise", "live pytest CI assertion", "companion main.py"],
+        "final_checkpoint": "cell-code-024",
+        "eval_ci_contract": "A disposable-copy source run completed ten live gpt-5.4-nano evaluations: the context-grounded pipeline passed with combined score 0.741 while the intentionally degraded pipeline failed at 0.058. The complete 25-cell notebook executed all 13 code cells without errors, including portable .env/Colab credential setup and the threshold/extended-dataset checkpoints. The added live pytest regression gate also passed in a fresh copy (1 passed in 11.12s)."
+      }
+    },
+    "123-agent-cost-tracking": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "264b4ece15e428f1088e2b13e8a238f1fade50f8e974effec0de6615e16a7dd7",
+        "paths_verified": ["portable credential setup", "gpt-5.4-nano token accounting", "per-node cost report", "normal three-node budgeted run", "planner-to-executor budget branch", "executor-to-summarizer budget branch", "tiny-budget stop path", "exercise answer key", "companion main.py"],
+        "final_checkpoint": "98647170",
+        "cost_tracking_contract": "A disposable-copy companion run completed three live gpt-5.4-nano nodes under its $0.05 cap, reporting a finite $0.003677 total and per-node costs. A separate $0.000001 source run stopped after the planner only (one recorded paid node). The complete 27-cell notebook executed all 14 code cells without errors within the five-minute cap and independently demonstrated the same tiny-budget stop branch. gpt-5.4-nano pricing uses OpenAI's published $0.20/M input and $1.25/M output rates."
+      }
+    },
+    "124-crescendo-multiturn-attack": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "292611e6429a35ab0343d67c1fee56b0a95d3f1d4b728980be3e61205cc713d6",
+        "paths_verified": ["direct-request baseline", "bounded L1-to-L5 live escalation", "JSON judge scoring", "policy-bypass comparison", "trajectory analysis", "conversation-level defense monitor", "defensive SQL-injection remediation exercise", "defended-workflow exercise", "companion main.py"],
+        "final_checkpoint": "cell-code-037",
+        "crescendo_contract": "A disposable-copy companion run completed the five-level, five-turn gpt-5.4-nano escalation workflow in 74 seconds; it recorded a 1/10 direct baseline and 6/10 best escalation score without reaching the 7/10 convergence threshold. The complete 38-cell notebook then executed all 21 code cells without errors within the five-minute cap. Its social-engineering and policy-bypass runs stayed below threshold, while the defense monitor classified the L4 simulated trajectory as risk level 5 with recommended action block. This records defensive red-team behavior, not jailbreak success."
+      }
+    },
+    "125-sycophancy-prompt-leakage": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "true two-turn conversation history", "36-case target-model leakage matrix", "deterministic canary checks", "LLM monitor classifications", "fail-closed monitor parsing", "guarded refusal exercise", "ASR exercise answer key"],
+        "final_checkpoint": "cell-code-032",
+        "sycophancy_contract": "A disposable-copy companion run completed successfully. The complete 32-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Its baseline two-turn attack retained the benign opener and assistant response in turn two, the 36-case matrix completed, the monitor classified the supplied attack variants, and the guarded exercise blocked the combined attack without leaking a canary. Matrix outcomes are recorded as live-model observations, not a fixed reproduction of the paper's reported attack-success rate."
+      }
+    },
+    "126-mcts-agent-fuzzing": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "initial root-branch expansion", "UCB1 selection", "mutation operators", "LangGraph target agent", "LLM judge", "tree visualisation", "two-seed answer-key comparison"],
+        "final_checkpoint": "cell-code-030",
+        "mcts_contract": "A disposable-copy companion run completed successfully. The complete 33-cell notebook executed all 21 code cells without errors within the five-minute cap using gpt-5.4-nano. The live primary run created two distinct root children before its confirmed early stop, rendered the mutation tree and best path, and the answer-key comparison completed both seed runs. Initial expansion now makes breadth possible before UCB1 selection instead of deterministically extending one chain. Scores are live defensive-evaluation observations, not fixed security claims."
+      }
+    },
+    "128-instruction-hierarchy-enforcer": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "six trust-hierarchy scenarios", "fast escalation-keyword block", "semantic conflict judgement", "allowed execution branch", "blocked response branch", "exercise answer keys"],
+        "final_checkpoint": "cell-code-029",
+        "instruction_hierarchy_contract": "A disposable-copy companion run completed all six live hierarchy scenarios correctly: explicit user escalation and indirect tool-output attacks were blocked, while legitimate user and benign tool content were allowed. The complete 30-cell notebook executed all 16 code cells without errors within the five-minute cap using gpt-5.4-nano. The enforcer now defaults to block if its judge response is invalid JSON."
+      }
+    },
+    "129-tool-output-injection": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "calculator/web/weather/memory poisoned tools", "protocol-valid assistant tool-call context", "undefended comparison", "keyword validator", "semantic validator", "sanitised defended response", "schema and value-type answer keys"],
+        "final_checkpoint": "cell-code-031",
+        "tool_output_contract": "A disposable-copy companion run completed all four poisoned-tool comparisons. The complete 32-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Each tool response now follows the provider-required assistant tool-call then ToolMessage sequence; the calculator query selects calculator, and the defended path detected/sanitised every supplied poisoned output. Invalid validator JSON is handled conservatively as a flagged output."
+      }
+    },
+    "130-agentdojo-harness": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "agentdojo",
+        "runtime_python": "3.14",
+        "paths_verified": ["pinned AgentDojo 0.1.35 profile", "banking clean benchmark", "ignore-previous attack", "important-instructions attack", "undefended and defended pipeline variants", "utility and ASR reporting", "exercise answer keys"],
+        "final_checkpoint": "cell-code-030",
+        "agentdojo_contract": "A disposable-copy source run completed the real AgentDojo banking subset for both registered attacks. The complete 33-cell workbook executed all 17 code cells without errors within the five-minute cap in an isolated AgentDojo 0.1.35 kernel. The harness constructs attacks with the required suite and pipeline, supplies an OutputLogger-compatible temporary log directory, and registers the gpt-5.4-nano model name required by the benchmark's important-instructions attack."
+      }
+    },
+    "131-multi-agent-trust-propagation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "TTL-decremented delegation", "allowlist/denylist propagation", "legitimate delegation", "injected tool-output escalation", "TTL exhaustion", "independent verifier boundary", "exercise answer keys"],
+        "final_checkpoint": "cell-code-038",
+        "trust_propagation_contract": "A disposable-copy source run completed all five scenarios correctly. Injected admin/system privilege claims are now deterministically recorded as trust-boundary violations even when the subagent also refuses them; the verifier fails closed on invalid JSON. The complete 39-cell workbook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano."
+      }
+    },
+    "132-indirect-injection-full-cycle": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "benign web fetch", "poisoned web fetch", "poisoned email", "undefended tool loop", "spotlighting-wrapped safe tools", "deterministic external-data injection alerts", "privilege-separated tool set", "exercise answer keys"],
+        "final_checkpoint": "cell-code-034",
+        "indirect_injection_contract": "A disposable-copy companion run completed all three scenarios. The complete 35-cell notebook executed all 21 code cells without errors within the five-minute cap using gpt-5.4-nano. The final-response selector now returns the last non-tool-call AI response rather than a tool message or empty string. The poisoned web page triggered deterministic defender indicators; the live model resisted the supplied poisoned web/email requests in this run, so this records defensive detection and execution behavior rather than a claim of repeatable compromise."
+      }
+    },
+    "133-canary-token-leakage-detector": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "random canary injection", "six live attack families", "benign control", "exact-leakage detection", "partial-leakage detection", "output-filter exercise answer key"],
+        "final_checkpoint": "cell-code-031",
+        "canary_leakage_contract": "A disposable-copy companion run generated a fresh canary and completed all six attack/control scenarios without exact or partial leakage. The complete 33-cell workbook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Canary injection now uses unpredictable tokens in production while the explicitly seeded teaching helper remains deterministic; this run measures leakage detection rather than claiming that canaries themselves prevent attacks."
+      }
+    },
+    "134-deerflow-embedded-client": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "dependency_profile": "external-deerflow-service",
+        "source_execution": "A disposable-copy source run reached the upload path and received connection refused from localhost:8000. The current main program prints the failure and returns exit status 0, so it cannot be treated as a successful or fail-fast live run.",
+        "service_probe": "localhost:8000, /docs, and /api/health were unavailable during verification.",
+        "api_compatibility": "A fresh inspection of bytedance/deer-flow's current main branch found /health, /api/threads/{thread_id}/uploads, and /api/threads/{thread_id}/runs/stream routes, not this example's /api/files/upload and /api/chat/stream routes.",
+        "remediation": "Migrate the client and workbook to DeerFlow's current thread/upload/run API, make service absence fail fast, start the declared external service, then rerun source and the complete notebook."
+      }
+    },
+    "135-deerflow-research-skill": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "26 cells; 14 code cells",
+        "dependency_profile": "external-deerflow-service",
+        "source_execution": "A disposable-copy source run reached the first upload and received connection refused from localhost:8000; main printed the error and returned exit status 0.",
+        "service_probe": "localhost:8000, /docs, and /api/health were unavailable during verification.",
+        "api_compatibility": "This client uses the same obsolete /api/files/upload and /api/chat/stream routes as #134, while DeerFlow's current upstream API uses thread-scoped upload and run routes.",
+        "remediation": "Migrate the source and workbook to the current DeerFlow thread/upload/run API, add a nonzero fail-fast service check, configure the custom research skill in a running service, then execute the source and all notebook cells."
+      }
+    },
+    "136-deerflow-sandboxed-swe-agent": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "11 cells; 7 code cells, below this repository's 25-cell workshop minimum.",
+        "dependency_profile": "external-deerflow-service",
+        "source_execution": "A disposable-copy source run reached the fixture-upload path and received connection refused from localhost:8000; main printed the error and returned exit status 0.",
+        "api_compatibility": "The source and workbook use obsolete /api/files/upload, /api/chat/stream, and /api/health routes rather than DeerFlow's current /health and thread-scoped upload/run API.",
+        "remediation": "Expand the workbook to the teaching standard, migrate client/workbook routes, make external-service absence fail fast, configure a sandboxed DeerFlow runtime, then execute the fixture repair source flow and complete notebook."
+      }
+    },
+    "137-deerflow-runtime-workbook": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "7 cells; 6 code cells, with no companion main.py and below the workshop minimum.",
+        "dependency_profile": "external-deerflow-service",
+        "notebook_execution": "A disposable-copy notebook execution failed at the config cell with the intended RuntimeError because localhost:8000 refused connections.",
+        "api_compatibility": "The connection preflight uses obsolete /api/health, and subsequent cells use obsolete /api/files/upload and /api/chat/stream routes rather than DeerFlow's current /health and thread-scoped API.",
+        "remediation": "Add the companion entry point and complete teaching sequence, migrate all routes to the current DeerFlow API, provision the declared service, then execute the full source/notebook path."
+      }
+    },
+    "138-vision-qa-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "remote PNG fetch and status validation", "base64 data-URI encoding", "two-image content payload", "three exercise answer keys", "OpenAI model availability preflight", "compiled LangGraph workflow", "three live gpt-5.4-nano vision answers", "request-footprint calculation"],
+        "final_checkpoint": "cost-estimate",
+        "vision_contract": "A disposable-copy source run answered all three questions about the Python logo. The complete 31-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. The live flow validates remote image responses, uses max_completion_tokens as required by the selected model, and checks model availability without printing credentials."
+      }
+    },
+    "142-semantic-caching": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "live text-embedding-3-small vectors", "best qualifying cache-match selection", "calibrated paraphrase cache hits", "cache misses and gpt-5.4-nano completions", "two exercise answer keys", "warm-cache comparison", "compiled LangGraph workflow"],
+        "final_checkpoint": "cell-27-partb-run",
+        "semantic_cache_contract": "A disposable-copy source run completed seven queries with four cache hits and three misses after calibration to the observed embedding similarities. The complete 30-cell workbook executed all 16 code cells without errors within the five-minute cap. Its live five-query run demonstrated two semantic hits at the calibrated 0.70 threshold; the cache selects the highest-similarity qualifying entry rather than the first insertion, and the notebook never writes any key fragment to output."
+      }
+    },
+    "145-lora-architecture-ablation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "dpo-training-v1",
+        "runtime_python": "3.13",
+        "offline_execution": true,
+        "paths_verified": ["companion main.py", "four local LoRA training runs", "r4-q trainable count", "r8-qv trainable count", "r16-qv trainable count", "r32-qvo trainable count", "two exercise answer keys", "FFN-only parameter comparison", "ablation result table"],
+        "final_checkpoint": "cell-019",
+        "lora_ablation_contract": "Source and complete workbook executed in disposable copies with Hugging Face and pip forced offline, using the already-cached SmolLM2-135M-Instruct model. All four 20-step runs completed in under five minutes. The workbook now mirrors source labels and actual grouped-query-attention shapes: q/o are 576x576 and v is 576x192, yielding 138240, 460800, 921600, and 2949120 trainable adapter parameters respectively."
+      }
+    },
+    "144-qlora-finetuning": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "26 cells; 14 code cells",
+        "dependency_profile": "qlora-training-v1",
+        "hardware_probe": "torch 2.8.0 reports cuda_available=false and cuda_version=null; the host has MPS but no CUDA GPU.",
+        "missing_dependency": "bitsandbytes is not installed in the available training profile.",
+        "blocking_cell": "Part B deliberately raises EnvironmentError when CUDA with at least 4 GB VRAM is unavailable.",
+        "remediation": "Provision an isolated CUDA runtime with at least 4 GB VRAM and CUDA-matched bitsandbytes, complete the documented prepare_model_for_kbit_training and 4-bit rank-comparison fixes, then execute source and every workbook cell."
+      }
+    },
+    "146-orpo-alignment": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "26 cells; 14 code cells",
+        "dependency_profile": "dpo-training-v1",
+        "hardware_probe": "torch 2.8.0 reports cuda_available=false and cuda_version=null; the host has MPS but no CUDA GPU.",
+        "blocking_cell": "Part B deliberately raises EnvironmentError when CUDA with at least 4 GB VRAM is unavailable.",
+        "remediation": "Provision a CUDA GPU with at least 4 GB VRAM in the declared training profile, then execute the source and full ORPO notebook within the dedicated GPU validation pass."
+      }
+    },
+    "147-model-merging": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "28 cells; 12 code cells",
+        "dependency_profile": "dpo-training-v1",
+        "offline_merge_probe": "The cached configured pair loaded locally: SmolLM2-135M-Instruct has 273 state tensors and SmolLM2-360M-Instruct has 291. Their floating-point shape-match count is 0, so the current merge leaves model A unchanged.",
+        "missing_compatible_artifact": "SmolLM2-135M metadata is cached but its model weights/tokenizer are not available offline.",
+        "remediation": "Use two fully available same-architecture checkpoints, assert n_merged is positive before generation, update the source and workbook pair consistently, then execute source and every workbook cell."
+      }
+    },
+    "121-structured-generation-outlines": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "25 cells; 12 code cells",
+        "dependency_profile": "outlines-local-v1",
+        "dependency_probe": "The available core runtime has openai but not outlines, transformers, or instructor.",
+        "fallback_behavior": "The source catches missing outlines and returns deterministic mock values, which exercises a fallback but does not validate CFG-constrained generation.",
+        "remediation": "Provision a dedicated outlines runtime and a fully cached compatible local model, update the hosted comparison to gpt-5.4-nano, then execute source and complete notebook without using the mock fallback."
+      }
+    },
+    "140-audio-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "30 cells; 16 code cells",
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "Whisper transcription of a local spoken WAV", "validated gpt-5.4-nano JSON classification", "LangGraph transcribe-analyze-route pipeline", "billing queue contract", "five-intent production classifier and router batch", "two exercise answer keys"],
+        "final_checkpoint": "part-b-pipeline",
+        "audio_routing_contract": "A disposable-copy source run and complete notebook execution transcribed a locally generated spoken billing request, classified it as billing, and routed it to billing-queue. The notebook's 16 code cells finished without errors within the five-minute cap; its five mock-transcript classifications each produced the expected production route."
+      }
+    },
+    "139-doc-vision-agent": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "29 cells; 16 code cells",
+        "dependency_profile": "document-vision-v1",
+        "dependency_probe": "The available core runtime has openai, langgraph, nbclient, and nbformat, but pypdfium2=false and PIL=false.",
+        "source_smoke_risk": "main.py defaults to the remote WCAG PDF and the production extraction loop processes every page with no cap, so it cannot meet a bounded five-minute or cost-safe smoke contract.",
+        "notebook_behavior": "Part B prints SKIP when pypdfium2 is absent, so a notebook-only execution would not prove the document-rendering or vision path.",
+        "remediation": "Provision an isolated document-vision profile with pinned pypdfium2 and Pillow, then cap production smoke runs to a local 1–3 page fixture, use gpt-5.4-nano with validated JSON responses, and execute both source and complete notebook."
+      }
+    },
+    "1-basic-local-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "30 cells; 16 code cells",
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "basic-local-rag-v1",
+        "runtime_python": "3.14",
+        "paths_verified": ["companion main.py", "three live Python documentation URLs", "cached in-process Chroma retriever", "live text-embedding-3-small retrieval", "gpt-5.4-nano tool call", "multi-turn checkpoint memory", "fresh-thread isolation", "dictionary and word-count answer keys"],
+        "final_checkpoint": "nb-ans3-29",
+        "local_rag_contract": "The disposable-copy source run fetched and indexed the three declared Python tutorial URLs, then completed a live tool-assisted answer. The complete 30-cell workbook executed all 16 code cells without errors within the five-minute cap. Its first query called retrieve_context, its follow-up used the same thread, and its fresh thread structurally contained only the new human message and one AI reply. No key fragment appeared in the executed artifact."
+      }
+    },
+    "2-multi-tool-rag": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "16 cells; 8 code cells",
+        "teaching_gate": "The workbook has no runnable Answer Key cells and is below the required 25–35-cell workshop range.",
+        "workflow_divergence": "The workbook teaches an in-memory Chroma plus DuckDuckGo flow, while main.py uses Hugging Face datasets, cloud Qdrant, and Brave Search; one run cannot prove both as one end-to-end workflow.",
+        "source_repair": "Qdrant scroll now correctly unpacks (points, next_offset), uses MatchAny for batched checksums, and derives checksums from Document.page_content. A direct fake-client contract verified existing documents are excluded and missing documents are retained.",
+        "unrun_live_prerequisites": "A full source run requires remote Hugging Face datasets, cloud Qdrant, Brave Search, and OpenAI; it was not run because the workbook fails its teaching gate before runtime validation.",
+        "remediation": "Choose and document one canonical workflow, add the missing lesson and runnable answer-key cells, provision separate explicit profiles for source and notebook where necessary, then execute both paths within the smoke cap."
+      }
+    },
+    "3-prospect-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "38 cells; 25 code cells",
+        "code_cells_executed": 25,
+        "cell_errors": 0,
+        "dependency_profile": "basic-local-rag-v1",
+        "paths_verified": ["companion main.py", "public prospect CSV fixture", "DuckDuckGo prospect search", "gpt-5.4-nano research and outreach", "streamed researcher and copywriter states", "three-prospect batch", "four exercise answer keys"],
+        "final_checkpoint": "cell-ans4",
+        "prospect_contract": "A disposable-copy source run processed the committed public Jensen Huang fixture and wrote an outreach CSV. The full 38-cell workbook executed all 25 code cells without errors within the five-minute smoke cap, including live research, drafting, streaming, batch processing, and answer keys."
+      }
+    },
+    "141-prompt-caching": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "30 cells; 16 code cells",
+        "dependency_profile": "anthropic-prompt-cache-v1",
+        "dependency_probe": "The Anthropic SDK and notebook runtime are installed, but ANTHROPIC_API_KEY is not declared in the local environment.",
+        "provider_requirement": "The source and live workbook cells use Anthropic's cache_control request shape and cache_read_input_tokens usage field; an OpenAI credential cannot validate this provider-specific lesson.",
+        "remediation": "Provide an authorized Anthropic key, then execute main.py and all workbook cells with a cacheable prefix large enough to produce measurable cache-read usage."
+      }
+    },
+    "4-basic-react-agent": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "5-react-agent-lg": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "6-multi-agent-graph": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "7-redis-rag": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "8-new-idea-gen": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "9-prospect-searx": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "10-streaming-rag": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "11-hitl-approval": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "12-basic-rag-notebook": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "13-structured-output": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "14-sql-agent": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "111-openai-finetuning": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "112-synthetic-training-data": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "115-semantic-kernel": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "116-llamaindex-agent": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "117-instructor-extraction": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "118-mirascope-typed-llm": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "127-spotlighting-ipi-defense": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "143-context-compression": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}}
+  }
+}

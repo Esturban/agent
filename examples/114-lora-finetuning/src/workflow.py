@@ -19,9 +19,11 @@ def create_workflow(
 
     Returns results dict.
     """
+    import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer, DataCollatorForLanguageModeling
     from peft import LoraConfig, get_peft_model, TaskType
 
+    torch.manual_seed(42)
     print(f"Step 1: Loading base model: {model_name}")
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     if tokenizer.pad_token is None:

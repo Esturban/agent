@@ -23,8 +23,9 @@ def main():
             {"action": action["action"], "risk": action["risk"], "approved": False, "result": ""},
             config=config,
         ):
-            if "__interrupt__" in event:
-                interrupted_payload = event["__interrupt__"][0].value
+            interrupts = event.get("__interrupt__", ())
+            if interrupts:
+                interrupted_payload = interrupts[0].value
                 break
 
         if interrupted_payload:

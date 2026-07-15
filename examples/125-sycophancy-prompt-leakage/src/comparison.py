@@ -12,7 +12,7 @@ from prompts.system_prompt import VARIANTS
 from prompts.attack_variants import ATTACKS
 from prompts.defenses import DEFENSES
 from .attacker import run_attack
-from .monitor import scan
+from .monitor import check_canary
 
 
 def build_matrix() -> list[dict]:
@@ -26,13 +26,13 @@ def build_matrix() -> list[dict]:
             full_system = (defense_text + "\n\n" + base_system).strip() if defense_text else base_system
             for atk_name, attack_prompt, _ in ATTACKS:
                 _turn1, turn2 = run_attack(full_system, attack_prompt)
-                scan_result = scan(turn2, attack_prompt)
+                leaked, canaries = check_canary(turn2)
                 results.append({
                     "system":   sys_name,
                     "defense":  def_name,
                     "attack":   atk_name,
-                    "leaked":   scan_result["canary_leaked"],
-                    "canaries": scan_result["canaries_found"],
+                    "leaked":   leaked,
+                    "canaries": canaries,
                     "response": turn2[:200],
                 })
     return results

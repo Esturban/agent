@@ -1,0 +1,7 @@
+# Generated from qa/dependency-profiles.json: scraper-v1
+# Top-level requirements only; resolve a full platform lock separately.
+beautifulsoup4==4.14.0
+langchain-openai==0.3.33
+openai==1.109.1
+requests==2.32.5
+

@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 from datetime import datetime
+from pathlib import Path
 from time import time
 
 import pandas as pd
@@ -15,6 +16,8 @@ from src.workflow import create_workflow
 
 load_dotenv()
 brave_key = os.getenv("BRAVE_API_KEY")
+if not os.getenv("OPENAI_API_KEY"):
+    raise EnvironmentError("OPENAI_API_KEY is required for prospect research and outreach.")
 
 
 def prospect_agent(
@@ -54,14 +57,9 @@ def prospect_agent(
         except ValueError:
             raise ValueError("Invalid to_date format. Use YYYY-MM-DD.")
 
-    # Set up LLMs - researcher uses gpt-5-nano for efficiency, copywriter uses gpt-5 for quality
-    researcher_llm = ChatOpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        api_key=os.getenv("OPENROUTER_API_KEY"),
-        model="alibaba/tongyi-deepresearch-30b-a3b:free",
-        temperature=0,
-    )
-    copywriter_llm = ChatOpenAI(model="gpt-5-mini")
+    # Use one supported model for both stages so the demo has one credential path.
+    researcher_llm = ChatOpenAI(model="gpt-5.4-nano")
+    copywriter_llm = ChatOpenAI(model="gpt-5.4-nano")
 
     # Preferred search provider and wait spacing
     preferred_provider = os.getenv("PREFERRED_SEARCH_PROVIDER", "ddg")
@@ -221,23 +219,28 @@ def prospect_agent(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Prospect Agent CLI")
-    parser.add_argument("--input", "-i", default="data/Connections.csv", help="Path to input CSV")
+    parser.add_argument(
+        "--input",
+        "-i",
+        default=str(Path(__file__).parent / "sample_connections.csv"),
+        help="Path to input CSV",
+    )
     parser.add_argument(
         "--output_suffix",
         "-o",
-        default="data/aug/Connections_aug",
+        default=str(Path(__file__).parent / "data/aug/Connections_aug"),
         help="Output CSV suffix",
     )
     parser.add_argument(
         "--since_date",
         "-s",
-        default="2025-08-01",
+        default=None,
         help="Filter by Connected On >= this date (YYYY-MM-DD)",
     )
     parser.add_argument(
         "--to_date",
         "-t",
-        default="2025-08-28",
+        default=None,
         help="Filter by Connected On <= this date (YYYY-MM-DD)",
     )
     args = parser.parse_args()

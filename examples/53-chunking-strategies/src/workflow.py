@@ -14,7 +14,7 @@ class ChunkingState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     emb = OpenAIEmbeddings(model="text-embedding-3-small")
 
     # Build all four chunk sets once at workflow creation time

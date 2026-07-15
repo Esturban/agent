@@ -1,0 +1,2476 @@
+{
+  "version": 1,
+  "manifest": "requirements.txt",
+  "manifest_package_count": 241,
+  "duplicate_manifest_packages": [],
+  "profile_usage": {
+    "agentdojo": 1,
+    "autogen-0.4": 1,
+    "core-openai-v1": 133,
+    "crewai-1": 2,
+    "dspy-2": 1,
+    "litellm-openai-v2": 1,
+    "openai-agents-v2": 1,
+    "ragas-0.2": 2,
+    "training": 6
+  },
+  "declared_conflicts": [
+    [
+      "core-openai-v1",
+      "dspy-2"
+    ],
+    [
+      "core-openai-v1",
+      "litellm-openai-v2"
+    ],
+    [
+      "core-openai-v1",
+      "openai-agents-v2"
+    ],
+    [
+      "crewai-1",
+      "dspy-2"
+    ]
+  ],
+  "missing_profile_constraints": {
+    "core-openai-v1": [
+      "instructor==1.12.0"
+    ],
+    "crewai-1": [
+      "json-repair==0.25.2"
+    ],
+    "dspy-2": [
+      "json-repair==0.61.4"
+    ],
+    "training": [
+      "torch>=2.0.0"
+    ]
+  },
+  "workbooks": [
+    {
+      "path": "examples/1-basic-local-rag/basic_local_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/10-streaming-rag/streaming_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/100-computer-use-agent/computer_use_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "anthropic",
+        "dotenv",
+        "google",
+        "json",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/101-swe-agent-code-editing/swe_agent_code_editing_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "collections",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "tempfile"
+      ]
+    },
+    {
+      "path": "examples/102-voice-pipeline/voice_pipeline_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "functools",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "openai",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/103-tool-synthesis-latm/tool_synthesis_latm_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "ast",
+        "dotenv",
+        "google",
+        "inspect",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/104-prompt-injection-defense/prompt_injection_defense_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/105-automated-red-teaming/automated_red_teaming_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/106-jailbreak-detection/jailbreak_detection_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "base64",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/107-nemo-guardrails/nemo_guardrails_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "math",
+        "nemoguardrails",
+        "nest_asyncio",
+        "openai",
+        "os",
+        "pathlib",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/108-guardrails-ai/guardrails_ai_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "guardrails",
+        "json",
+        "os",
+        "pydantic",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/109-pii-redaction-pipeline/pii_redaction_pipeline_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "datetime",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "presidio_analyzer",
+        "presidio_anonymizer",
+        "subprocess",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/11-hitl-approval/hitl_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/110-pair-iterative-attack/pair_iterative_attack_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/111-openai-finetuning/openai_finetuning_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "json",
+        "openai",
+        "os",
+        "pathlib",
+        "random",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/112-synthetic-training-data/synthetic_training_data_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "collections",
+        "dataclasses",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "numpy",
+        "os",
+        "random",
+        "subprocess",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/113-dpo-alignment/dpo_alignment_workbook.ipynb",
+      "profile": "training",
+      "imports": [
+        "datasets",
+        "peft",
+        "random",
+        "torch",
+        "transformers",
+        "trl"
+      ]
+    },
+    {
+      "path": "examples/114-lora-finetuning/lora_finetuning_workbook.ipynb",
+      "profile": "training",
+      "imports": [
+        "datasets",
+        "peft",
+        "random",
+        "torch",
+        "transformers"
+      ]
+    },
+    {
+      "path": "examples/115-semantic-kernel/semantic_kernel_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "openai",
+        "os",
+        "semantic_kernel",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/116-llamaindex-agent/llamaindex_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "llama_index",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/117-instructor-extraction/instructor_extraction_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "anthropic",
+        "dotenv",
+        "google",
+        "instructor",
+        "json",
+        "openai",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/118-mirascope-typed-llm/mirascope_typed_llm_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "instructor",
+        "mirascope",
+        "openai",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/119-mcp-server-builder/mcp_server_builder_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "datetime",
+        "dotenv",
+        "google",
+        "json",
+        "mcp",
+        "os"
+      ]
+    },
+    {
+      "path": "examples/12-basic-rag-notebook/rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "bs4",
+        "chromadb",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "math",
+        "os",
+        "pathlib",
+        "shutil",
+        "subprocess",
+        "sys",
+        "textwrap",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/120-long-context-agent/long_context_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "subprocess",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/121-structured-generation-outlines/structured_generation_outlines_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "datetime",
+        "dotenv",
+        "instructor",
+        "json",
+        "openai",
+        "os",
+        "outlines",
+        "pydantic",
+        "re",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/122-eval-ci-pipeline/eval_ci_pipeline_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "google",
+        "openai",
+        "os"
+      ]
+    },
+    {
+      "path": "examples/123-agent-cost-tracking/agent_cost_tracking_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "tiktoken",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/124-crescendo-multiturn-attack/crescendo_multiturn_attack_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/125-sycophancy-prompt-leakage/sycophancy_prompt_leakage_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "re",
+        "secrets",
+        "string",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/126-mcts-agent-fuzzing/mcts_agent_fuzzing_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "base64",
+        "collections",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "math",
+        "os",
+        "random",
+        "re",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/127-spotlighting-ipi-defense/spotlighting_ipi_defense_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "base64",
+        "collections",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/127-spotlighting-ipi-defense/spotlighting_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "base64",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/128-instruction-hierarchy-enforcer/instruction_hierarchy_enforcer_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "dotenv",
+        "enum",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/129-tool-output-injection/tool_output_injection_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "re",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/13-structured-output/structured_output_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "duckduckgo_search",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/130-agentdojo-harness/agentdojo_harness_workbook.ipynb",
+      "profile": "agentdojo",
+      "imports": [
+        "agentdojo",
+        "dotenv",
+        "google",
+        "openai",
+        "os",
+        "subprocess",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/131-multi-agent-trust-propagation/multi_agent_trust_propagation_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "dotenv",
+        "enum",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/132-indirect-injection-full-cycle/indirect_injection_full_cycle_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "pathlib",
+        "re",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/133-canary-token-leakage-detector/canary_token_leakage_detector_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "datetime",
+        "dotenv",
+        "google",
+        "hashlib",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "secrets",
+        "string",
+        "subprocess",
+        "sys",
+        "uuid"
+      ]
+    },
+    {
+      "path": "examples/134-deerflow-embedded-client/deerflow_embedded_client_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dataclasses",
+        "dotenv",
+        "httpx",
+        "json",
+        "os",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/135-deerflow-research-skill/deerflow_research_skill_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": []
+    },
+    {
+      "path": "examples/136-deerflow-sandboxed-swe-agent/swe_sandbox_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "dotenv",
+        "httpx",
+        "json",
+        "os",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/137-deerflow-runtime-workbook/deerflow_runtime_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "httpx",
+        "json",
+        "os"
+      ]
+    },
+    {
+      "path": "examples/138-vision-qa-agent/vision_qa_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "base64",
+        "dotenv",
+        "httpx",
+        "json",
+        "langgraph",
+        "math",
+        "openai",
+        "os",
+        "pathlib",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/139-doc-vision-agent/doc_vision_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "PIL",
+        "base64",
+        "dotenv",
+        "httpx",
+        "io",
+        "json",
+        "openai",
+        "os",
+        "pypdfium2",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/14-sql-agent/sql_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pathlib",
+        "sqlite3",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/140-audio-agent/audio_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "json",
+        "langgraph",
+        "math",
+        "openai",
+        "os",
+        "re",
+        "struct",
+        "typing",
+        "wave"
+      ]
+    },
+    {
+      "path": "examples/141-prompt-caching/prompt_caching_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "anthropic",
+        "dotenv",
+        "json",
+        "os",
+        "src",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/142-semantic-caching/semantic_caching_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dataclasses",
+        "dotenv",
+        "json",
+        "math",
+        "openai",
+        "os",
+        "random",
+        "src",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/143-context-compression/context_compression_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "openai",
+        "os",
+        "re",
+        "src",
+        "sys",
+        "tiktoken",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/144-qlora-finetuning/qlora_finetuning_workbook.ipynb",
+      "profile": "training",
+      "imports": [
+        "datasets",
+        "json",
+        "peft",
+        "src",
+        "sys",
+        "torch",
+        "transformers"
+      ]
+    },
+    {
+      "path": "examples/145-lora-architecture-ablation/lora_architecture_ablation_workbook.ipynb",
+      "profile": "training",
+      "imports": [
+        "math",
+        "random",
+        "src",
+        "sys",
+        "time",
+        "torch"
+      ]
+    },
+    {
+      "path": "examples/146-orpo-alignment/orpo_alignment_workbook.ipynb",
+      "profile": "training",
+      "imports": [
+        "math",
+        "src",
+        "statistics",
+        "sys",
+        "torch",
+        "transformers",
+        "trl"
+      ]
+    },
+    {
+      "path": "examples/147-model-merging/model_merging_workbook.ipynb",
+      "profile": "training",
+      "imports": [
+        "os",
+        "psutil",
+        "sys",
+        "torch",
+        "transformers"
+      ]
+    },
+    {
+      "path": "examples/15-crewai-research-crew/crewai_workbook.ipynb",
+      "profile": "crewai-1",
+      "imports": [
+        "crewai",
+        "ddgs",
+        "dotenv",
+        "google",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/16-rag-eval-notebook/rag_eval_workbook.ipynb",
+      "profile": "ragas-0.2",
+      "imports": [
+        "datasets",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "ragas",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/17-corrective-rag/corrective_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/18-self-reflecting-agent/reflexion_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/19-multi-agent-notebook/multi_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/2-multi-tool-rag/multi_tool_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "ast",
+        "dotenv",
+        "google",
+        "langchain",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/20-code-interpreter/code_interpreter_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/21-autogen-debate/autogen_debate_workbook.ipynb",
+      "profile": "autogen-0.4",
+      "imports": [
+        "autogen",
+        "dotenv",
+        "google",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/22-hybrid-search-rag/hybrid_search_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "langchain",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "math",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/23-crewai-notebook/crewai_workbook.ipynb",
+      "profile": "crewai-1",
+      "imports": [
+        "crewai",
+        "dotenv",
+        "google",
+        "os",
+        "pydantic",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/24-graph-rag/graph_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "matplotlib",
+        "networkx",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/25-adaptive-rag/adaptive_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/26-rag-fusion/rag_fusion_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/27-self-rag/self_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/28-parallel-subgraph/parallel_subgraph_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "threading",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/29-llm-judge-harness/llm_judge_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/3-prospect-agent/prospect_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pandas",
+        "pathlib",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/30-agentic-rag/agentic_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "datetime",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/31-multi-agent-debate/multi_agent_debate_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "math",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/32-speculative-rag/speculative_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/33-dspy-rag/dspy_rag_workbook.ipynb",
+      "profile": "dspy-2",
+      "imports": [
+        "dotenv",
+        "dspy",
+        "google",
+        "json",
+        "os",
+        "pathlib",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/34-openai-agents-sdk/openai_agents_workbook.ipynb",
+      "profile": "openai-agents-v2",
+      "imports": [
+        "agents",
+        "dataclasses",
+        "dotenv",
+        "google",
+        "json",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/35-plan-execute-agent/plan_execute_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "copy",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/36-long-term-memory/long_term_memory_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/37-rewoo-agent/rewoo_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/38-langgraph-command-pattern/command_pattern_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "inspect",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/39-checkpoint-resume/checkpoint_resume_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pathlib",
+        "sqlite3",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/4-basic-react-agent/basic_react_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "langchain",
+        "langchain_chroma",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "pandas",
+        "pathlib",
+        "subprocess",
+        "sys",
+        "uuid"
+      ]
+    },
+    {
+      "path": "examples/40-agent-observability/observability_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "inspect",
+        "json",
+        "langchain",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pathlib",
+        "subprocess",
+        "sys",
+        "time",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/41-pdf-extraction-agent/pdf_extraction_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "concurrent",
+        "dotenv",
+        "google",
+        "io",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pdfplumber",
+        "pydantic",
+        "requests",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/42-multimodal-rag/multimodal_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "base64",
+        "dotenv",
+        "google",
+        "httpx",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "math",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/43-supervisor-worker/supervisor_worker_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/44-mcp-client-agent/mcp_client_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "types",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/45-a2a-agent-handoff/a2a_handoff_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "re",
+        "subprocess",
+        "sys",
+        "time",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/46-tree-of-thoughts/tree_of_thoughts_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "re",
+        "statistics",
+        "subprocess",
+        "sys",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/47-deepeval-rag-metrics/deepeval_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "deepeval",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/48-deepeval-hallucination-bias/hallucination_bias_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dataclasses",
+        "deepeval",
+        "dotenv",
+        "google",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/49-deepeval-geval-custom/geval_custom_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "deepeval",
+        "dotenv",
+        "google",
+        "json",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/5-react-agent-lg/react_agent_lg_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "typing",
+        "uuid"
+      ]
+    },
+    {
+      "path": "examples/50-deepeval-agentic-eval/agentic_eval_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "deepeval",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/51-deepeval-conversational/conversational_eval_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "deepeval",
+        "dotenv",
+        "google",
+        "os",
+        "src",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/52-deepeval-synthesizer/synthesizer_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "deepeval",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "pathlib",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/53-chunking-strategies/chunking_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "numpy",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/54-reranking-rag/reranking_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "flashrank",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/55-hyde-rag/hyde_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "numpy",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/56-contextual-compression/contextual_compression_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/57-step-back-prompting/step_back_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/58-tabular-rag/tabular_rag_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "io",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pandas",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/59-semantic-router/semantic_router_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "numpy",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/6-multi-agent-graph/multi_agent_graph_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "functools",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "typing",
+        "uuid"
+      ]
+    },
+    {
+      "path": "examples/60-web-scraper-agent/web_scraper_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "bs4",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "requests",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/61-guardrails-agent/guardrails_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "re",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/62-async-langgraph/async_langgraph_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/63-token-budget-manager/token_budget_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "tiktoken",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/64-pydantic-ai/pydantic_ai_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "pydantic_ai",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/65-litellm-multi-provider/litellm_workbook.ipynb",
+      "profile": "litellm-openai-v2",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_community",
+        "langchain_core",
+        "litellm",
+        "os",
+        "subprocess",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/66-smol-agents/smol_agents_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "os",
+        "smolagents",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/67-mem0-memory/mem0_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "mem0",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/68-chain-of-verification/chain_of_verification_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/69-constitutional-ai/constitutional_ai_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/7-redis-rag/00_langgraph_redis_agentic_rag.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "collections",
+        "dotenv",
+        "getpass",
+        "langchain",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_redis",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "pprint",
+        "pydantic",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/70-prompt-injection-defense/prompt_injection_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/71-parent-document-retriever/parent_document_retriever_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "langchain_text_splitters",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/72-batch-agent-runner/batch_agent_runner_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "csv",
+        "dotenv",
+        "google",
+        "io",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "os",
+        "random",
+        "subprocess",
+        "sys",
+        "time"
+      ]
+    },
+    {
+      "path": "examples/73-langsmith-tracing/langsmith_tracing_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "langsmith",
+        "numpy",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/74-ragas-evaluation/ragas_evaluation_workbook.ipynb",
+      "profile": "ragas-0.2",
+      "imports": [
+        "datasets",
+        "dotenv",
+        "google",
+        "langchain_chroma",
+        "langchain_core",
+        "langchain_openai",
+        "numpy",
+        "os",
+        "ragas",
+        "re",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/75-fastapi-sse-streaming/fastapi_sse_streaming_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/76-agent-evaluation/agent_evaluation_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "copy",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "numpy",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/77-langfuse-observability/langfuse_observability_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "datetime",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "numpy",
+        "os",
+        "subprocess",
+        "sys",
+        "typing",
+        "uuid"
+      ]
+    },
+    {
+      "path": "examples/78-prompt-ab-testing/prompt_ab_testing_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "numpy",
+        "os",
+        "random",
+        "scipy",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/79-interrupt-human-approval/interrupt_human_approval_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "datetime",
+        "dotenv",
+        "google",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/8-new-idea-gen/new_idea_gen_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "re",
+        "requests",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/80-multi-agent-supervisor/multi_agent_supervisor_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/81-streaming-sse-server/streaming_sse_server_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/82-redis-memory/redis_memory_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pprint",
+        "redis",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/83-google-adk-agent/google_adk_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "asyncio",
+        "dotenv",
+        "google",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/84-haystack-pipeline/haystack_pipeline_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "haystack",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/85-agno-agent/agno_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "agno",
+        "dotenv",
+        "google",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/86-mixture-of-agents/mixture_of_agents_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/87-vector-memory-agent/vector_memory_agent_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "chromadb",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing",
+        "uuid"
+      ]
+    },
+    {
+      "path": "examples/88-memory-architecture/memory_architecture_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/89-self-consistency/self_consistency_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/9-prospect-searx/prospect_searx_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "pydantic",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ]
+    },
+    {
+      "path": "examples/90-least-to-most/least_to_most_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/91-analogical-reasoning/analogical_reasoning_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/92-agent-sandboxing-e2b/e2b_sandboxing_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "e2b_code_interpreter",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "re",
+        "subprocess",
+        "sys",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/93-llama-guard-guardrails/llama_guard_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/94-zep-memory-server/zep_memory_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing_extensions",
+        "uuid",
+        "zep_cloud"
+      ]
+    },
+    {
+      "path": "examples/95-memory-compaction/memory_compaction_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "dotenv",
+        "google",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/96-extended-thinking/extended_thinking_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "anthropic",
+        "dotenv",
+        "google",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    },
+    {
+      "path": "examples/97-best-of-n-sampling/best_of_n_sampling_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "collections",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "random",
+        "subprocess",
+        "sys",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/98-skeleton-of-thought/skeleton_of_thought_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "langchain_openai",
+        "langgraph",
+        "operator",
+        "os",
+        "subprocess",
+        "sys",
+        "time",
+        "typing",
+        "typing_extensions"
+      ]
+    },
+    {
+      "path": "examples/99-browser-agent-playwright/browser_agent_playwright_workbook.ipynb",
+      "profile": "core-openai-v1",
+      "imports": [
+        "IPython",
+        "dotenv",
+        "google",
+        "json",
+        "langchain_community",
+        "langchain_core",
+        "langchain_openai",
+        "langgraph",
+        "os",
+        "subprocess",
+        "sys"
+      ]
+    }
+  ]
+}

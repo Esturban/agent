@@ -17,7 +17,7 @@ class GuardrailsState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     input_checker = llm.with_structured_output(InputGuard)
     output_checker = llm.with_structured_output(OutputGuard)
 

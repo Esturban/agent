@@ -9,7 +9,7 @@ The knowledge base is synthetic but realistic-looking Acme Corp content.
 """
 
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 _KNOWLEDGE_BASE = [
     "Acme Corp Q3 revenue was $4.2M, up 12% from Q2.",
@@ -19,14 +19,22 @@ _KNOWLEDGE_BASE = [
     "Support escalation: Tier 1 → Tier 2 → Engineering (max 48h SLA).",
 ]
 
-_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
-def query_agent(user_message: str, system_prompt: str) -> str:
+def query_agent(
+    user_message: str,
+    system_prompt: str,
+    history: list[tuple[str, str]] | None = None,
+) -> str:
     """Run the RAG agent with the given system prompt and return its response."""
     context = "\n".join(f"- {doc}" for doc in _KNOWLEDGE_BASE)
     messages = [
         SystemMessage(content=system_prompt),
-        HumanMessage(content=f"Context from knowledge base:\n{context}\n\nUser question: {user_message}"),
     ]
+    for role, content in history or []:
+        messages.append(HumanMessage(content=content) if role == "user" else AIMessage(content=content))
+    messages.append(
+        HumanMessage(content=f"Context from knowledge base:\n{context}\n\nUser question: {user_message}")
+    )
     return _llm.invoke(messages).content

@@ -24,9 +24,13 @@ Papers:
 """
 
 import sys
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
 
 import src.pipeline_undefended as undefended
 import src.pipeline_defended as defended

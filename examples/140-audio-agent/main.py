@@ -1,28 +1,35 @@
 import json
 import os
 import sys
+from pathlib import Path
+
 from dotenv import load_dotenv
 from openai import OpenAI
 from src.workflow import create_workflow
 
-load_dotenv()
+def main(audio_path: str) -> None:
+    load_dotenv()
+    path = Path(audio_path).expanduser()
+    if not path.is_file():
+        raise FileNotFoundError(f"Audio file not found: {path}")
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise EnvironmentError("OPENAI_API_KEY is required to transcribe and classify audio.")
 
-if __name__ == "__main__":
-    audio_path = sys.argv[1] if len(sys.argv) > 1 else None
-    if not audio_path:
-        print("Usage: python main.py path/to/audio.mp3")
-        print("\nDemo mode: provide an audio file path as the first argument.")
-        print("The agent will transcribe it, classify the intent, and route it.")
-        sys.exit(0)
-
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    client = OpenAI(api_key=api_key)
     workflow = create_workflow()
-    config = {"configurable": {"client": client, "model": "gpt-4o-mini"}}
+    config = {"configurable": {"client": client, "model": "gpt-5.4-nano"}}
 
     result = workflow.invoke(
-        {"audio_path": audio_path, "transcript": "", "analysis": {}, "queue": ""},
+        {"audio_path": str(path), "transcript": "", "analysis": {}, "queue": ""},
         config=config,
     )
     print(f"Transcript: {result['transcript']}\n")
     print(f"Analysis:\n{json.dumps(result['analysis'], indent=2)}\n")
     print(f"Routed to: {result['queue']}")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        raise SystemExit("Usage: python main.py path/to/audio.wav")
+    main(sys.argv[1])

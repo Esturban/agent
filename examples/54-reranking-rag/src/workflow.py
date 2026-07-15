@@ -16,7 +16,7 @@ class RerankState(TypedDict):
 
 
 def create_workflow():
-    llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     vs = build_vectorstore()
     ranker = Ranker()
 

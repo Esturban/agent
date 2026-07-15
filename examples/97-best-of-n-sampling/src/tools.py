@@ -13,7 +13,7 @@ PROBLEMS = [
         "label": "Constraint Logic",
         "question": (
             "Alice, Bob, and Carol each own exactly one pet: a cat, a dog, or a fish. "
-            "Alice does not own the cat. Bob does not own the fish. Carol does not own the dog. "
+            "Alice does not own the cat or the fish. Bob does not own the fish. Carol does not own the dog. "
             "Who owns the cat?"
         ),
     },

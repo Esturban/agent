@@ -34,7 +34,7 @@ def create_pipeline() -> tuple[Pipeline, InMemoryDocumentStore]:
     # add_component registers a component instance under a name
     pipeline.add_component("retriever",     InMemoryBM25Retriever(document_store=store))
     pipeline.add_component("prompt_builder", PromptBuilder(template=_PROMPT_TEMPLATE))
-    pipeline.add_component("generator",      OpenAIGenerator(model="gpt-4o-mini"))
+    pipeline.add_component("generator",      OpenAIGenerator(model="gpt-5.4-nano"))
 
     # connect("source_component.output_port", "target_component.input_port")
     # Haystack validates port names at connect time — typos fail fast.

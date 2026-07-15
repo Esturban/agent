@@ -1,4 +1,5 @@
 from langgraph.graph import StateGraph, END
+from langchain_core.runnables import RunnableConfig
 from typing import TypedDict
 from .tools import ask_vision
 
@@ -9,9 +10,9 @@ class VisionState(TypedDict):
     answer: str
 
 
-def answer_node(state: VisionState, config: dict) -> VisionState:
+def answer_node(state: VisionState, config: RunnableConfig) -> VisionState:
     client = config["configurable"]["client"]
-    model = config["configurable"].get("model", "gpt-4o-mini")
+    model = config["configurable"].get("model", "gpt-5.4-nano")
     answer = ask_vision(state["image_source"], state["question"], client, model)
     return {**state, "answer": answer}
 

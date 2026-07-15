@@ -1,4 +1,5 @@
 from typing import Literal
+import os
 
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
@@ -9,13 +10,15 @@ from langgraph.prebuilt import ToolNode
 from src.utils import export_stategraph, retrieve_context
 
 load_dotenv()
+if not os.environ.get("OPENAI_API_KEY"):
+    raise EnvironmentError("OPENAI_API_KEY is required for the live retrieval and chat workflow.")
 
 # Creating the tool node
 tools = [retrieve_context]
 tool_node = ToolNode(tools)
 
 # Binding the RAG tool to the model
-model = ChatOpenAI(model="gpt-5-nano").bind_tools(tools)
+model = ChatOpenAI(model="gpt-5.4-nano").bind_tools(tools)
 
 
 # Function to decide whether to continue or stop the workflow
@@ -55,13 +58,13 @@ checkpointer = MemorySaver()
 app = workflow.compile(checkpointer=checkpointer)
 
 # Try to export the stategraph to an image and print the path for convenience
-_exported_path = export_stategraph(
-    workflow, out_path="examples/1-basic-local-rag/assets/stategraph.png"
-)
-if _exported_path:
+try:
+    _exported_path = export_stategraph(
+        workflow, out_path="examples/1-basic-local-rag/assets/stategraph.png"
+    )
     print(f"StateGraph exported to: {_exported_path}")
-else:
-    print("StateGraph export failed or produced no file.")
+except RuntimeError as error:
+    print(f"StateGraph export skipped: {error}")
 
 
 # Execute the workflow
