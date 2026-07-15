@@ -5,7 +5,7 @@ from src.workflow import create_workflow
 
 load_dotenv()
 
-DEMO_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png"
+DEMO_IMAGE = "https://raw.githubusercontent.com/github/explore/main/topics/python/python.png"
 QUESTIONS = [
     "What do you see in this image?",
     "What colors are most prominent?",
@@ -13,9 +13,12 @@ QUESTIONS = [
 ]
 
 if __name__ == "__main__":
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
+    client = OpenAI(api_key=api_key)
     workflow = create_workflow()
-    config = {"configurable": {"client": client, "model": "gpt-4o-mini"}}
+    config = {"configurable": {"client": client, "model": "gpt-5.4-nano"}}
 
     for question in QUESTIONS:
         result = workflow.invoke(
