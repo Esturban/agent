@@ -18,11 +18,11 @@ def batch_existing_checksums(
         try:
             condition = rest.Filter(
                 must=[
-                    rest.FieldCondition(key="content_checksum", match=rest.MatchValue(value=batch))
+                    rest.FieldCondition(key="content_checksum", match=rest.MatchAny(any=batch))
                 ]
             )
-            hits = client.scroll(collection_name=collection_name, filter=condition, limit=1000)
-            for hit in hits:
+            points, _ = client.scroll(collection_name=collection_name, filter=condition, limit=1000)
+            for hit in points:
                 payload = hit.payload or {}
                 if "content_checksum" in payload:
                     existing.add(payload["content_checksum"])
@@ -44,9 +44,10 @@ def missing_documents_by_checksum(
     checksum_to_docs = {}
     checksums = []
     for d in docs:
-        content = (
-            getattr(d, "page_content", None) or d.get("content") if isinstance(d, dict) else str(d)
-        )
+        if isinstance(d, dict):
+            content = d.get("content") or d.get("page_content") or ""
+        else:
+            content = getattr(d, "page_content", None) or getattr(d, "content", None) or str(d)
         cs = checksum_fn(content or "")
         checksums.append(cs)
         checksum_to_docs.setdefault(cs, []).append(d)
