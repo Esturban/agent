@@ -1872,6 +1872,20 @@
         "final_checkpoint": "cell-27-partb-run",
         "semantic_cache_contract": "A disposable-copy source run completed seven queries with four cache hits and three misses after calibration to the observed embedding similarities. The complete 30-cell workbook executed all 16 code cells without errors within the five-minute cap. Its live five-query run demonstrated two semantic hits at the calibrated 0.70 threshold; the cache selects the highest-similarity qualifying entry rather than the first insertion, and the notebook never writes any key fragment to output."
       }
+    },
+    "145-lora-architecture-ablation": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "dpo-training-v1",
+        "runtime_python": "3.13",
+        "offline_execution": true,
+        "paths_verified": ["companion main.py", "four local LoRA training runs", "r4-q trainable count", "r8-qv trainable count", "r16-qv trainable count", "r32-qvo trainable count", "two exercise answer keys", "FFN-only parameter comparison", "ablation result table"],
+        "final_checkpoint": "cell-019",
+        "lora_ablation_contract": "Source and complete workbook executed in disposable copies with Hugging Face and pip forced offline, using the already-cached SmolLM2-135M-Instruct model. All four 20-step runs completed in under five minutes. The workbook now mirrors source labels and actual grouped-query-attention shapes: q/o are 576x576 and v is 576x192, yielding 138240, 460800, 921600, and 2949120 trainable adapter parameters respectively."
+      }
     }
   }
 }
