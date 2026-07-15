@@ -23,9 +23,13 @@ Spotlighting: arxiv:2403.14720 (Microsoft Research 2024)
 """
 
 import argparse
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
 
 from agentdojo.attacks.baseline_attacks import IgnorePreviousAttack
 from agentdojo.attacks.important_instructions_attacks import ImportantInstructionsAttack
@@ -40,8 +44,8 @@ RESET = "\033[0m"
 SUITES = ["banking", "travel"]
 
 ATTACKS = {
-    "ignore_previous":        IgnorePreviousAttack(),
-    "important_instructions": ImportantInstructionsAttack(),
+    "ignore_previous":        IgnorePreviousAttack,
+    "important_instructions": ImportantInstructionsAttack,
 }
 
 
