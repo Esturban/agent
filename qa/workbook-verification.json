@@ -1971,6 +1971,18 @@
         "final_checkpoint": "nb-ans3-29",
         "local_rag_contract": "The disposable-copy source run fetched and indexed the three declared Python tutorial URLs, then completed a live tool-assisted answer. The complete 30-cell workbook executed all 16 code cells without errors within the five-minute cap. Its first query called retrieve_context, its follow-up used the same thread, and its fresh thread structurally contained only the new human message and one AI reply. No key fragment appeared in the executed artifact."
       }
+    },
+    "2-multi-tool-rag": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "16 cells; 8 code cells",
+        "teaching_gate": "The workbook has no runnable Answer Key cells and is below the required 25–35-cell workshop range.",
+        "workflow_divergence": "The workbook teaches an in-memory Chroma plus DuckDuckGo flow, while main.py uses Hugging Face datasets, cloud Qdrant, and Brave Search; one run cannot prove both as one end-to-end workflow.",
+        "source_repair": "Qdrant scroll now correctly unpacks (points, next_offset), uses MatchAny for batched checksums, and derives checksums from Document.page_content. A direct fake-client contract verified existing documents are excluded and missing documents are retained.",
+        "unrun_live_prerequisites": "A full source run requires remote Hugging Face datasets, cloud Qdrant, Brave Search, and OpenAI; it was not run because the workbook fails its teaching gate before runtime validation.",
+        "remediation": "Choose and document one canonical workflow, add the missing lesson and runnable answer-key cells, provision separate explicit profiles for source and notebook where necessary, then execute both paths within the smoke cap."
+      }
     }
   }
 }
