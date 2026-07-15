@@ -1,4 +1,4 @@
-from presidio_analyzer import AnalyzerEngine
+from presidio_analyzer import AnalyzerEngine, Pattern, PatternRecognizer
 from presidio_anonymizer import AnonymizerEngine
 
 SAMPLE_DOCUMENTS = [
@@ -17,6 +17,18 @@ Their email john.doe@example.com should receive the refund confirmation."""
 
 def build_engines() -> tuple[AnalyzerEngine, AnonymizerEngine]:
     analyzer = AnalyzerEngine()
+    analyzer.registry.add_recognizer(
+        PatternRecognizer(
+            supported_entity="US_SSN",
+            patterns=[Pattern("us_ssn", r"\b\d{3}-\d{2}-\d{4}\b", 0.95)],
+        )
+    )
+    analyzer.registry.add_recognizer(
+        PatternRecognizer(
+            supported_entity="EMPLOYEE_ID",
+            patterns=[Pattern("employee_id", r"\bEMP-\d{4}\b", 0.9)],
+        )
+    )
     anonymizer = AnonymizerEngine()
     return analyzer, anonymizer
 
