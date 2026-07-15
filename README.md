@@ -13,6 +13,14 @@ Every example is:
 
 ---
 
+## Workbook verification (ongoing)
+
+As of 2026-07-15, the end-to-end verification ledger has **103 terminal entries out of 148 workbooks**: **96 PASS**, **5 BLOCKED**, and **2 FAIL**. A PASS means the source entry point and complete notebook were executed top-to-bottom in a disposable copy, within the smoke limit, with the recorded lesson checks passing. Missing credentials or external services are reported as BLOCKED rather than treated as a pass.
+
+See the versioned [verification ledger](./qa/workbook-verification.json) and [dependency profiles](./qa/dependency-profiles.json) for per-workbook evidence and runtime isolation. The remaining catalog is being repaired and executed iteratively; its status is intentionally separate from static formatting or lint findings.
+
+---
+
 ## How to use this repo
 
 **Option A — Follow a learning path** (recommended for structured learning)
