@@ -1812,6 +1812,18 @@
         "api_compatibility": "A fresh inspection of bytedance/deer-flow's current main branch found /health, /api/threads/{thread_id}/uploads, and /api/threads/{thread_id}/runs/stream routes, not this example's /api/files/upload and /api/chat/stream routes.",
         "remediation": "Migrate the client and workbook to DeerFlow's current thread/upload/run API, make service absence fail fast, start the declared external service, then rerun source and the complete notebook."
       }
+    },
+    "135-deerflow-research-skill": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "26 cells; 14 code cells",
+        "dependency_profile": "external-deerflow-service",
+        "source_execution": "A disposable-copy source run reached the first upload and received connection refused from localhost:8000; main printed the error and returned exit status 0.",
+        "service_probe": "localhost:8000, /docs, and /api/health were unavailable during verification.",
+        "api_compatibility": "This client uses the same obsolete /api/files/upload and /api/chat/stream routes as #134, while DeerFlow's current upstream API uses thread-scoped upload and run routes.",
+        "remediation": "Migrate the source and workbook to the current DeerFlow thread/upload/run API, add a nonzero fail-fast service check, configure the custom research skill in a running service, then execute the source and all notebook cells."
+      }
     }
   }
 }
