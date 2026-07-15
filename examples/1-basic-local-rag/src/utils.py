@@ -1,24 +1,28 @@
 from pathlib import Path
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
 from langchain_core.tools import tool
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langgraph.graph import StateGraph
 
 
-@tool
-def retrieve_context(query: str) -> str:
-    """Search for relevant documents."""
-    urls = [
-        "https://docs.python.org/3/tutorial/index.html",
-        "https://realpython.com/python-basics/",
-        "https://www.learnpython.org/",
-    ]
-    # Loading all of the URLs
-    loader = UnstructuredURLLoader(urls=urls)
-    docs = loader.load()
+URLS = [
+    "https://docs.python.org/3/tutorial/index.html",
+    "https://realpython.com/python-basics/",
+    "https://www.learnpython.org/",
+]
+_retriever = None
+
+
+def get_retriever():
+    """Build the in-memory index once for the lifetime of the process."""
+    global _retriever
+    if _retriever is not None:
+        return _retriever
+
+    docs = WebBaseLoader(web_paths=URLS).load()
     # Splitting the documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=50)
     doc_splits = text_splitter.split_documents(docs)
@@ -27,10 +31,16 @@ def retrieve_context(query: str) -> str:
     vectorstore = Chroma.from_documents(
         documents=doc_splits,
         collection_name="python_docs",
-        embedding=OpenAIEmbeddings(),
+        embedding=OpenAIEmbeddings(model="text-embedding-3-small"),
     )
-    retriever = vectorstore.as_retriever()
-    results = retriever.invoke(query)
+    _retriever = vectorstore.as_retriever()
+    return _retriever
+
+
+@tool
+def retrieve_context(query: str) -> str:
+    """Search the indexed Python tutorial pages for relevant context."""
+    results = get_retriever().invoke(query)
     return "\n".join([doc.page_content for doc in results])
 
 
