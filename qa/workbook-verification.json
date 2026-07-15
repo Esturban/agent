@@ -1983,6 +1983,19 @@
         "unrun_live_prerequisites": "A full source run requires remote Hugging Face datasets, cloud Qdrant, Brave Search, and OpenAI; it was not run because the workbook fails its teaching gate before runtime validation.",
         "remediation": "Choose and document one canonical workflow, add the missing lesson and runnable answer-key cells, provision separate explicit profiles for source and notebook where necessary, then execute both paths within the smoke cap."
       }
+    },
+    "3-prospect-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "38 cells; 25 code cells",
+        "code_cells_executed": 25,
+        "cell_errors": 0,
+        "dependency_profile": "basic-local-rag-v1",
+        "paths_verified": ["companion main.py", "public prospect CSV fixture", "DuckDuckGo prospect search", "gpt-5.4-nano research and outreach", "streamed researcher and copywriter states", "three-prospect batch", "four exercise answer keys"],
+        "final_checkpoint": "cell-ans4",
+        "prospect_contract": "A disposable-copy source run processed the committed public Jensen Huang fixture and wrote an outreach CSV. The full 38-cell workbook executed all 25 code cells without errors within the five-minute smoke cap, including live research, drafting, streaming, batch processing, and answer keys."
+      }
     }
   }
 }
