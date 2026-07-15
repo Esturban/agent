@@ -1641,6 +1641,20 @@
         "final_checkpoint": "cell-code-020",
         "long_context_contract": "A disposable-copy source run completed ten live gpt-5.4-nano calls (five full-context and five RAG) and rendered finite scores and latencies. The complete 29-cell notebook then executed all 14 code cells without errors within the five-minute cap, including both live answer strategies, the five-question score table, latency summary, and chunk-size exercise path. Scores are asserted as bounded diagnostics rather than a fixed strategy winner."
       }
+    },
+    "119-mcp-server-builder": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "mcp-stdio-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "543e23604755b98782c46825e99206c5d31884eaf28dcf1ed5e41f0b40ae8909",
+        "paths_verified": ["MCP stdio server lifecycle", "initialize handshake", "tool discovery", "get_weather RPC", "convert_units RPC", "direct tool demonstrations", "transport round-trip workbook checkpoint"],
+        "final_checkpoint": "cell-code-009",
+        "mcp_contract": "A disposable-copy native MCP client started the companion stdio server, initialized the protocol, discovered exactly three tools, called get_weather for Tokyo (28C), and called convert_units for 100 km (62.1371 miles). The complete 30-cell notebook then executed all 14 code cells without errors within the five-minute cap, including the same real subprocess server and protocol round trip."
+      }
     }
   }
 }
