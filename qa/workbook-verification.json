@@ -1801,6 +1801,17 @@
         "final_checkpoint": "cell-code-031",
         "canary_leakage_contract": "A disposable-copy companion run generated a fresh canary and completed all six attack/control scenarios without exact or partial leakage. The complete 33-cell workbook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Canary injection now uses unpredictable tokens in production while the explicitly seeded teaching helper remains deterministic; this run measures leakage detection rather than claiming that canaries themselves prevent attacks."
       }
+    },
+    "134-deerflow-embedded-client": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "dependency_profile": "external-deerflow-service",
+        "source_execution": "A disposable-copy source run reached the upload path and received connection refused from localhost:8000. The current main program prints the failure and returns exit status 0, so it cannot be treated as a successful or fail-fast live run.",
+        "service_probe": "localhost:8000, /docs, and /api/health were unavailable during verification.",
+        "api_compatibility": "A fresh inspection of bytedance/deer-flow's current main branch found /health, /api/threads/{thread_id}/uploads, and /api/threads/{thread_id}/runs/stream routes, not this example's /api/files/upload and /api/chat/stream routes.",
+        "remediation": "Migrate the client and workbook to DeerFlow's current thread/upload/run API, make service absence fail fast, start the declared external service, then rerun source and the complete notebook."
+      }
     }
   }
 }
