@@ -1886,6 +1886,18 @@
         "final_checkpoint": "cell-019",
         "lora_ablation_contract": "Source and complete workbook executed in disposable copies with Hugging Face and pip forced offline, using the already-cached SmolLM2-135M-Instruct model. All four 20-step runs completed in under five minutes. The workbook now mirrors source labels and actual grouped-query-attention shapes: q/o are 576x576 and v is 576x192, yielding 138240, 460800, 921600, and 2949120 trainable adapter parameters respectively."
       }
+    },
+    "144-qlora-finetuning": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "26 cells; 14 code cells",
+        "dependency_profile": "qlora-training-v1",
+        "hardware_probe": "torch 2.8.0 reports cuda_available=false and cuda_version=null; the host has MPS but no CUDA GPU.",
+        "missing_dependency": "bitsandbytes is not installed in the available training profile.",
+        "blocking_cell": "Part B deliberately raises EnvironmentError when CUDA with at least 4 GB VRAM is unavailable.",
+        "remediation": "Provision an isolated CUDA runtime with at least 4 GB VRAM and CUDA-matched bitsandbytes, complete the documented prepare_model_for_kbit_training and 4-bit rank-comparison fixes, then execute source and every workbook cell."
+      }
     }
   }
 }
