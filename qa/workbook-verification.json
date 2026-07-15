@@ -1736,6 +1736,19 @@
         "final_checkpoint": "cell-code-029",
         "instruction_hierarchy_contract": "A disposable-copy companion run completed all six live hierarchy scenarios correctly: explicit user escalation and indirect tool-output attacks were blocked, while legitimate user and benign tool content were allowed. The complete 30-cell notebook executed all 16 code cells without errors within the five-minute cap using gpt-5.4-nano. The enforcer now defaults to block if its judge response is invalid JSON."
       }
+    },
+    "129-tool-output-injection": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "calculator/web/weather/memory poisoned tools", "protocol-valid assistant tool-call context", "undefended comparison", "keyword validator", "semantic validator", "sanitised defended response", "schema and value-type answer keys"],
+        "final_checkpoint": "cell-code-031",
+        "tool_output_contract": "A disposable-copy companion run completed all four poisoned-tool comparisons. The complete 32-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Each tool response now follows the provider-required assistant tool-call then ToolMessage sequence; the calculator query selects calculator, and the defended path detected/sanitised every supplied poisoned output. Invalid validator JSON is handled conservatively as a flagged output."
+      }
     }
   }
 }
