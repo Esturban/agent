@@ -20,7 +20,7 @@ KNOWLEDGE_BASE = [
     "Tool schemas in MCP are defined using JSON Schema.",
     "Claude Desktop supports MCP servers via its config file at ~/Library/Application Support/Claude/claude_desktop_config.json.",
     "LangGraph nodes are Python functions that receive and return state dicts.",
-    "OpenAI's gpt-4o-mini is a cost-efficient model for tool-calling tasks.",
+    "OpenAI's gpt-5.4-nano is a cost-efficient model for tool-calling tasks.",
     "Pydantic v2 is the recommended validation library for LangChain/LangGraph projects.",
 ]
 
