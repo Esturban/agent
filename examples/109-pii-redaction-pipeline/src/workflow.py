@@ -26,7 +26,7 @@ def run_pipeline(raw_document: str, question: str) -> dict:
     # Stage 1: scrub input before LLM sees it
     clean_doc, pre_entities = redact(raw_document, analyzer, anonymizer)
 
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
     messages = [
         SystemMessage(content=REDACTION_SYSTEM),
         HumanMessage(content=REDACTION_USER.format(document=clean_doc, question=question)),
