@@ -1749,6 +1749,19 @@
         "final_checkpoint": "cell-code-031",
         "tool_output_contract": "A disposable-copy companion run completed all four poisoned-tool comparisons. The complete 32-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Each tool response now follows the provider-required assistant tool-call then ToolMessage sequence; the calculator query selects calculator, and the defended path detected/sanitised every supplied poisoned output. Invalid validator JSON is handled conservatively as a flagged output."
       }
+    },
+    "130-agentdojo-harness": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 17,
+        "cell_errors": 0,
+        "dependency_profile": "agentdojo",
+        "runtime_python": "3.14",
+        "paths_verified": ["pinned AgentDojo 0.1.35 profile", "banking clean benchmark", "ignore-previous attack", "important-instructions attack", "undefended and defended pipeline variants", "utility and ASR reporting", "exercise answer keys"],
+        "final_checkpoint": "cell-code-030",
+        "agentdojo_contract": "A disposable-copy source run completed the real AgentDojo banking subset for both registered attacks. The complete 33-cell workbook executed all 17 code cells without errors within the five-minute cap in an isolated AgentDojo 0.1.35 kernel. The harness constructs attacks with the required suite and pipeline, supplies an OutputLogger-compatible temporary log directory, and registers the gpt-5.4-nano model name required by the benchmark's important-instructions attack."
+      }
     }
   }
 }
