@@ -1585,6 +1585,20 @@
         "final_checkpoint": "cell-code-035",
         "pii_redaction_contract": "All 19 notebook code cells completed without errors in a disposable copy. The live two-stage runs processed both sample documents; delivered-response checkpoints contained neither the sample SSN nor employee ID. The source-level custom-recognizer check also proved those values are removed before model ingestion, while the exercise and audit-log checks completed successfully. The companion script independently completed both live documents."
       }
+    },
+    "110-pair-iterative-attack": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "checkpoint-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "d7b69390908b1b6453974c323265673c06d46331f960130218249bd28c4385e5",
+        "paths_verified": ["attacker JSON call", "target call", "judge JSON score", "compiled cyclic graph", "bounded live PAIR loop", "score progression", "attack-history feedback", "strategy statistics", "hardened-target exercise", "verbose-node exercise", "companion main.py"],
+        "final_checkpoint": "cell-code-032",
+        "pair_contract": "All 19 notebook code cells completed without errors in a disposable copy. The live attacker, target, and judge calls returned the expected structures; the compiled graph completed a bounded cycle with a final judge score in the 1-10 range. History, convergence reporting, and the exercise definitions completed successfully. The companion script independently completed the live graph."
+      }
     }
   }
 }
