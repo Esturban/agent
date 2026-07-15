@@ -627,6 +627,18 @@ pip install -r requirements.txt
 cp .env.example .env   # then fill in your keys
 ```
 
+### Per-workbook dependency profiles
+
+Use the profile named in the verification ledger for a workbook instead of adding its framework to the shared environment. Each file under [`qa/profiles/`](./qa/profiles/) pins that profile's top-level packages.
+
+```bash
+python3 -m venv .venv-profiles/browser-agent-v1
+.venv-profiles/browser-agent-v1/bin/python -m pip install -r qa/profiles/browser-agent-v1.txt
+make check-dependency-profiles
+```
+
+Install one profile per environment. Provider keys, local services, browsers, and CUDA hardware are prerequisites documented in the verification table, not dependencies to add to `requirements.txt`.
+
 ## Keys
 
 `OPENAI_API_KEY` required for all examples (`✅`). A handful need more — see the **Keys** column above:
