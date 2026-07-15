@@ -12,7 +12,7 @@ TEST_PROMPTS = [
 class StructuredResponse(BaseModel):
     """Schema the LLM must conform to. Guardrails triggers reask if violated."""
     summary: str = Field(description="A brief summary, max 200 chars")
-    points: list[str] = Field(description="Exactly 3 bullet points", min_length=3, max_length=3)
+    points: list[str] = Field(description="Exactly 3 bullet points")
     safe: bool = Field(description="Is the content safe and appropriate?")
 
     @field_validator("summary")
@@ -25,6 +25,8 @@ class StructuredResponse(BaseModel):
     @field_validator("points")
     @classmethod
     def no_urls_in_points(cls, v: list[str]) -> list[str]:
+        if len(v) != 3:
+            raise ValueError(f"points must contain exactly 3 items, got {len(v)}")
         url_pattern = re.compile(r"https?://\S+")
         for point in v:
             if url_pattern.search(point):

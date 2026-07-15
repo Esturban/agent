@@ -42,14 +42,14 @@ def main():
         if result["passed"]:
             v = result["validated"]
             tag = "\033[92mPASSED\033[0m"
-            print(f"[{label.upper():12}] {tag} | reasks: {len(result['reasks'])}")
+            print(f"[{label.upper():12}] {tag} | reasks: {result['reasks']}")
             print(f"  Prompt : {short}")
             if isinstance(v, dict):
                 print(f"  Summary: {v.get('summary', '')[:80]}")
                 print(f"  Points : {len(v.get('points', []))} items")
         else:
             tag = "\033[91mFAILED\033[0m "
-            print(f"[{label.upper():12}] {tag} | reasks: {len(result['reasks'])}")
+            print(f"[{label.upper():12}] {tag} | reasks: {result['reasks']}")
             print(f"  Prompt : {short}")
             print(f"  Error  : {str(result['error'])[:100]}")
         print()
