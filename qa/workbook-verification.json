@@ -1613,6 +1613,20 @@
         "final_checkpoint": "cell-code-018",
         "dpo_contract": "A disposable-copy source run completed in 122 seconds: finite training loss and refusal rate improved from 0% to 60% across five adversarial prompts. The complete 28-cell notebook then completed all 11 code cells without errors within the five-minute cap; its 10-category preference dataset trained successfully with finite loss and the final answer-key comparison improved from 0% to 33% across three prompts."
       }
+    },
+    "114-lora-finetuning": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 13,
+        "cell_errors": 0,
+        "dependency_profile": "dpo-training-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "ae66fd4da50a82c3db8eb32f50b7afe765595a41d691b69cbd81464f798a3ac4",
+        "paths_verified": ["base-model parameter count", "LoRA adapter attachment", "tokenized Python Q&A dataset", "one-epoch PEFT training", "adapter merge and unload", "before/after answer comparison", "exercise answer-key cells", "companion main.py"],
+        "final_checkpoint": "cell-code-023",
+        "lora_contract": "A disposable-copy companion-script run completed its local SmolLM LoRA workflow with finite training loss (2.2502), merged adapters, and five non-empty before/after answers. The complete 27-cell notebook then executed all 13 code cells without errors within the five-minute cap: it reported 460,800 trainable LoRA parameters (0.341% of 134,975,808), finite training loss (2.4188), a merged standard CausalLM, and three rendered before/after comparisons."
+      }
     }
   }
 }
