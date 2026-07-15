@@ -1909,6 +1909,17 @@
         "blocking_cell": "Part B deliberately raises EnvironmentError when CUDA with at least 4 GB VRAM is unavailable.",
         "remediation": "Provision a CUDA GPU with at least 4 GB VRAM in the declared training profile, then execute the source and full ORPO notebook within the dedicated GPU validation pass."
       }
+    },
+    "147-model-merging": {
+      "status": "fail",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "28 cells; 12 code cells",
+        "dependency_profile": "dpo-training-v1",
+        "offline_merge_probe": "The cached configured pair loaded locally: SmolLM2-135M-Instruct has 273 state tensors and SmolLM2-360M-Instruct has 291. Their floating-point shape-match count is 0, so the current merge leaves model A unchanged.",
+        "missing_compatible_artifact": "SmolLM2-135M metadata is cached but its model weights/tokenizer are not available offline.",
+        "remediation": "Use two fully available same-architecture checkpoints, assert n_merged is positive before generation, update the source and workbook pair consistently, then execute source and every workbook cell."
+      }
     }
   }
 }
