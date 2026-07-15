@@ -1,4 +1,5 @@
 from langgraph.graph import StateGraph, END
+from langchain_core.runnables import RunnableConfig
 from typing import TypedDict
 from .tools import transcribe, classify_and_extract, route
 
@@ -10,20 +11,20 @@ class AudioState(TypedDict):
     queue: str
 
 
-def transcribe_node(state: AudioState, config: dict) -> AudioState:
+def transcribe_node(state: AudioState, config: RunnableConfig) -> AudioState:
     client = config["configurable"]["client"]
     transcript = transcribe(state["audio_path"], client)
     return {**state, "transcript": transcript}
 
 
-def analyze_node(state: AudioState, config: dict) -> AudioState:
+def analyze_node(state: AudioState, config: RunnableConfig) -> AudioState:
     client = config["configurable"]["client"]
-    model = config["configurable"].get("model", "gpt-4o-mini")
+    model = config["configurable"].get("model", "gpt-5.4-nano")
     analysis = classify_and_extract(state["transcript"], client, model)
     return {**state, "analysis": analysis}
 
 
-def route_node(state: AudioState, config: dict) -> AudioState:
+def route_node(state: AudioState, config: RunnableConfig) -> AudioState:
     intent = state["analysis"].get("intent", "general")
     return {**state, "queue": route(intent)}
 
