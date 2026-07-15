@@ -71,7 +71,7 @@ ESCALATION_KEYWORDS = [
     "new instruction (priority)",
 ]
 
-_enforcer = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_enforcer = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 def _has_escalation_keyword(text: str) -> bool:
@@ -107,7 +107,12 @@ def check_privilege(instruction: Instruction, context: TrustContext) -> tuple[bo
 
     m = re.search(r"\{.*\}", raw, re.DOTALL)
     if m:
-        data = json.loads(m.group())
+        try:
+            data = json.loads(m.group())
+        except json.JSONDecodeError:
+            data = None
+        if not isinstance(data, dict):
+            return False, "block", "Enforcer returned invalid JSON — defaulting to block"
         decision = data.get("decision", "block")
         reasoning = data.get("reasoning", "")
         return decision == "allow", decision, reasoning
