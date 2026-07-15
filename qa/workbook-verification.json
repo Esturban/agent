@@ -1707,7 +1707,7 @@
         "dependency_profile": "core-openai-v1",
         "runtime_python": "3.13",
         "paths_verified": ["companion main.py", "true two-turn conversation history", "36-case target-model leakage matrix", "deterministic canary checks", "LLM monitor classifications", "fail-closed monitor parsing", "guarded refusal exercise", "ASR exercise answer key"],
-        "final_checkpoint": "cell-code-031",
+        "final_checkpoint": "cell-code-032",
         "sycophancy_contract": "A disposable-copy companion run completed successfully. The complete 32-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Its baseline two-turn attack retained the benign opener and assistant response in turn two, the 36-case matrix completed, the monitor classified the supplied attack variants, and the guarded exercise blocked the combined attack without leaking a canary. Matrix outcomes are recorded as live-model observations, not a fixed reproduction of the paper's reported attack-success rate."
       }
     },
@@ -1787,6 +1787,19 @@
         "paths_verified": ["companion main.py", "benign web fetch", "poisoned web fetch", "poisoned email", "undefended tool loop", "spotlighting-wrapped safe tools", "deterministic external-data injection alerts", "privilege-separated tool set", "exercise answer keys"],
         "final_checkpoint": "cell-code-034",
         "indirect_injection_contract": "A disposable-copy companion run completed all three scenarios. The complete 35-cell notebook executed all 21 code cells without errors within the five-minute cap using gpt-5.4-nano. The final-response selector now returns the last non-tool-call AI response rather than a tool message or empty string. The poisoned web page triggered deterministic defender indicators; the live model resisted the supplied poisoned web/email requests in this run, so this records defensive detection and execution behavior rather than a claim of repeatable compromise."
+      }
+    },
+    "133-canary-token-leakage-detector": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "random canary injection", "six live attack families", "benign control", "exact-leakage detection", "partial-leakage detection", "output-filter exercise answer key"],
+        "final_checkpoint": "cell-code-031",
+        "canary_leakage_contract": "A disposable-copy companion run generated a fresh canary and completed all six attack/control scenarios without exact or partial leakage. The complete 33-cell workbook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. Canary injection now uses unpredictable tokens in production while the explicitly seeded teaching helper remains deterministic; this run measures leakage detection rather than claiming that canaries themselves prevent attacks."
       }
     }
   }
