@@ -1846,6 +1846,19 @@
         "api_compatibility": "The connection preflight uses obsolete /api/health, and subsequent cells use obsolete /api/files/upload and /api/chat/stream routes rather than DeerFlow's current /health and thread-scoped API.",
         "remediation": "Add the companion entry point and complete teaching sequence, migrate all routes to the current DeerFlow API, provision the declared service, then execute the full source/notebook path."
       }
+    },
+    "138-vision-qa-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 19,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "remote PNG fetch and status validation", "base64 data-URI encoding", "two-image content payload", "three exercise answer keys", "OpenAI model availability preflight", "compiled LangGraph workflow", "three live gpt-5.4-nano vision answers", "request-footprint calculation"],
+        "final_checkpoint": "cost-estimate",
+        "vision_contract": "A disposable-copy source run answered all three questions about the Python logo. The complete 31-cell notebook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano. The live flow validates remote image responses, uses max_completion_tokens as required by the selected model, and checks model availability without printing credentials."
+      }
     }
   }
 }
