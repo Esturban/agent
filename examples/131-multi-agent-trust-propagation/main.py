@@ -18,6 +18,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import os
+
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OPENAI_API_KEY is required; add it to .env before running this example.")
+
 from src.trust_context import root_context
 from src.orchestrator import SCENARIOS, run_scenario
 
