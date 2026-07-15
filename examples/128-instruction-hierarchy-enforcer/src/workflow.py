@@ -15,7 +15,7 @@ from langgraph.graph import StateGraph, START, END
 from .trust_levels import Instruction, TrustContext
 from .enforcer import check_privilege
 
-_executor = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_executor = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 
 class HierarchyState(TypedDict):
