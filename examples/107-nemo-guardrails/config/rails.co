@@ -3,7 +3,8 @@ import guardrails
 import llm
 
 flow main
-  activate llm continuation
+  while True
+    await user said something
 
 flow input rails $input_text
   $input_safe = await check user input $input_text
