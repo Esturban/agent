@@ -23,10 +23,14 @@ class SemanticCache:
     misses: int = 0
 
     def get(self, query_vec: list[float]) -> str | None:
-        for vec, response in self._entries:
-            if cosine_sim(query_vec, vec) >= self.threshold:
-                self.hits += 1
-                return response
+        best = max(
+            ((cosine_sim(query_vec, vec), response) for vec, response in self._entries),
+            default=(0.0, None),
+            key=lambda match: match[0],
+        )
+        if best[0] >= self.threshold:
+            self.hits += 1
+            return best[1]
         self.misses += 1
         return None
 
@@ -42,11 +46,11 @@ class SemanticCache:
         }
 
 
-def ask_llm(question: str, client, model: str = "gpt-4o-mini") -> tuple[str, float]:
+def ask_llm(question: str, client, model: str = "gpt-5.4-nano") -> tuple[str, float]:
     start = time.time()
     resp = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": question}],
-        max_tokens=256,
+        max_completion_tokens=256,
     )
     return resp.choices[0].message.content, round((time.time() - start) * 1000)
