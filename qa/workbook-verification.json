@@ -1945,6 +1945,18 @@
         "final_checkpoint": "part-b-pipeline",
         "audio_routing_contract": "A disposable-copy source run and complete notebook execution transcribed a locally generated spoken billing request, classified it as billing, and routed it to billing-queue. The notebook's 16 code cells finished without errors within the five-minute cap; its five mock-transcript classifications each produced the expected production route."
       }
+    },
+    "139-doc-vision-agent": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "29 cells; 16 code cells",
+        "dependency_profile": "document-vision-v1",
+        "dependency_probe": "The available core runtime has openai, langgraph, nbclient, and nbformat, but pypdfium2=false and PIL=false.",
+        "source_smoke_risk": "main.py defaults to the remote WCAG PDF and the production extraction loop processes every page with no cap, so it cannot meet a bounded five-minute or cost-safe smoke contract.",
+        "notebook_behavior": "Part B prints SKIP when pypdfium2 is absent, so a notebook-only execution would not prove the document-rendering or vision path.",
+        "remediation": "Provision an isolated document-vision profile with pinned pypdfium2 and Pillow, then cap production smoke runs to a local 1–3 page fixture, use gpt-5.4-nano with validated JSON responses, and execute both source and complete notebook."
+      }
     }
   }
 }
