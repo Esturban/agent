@@ -2007,6 +2007,25 @@
         "provider_requirement": "The source and live workbook cells use Anthropic's cache_control request shape and cache_read_input_tokens usage field; an OpenAI credential cannot validate this provider-specific lesson.",
         "remediation": "Provide an authorized Anthropic key, then execute main.py and all workbook cells with a cacheable prefix large enough to produce measurable cache-read usage."
       }
-    }
+    },
+    "4-basic-react-agent": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "5-react-agent-lg": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "6-multi-agent-graph": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "7-redis-rag": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "8-new-idea-gen": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "9-prospect-searx": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "10-streaming-rag": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "11-hitl-approval": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "12-basic-rag-notebook": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "13-structured-output": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "14-sql-agent": {"status": "user_verified", "verified_at": "2026-07-15", "evidence": {"source": "User attestation; excluded from this agent execution pass at user direction."}},
+    "111-openai-finetuning": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "112-synthetic-training-data": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "115-semantic-kernel": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "116-llamaindex-agent": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "117-instructor-extraction": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "118-mirascope-typed-llm": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "127-spotlighting-ipi-defense": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}},
+    "143-context-compression": {"status": "blocked", "verified_at": "2026-07-15", "evidence": {"blocker": "Workbook is already modified in the user worktree; it was not executed or staged to avoid overwriting unreconciled user changes."}}
   }
 }
