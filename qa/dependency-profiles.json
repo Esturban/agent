@@ -171,10 +171,14 @@
       ]
     },
     "agentdojo": {
-      "imports": ["agentdojo"],
+      "imports": ["agentdojo", "nbclient", "nbformat", "ipykernel"],
       "constraints": [
-        "agentdojo>=0.1.35",
-        "openai==1.109.1"
+        "agentdojo==0.1.35",
+        "openai==1.109.1",
+        "python-dotenv==1.1.1",
+        "nbclient==0.10.2",
+        "nbformat==5.10.4",
+        "ipykernel==6.29.5"
       ]
     },
     "litellm-openai-v2": {
