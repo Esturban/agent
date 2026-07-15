@@ -1,0 +1,6 @@
+# Generated from qa/dependency-profiles.json: ragas-0.2
+# Top-level requirements only; resolve a full platform lock separately.
+datasets==4.2.0
+openai==1.109.1
+ragas==0.2.15
+

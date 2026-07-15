@@ -12,3 +12,7 @@ target notebook cell IDs rather than positions.
 `dependency-profiles.json` records framework environments that cannot safely
 share a resolver. Run `python scripts/audit_dependencies.py` to refresh the
 import-to-profile report before adding or changing a dependency.
+
+`profiles/` contains generated pinned top-level requirements for each profile.
+Run `python3 scripts/export_dependency_profiles.py --check` before committing a
+profile change.

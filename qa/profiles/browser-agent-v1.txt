@@ -1,0 +1,14 @@
+# Generated from qa/dependency-profiles.json: browser-agent-v1
+# Top-level requirements only; resolve a full platform lock separately.
+beautifulsoup4==4.14.0
+ipykernel==6.29.5
+langchain-community==0.3.31
+langchain-openai==0.3.33
+langgraph==0.6.7
+lxml==6.0.2
+nbclient==0.10.2
+nbformat==5.10.4
+openai==1.109.1
+playwright==1.51.0
+python-dotenv==1.1.1
+

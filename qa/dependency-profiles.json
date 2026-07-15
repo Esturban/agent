@@ -330,7 +330,7 @@
     },
     "training": {
       "imports": ["torch", "transformers", "peft", "trl"],
-      "constraints": ["torch>=2.0.0"]
+      "constraints": ["torch==2.8.0"]
     }
   }
 }

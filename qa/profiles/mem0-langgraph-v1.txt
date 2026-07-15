@@ -1,0 +1,7 @@
+# Generated from qa/dependency-profiles.json: mem0-langgraph-v1
+# Top-level requirements only; resolve a full platform lock separately.
+langchain-openai==0.3.33
+langgraph==0.6.7
+mem0ai==0.1.108
+openai==1.109.1
+

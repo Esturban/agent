@@ -1,0 +1,5 @@
+# Generated from qa/dependency-profiles.json: litellm-openai-v2
+# Top-level requirements only; resolve a full platform lock separately.
+litellm==1.72.6
+openai==2.45.0
+
