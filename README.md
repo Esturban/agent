@@ -1,78 +1,27 @@
-# Agentic AI — Pattern Library
+# Agentic AI Pattern Library
 
 > **The frameworks are the vehicle. The patterns are the point.**
 
-Most AI agent tutorials teach you what buttons to press. This repo teaches you *why* the architecture works the way it does — so you can build, debug, and extend agents confidently, not just copy-paste them.
+Hands-on, focused examples for building, debugging, and extending AI agents. Each example teaches one architectural pattern, with a runnable script, a workshop notebook, and its own short guide.
 
-Every example is:
+## Verification status
 
-- **Runnable** — `python main.py` works out of the box; Colab workbooks open in one click
-- **Focused** — one concept per example, no noise
-- **Explained** — teaching comments address the *why*, not just the syntax
-- **Traceable** — phased git commits let you follow the build step-by-step, commit by commit
+**Last reviewed: 2026-07-15. Every one of the 147 workbooks has a terminal verification record.**
 
----
+| Status | Workbooks | What it means |
+|---|---:|---|
+| `PASS` | 110 | The script and complete notebook ran top-to-bottom in an isolated smoke run and passed their recorded lesson checks. |
+| `USER_VERIFIED` | 11 | Confirmed by the maintainer; kept distinct from agent-run evidence. |
+| `BLOCKED` | 18 | Requires a missing key, service, GPU, dependency profile, or reconciliation of user-owned edits. |
+| `FAIL` | 8 | Has a known issue and a documented repair path. |
 
-## Workbook verification (ongoing)
+Start with a `PASS` workbook when you want the clearest path to a successful run. For the evidence, prerequisites, and repair notes, see the [verification ledger](./qa/workbook-verification.json), [QA guide](./qa/README.md), and [isolated dependency profiles](./qa/profiles/). Verification status is intentionally separate from formatting or lint results.
 
-As of 2026-07-15, the ledger covers **all 147 workbooks**: **110 execution PASS**, **11 USER_VERIFIED**, **18 BLOCKED**, and **8 FAIL**. An execution PASS means the source entry point and complete notebook ran top-to-bottom in a disposable copy within the smoke limit and passed the recorded lesson checks. USER_VERIFIED records are the #4–#14 workbooks the maintainer explicitly confirmed and excluded from this agent pass. Missing credentials, unavailable services, and unreconciled user-owned notebook changes are BLOCKED rather than treated as a pass.
+## Start here
 
-See the versioned [verification ledger](./qa/workbook-verification.json) and [dependency profiles](./qa/dependency-profiles.json) for per-workbook evidence and runtime isolation. Future remediation should update only the affected terminal record; runtime status remains separate from static formatting or lint findings.
-
-### Verification review and approval
-
-**Documentation review: approved with documented exceptions.** The README totals match the ledger and every numbered example directory has one terminal record. A `PASS` is agent-executed evidence; `USER_VERIFIED` is maintainer attestation and is deliberately separate. No blocked or failed workbook is presented as runnable.
-
-What was done:
-
-- Ran source entry points and full notebooks in disposable copies, retaining executed notebooks only as ignored artifacts.
-- Repaired confirmed defects where an executable path was available, then committed and pushed each logical repair separately.
-- Preserved user-owned notebook edits and recorded them as blocked instead of staging, replacing, or misreporting them.
-- Kept dependency, service, credential, CUDA, and teaching-quality issues distinct from successful execution.
-
-Recommendation: reconcile the eight user-owned notebook edits first, then provision isolated profiles for the provider/GPU/service cases below. Re-run only the affected records; the ledger links each one to its evidence and remediation.
-
-#### Blocked workbooks
-
-| Workbook(s) | Why blocked | Unblock action |
-|---|---|---|
-| 83-google-adk-agent | `GOOGLE_API_KEY` unavailable | Configure the key, then run source and workbook. |
-| 92-agent-sandboxing-e2b | E2B sandbox service/credential unavailable | Provision the declared E2B runtime and rerun. |
-| 94-zep-memory-server | Zep memory service unavailable | Start/configure Zep, then rerun. |
-| 96-extended-thinking | Required provider capability unavailable | Configure the declared provider/runtime and rerun. |
-| 100-computer-use-agent | Computer-use/browser prerequisite unavailable | Provision the declared local browser/computer runtime and rerun. |
-| 111, 112, 115–118, 127, 143 | Workbook files already have user-owned edits | Reconcile or commit those edits, then execute the resulting notebooks. |
-| 121-structured-generation-outlines | No `outlines`/Transformers runtime with a cached compatible model | Provision the isolated Outlines profile and run without its mock fallback. |
-| 139-doc-vision-agent | Missing `pypdfium2` and Pillow | Provision the document-vision profile and use a capped local PDF fixture. |
-| 141-prompt-caching | `ANTHROPIC_API_KEY` unavailable | Configure the key and verify real cache-read usage. |
-| 144-qlora-finetuning | No CUDA GPU or CUDA-matched `bitsandbytes` | Use a CUDA runtime with at least 4 GB VRAM. |
-| 146-orpo-alignment | No CUDA GPU | Use the declared CUDA training runtime. |
-
-#### Failed workbooks
-
-| Workbook | Failure | Required repair |
-|---|---|---|
-| 2-multi-tool-rag | Workbook is below the workshop minimum and diverges from its cloud-Qdrant companion | Choose one canonical workflow, add answer keys, then run both paths. |
-| 99-browser-agent-playwright | Obsolete browser implementation path | Migrate executable cells and source to the current async Playwright toolkit. |
-| 103-tool-synthesis-latm | Cache reuse selected tools by generated function-name similarity | Dispatch by capability/category and assert registry stability. |
-| 134-deerflow-embedded-client | Obsolete DeerFlow service routes | Migrate to the current thread/upload/run API and run the service. |
-| 135-deerflow-research-skill | Obsolete DeerFlow flow and insufficient teaching coverage | Migrate routes, configure the skill/service, and complete the lesson. |
-| 136-deerflow-sandboxed-swe-agent | Insufficient workbook coverage and obsolete DeerFlow flow | Expand the workshop and migrate the service path. |
-| 137-deerflow-runtime-workbook | No companion main entry point and insufficient workbook coverage | Add the entry point, complete the workshop, and migrate the service path. |
-| 147-model-merging | Configured checkpoints have no mergeable tensor shapes | Use two compatible fully available checkpoints and assert a positive merge count. |
-
----
-
-## How to use this repo
-
-**Option A — Follow a learning path** (recommended for structured learning)
-Pick the path below that matches where you are. Each path is ordered to build on itself.
-
-**Option B — Jump to a concept**
-Browse the "What you'll learn" table or the full example index at the bottom. Every example has its own `README.md` with a one-line description.
-
-**Option C — Open any workbook in Colab**
-Every example with a Colab badge is fully self-contained. Click the badge, run the cells top-to-bottom, no setup required.
+- **New to agent patterns?** Follow the [starting-from-zero path](#starting-from-zero).
+- **Looking for a specific capability?** Browse [topics](#what-youll-learn) or the [full example index](#all-examples).
+- **Want to run a notebook now?** Open a workbook with a Colab badge, or use the [local setup](#setup) below. Check its verification record and prerequisites first.
 
 ---
 
