@@ -1775,6 +1775,19 @@
         "final_checkpoint": "cell-code-038",
         "trust_propagation_contract": "A disposable-copy source run completed all five scenarios correctly. Injected admin/system privilege claims are now deterministically recorded as trust-boundary violations even when the subagent also refuses them; the verifier fails closed on invalid JSON. The complete 39-cell workbook executed all 19 code cells without errors within the five-minute cap using gpt-5.4-nano."
       }
+    },
+    "132-indirect-injection-full-cycle": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 21,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "paths_verified": ["companion main.py", "benign web fetch", "poisoned web fetch", "poisoned email", "undefended tool loop", "spotlighting-wrapped safe tools", "deterministic external-data injection alerts", "privilege-separated tool set", "exercise answer keys"],
+        "final_checkpoint": "cell-code-034",
+        "indirect_injection_contract": "A disposable-copy companion run completed all three scenarios. The complete 35-cell notebook executed all 21 code cells without errors within the five-minute cap using gpt-5.4-nano. The final-response selector now returns the last non-tool-call AI response rather than a tool message or empty string. The poisoned web page triggered deterministic defender indicators; the live model resisted the supplied poisoned web/email requests in this run, so this records defensive detection and execution behavior rather than a claim of repeatable compromise."
+      }
     }
   }
 }
