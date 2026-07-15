@@ -16,8 +16,13 @@ Key files:
   src/workflow.py — SYSTEM_PROMPT + create_guard() + validate_response()
 """
 
+import os
+
 from dotenv import load_dotenv
 load_dotenv()
+
+if not os.environ.get("OPENAI_API_KEY", "").startswith("sk-"):
+    raise RuntimeError("OPENAI_API_KEY must be set before running this live example.")
 
 from src.tools import TEST_PROMPTS
 from src.workflow import create_guard, validate_response

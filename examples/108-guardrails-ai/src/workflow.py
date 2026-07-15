@@ -11,29 +11,35 @@ Provide exactly 3 points. No URLs. No prose outside the JSON."""
 
 
 def create_guard(max_reasks: int = 2) -> Guard:
-    return Guard.for_pydantic(
+    guard = Guard.for_pydantic(
         output_class=StructuredResponse,
         messages=[{"role": "system", "content": SYSTEM_PROMPT}],
-        num_reasks=max_reasks,
     )
+    guard.configure(num_reasks=max_reasks, allow_metrics_collection=False)
+    return guard
+
+
+def _reask_count(guard: Guard) -> int:
+    last_call = guard.history.last if guard.history else None
+    return max(len(getattr(last_call, "iterations", [])) - 1, 0) if last_call else 0
 
 
 def validate_response(guard: Guard, prompt: str) -> dict:
     try:
         result = guard(
-            model="gpt-4o-mini",
-            msg_history=[{"role": "user", "content": prompt}],
+            model="gpt-5.4-nano",
+            messages=[{"role": "user", "content": prompt}],
         )
         return {
             "validated": result.validated_output,
-            "reasks": result.reasks,
-            "passed": True,
+            "reasks": _reask_count(guard),
+            "passed": result.validation_passed,
             "error": None,
         }
     except Exception as e:
         return {
             "validated": None,
-            "reasks": getattr(guard.history.last, "reasks", []) if guard.history else [],
+            "reasks": _reask_count(guard),
             "passed": False,
             "error": str(e),
         }
