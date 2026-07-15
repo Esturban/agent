@@ -11,7 +11,7 @@ from langgraph.graph import StateGraph, END
 
 from .tools import CostTracker, count_tokens
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 
 
 class AgentState(TypedDict):
@@ -20,6 +20,7 @@ class AgentState(TypedDict):
     result: str
     summary: str
     tracker: CostTracker
+    max_budget_usd: float
     budget_exceeded: bool
 
 
@@ -67,8 +68,8 @@ def summarizer_node(state: AgentState) -> AgentState:
 
 
 def budget_check(state: AgentState) -> str:
-    """Route to budget_exceeded node if cost is too high."""
-    return "budget_exceeded" if state.get("budget_exceeded") else "executor"
+    """Stop before the next paid node when cumulative cost reaches the budget."""
+    return "budget_exceeded" if state["tracker"].total_cost() >= state["max_budget_usd"] else "continue"
 
 
 def budget_exceeded_node(state: AgentState) -> AgentState:
@@ -78,7 +79,7 @@ def budget_exceeded_node(state: AgentState) -> AgentState:
 
 def create_workflow(max_budget_usd: float = 0.05) -> dict:
     """Create and run a 3-node LangGraph agent with cost tracking."""
-    tracker = CostTracker()
+    tracker = CostTracker(model=MODEL)
 
     task = "Research and explain the key differences between RAG and fine-tuning for production LLM applications."
 
@@ -88,6 +89,7 @@ def create_workflow(max_budget_usd: float = 0.05) -> dict:
         "result": "",
         "summary": "",
         "tracker": tracker,
+        "max_budget_usd": max_budget_usd,
         "budget_exceeded": False,
     }
 
@@ -99,8 +101,14 @@ def create_workflow(max_budget_usd: float = 0.05) -> dict:
     graph.add_node("budget_exceeded", budget_exceeded_node)
 
     graph.set_entry_point("planner")
-    graph.add_edge("planner", "executor")
-    graph.add_edge("executor", "summarizer")
+    graph.add_conditional_edges("planner", budget_check, {
+        "continue": "executor",
+        "budget_exceeded": "budget_exceeded",
+    })
+    graph.add_conditional_edges("executor", budget_check, {
+        "continue": "summarizer",
+        "budget_exceeded": "budget_exceeded",
+    })
     graph.add_edge("summarizer", END)
     graph.add_edge("budget_exceeded", END)
 
@@ -127,4 +135,5 @@ def create_workflow(max_budget_usd: float = 0.05) -> dict:
     return {
         "summary": final_state["summary"],
         "cost_report": report,
+        "budget_exceeded": final_state["summary"].startswith("Stopped:"),
     }
