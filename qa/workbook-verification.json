@@ -1920,6 +1920,17 @@
         "missing_compatible_artifact": "SmolLM2-135M metadata is cached but its model weights/tokenizer are not available offline.",
         "remediation": "Use two fully available same-architecture checkpoints, assert n_merged is positive before generation, update the source and workbook pair consistently, then execute source and every workbook cell."
       }
+    },
+    "121-structured-generation-outlines": {
+      "status": "blocked",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "25 cells; 12 code cells",
+        "dependency_profile": "outlines-local-v1",
+        "dependency_probe": "The available core runtime has openai but not outlines, transformers, or instructor.",
+        "fallback_behavior": "The source catches missing outlines and returns deterministic mock values, which exercises a fallback but does not validate CFG-constrained generation.",
+        "remediation": "Provision a dedicated outlines runtime and a fully cached compatible local model, update the hosted comparison to gpt-5.4-nano, then execute source and complete notebook without using the mock fallback."
+      }
     }
   }
 }
