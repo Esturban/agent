@@ -6,7 +6,8 @@
       "constraints": [
         "openai==1.109.1",
         "langchain-openai==0.3.33",
-        "instructor==1.12.0"
+        "instructor==1.12.0",
+        "pytest==8.3.5"
       ]
     },
     "checkpoint-v1": {
