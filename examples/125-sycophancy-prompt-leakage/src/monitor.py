@@ -15,7 +15,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from prompts.defenses import CONVERSATION_MONITOR_PROMPT
 
-_monitor = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_monitor = ChatOpenAI(model="gpt-5.4-nano", temperature=0)
 
 # Known canary tokens from system_prompt.py variants
 KNOWN_CANARIES = ["ZEBRA-7749", "PARROT-3821", "FALCON-9042", "CONDOR-5517"]
@@ -35,8 +35,18 @@ def classify_sycophancy_attack(user_message: str) -> dict:
     ]).content
     m = re.search(r"\{.*\}", raw, re.DOTALL)
     if m:
-        return json.loads(m.group())
-    return {"is_attack": False, "confidence": 0.0, "patterns_detected": [], "reasoning": "parse error"}
+        try:
+            parsed = json.loads(m.group())
+        except json.JSONDecodeError:
+            parsed = None
+        if isinstance(parsed, dict):
+            return parsed
+    return {
+        "is_attack": True,
+        "confidence": 1.0,
+        "patterns_detected": ["unparseable_monitor_output"],
+        "reasoning": "monitor output was not valid JSON",
+    }
 
 
 def scan(response: str, user_message: str) -> dict:
