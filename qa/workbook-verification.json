@@ -1627,6 +1627,20 @@
         "final_checkpoint": "cell-code-023",
         "lora_contract": "A disposable-copy companion-script run completed its local SmolLM LoRA workflow with finite training loss (2.2502), merged adapters, and five non-empty before/after answers. The complete 27-cell notebook then executed all 13 code cells without errors within the five-minute cap: it reported 460,800 trainable LoRA parameters (0.341% of 134,975,808), finite training loss (2.4188), a merged standard CausalLM, and three rendered before/after comparisons."
       }
+    },
+    "120-long-context-agent": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "72bcad31156ec4d1684dc95a43a5e7678c9e43a36ce9fd76a511c37cc95598b7",
+        "paths_verified": ["live gpt-5.4-nano full-context calls", "keyword-overlap chunk retrieval", "live RAG calls", "five-question comparison", "latency measurement", "chunk-size exercise path", "companion main.py"],
+        "final_checkpoint": "cell-code-020",
+        "long_context_contract": "A disposable-copy source run completed ten live gpt-5.4-nano calls (five full-context and five RAG) and rendered finite scores and latencies. The complete 29-cell notebook then executed all 14 code cells without errors within the five-minute cap, including both live answer strategies, the five-question score table, latency summary, and chunk-size exercise path. Scores are asserted as bounded diagnostics rather than a fixed strategy winner."
+      }
     }
   }
 }
