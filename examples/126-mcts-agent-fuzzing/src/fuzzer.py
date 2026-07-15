@@ -38,7 +38,7 @@ def run_mcts(
 
     for i in range(budget):
         # 1. Select
-        node = select(root)
+        node = root if len(root.children) < 3 else select(root)
 
         # 2. Expand: apply a random mutation
         # Occasionally combine two high-scoring nodes if we have options
