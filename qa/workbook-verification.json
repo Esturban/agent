@@ -1669,6 +1669,20 @@
         "final_checkpoint": "cell-code-024",
         "eval_ci_contract": "A disposable-copy source run completed ten live gpt-5.4-nano evaluations: the context-grounded pipeline passed with combined score 0.741 while the intentionally degraded pipeline failed at 0.058. The complete 25-cell notebook executed all 13 code cells without errors, including portable .env/Colab credential setup and the threshold/extended-dataset checkpoints. The added live pytest regression gate also passed in a fresh copy (1 passed in 11.12s)."
       }
+    },
+    "123-agent-cost-tracking": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "code_cells_executed": 14,
+        "cell_errors": 0,
+        "dependency_profile": "core-openai-v1",
+        "runtime_python": "3.13",
+        "source_sha256": "264b4ece15e428f1088e2b13e8a238f1fade50f8e974effec0de6615e16a7dd7",
+        "paths_verified": ["portable credential setup", "gpt-5.4-nano token accounting", "per-node cost report", "normal three-node budgeted run", "planner-to-executor budget branch", "executor-to-summarizer budget branch", "tiny-budget stop path", "exercise answer key", "companion main.py"],
+        "final_checkpoint": "98647170",
+        "cost_tracking_contract": "A disposable-copy companion run completed three live gpt-5.4-nano nodes under its $0.05 cap, reporting a finite $0.003677 total and per-node costs. A separate $0.000001 source run stopped after the planner only (one recorded paid node). The complete 27-cell notebook executed all 14 code cells without errors within the five-minute cap and independently demonstrated the same tiny-budget stop branch. gpt-5.4-nano pricing uses OpenAI's published $0.20/M input and $1.25/M output rates."
+      }
     }
   }
 }
