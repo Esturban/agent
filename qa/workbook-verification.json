@@ -1957,6 +1957,20 @@
         "notebook_behavior": "Part B prints SKIP when pypdfium2 is absent, so a notebook-only execution would not prove the document-rendering or vision path.",
         "remediation": "Provision an isolated document-vision profile with pinned pypdfium2 and Pillow, then cap production smoke runs to a local 1–3 page fixture, use gpt-5.4-nano with validated JSON responses, and execute both source and complete notebook."
       }
+    },
+    "1-basic-local-rag": {
+      "status": "pass",
+      "verified_at": "2026-07-15",
+      "evidence": {
+        "notebook_shape": "30 cells; 16 code cells",
+        "code_cells_executed": 16,
+        "cell_errors": 0,
+        "dependency_profile": "basic-local-rag-v1",
+        "runtime_python": "3.14",
+        "paths_verified": ["companion main.py", "three live Python documentation URLs", "cached in-process Chroma retriever", "live text-embedding-3-small retrieval", "gpt-5.4-nano tool call", "multi-turn checkpoint memory", "fresh-thread isolation", "dictionary and word-count answer keys"],
+        "final_checkpoint": "nb-ans3-29",
+        "local_rag_contract": "The disposable-copy source run fetched and indexed the three declared Python tutorial URLs, then completed a live tool-assisted answer. The complete 30-cell workbook executed all 16 code cells without errors within the five-minute cap. Its first query called retrieve_context, its follow-up used the same thread, and its fresh thread structurally contained only the new human message and one AI reply. No key fragment appeared in the executed artifact."
+      }
     }
   }
 }
