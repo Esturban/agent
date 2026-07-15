@@ -13,9 +13,9 @@ Why it matters:
   layer, so every interaction is covered automatically.
 
 Key files:
-  config/rails.co  — Colang DSL rail definitions (jailbreak, off-topic, toxicity)
-  config/config.yml — NeMo config (model, embeddings, colang path)
-  src/workflow.py  — load_rails() → query() wrappers
+  config/rails.co  — Colang 2 input-rail definition
+  config/config.yml — NeMo config and model selection
+  src/workflow.py  — NeMo screening → application-model handoff
 """
 
 import os
@@ -31,9 +31,9 @@ from src.workflow import load_rails, query
 
 
 def main():
-    print("\nNeMo Guardrails — input/output rails via Colang DSL")
+    print("\nNeMo Guardrails — Colang input rail + safe model handoff")
     print("=" * 55)
-    print("Rails active: jailbreak (input), off-topic (input), toxicity (output)\n")
+    print("Rail active: live input screening before the application model\n")
 
     rails = load_rails()
 

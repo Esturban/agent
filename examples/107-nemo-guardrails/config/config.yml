@@ -1,13 +1,9 @@
+colang_version: "2.x"
+
 models:
   - type: main
     engine: openai
     model: gpt-5.4-nano
-
-rails:
-  input:
-    flows:
-      - check jailbreak
-      - check off topic
-  output:
-    flows:
-      - check toxicity
+  - type: embeddings
+    engine: openai
+    model: text-embedding-3-small

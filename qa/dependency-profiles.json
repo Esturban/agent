@@ -228,7 +228,7 @@
     },
     "nemo-guardrails-v1": {
       "imports": ["nemoguardrails"],
-      "python": "3.13",
+      "python": "3.12",
       "constraints": [
         "nemoguardrails==0.17.0",
         "openai==1.109.1",
