@@ -2,6 +2,7 @@
 .env
 *pycache*
 .venv
+.qa-runs/
 .specify
 .cursor
 

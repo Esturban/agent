@@ -1,4 +1,4 @@
-.PHONY: lint check fix format verify-workbooks build-workbook-image check-dependency-profiles
+.PHONY: lint check fix format verify-workbooks build-workbook-image check-dependency-profiles gc-workbook-sandboxes
 
 # Lint — report errors without changing files
 lint:
@@ -25,3 +25,8 @@ verify-workbooks:
 
 check-dependency-profiles:
 	python3 scripts/export_dependency_profiles.py --check
+
+# Remove stale workbook-qa-* sandbox directories left in the OS temp dir by
+# interrupted verify-workbooks runs (e.g. after a Docker permission failure).
+gc-workbook-sandboxes:
+	.venv/bin/python scripts/verify_workbooks.py --gc
