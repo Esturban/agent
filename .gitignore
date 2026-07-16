@@ -35,3 +35,7 @@ GEMINI.md
 memory-bank/
 .github/copilot-instructions.md
 *.code-workspace
+
+# Local-only tool state (machine-specific, never portable)
+.pad.toml
+.deepeval/
