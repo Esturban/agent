@@ -17,6 +17,7 @@ from repair_notebooks import (
 from verify_workbooks import (  # noqa: E402
     CheckResult,
     WorkbookRecord,
+    _copy_repository,
     _run_in_docker,
     evaluate_checks,
     load_registry,
@@ -209,6 +210,38 @@ class VerifyWorkbooksTests(unittest.TestCase):
             command = mock_run.call_args.args[0]
             self.assertIn("-u", command)
             self.assertEqual(command[command.index("-u") + 1], f"{os.getuid()}:{os.getgid()}")
+
+    def test_sandbox_copy_excludes_dotenv_secrets(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory) / "repo"
+            root.mkdir()
+            (root / ".env").write_text("OPENAI_API_KEY=placeholder")
+            (root / ".env.local").write_text("X=placeholder")
+            (root / "keep.txt").write_text("ok")
+            copied = _copy_repository(root, Path(temporary_directory) / "dest")
+            self.assertTrue((copied / "keep.txt").is_file())
+            self.assertFalse((copied / ".env").exists())
+            self.assertFalse((copied / ".env.local").exists())
+
+    def test_docker_timeout_removes_the_named_container(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory) / "repo"
+            (root / "examples/a").mkdir(parents=True)
+            record = WorkbookRecord("a", root / "examples/a/a.ipynb", "live", (), (), 1)
+            calls: list[list[str]] = []
+
+            def fake_run(command: list[str], **_: object) -> MagicMock:
+                calls.append(command)
+                if command[:2] == ["docker", "run"]:
+                    raise subprocess.TimeoutExpired(command, 31)
+                return MagicMock(returncode=0)
+
+            with patch("verify_workbooks.subprocess.run", side_effect=fake_run):
+                with self.assertRaises(subprocess.TimeoutExpired):
+                    _run_in_docker(record, root, {}, Path(temporary_directory) / "a", "img")
+
+            name = calls[0][calls[0].index("--name") + 1]
+            self.assertEqual(calls[1], ["docker", "rm", "-f", name])
 
     def test_sweep_stale_workspaces_removes_leftover_sandbox_directories(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

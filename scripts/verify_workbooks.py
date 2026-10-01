@@ -16,6 +16,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import uuid
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -304,7 +305,7 @@ def _environment_from_dotenv(root: Path) -> dict[str, str]:
 
 def _copy_repository(root: Path, destination: Path) -> Path:
     ignored_names = shutil.ignore_patterns(
-        ".git", ".venv", ".venv-*", ".qa-runs", "__pycache__", ".pytest_cache"
+        ".git", ".venv", ".venv-*", ".qa-runs", "__pycache__", ".pytest_cache", ".env", ".env.*"
     )
     copied_root = destination / "workspace"
     shutil.copytree(root, copied_root, ignore=ignored_names)
@@ -339,7 +340,9 @@ def sweep_stale_workspaces(temp_root: Path | None = None) -> int:
     for path in stale:
         shutil.rmtree(path, ignore_errors=True)
         if path.exists():
-            print(f"WARNING: could not remove {path} (check ownership/permissions)", file=sys.stderr)
+            print(
+                f"WARNING: could not remove {path} (check ownership/permissions)", file=sys.stderr
+            )
         else:
             print(f"removed {path}")
             removed += 1
@@ -355,10 +358,13 @@ def _run_in_docker(
         copied_root = _copy_repository(root, Path(temporary_directory))
         relative_notebook = record.path.relative_to(root)
         output_relative = Path(".qa-executed") / f"{record.slug}.ipynb"
+        container_name = f"workbook-qa-{uuid.uuid4().hex[:12]}"
         command = [
             "docker",
             "run",
             "--rm",
+            "--name",
+            container_name,
             "-u",
             f"{os.getuid()}:{os.getgid()}",
             "-v",
@@ -381,18 +387,23 @@ def _run_in_docker(
                 str(record.timeout_seconds),
             ]
         )
-        completed = subprocess.run(
-            command,
-            cwd=root,
-            env={
-                **os.environ,
-                **{key: environment[key] for key in record.required_env if key in environment},
-            },
-            text=True,
-            capture_output=True,
-            timeout=record.timeout_seconds + 30,
-            check=False,
-        )
+        try:
+            completed = subprocess.run(
+                command,
+                cwd=root,
+                env={
+                    **os.environ,
+                    **{key: environment[key] for key in record.required_env if key in environment},
+                },
+                text=True,
+                capture_output=True,
+                timeout=record.timeout_seconds + 30,
+                check=False,
+            )
+        except subprocess.TimeoutExpired:
+            # Killing the docker client does not stop the container; remove it explicitly.
+            subprocess.run(["docker", "rm", "-f", container_name], capture_output=True, check=False)
+            raise
         source_output = copied_root / output_relative
         if source_output.is_file():
             artifact_dir.mkdir(parents=True, exist_ok=True)
