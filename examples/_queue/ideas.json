@@ -3897,5 +3897,5 @@
     }
   ],
   "next_target": null,
-  "_note": "Queue complete -- all 147 examples built as of 2026-07-07 (M1-M26 done). No further modules planned; awaiting new curriculum direction."
+  "_note": "Queue complete -- all 147 examples built as of 2026-07-07 (M1-M26 done). No further modules planned; awaiting new curriculum direction. 2026-07-19: repaired 9 workbooks (111,112,115-118,127,143,62) still on legacy <cell id> markup via scripts/repair_notebooks.py -- all now valid nbformat 4, verified with scripts/verify_workbooks.py (BLOCKED only on missing API keys, no INVALID/FAIL). No legacy-markup notebooks remain."
 }
